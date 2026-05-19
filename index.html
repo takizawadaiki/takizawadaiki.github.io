@@ -1,66 +1,76 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-  <title>Daiki Takizawa Analytics</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daiki Takizawa Analytics</title>
 
-  <style>
+<style>
 
-    body{
-      background:#0b0d0b;
-      color:white;
-      font-family:Arial;
-      padding:60px;
-      max-width:1100px;
-      margin:auto;
-    }
+body{
+    background:#0b0d0f;
+    color:white;
+    font-family:Arial;
+    padding:40px;
+    max-width:1100px;
+    margin:auto;
+}
 
-    h1{
-      font-size:64px;
-      color:#f5d76e;
-      margin-bottom:10px;
-    }
+h1{
+    font-size:64px;
+    color:#4ea1ff;
+    margin-bottom:10px;
+}
 
-    .subtitle{
-      color:#9ca39b;
-      margin-bottom:50px;
-      font-size:20px;
-    }
+.subtitle{
+    color:#999;
+    font-size:22px;
+    margin-bottom:60px;
+}
 
-    .grid{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:25px;
-    }
+.section{
+    margin-bottom:60px;
+}
 
-    .card{
-      background:#161916;
-      border:1px solid #2b2f2b;
-      border-radius:16px;
-      padding:30px;
-      transition:0.2s;
-    }
+.section h2{
+    color:#f5d76e;
+    margin-bottom:20px;
+    font-size:34px;
+}
 
-    .card:hover{
-      border-color:#f5d76e;
-      transform:translateY(-4px);
-    }
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:20px;
+}
 
-    a{
-      color:#f5d76e;
-      text-decoration:none;
-      font-size:28px;
-      font-weight:bold;
-    }
+.card{
+    background:#15181c;
+    border:1px solid #2b2f36;
+    border-radius:14px;
+    padding:24px;
+    transition:0.2s;
+}
 
-    p{
-      color:#9ca39b;
-      margin-top:14px;
-      line-height:1.5;
-    }
+.card:hover{
+    transform:translateY(-3px);
+    border-color:#4ea1ff;
+}
 
-  </style>
+.card a{
+    color:#4ea1ff;
+    text-decoration:none;
+    font-size:24px;
+    font-weight:bold;
+}
 
+.card p{
+    color:#aaa;
+    margin-top:12px;
+    line-height:1.5;
+}
+
+</style>
 </head>
 
 <body>
@@ -68,78 +78,90 @@
 <h1>Daiki Takizawa Analytics</h1>
 
 <div class="subtitle">
-Sports analytics, predictive modeling, and data visualization projects.
+Sports Analytics • Predictive Modeling • Data Visualization
 </div>
+
+<div class="section">
+
+<h2>Sports Models</h2>
 
 <div class="grid">
 
-  <div class="card">
-    <a href="https://takizawadaiki.github.io/world-cup-prediction-model/">
-      FIFA World Cup Prediction Model
-    </a>
+<div class="card">
+<a href="https://takizawadaiki.github.io/NHL-Models/">
+NHL Models
+</a>
+<p>
+NHL predictive analytics and matchup modeling dashboards.
+</p>
+</div>
 
-    <p>
-      Monte Carlo tournament simulations using Elo ratings and advancement probabilities.
-    </p>
-  </div>
+<div class="card">
+<a href="https://takizawadaiki.github.io/NBA-Models/">
+NBA Models
+</a>
+<p>
+NBA game forecasting and analytics visualizations.
+</p>
+</div>
 
-  <div class="card">
-    <a href="https://takizawadaiki.github.io/world-cup-prediction-model/golden_boot_visual.html">
-      Golden Boot Prediction Model
-    </a>
+<div class="card">
+<a href="https://takizawadaiki.github.io/MLB-Prediction-Model/">
+MLB Prediction Model
+</a>
+<p>
+MLB matchup predictor using statistical and platoon-adjusted modeling.
+</p>
+</div>
 
-    <p>
-      Player scoring projections and tournament scoring probabilities.
-    </p>
-  </div>
+<div class="card">
+<a href="https://takizawadaiki.github.io/world-cup-prediction-model/">
+World Cup Models
+</a>
+<p>
+World Cup simulations, Elo ratings, and Golden Boot projections.
+</p>
+</div>
 
-  <div class="card">
-    <a href="https://takizawadaiki.github.io/MLB-Prediction-Model/">
-      MLB Matchup Predictor
-    </a>
+</div>
+</div>
 
-    <p>
-      Live MLB API integration with platoon-adjusted Log5 probabilities.
-    </p>
-  </div>
+<div class="section">
 
-  <div class="card">
-    <a href="https://takizawadaiki.github.io/NBA-Models/">
-      NBA Models
-    </a>
-  </div>
+<h2>Finance Models</h2>
 
-  <div class="card">
-    <a href="https://takizawadaiki.github.io/NHL-Models/">
-      NHL Models
-    </a>
-  </div>
+<div class="grid">
 
-  <div class="card">
-    <a href="https://takizawadaiki.github.io/Oil-Price-Model/">
-      Oil Price Model
-    </a>
-  </div>
+<div class="card">
+<a href="https://takizawadaiki.github.io/Finance-Models/">
+Finance Models
+</a>
+<p>
+Financial forecasting and macroeconomic analytics dashboards.
+</p>
+</div>
 
-  <div class="card">
-    <a href="https://takizawadaiki.github.io/FPC-Model/">
-      FPC Model
-    </a>
-  </div>
+</div>
+</div>
 
-  <div class="card">
-    <a href="https://takizawadaiki.github.io/Montreal-v-Carolina-Model/">
-      Montreal vs Carolina Model
-    </a>
-  </div>
+<div class="section">
 
-  <div class="card">
-    <a href="https://takizawadaiki.github.io/LADODGERS/">
-      Dodgers Impact Analytics
-    </a>
-  </div>
+<h2>Research & Business Analytics</h2>
 
+<div class="grid">
+
+<div class="card">
+<a href="https://takizawadaiki.github.io/LADODGERS/">
+Dodgers Impact Analytics
+</a>
+<p>
+Analysis of Japanese athlete influence on MLB fan engagement and business growth.
+</p>
+</div>
+
+</div>
 </div>
 
 </body>
+</html>
 </html>
