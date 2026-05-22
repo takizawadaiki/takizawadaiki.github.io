@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -41,7 +42,6 @@
 
     .site { padding-bottom: 4rem; }
 
-    /* Hero */
     .hero {
       padding: 3rem 2rem 2rem;
       border-bottom: 0.5px solid var(--border);
@@ -99,7 +99,8 @@
     }
 
     .live-dot {
-      width: 6px; height: 6px;
+      width: 6px;
+      height: 6px;
       border-radius: 50%;
       background: #3B6D11;
       animation: pulse 1.8s ease-in-out infinite;
@@ -116,7 +117,6 @@
       color: var(--text-tertiary);
     }
 
-    /* Section label */
     .section-label {
       font-family: 'DM Mono', monospace;
       font-size: 10px;
@@ -126,7 +126,6 @@
       padding: 1.5rem 2rem 0.75rem;
     }
 
-    /* Grid */
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -136,7 +135,6 @@
       border-bottom: 0.5px solid var(--border);
     }
 
-    /* Cards */
     .card {
       background: var(--bg-primary);
       padding: 1.5rem;
@@ -160,7 +158,6 @@
       .card-featured { grid-column: span 1; }
     }
 
-    /* Tags */
     .card-tag {
       display: inline-flex;
       align-items: center;
@@ -179,14 +176,6 @@
     .tag-combat  { background: #FAECE7; color: #993C1D; }
     .tag-baseball{ background: #EAF3DE; color: #3B6D11; }
     .tag-culture { background: #FBEAF0; color: #993556; }
-
-    @media (prefers-color-scheme: dark) {
-      .tag-sports  { background: #0c2d4a; color: #85B7EB; }
-      .tag-finance { background: #08302a; color: #5DCAA5; }
-      .tag-combat  { background: #3d1a0a; color: #F0997B; }
-      .tag-baseball{ background: #1c3208; color: #97C459; }
-      .tag-culture { background: #3a1220; color: #ED93B1; }
-    }
 
     .card-num {
       font-family: 'DM Mono', monospace;
@@ -231,18 +220,18 @@
     .card-arrow {
       font-size: 14px;
       color: var(--text-secondary);
-      transition: transform 0.2s ease;
-      display: inline-block;
     }
 
-    /* Featured card internals */
     .featured-inner {
       display: flex;
       gap: 2rem;
       flex-wrap: wrap;
     }
 
-    .featured-text { flex: 1; min-width: 200px; }
+    .featured-text {
+      flex: 1;
+      min-width: 200px;
+    }
 
     .featured-stat {
       display: flex;
@@ -258,7 +247,6 @@
       font-family: 'DM Mono', monospace;
       font-size: 1.6rem;
       font-weight: 500;
-      color: var(--text-primary);
     }
 
     .stat-label {
@@ -273,7 +261,6 @@
       align-self: flex-end;
     }
 
-    /* Footer */
     .footer-bar {
       display: flex;
       justify-content: space-between;
@@ -291,124 +278,111 @@
     }
   </style>
 </head>
+
 <body>
-  <div class="site">
 
-    <header class="hero">
-      <div class="hero-left">
-        <p class="hero-eyebrow">Predictive Analytics &amp; Modeling</p>
-        <h1 class="hero-name">Daiki Takizawa<br><em>Analytics</em></h1>
-      </div>
-      <div class="hero-right">
-        <span class="live-badge">
-          <span class="live-dot"></span>
-          Models live
-        </span>
-        <span class="hero-count">7 active projects</span>
-      </div>
-    </header>
+<div class="site">
 
-    <p class="section-label">Projects</p>
-
-    <div class="grid">
-
-      <a class="card card-featured" href="https://takizawadaiki.github.io/world-cup-prediction-model/" target="_blank" rel="noopener">
-        <div class="featured-inner">
-          <div class="featured-text">
-            <span class="card-tag tag-sports">⚽ World Cup</span>
-            <h2 class="card-title" style="font-size:1.6rem; margin-top:0.75rem;">2026 World Cup<br>Prediction Model</h2>
-            <p class="card-desc" style="margin-top:0.75rem;">Monte Carlo simulations, Elo ratings, championship probabilities, and Golden Boot projections for WC 2026.</p>
-          </div>
-          <div class="stats-row">
-            <div class="featured-stat">
-              <span class="stat-val">Elo</span>
-              <span class="stat-label">Rating system</span>
-            </div>
-            <div class="featured-stat">
-              <span class="stat-val">MC</span>
-              <span class="stat-label">Simulations</span>
-            </div>
-          </div>
-        </div>
-        <div class="card-footer">
-          <span class="card-method">Monte Carlo · Elo Ratings</span>
-          <span class="card-arrow">↗</span>
-        </div>
-      </a>
-
-      <a class="card" href="https://takizawadaiki.github.io/MLB-Prediction-Model/" target="_blank" rel="noopener">
-        <span class="card-tag tag-baseball">⚾ MLB</span>
-        <span class="card-num">02</span>
-        <h2 class="card-title">MLB Prediction Model</h2>
-        <p class="card-desc">Live matchup predictions using statistical modeling, platoon-adjusted probabilities, and pitching analytics.</p>
-        <div class="card-footer">
-          <span class="card-method">Platoon-adjusted · Pitching</span>
-          <span class="card-arrow">↗</span>
-        </div>
-      </a>
-
-      <a class="card" href="https://takizawadaiki.github.io/NBA-Models/" target="_blank" rel="noopener">
-        <span class="card-tag tag-sports">🏀 NBA</span>
-        <span class="card-num">03</span>
-        <h2 class="card-title">NBA Models</h2>
-        <p class="card-desc">Predictive analytics dashboards, matchup simulations, and team performance models.</p>
-        <div class="card-footer">
-          <span class="card-method">Simulation · Performance</span>
-          <span class="card-arrow">↗</span>
-        </div>
-      </a>
-
-      <a class="card" href="https://takizawadaiki.github.io/NHL-Models/" target="_blank" rel="noopener">
-        <span class="card-tag tag-sports">🏒 NHL</span>
-        <span class="card-num">04</span>
-        <h2 class="card-title">NHL Models</h2>
-        <p class="card-desc">Matchup predictors, playoff simulations, draft models, and hockey analytics dashboards.</p>
-        <div class="card-footer">
-          <span class="card-method">Playoff Sim · Draft Models</span>
-          <span class="card-arrow">↗</span>
-        </div>
-      </a>
-
-      <a class="card" href="https://takizawadaiki.github.io/UFC-Prediction-Model/" target="_blank" rel="noopener">
-        <span class="card-tag tag-combat">🥊 UFC</span>
-        <span class="card-num">05</span>
-        <h2 class="card-title">UFC Prediction Model</h2>
-        <p class="card-desc">Elo-based matchup predictor with fighter ratings, win probabilities, and matchup analytics.</p>
-        <div class="card-footer">
-          <span class="card-method">Elo · Win Probability</span>
-          <span class="card-arrow">↗</span>
-        </div>
-      </a>
-
-      <a class="card" href="https://takizawadaiki.github.io/Finance-Models/" target="_blank" rel="noopener">
-        <span class="card-tag tag-finance">📈 Finance</span>
-        <span class="card-num">06</span>
-        <h2 class="card-title">Finance Models</h2>
-        <p class="card-desc">Financial forecasting dashboards including oil price modeling and macroeconomic trend analysis.</p>
-        <div class="card-footer">
-          <span class="card-method">Forecasting · Macro</span>
-          <span class="card-arrow">↗</span>
-        </div>
-      </a>
-
-      <a class="card" href="https://takizawadaiki.github.io/LADODGERS/" target="_blank" rel="noopener">
-        <span class="card-tag tag-culture">⛩ Dodgers</span>
-        <span class="card-num">07</span>
-        <h2 class="card-title">Dodgers Impact Analytics</h2>
-        <p class="card-desc">Analysis of Japanese athlete impact on MLB fan engagement, social growth, and franchise visibility.</p>
-        <div class="card-footer">
-          <span class="card-method">Engagement · Social Analytics</span>
-          <span class="card-arrow">↗</span>
-        </div>
-      </a>
-
-    </div>
-
-    <div class="footer-bar">
-      <span class="footer-note">Daiki Takizawa · Analytics</span>
-      <span class="footer-note">All models updated regularly</span>
-    </div>
-
+<header class="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow">Predictive Analytics & Modeling</p>
+    <h1 class="hero-name">Daiki Takizawa<br><em>Analytics</em></h1>
   </div>
+
+  <div class="hero-right">
+    <span class="live-badge">
+      <span class="live-dot"></span>
+      Models live
+    </span>
+
+    <span class="hero-count">8 active projects</span>
+  </div>
+</header>
+
+<p class="section-label">Projects</p>
+
+<div class="grid">
+
+<a class="card card-featured" href="https://takizawadaiki.github.io/world-cup-prediction-model/" target="_blank">
+  <div class="featured-inner">
+    <div class="featured-text">
+      <span class="card-tag tag-sports">⚽ World Cup</span>
+      <h2 class="card-title" style="font-size:1.6rem; margin-top:0.75rem;">
+        2026 World Cup<br>Prediction Model
+      </h2>
+
+      <p class="card-desc" style="margin-top:0.75rem;">
+        Monte Carlo simulations, Elo ratings, championship probabilities,
+        and Golden Boot projections for WC 2026.
+      </p>
+    </div>
+
+    <div class="stats-row">
+      <div class="featured-stat">
+        <span class="stat-val">Elo</span>
+        <span class="stat-label">Rating system</span>
+      </div>
+
+      <div class="featured-stat">
+        <span class="stat-val">MC</span>
+        <span class="stat-label">Simulations</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-footer">
+    <span class="card-method">Monte Carlo · Elo Ratings</span>
+    <span class="card-arrow">↗</span>
+  </div>
+</a>
+
+<a class="card card-featured" href="https://takizawadaiki.github.io/Sports-Business/" target="_blank">
+
+  <div class="featured-inner">
+
+    <div class="featured-text">
+      <span class="card-tag tag-finance">📊 Sports Business</span>
+
+      <h2 class="card-title" style="font-size:1.6rem; margin-top:0.75rem;">
+        Sports Business<br>Intelligence Dashboard
+      </h2>
+
+      <p class="card-desc" style="margin-top:0.75rem;">
+        Interactive NBA, NHL, NFL, and MLB analytics platform comparing salary caps,
+        payroll efficiency, league revenue, labor share, and competitive balance.
+      </p>
+    </div>
+
+    <div class="stats-row">
+
+      <div class="featured-stat">
+        <span class="stat-val">4</span>
+        <span class="stat-label">Major leagues</span>
+      </div>
+
+      <div class="featured-stat">
+        <span class="stat-val">BI</span>
+        <span class="stat-label">Economics analytics</span>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="card-footer">
+    <span class="card-method">Sports Economics · BI Dashboard</span>
+    <span class="card-arrow">↗</span>
+  </div>
+
+</a>
+
+</div>
+
+<div class="footer-bar">
+  <span class="footer-note">Daiki Takizawa · Analytics</span>
+  <span class="footer-note">All models updated regularly</span>
+</div>
+
+</div>
+
 </body>
 </html>
