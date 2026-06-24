@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>The Bench Dividend · Daiki Takizawa</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Space+Grotesk:wght@500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0b0f1a;
+  --bg2:#111827;
+  --bg3:#1a2235;
+  --border:#1e2a3a;
+  --text:#e2e8f0;
+  --muted:#64748b;
+  --muted2:#94a3b8;
+  --accent:#3b82f6;
+  --green:#22c55e;
+  --amber:#f59e0b;
+  --red:#ef4444;
+  --font:'Space Grotesk',sans-serif;
+  --body:'Inter',sans-serif;
+  --mono:'Space Mono',monospace;
+}
+body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:16px;line-height:1.7}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+
+nav{padding:20px 48px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.nav-logo{font-family:var(--font);font-size:15px;font-weight:700;color:var(--text)}
+.nav-logo span{color:var(--accent)}
+.nav-back{font-size:13px;color:var(--muted);font-family:var(--font)}
+.nav-back:hover{color:var(--text);text-decoration:none}
+
+.hero{max-width:760px;margin:0 auto;padding:72px 48px 48px}
+.hero-tag{display:inline-block;font-size:11px;font-family:var(--font);font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.2);padding:4px 12px;border-radius:4px;margin-bottom:24px}
+.hero h1{font-family:var(--font);font-size:clamp(28px,5vw,44px);font-weight:700;line-height:1.15;letter-spacing:-.02em;margin-bottom:20px}
+.hero-meta{display:flex;gap:24px;font-size:13px;color:var(--muted);font-family:var(--font);margin-bottom:32px;flex-wrap:wrap}
+.hero-meta span{display:flex;align-items:center;gap:6px}
+.hero-abstract{font-size:17px;color:var(--muted2);line-height:1.8;border-left:3px solid var(--accent);padding-left:20px}
+
+.content{max-width:760px;margin:0 auto;padding:0 48px 80px}
+
+.finding-bar{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:28px 32px;margin:40px 0;display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.finding{display:flex;flex-direction:column;gap:4px}
+.finding-num{font-family:var(--mono);font-size:28px;font-weight:700;color:var(--text)}
+.finding-num.sig{color:var(--green)}
+.finding-label{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-family:var(--font)}
+.finding-sub{font-size:12px;color:var(--muted)}
+
+h2{font-family:var(--font);font-size:22px;font-weight:700;letter-spacing:-.02em;margin:48px 0 16px;padding-top:8px;border-top:1px solid var(--border)}
+h3{font-family:var(--font);font-size:17px;font-weight:600;margin:28px 0 10px;color:var(--muted2)}
+p{color:var(--muted2);margin-bottom:16px}
+p strong{color:var(--text);font-weight:500}
+
+.chart-container{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:24px;margin:32px 0}
+.chart-title{font-family:var(--font);font-size:13px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:20px}
+canvas{width:100%!important}
+
+.outlier-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:24px 0}
+.outlier-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:18px 20px}
+.outlier-card.over{border-left:3px solid var(--green)}
+.outlier-card.under{border-left:3px solid var(--red)}
+.outlier-team{font-family:var(--mono);font-size:18px;font-weight:700;margin-bottom:4px}
+.outlier-team.over{color:var(--green)}
+.outlier-team.under{color:var(--red)}
+.outlier-season{font-size:11px;color:var(--muted);font-family:var(--font);letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px}
+.outlier-stat{display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px}
+.outlier-stat span:first-child{color:var(--muted)}
+.outlier-stat span:last-child{color:var(--text);font-family:var(--mono)}
+.outlier-note{font-size:12px;color:var(--muted);margin-top:10px;line-height:1.5;border-top:1px solid var(--border);padding-top:10px}
+
+.method-block{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:20px 24px;margin:20px 0;font-size:14px;color:var(--muted2)}
+.method-block code{font-family:var(--mono);font-size:12px;color:var(--accent);background:rgba(59,130,246,.08);padding:2px 6px;border-radius:3px}
+
+.conclusion-box{background:var(--bg2);border:1px solid rgba(59,130,246,.3);border-radius:10px;padding:28px 32px;margin:40px 0}
+.conclusion-box h3{color:var(--accent);margin-top:0;font-size:16px}
+.conclusion-box p{margin-bottom:12px}
+.conclusion-box p:last-child{margin-bottom:0}
+
+footer{text-align:center;padding:40px;font-size:12px;color:var(--muted);border-top:1px solid var(--border)}
+
+@media(max-width:640px){
+  nav{padding:16px 20px}
+  .hero,.content{padding-left:20px;padding-right:20px}
+  .finding-bar{grid-template-columns:1fr}
+  .outlier-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="https://takizawadaiki.github.io" class="nav-logo">DT<span>.</span></a>
+  <a href="https://takizawadaiki.github.io" class="nav-back">← Back to portfolio</a>
+</nav>
+
+<div class="hero">
+  <span class="hero-tag">NBA Research</span>
+  <h1>The Bench Dividend</h1>
+  <div class="hero-meta">
+    <span>Daiki Takizawa</span>
+    <span>June 2026</span>
+    <span>3 seasons · 48 team-observations</span>
+    <span>nba_api · Python</span>
+  </div>
+  <p class="hero-abstract">Teams that distribute more minutes to bench players during the regular season tend to get more bench production in the playoffs. Across three NBA seasons (2023–26), this relationship is statistically significant — but the outliers reveal that minutes alone don't tell the full story.</p>
+</div>
+
+<div class="content">
+
+  <div class="finding-bar">
+    <div class="finding">
+      <span class="finding-num sig">r = 0.300</span>
+      <span class="finding-label">Correlation</span>
+      <span class="finding-sub">Bench min (reg) → Bench pts (playoffs)</span>
+    </div>
+    <div class="finding">
+      <span class="finding-num sig">p = 0.038</span>
+      <span class="finding-label">P-value</span>
+      <span class="finding-sub">Significant at α = 0.05</span>
+    </div>
+    <div class="finding">
+      <span class="finding-num">48</span>
+      <span class="finding-label">Observations</span>
+      <span class="finding-sub">16 playoff teams × 3 seasons</span>
+    </div>
+  </div>
+
+  <h2>Motivation</h2>
+  <p>Every NBA front office talks about depth. Load management, roster construction, the value of a reliable second unit — these are constant topics in team-building conversations. But the empirical question is rarely asked directly: <strong>does the bench investment you make in the regular season actually show up when it matters most?</strong></p>
+  <p>Playoff basketball is famously rotation-heavy. Coaches tighten their rotations, star players log heavy minutes, and bench contributions shrink. If that's true, maybe regular season bench usage is a poor predictor of playoff bench output. Or maybe teams that develop a functional bench throughout the year carry that advantage into the postseason. This research tests which is closer to the truth.</p>
+
+  <h2>Data & Methodology</h2>
+  <p>Data was pulled from the NBA Stats API (<code>nba_api</code>) covering the 2023–24, 2024–25, and 2025–26 NBA seasons. For each season, bench player stats were aggregated at the team level for both the regular season and playoffs using the <code>starter_bench_nullable='Bench'</code> filter.</p>
+
+  <div class="method-block">
+    <strong>Key variables:</strong><br/><br/>
+    <code>bench_min</code> — average minutes per game per bench player, regular season<br/><br/>
+    <code>playoff_bench_pts</code> — average points per game per bench player, playoffs<br/><br/>
+    <strong>Sample:</strong> 16 playoff teams per season × 3 seasons = 48 observations<br/><br/>
+    <strong>Test:</strong> Pearson correlation with two-tailed p-value (scipy.stats)
+  </div>
+
+  <p>Using average per-player minutes (rather than total bench minutes) controls for roster size differences between teams. A team with 20 bench players averaging 10 minutes is meaningfully different from one with 12 bench players averaging 16 minutes — the latter reflects genuine depth investment.</p>
+
+  <h2>Results</h2>
+  <p>Across 48 team-season observations, the correlation between regular season bench minutes and playoff bench scoring is <strong>r = 0.300 (p = 0.038)</strong> — a moderate positive relationship that clears the conventional significance threshold.</p>
+
+  <div class="chart-container">
+    <div class="chart-title">Bench Investment vs Playoff Bench Production — 2023 to 2026</div>
+    <canvas id="scatter" height="420"></canvas>
+  </div>
+
+  <p>The positive trend is consistent across all three seasons, though the effect varies year to year. The 2024–25 season showed the strongest individual-season correlation (r = 0.316), while 2025–26 showed the weakest (r = 0.156), suggesting external factors — injuries, coaching decisions, opponent matchups — add meaningful noise to any single season.</p>
+
+  <div class="chart-container">
+    <div class="chart-title">Season-by-Season Correlation Breakdown</div>
+    <canvas id="bars" height="200"></canvas>
+  </div>
+
+  <h2>Outlier Analysis</h2>
+  <p>The most informative part of any regression is where the model breaks down. Four teams stand out as significant deviations from the trend — two overperformers and two underperformers.</p>
+
+  <div class="outlier-grid">
+
+    <div class="outlier-card over">
+      <div class="outlier-team over">DET</div>
+      <div class="outlier-season">2024–25</div>
+      <div class="outlier-stat"><span>Reg season bench min</span><span>15.4</span></div>
+      <div class="outlier-stat"><span>Playoff bench pts</span><span>6.62</span></div>
+      <div class="outlier-note">Detroit's bench significantly outperformed expectations. Their heavy regular season rotation — driven partly by tanking-era depth — translated into a cohesive second unit that held up through the playoffs, ultimately helping them claim the East's top seed in 2025–26.</div>
+    </div>
+
+    <div class="outlier-card over">
+      <div class="outlier-team over">MIN</div>
+      <div class="outlier-season">2025–26</div>
+      <div class="outlier-stat"><span>Reg season bench min</span><span>10.6</span></div>
+      <div class="outlier-stat"><span>Playoff bench pts</span><span>6.58</span></div>
+      <div class="outlier-note">Minnesota massively outperformed their bench minute investment. Despite one of the lowest bench usage rates among playoff teams, their bench players were extraordinarily efficient when called upon — suggesting role clarity and player quality matter more than raw minutes logged.</div>
+    </div>
+
+    <div class="outlier-card under">
+      <div class="outlier-team under">LAL</div>
+      <div class="outlier-season">2024–25</div>
+      <div class="outlier-stat"><span>Reg season bench min</span><span>13.3</span></div>
+      <div class="outlier-stat"><span>Playoff bench pts</span><span>1.72</span></div>
+      <div class="outlier-note">Los Angeles's bench collapsed spectacularly in the 2024–25 playoffs — the most dramatic underperformance in the dataset. Their regular season bench appeared functional, but under playoff intensity their second unit offered almost nothing offensively, placing enormous pressure on their starters.</div>
+    </div>
+
+    <div class="outlier-card under">
+      <div class="outlier-team under">PHI</div>
+      <div class="outlier-season">2025–26</div>
+      <div class="outlier-stat"><span>Reg season bench min</span><span>14.5</span></div>
+      <div class="outlier-stat"><span>Playoff bench pts</span><span>2.75</span></div>
+      <div class="outlier-note">Philadelphia invested reasonably in their bench during the regular season but saw minimal playoff return. This likely reflects coaching rotation tightening and opponent-specific adjustments that neutralized their depth advantage.</div>
+    </div>
+
+  </div>
+
+  <h2>Discussion</h2>
+  <p>The finding supports the intuition that bench development has carry-over value into the playoffs, but the effect is modest. An r of 0.300 means bench minute investment explains roughly <strong>9% of the variance</strong> in playoff bench output — real, but far from deterministic.</p>
+  <p>The outliers suggest two important nuances. First, <strong>role clarity may matter more than volume</strong>. Minnesota's bench players logged few regular season minutes but performed at a high level when deployed in the playoffs — implying that knowing your role and executing it under pressure is as valuable as simply accumulating minutes. Second, <strong>star-dependency creates fragility</strong>. The LAL collapse is consistent with a roster where bench players were never truly integrated into the offensive system — they existed to rest the stars, not to function independently.</p>
+  <p>For front offices, this suggests that bench investment should be evaluated not just by minutes distributed but by whether bench players are being developed in <strong>meaningful, system-integrated roles</strong> during the regular season.</p>
+
+  <div class="conclusion-box">
+    <h3>Key Takeaway</h3>
+    <p>Across three NBA seasons, teams that gave their bench more regular season minutes tended to get meaningfully better bench production in the playoffs (r = 0.300, p = 0.038). The relationship is statistically significant but explains only ~9% of variance — suggesting bench quality, role clarity, and system integration are equally important factors that minutes alone don't capture.</p>
+    <p>Future work could incorporate bench net rating (rather than scoring) and control for opponent quality to build a more complete picture of what drives playoff bench performance.</p>
+  </div>
+
+  <h2>Data & Code</h2>
+  <p>Data sourced from the NBA Stats API via <code>nba_api</code> (Python). Analysis conducted in Google Colab using pandas, scipy, and matplotlib. All three seasons (2023–24, 2024–25, 2025–26) were pulled using the <code>LeagueDashPlayerStats</code> endpoint with <code>starter_bench_nullable='Bench'</code>.</p>
+
+</div>
+
+<footer>Daiki Takizawa · Sports Analytics Research · University of Toronto · <a href="https://takizawadaiki.github.io">Portfolio</a></footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<script>
+const data2324 = [
+  {team:'BOS',reg:12.4,playoff:2.35},
+  {team:'MIL',reg:11.9,playoff:2.40},
+  {team:'NYK',reg:11.7,playoff:2.72},
+  {team:'MIA',reg:12.1,playoff:4.18},
+  {team:'CLE',reg:12.8,playoff:3.90},
+  {team:'ORL',reg:11.8,playoff:3.78},
+  {team:'IND',reg:12.1,playoff:3.45},
+  {team:'PHI',reg:12.0,playoff:3.82},
+  {team:'OKC',reg:13.1,playoff:3.15},
+  {team:'DEN',reg:10.3,playoff:2.33},
+  {team:'MIN',reg:10.6,playoff:4.98},
+  {team:'LAL',reg:12.5,playoff:3.80},
+  {team:'DAL',reg:13.5,playoff:3.20},
+  {team:'LAC',reg:13.0,playoff:3.58},
+  {team:'NOP',reg:12.2,playoff:2.58},
+  {team:'GSW',reg:13.2,playoff:3.85}
+];
+const data2425 = [
+  {team:'MIA',reg:16.05,playoff:5.80},
+  {team:'DET',reg:15.38,playoff:6.62},
+  {team:'ORL',reg:15.29,playoff:3.01},
+  {team:'CLE',reg:14.31,playoff:5.00},
+  {team:'OKC',reg:14.21,playoff:4.35},
+  {team:'GSW',reg:14.15,playoff:5.63},
+  {team:'HOU',reg:14.12,playoff:3.08},
+  {team:'MEM',reg:13.93,playoff:4.80},
+  {team:'DEN',reg:13.66,playoff:3.39},
+  {team:'LAL',reg:13.28,playoff:1.72},
+  {team:'BOS',reg:13.28,playoff:3.69},
+  {team:'MIL',reg:12.96,playoff:4.80},
+  {team:'LAC',reg:12.89,playoff:3.59},
+  {team:'IND',reg:12.40,playoff:4.64},
+  {team:'NYK',reg:11.43,playoff:2.70},
+  {team:'MIN',reg:10.59,playoff:4.98}
+];
+const data2526 = [
+  {team:'MIN',reg:13.80,playoff:6.58},
+  {team:'BOS',reg:14.40,playoff:5.53},
+  {team:'OKC',reg:15.78,playoff:5.32},
+  {team:'LAL',reg:14.12,playoff:5.05},
+  {team:'TOR',reg:12.36,playoff:4.57},
+  {team:'DET',reg:10.96,playoff:4.51},
+  {team:'ATL',reg:15.17,playoff:4.04},
+  {team:'SAS',reg:9.16,playoff:3.74},
+  {team:'POR',reg:15.40,playoff:3.73},
+  {team:'DEN',reg:10.76,playoff:3.68},
+  {team:'NYK',reg:9.75,playoff:3.63},
+  {team:'CLE',reg:15.15,playoff:3.53},
+  {team:'PHX',reg:15.36,playoff:3.43},
+  {team:'ORL',reg:10.17,playoff:3.28},
+  {team:'HOU',reg:10.27,playoff:2.89},
+  {team:'PHI',reg:14.50,playoff:2.75}
+];
+
+const scatterCtx = document.getElementById('scatter').getContext('2d');
+new Chart(scatterCtx, {
+  type: 'scatter',
+  data: {
+    datasets: [
+      {
+        label: '2023-24',
+        data: data2324.map(d=>({x:d.reg,y:d.playoff,team:d.team})),
+        backgroundColor:'#3b82f6',pointRadius:6,pointHoverRadius:8
+      },
+      {
+        label: '2024-25',
+        data: data2425.map(d=>({x:d.reg,y:d.playoff,team:d.team})),
+        backgroundColor:'#22c55e',pointRadius:6,pointHoverRadius:8
+      },
+      {
+        label: '2025-26',
+        data: data2526.map(d=>({x:d.reg,y:d.playoff,team:d.team})),
+        backgroundColor:'#f59e0b',pointRadius:6,pointHoverRadius:8
+      }
+    ]
+  },
+  options: {
+    responsive:true,
+    plugins:{
+      legend:{labels:{color:'#94a3b8',font:{size:12}}},
+      tooltip:{callbacks:{label:ctx=>`${ctx.raw.team}: reg ${ctx.raw.x.toFixed(1)}min → ${ctx.raw.y.toFixed(2)}pts`}}
+    },
+    scales:{
+      x:{title:{display:true,text:'Avg Bench Player Minutes (Regular Season)',color:'#64748b'},ticks:{color:'#64748b'},grid:{color:'#1e2a3a'}},
+      y:{title:{display:true,text:'Avg Bench Player Points (Playoffs)',color:'#64748b'},ticks:{color:'#64748b'},grid:{color:'#1e2a3a'}}
+    }
+  }
+});
+
+const barsCtx = document.getElementById('bars').getContext('2d');
+new Chart(barsCtx, {
+  type: 'bar',
+  data: {
+    labels: ['2023-24','2024-25','2025-26','All 3 Seasons'],
+    datasets:[{
+      label:'Pearson r',
+      data:[0.285, 0.316, 0.156, 0.300],
+      backgroundColor:['#3b82f6','#22c55e','#f59e0b','#e2e8f0'],
+      borderRadius:4
+    }]
+  },
+  options: {
+    responsive:true,
+    plugins:{
+      legend:{display:false},
+      tooltip:{callbacks:{label:ctx=>`r = ${ctx.raw.toFixed(3)}`}}
+    },
+    scales:{
+      x:{ticks:{color:'#64748b'},grid:{display:false}},
+      y:{min:0,max:0.5,title:{display:true,text:'Correlation (r)',color:'#64748b'},ticks:{color:'#64748b'},grid:{color:'#1e2a3a'}}
+    }
+  }
+});
+</script>
+</body>
+</html>
