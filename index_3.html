@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Daiki Takizawa — Data Analytics</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0b0f1a;
+  --bg2:#111827;
+  --border:#1e2a3a;
+  --border2:#253347;
+  --text:#e2e8f0;
+  --muted:#64748b;
+  --muted2:#94a3b8;
+  --accent:#3b82f6;
+  --green:#22c55e;
+  --font:'Space Grotesk',sans-serif;
+  --body:'Inter',sans-serif;
+}
+body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:15px;line-height:1.6;min-height:100vh}
+a{text-decoration:none;color:inherit}
+
+/* HEADER */
+header{padding:40px 48px 36px;border-bottom:1px solid var(--border)}
+.header-inner{max-width:1080px;margin:0 auto;display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.name{font-family:var(--font);font-size:24px;font-weight:700;letter-spacing:-.02em}
+.name span{color:var(--accent)}
+.tagline{font-size:13px;color:var(--muted);margin-top:4px}
+
+/* MAIN */
+main{max-width:1080px;margin:0 auto;padding:48px 48px 80px}
+
+/* SECTION LABEL */
+.section-label{font-size:11px;font-family:var(--font);font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+
+/* RESEARCH CARD — full width, distinct */
+.research-section{margin-bottom:48px}
+.research-card{background:var(--bg2);border:1px solid rgba(59,130,246,.25);border-radius:10px;padding:28px 32px;display:flex;align-items:center;justify-content:space-between;gap:24px;transition:border-color .2s,transform .15s}
+.research-card:hover{border-color:var(--accent);transform:translateY(-2px)}
+.research-left{display:flex;flex-direction:column;gap:8px}
+.research-badge{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-family:var(--font);font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.2);padding:3px 10px;border-radius:4px;width:fit-content}
+.research-title{font-family:var(--font);font-size:20px;font-weight:700;letter-spacing:-.01em}
+.research-desc{font-size:13px;color:var(--muted2);max-width:520px;line-height:1.55}
+.research-meta{display:flex;gap:16px;margin-top:4px}
+.research-stat{font-size:12px;font-family:var(--font);font-weight:600;color:var(--green)}
+.research-arrow{font-size:24px;color:var(--accent);opacity:.6;flex-shrink:0}
+.research-card:hover .research-arrow{opacity:1}
+
+/* PROJECT GRID */
+.projects-section{margin-bottom:0}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:14px}
+
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:22px 24px;display:flex;flex-direction:column;gap:10px;transition:border-color .18s,transform .15s}
+.card:hover{border-color:var(--accent);transform:translateY(-2px)}
+
+.card-meta{display:flex;align-items:center;justify-content:space-between}
+.sport{font-size:11px;font-family:var(--font);font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.live{font-size:11px;color:var(--accent);font-weight:600;opacity:0;transition:opacity .18s}
+.card:hover .live{opacity:1}
+
+.card-title{font-family:var(--font);font-size:16px;font-weight:700;line-height:1.3;letter-spacing:-.01em}
+.card-q{font-size:13px;color:var(--muted2);line-height:1.55}
+
+.tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:2px}
+.tag{font-size:11px;font-family:var(--font);font-weight:500;padding:3px 9px;border-radius:4px;background:rgba(255,255,255,.04);border:1px solid var(--border);color:var(--muted)}
+
+footer{text-align:center;padding:32px;font-size:12px;color:var(--muted);border-top:1px solid var(--border);max-width:100%}
+
+@media(max-width:640px){
+  header,main{padding-left:20px;padding-right:20px}
+  header{padding-top:28px;padding-bottom:24px}
+  .research-card{flex-direction:column;align-items:flex-start}
+  .research-arrow{display:none}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div>
+      <div class="name">Daiki Takizawa<span>.</span></div>
+      <div class="tagline">Data Analytics · University of Toronto</div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- RESEARCH -->
+  <div class="research-section">
+    <div class="section-label">Research</div>
+    <a class="research-card" href="https://takizawadaiki.github.io/bench-research.html">
+      <div class="research-left">
+        <span class="research-badge">📝 NBA · Original Research</span>
+        <div class="research-title">The Bench Dividend</div>
+        <div class="research-desc">Does regular season bench investment translate to playoff bench production? Across 3 NBA seasons and 48 team-observations, the answer is yes — with caveats.</div>
+        <div class="research-meta">
+          <span class="research-stat">r = 0.300 · p = 0.038</span>
+          <span class="research-stat">3 seasons · 48 observations</span>
+        </div>
+      </div>
+      <div class="research-arrow">→</div>
+    </a>
+  </div>
+
+  <!-- PROJECTS -->
+  <div class="projects-section">
+    <div class="section-label">Projects</div>
+    <div class="grid">
+
+      <a class="card" href="https://takizawadaiki.github.io/retail-profitability-analysis/" target="_blank">
+        <div class="card-meta"><span class="sport">🛒 Retail</span><span class="live">↗ Live</span></div>
+        <div class="card-title">The Margin Trap</div>
+        <div class="card-q">Which products and discount practices are actually profitable? An interactive breakdown of 9,994 real retail orders across regions and discount tiers.</div>
+        <div class="tags"><span class="tag">SQL</span><span class="tag">Profitability</span><span class="tag">Interactive dashboard</span></div>
+      </a>
+
+      <a class="card" href="https://takizawadaiki.github.io/hotel-booking-analysis/" target="_blank">
+        <div class="card-meta"><span class="sport">🏨 Hospitality</span><span class="live">↗ Live</span></div>
+        <div class="card-title">The Booking Ledger</div>
+        <div class="card-q">Which hotel bookings are actually reliable, and where should revenue-protection efforts focus? An interactive breakdown of 119K+ real bookings.</div>
+        <div class="tags"><span class="tag">SQL</span><span class="tag">Cancellation risk</span><span class="tag">Interactive dashboard</span></div>
+      </a>
+
+      <a class="card" href="https://takizawadaiki.github.io/Sports-Business/" target="_blank">
+        <div class="card-meta"><span class="sport">📊 Multi-league</span><span class="live">↗ Live</span></div>
+        <div class="card-title">Sports Business Intelligence</div>
+        <div class="card-q">How do salary caps, payroll efficiency, and revenue models compare across the four major North American leagues?</div>
+        <div class="tags"><span class="tag">Salary cap</span><span class="tag">Labor share</span><span class="tag">BI dashboard</span></div>
+      </a>
+
+      <a class="card" href="https://takizawadaiki.github.io/LADODGERS/" target="_blank">
+        <div class="card-meta"><span class="sport">⛩ MLB / Business</span><span class="live">↗ Live</span></div>
+        <div class="card-title">Dodgers Impact Analytics</div>
+        <div class="card-q">How have Japanese athletes measurably shifted Dodgers fan engagement, social growth, and franchise value?</div>
+        <div class="tags"><span class="tag">Engagement</span><span class="tag">Social analytics</span><span class="tag">Franchise value</span></div>
+      </a>
+
+      <a class="card" href="https://takizawadaiki.github.io/prediction-models.html">
+        <div class="card-meta"><span class="sport">📁 6 Models</span><span class="live">↗ View all</span></div>
+        <div class="card-title">Sports Prediction Models</div>
+        <div class="card-q">Monte Carlo simulation and Elo-based matchup prediction across Soccer, MLB, NBA, NHL, UFC, and Tennis.</div>
+        <div class="tags"><span class="tag">Monte Carlo</span><span class="tag">Elo ratings</span><span class="tag">6 sports</span></div>
+      </a>
+
+      <a class="card" href="https://takizawadaiki.github.io/tennisiq/" target="_blank">
+        <div class="card-meta"><span class="sport">🎾 Tennis</span><span class="live">↗ Live</span></div>
+        <div class="card-title">TennisIQ — Grand Slam Economics</div>
+        <div class="card-q">What does the financial ecosystem of pro tennis look like across prize money, revenue, and player inequality?</div>
+        <div class="tags"><span class="tag">Revenue modeling</span><span class="tag">Lorenz curve</span><span class="tag">Player survival</span></div>
+      </a>
+
+    </div>
+  </div>
+
+</main>
+
+<footer>Daiki Takizawa · Data Analytics · University of Toronto</footer>
+
+</body>
+</html>
