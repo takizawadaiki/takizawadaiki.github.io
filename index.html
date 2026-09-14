@@ -999,6 +999,25 @@ h1 {
 }
 
 
+
+/* Expanded project studies */
+.projects-intro{display:flex;justify-content:space-between;gap:50px;align-items:end;margin:36px 0 38px}
+.projects-intro h2{font:400 clamp(36px,4.5vw,64px)/1.08 var(--heading);letter-spacing:-2.5px}
+.projects-intro h2 em{font-family:Georgia,serif;color:#a6b693;font-weight:400}
+.projects-intro>p{max-width:340px;font-size:13px;color:var(--muted);line-height:1.85}
+.project-filters{display:flex;justify-content:space-between;align-items:center;gap:20px;border-top:1px solid var(--border);padding:20px 0 26px}
+[hidden]{display:none!important}.project-filters>div{display:flex;flex-wrap:wrap;gap:8px}.project-filters button{border:1px solid var(--border);border-radius:30px;background:transparent;color:#bdc4b5;padding:9px 15px;font-size:11px;cursor:pointer;transition:background .2s,color .2s}.project-filters button span{font-size:9px;opacity:.6;margin-left:12px}.project-filters button[aria-pressed="true"]{background:#e0e7d7;color:#1a2115;border-color:#e0e7d7}.project-filters button:hover{border-color:#a5b196}#project-count{font:10px var(--heading);color:var(--muted);white-space:nowrap}
+.case-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px;align-items:start}.case-study{--accent:#b5cfa0;border:1px solid #35402f;background:#151b13;overflow:hidden}.case-study.hotel{--accent:#d8b693;background:#1c1714;border-color:#423329}.case-study.business{--accent:#a9bfec;background:#151b25;border-color:#333f54}.case-study.dodgers{--accent:#a1cfd5;background:#111e20;border-color:#304347}.case-study.models{--accent:#edb788;background:#201913;border-color:#493726}.case-study.tennis{--accent:#d2df9b;background:#191e11;border-color:#3b4427}
+.case-study>summary{display:block;list-style:none;cursor:pointer}.case-study>summary::-webkit-details-marker{display:none}.case-study>summary:focus-visible{outline:3px solid var(--orange);outline-offset:-4px}.case-study .project-visual{height:300px;border-bottom:1px solid #ffffff12}.case-study summary:hover .project-visual{filter:brightness(1.13)}.case-study .project-visual::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,#11150dcc,transparent 90%);pointer-events:none}.case-figure{position:absolute;top:22px;left:25px;z-index:2;font:9px var(--heading);letter-spacing:1.4px;color:var(--accent)}.case-hook{position:absolute;top:75px;left:25px;z-index:2;font:400 clamp(26px,2.6vw,38px)/1.18 var(--heading);letter-spacing:-1.3px;color:#eff1e7;text-shadow:0 2px 20px #0005}.case-hook em{font:italic 1.12em Georgia,serif;color:var(--accent)}.case-seal{position:absolute;bottom:22px;right:24px;z-index:2;border:1px solid #ffffff40;border-radius:50%;width:38px;height:38px;display:grid;place-items:center;font-size:22px;color:var(--accent)}.case-study .visual-note{bottom:25px;left:25px;z-index:2;max-width:75%;font-size:8px;color:var(--accent);opacity:1}
+.case-study .bar-art{left:40%;right:25px;top:55px;height:170px;gap:8px;transform:skewY(-16deg);opacity:.8}.case-study .ledger-art{left:38%;right:-20px;top:50px;gap:10px;transform:rotate(-18deg);opacity:.6}.case-study .ledger-art i{height:19px}.case-study .league-art{inset:45px -65px 50px 30%;opacity:.65;transform:rotate(-15deg)}.case-study .league-art span{height:180px}.case-study .orbit-art{left:40%;opacity:.6}.case-study .wave-art{left:20%;top:50px;width:90%;height:80%;opacity:.8}.case-study .tennis-art{left:78%;width:260px;height:440px;opacity:.6}
+.case-summary{padding:26px}.case-summary h3{font:500 clamp(23px,2.3vw,31px)/1.15 var(--heading);letter-spacing:-1px;margin:14px 0}.case-summary>p{font-size:12px;color:#adb6a5;line-height:1.8;min-height:64px;max-width:470px}.case-summary .category,.case-summary .project-number{color:var(--accent)}.case-summary-bottom{border-top:1px solid #ffffff18;padding-top:20px;margin-top:22px;display:flex;align-items:center;justify-content:space-between;gap:15px}.case-summary-bottom>span:first-child{font-size:9px;color:#a9b19f}.case-toggle{display:flex;align-items:center;gap:15px;white-space:nowrap;font-size:10px;color:var(--accent)}.case-toggle b{font:300 24px var(--heading)}.when-open{display:none}.case-study[open] .when-closed{display:none}.case-study[open] .when-open{display:inline}.case-study[open] .case-toggle b{transform:rotate(45deg)}
+.case-study[open]{grid-column:1/-1}.case-study[open]>summary{display:grid;grid-template-columns:1fr 1fr}.case-study[open] .case-summary{display:flex;flex-direction:column;justify-content:center;padding:32px}.case-study[open] .case-summary-bottom{margin-top:auto}.case-study[open] .project-visual{height:100%;min-height:310px;border-bottom:0;border-right:1px solid #ffffff18}
+.case-body{padding:38px;border-top:1px solid #ffffff20}.case-label{font:9px var(--heading);letter-spacing:1.5px;color:var(--accent);display:block}.case-lead{display:grid;grid-template-columns:1.4fr 1fr;gap:55px;margin-bottom:28px}.case-lead h4{font:400 clamp(26px,3vw,40px)/1.2 var(--heading);letter-spacing:-1.2px;margin:14px 0 18px}.case-body p{font-size:13px;line-height:1.85;color:#b6bfac}.case-stat{border-left:1px solid #ffffff20;padding-left:35px;display:flex;flex-direction:column;justify-content:center}.case-stat strong{font:400 clamp(44px,6vw,80px)/1.1 var(--heading);color:var(--accent);letter-spacing:-3px;white-space:nowrap}.case-stat>span{font:10px var(--heading);letter-spacing:1px;text-transform:uppercase;margin-top:10px;color:#b6bfac}.case-method{display:grid;grid-template-columns:180px 1fr;gap:20px;padding:23px 0;border-top:1px solid #ffffff18;border-bottom:1px solid #ffffff18;align-items:start}.case-method .case-label{padding-top:5px}.case-lenses{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;padding:30px 0}.lens>span{font:10px var(--heading);color:var(--accent)}.lens h5{font:500 18px var(--heading);margin:12px 0;letter-spacing:-.5px}.lens p{font-size:12px}.case-takeaway{border-left:2px solid var(--accent);background:#ffffff04;padding:22px 25px;margin-bottom:26px}.case-takeaway p{font:400 20px/1.5 var(--heading);color:#e1e7d9;margin-top:12px;max-width:800px}.case-end{display:flex;align-items:center;justify-content:space-between;gap:35px}.case-end p{max-width:560px;font-size:11px;color:#a5af9b}.case-end p strong{display:block;color:#ccd5c3;font-weight:500;margin-bottom:4px}.case-cta{display:inline-flex;align-items:center;gap:20px;background:var(--accent);color:#192016;padding:13px 19px;white-space:nowrap;font-size:11px;font-weight:600}.case-cta:hover{filter:brightness(1.1)}
+@media(max-width:1000px){.case-grid{gap:18px}.case-hook{font-size:28px}.case-summary{padding:22px}.case-summary-bottom{align-items:start;flex-direction:column;gap:12px}.case-lead{gap:25px}.case-body{padding:28px}.case-end{align-items:start;flex-direction:column;gap:20px}}
+@media(max-width:760px){.projects-intro{display:block;margin:25px 0}.projects-intro h2{font-size:39px;letter-spacing:-1.8px}.projects-intro>p{margin-top:20px;max-width:none;font-size:12px}.project-filters{align-items:start;flex-direction:column;gap:13px}.project-filters button{font-size:10px;padding:8px 12px}.project-filters button span{margin-left:7px}.case-grid{grid-template-columns:1fr;gap:22px}.case-study[open]>summary{grid-template-columns:1fr}.case-study[open] .case-summary{padding:24px}.case-study[open] .project-visual{min-height:270px;border-right:0;border-bottom:1px solid #ffffff18}.case-study .project-visual{height:270px}.case-hook{font-size:28px;left:23px;right:20px}.case-summary h3{font-size:27px}.case-summary>p{min-height:0}.case-summary-bottom{flex-direction:row;align-items:center;flex-wrap:wrap}.case-body{padding:24px}.case-lead{grid-template-columns:1fr;gap:25px}.case-stat{border-left:0;border-top:1px solid #ffffff20;padding:22px 0 0}.case-stat strong{font-size:60px}.case-method{grid-template-columns:1fr;gap:12px}.case-lenses{grid-template-columns:1fr;gap:24px}.lens h5{margin:8px 0}.case-takeaway{padding:18px}.case-takeaway p{font-size:18px}.case-cta{white-space:normal}.case-end p{font-size:11px}}
+
+
+.case-study{display:block;color:inherit}.case-study:hover .project-visual{filter:brightness(1.13)}.case-study:hover .case-toggle{color:var(--orange)}.case-study:focus-visible{outline:3px solid var(--orange);outline-offset:5px}
 </style>
 </head>
 
@@ -1049,7 +1068,7 @@ h1 {
       <span class="section-count">A QUESTION WORTH ASKING</span>
     </div>
 
-    <a class="research-card" href="https://takizawadaiki.github.io/bench-research.html">
+    <a class="research-card" href="bench-research.html">
       <div>
         <div class="research-label">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
@@ -1077,177 +1096,96 @@ h1 {
     </a>
   </section>
 
-  <!-- PROJECTS -->
+  <!-- PROJECTS: each card navigates directly to its project. -->
   <section class="projects-section" id="projects" aria-labelledby="projects-heading">
-    <div class="section-top">
-      <h2 class="section-title" id="projects-heading"><span class="section-index">02 /</span> Selected projects</h2>
-      <span class="section-count">SIX WAYS TO SEE DIFFERENTLY</span>
+    <div class="section-top"><h2 class="section-title" id="projects-heading"><span class="section-index">02 /</span> Selected work</h2><span class="section-count">RESEARCH, WITH A POINT OF VIEW</span></div>
+    <div class="projects-intro"><h2>A closer look.<br><em>A different perspective.</em></h2><p>From the economics of a booking to the business of a championship. Choose a project to explore the research, dashboards, and models behind the work.</p></div>
+    <div class="project-filters" hidden aria-label="Filter projects"><div role="group" aria-label="Project categories"><button type="button" data-filter="all" aria-pressed="true">All work <span>06</span></button><button type="button" data-filter="business" aria-pressed="false">Business <span>02</span></button><button type="button" data-filter="sports" aria-pressed="false">Sports economics <span>03</span></button><button type="button" data-filter="models" aria-pressed="false">Prediction <span>01</span></button></div><span id="project-count" role="status" aria-live="polite">6 studies</span></div>
+    <div class="case-grid">
+<a class="case-study retail" data-category="business" id="case-retail" href="https://takizawadaiki.github.io/retail-profitability-analysis/">
+    <div class="case-visual project-visual" aria-hidden="true">
+      <div class="bar-art"><i style="--h:34%;--n:0"></i><i style="--h:51%;--n:1"></i><i style="--h:39%;--n:2"></i><i style="--h:70%;--n:3"></i><i style="--h:56%;--n:4"></i><i style="--h:84%;--n:5"></i><i style="--h:67%;--n:6"></i><i style="--h:94%;--n:7"></i><i style="--h:77%;--n:8"></i><i style="--h:60%;--n:9"></i><i style="--h:42%;--n:10"></i><i style="--h:26%;--n:11"></i></div><span class="visual-note">VOLUME ≠ VALUE</span>
+      <span class="case-figure">FIELD NOTES / 01</span>
+      <div class="case-hook">Revenue tells one story.<br><em>Profit tells another.</em></div>
+      <span class="case-seal">↗</span>
     </div>
-
-    <div class="grid">
-
-      <!-- RETAIL -->
-      <a class="card retail" href="https://takizawadaiki.github.io/retail-profitability-analysis/" target="_blank" rel="noopener noreferrer"><div class="project-visual" aria-hidden="true"><div class="bar-art"><i style="--h:34%;--n:0"></i><i style="--h:51%;--n:1"></i><i style="--h:39%;--n:2"></i><i style="--h:70%;--n:3"></i><i style="--h:56%;--n:4"></i><i style="--h:84%;--n:5"></i><i style="--h:67%;--n:6"></i><i style="--h:94%;--n:7"></i><i style="--h:77%;--n:8"></i><i style="--h:60%;--n:9"></i><i style="--h:42%;--n:10"></i><i style="--h:26%;--n:11"></i></div><span class="visual-note">VOLUME ≠ VALUE</span></div><div class="card-content">
-        <div class="card-top">
-          <span class="category">
-            <span class="icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24">
-                <path d="M3 4h2l2.5 11h11L21 7H6"/>
-                <circle cx="9" cy="20" r="1"/>
-                <circle cx="18" cy="20" r="1"/>
-              </svg>
-            </span>
-            Retail
-          </span>
-          <span class="project-number">01</span>
-        </div>
-        <h3 class="card-title">The Margin Trap</h3>
-        <p class="card-desc">Which products and discount practices are actually profitable? Explore 9,994 retail orders across product categories, regions, and discount tiers.</p>
-        <div class="tags">
-          <span class="tag">SQL</span>
-          <span class="tag">Profitability</span>
-          <span class="tag">9,994 orders</span>
-        </div>
-        <div class="card-bottom">
-          <span class="project-type">Interactive dashboard</span>
-          <span class="project-link">View project <span class="arrow" aria-hidden="true">↗</span></span>
-        </div>
-      </div></a>
-
-      <!-- HOSPITALITY -->
-      <a class="card hotel" href="https://takizawadaiki.github.io/hotel-booking-analysis/" target="_blank" rel="noopener noreferrer"><div class="project-visual" aria-hidden="true"><div class="ledger-art"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><span class="visual-note">BOOKED. BUT NOT GUARANTEED.</span></div><div class="card-content">
-        <div class="card-top">
-          <span class="category">
-            <span class="icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24">
-                <path d="M5 21V3h14v18M3 21h18M10 21v-5h4v5M9 7h1m4 0h1M9 11h1m4 0h1"/>
-              </svg>
-            </span>
-            Hospitality
-          </span>
-          <span class="project-number">02</span>
-        </div>
-        <h3 class="card-title">The Booking Ledger</h3>
-        <p class="card-desc">Which bookings can hotels rely on? Explore cancellation risk and revenue-protection opportunities across more than 119,000 hotel bookings.</p>
-        <div class="tags">
-          <span class="tag">SQL</span>
-          <span class="tag">Cancellation risk</span>
-          <span class="tag">119K+ bookings</span>
-        </div>
-        <div class="card-bottom">
-          <span class="project-type">Interactive dashboard</span>
-          <span class="project-link">View project <span class="arrow" aria-hidden="true">↗</span></span>
-        </div>
-      </div></a>
-
-      <!-- SPORTS BUSINESS -->
-      <a class="card business" href="https://takizawadaiki.github.io/Sports-Business/" target="_blank" rel="noopener noreferrer"><div class="project-visual" aria-hidden="true"><div class="league-art"><span>NBA</span><span>NFL</span><span>MLB</span><span>NHL</span></div><span class="visual-note">FOUR LEAGUES. DIFFERENT RULES.</span></div><div class="card-content">
-        <div class="card-top">
-          <span class="category">
-            <span class="icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24">
-                <path d="M4 3v18h17M8 16v-5M13 16V7M18 16V4"/>
-              </svg>
-            </span>
-            Sports economics
-          </span>
-          <span class="project-number">03</span>
-        </div>
-        <h3 class="card-title">Sports Business Intelligence</h3>
-        <p class="card-desc">Four leagues. Different rules. Compare how salary caps, payroll efficiency, and revenue structures shape the business of professional sports.</p>
-        <div class="tags">
-          <span class="tag">Salary caps</span>
-          <span class="tag">Labor share</span>
-          <span class="tag">4 major leagues</span>
-        </div>
-        <div class="card-bottom">
-          <span class="project-type">Business intelligence</span>
-          <span class="project-link">View project <span class="arrow" aria-hidden="true">↗</span></span>
-        </div>
-      </div></a>
-
-      <!-- DODGERS -->
-      <a class="card dodgers" href="https://takizawadaiki.github.io/LADODGERS/" target="_blank" rel="noopener noreferrer"><div class="project-visual" aria-hidden="true"><div class="orbit-art"><i></i><i></i><i></i><b>LA</b><span>JP</span></div><span class="visual-note">A GLOBAL RIPPLE EFFECT</span></div><div class="card-content">
-        <div class="card-top">
-          <span class="category">
-            <span class="icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24">
-                <path d="m3 17 6-6 4 4 8-10M15 5h6v6"/>
-              </svg>
-            </span>
-            MLB / Business
-          </span>
-          <span class="project-number">04</span>
-        </div>
-        <h3 class="card-title">Dodgers Impact Analytics</h3>
-        <p class="card-desc">Beyond the field: examine how Japanese athletes connect to Dodgers fan engagement, social growth, and franchise value.</p>
-        <div class="tags">
-          <span class="tag">Engagement</span>
-          <span class="tag">Social analytics</span>
-          <span class="tag">Franchise value</span>
-        </div>
-        <div class="card-bottom">
-          <span class="project-type">Business analytics</span>
-          <span class="project-link">View project <span class="arrow" aria-hidden="true">↗</span></span>
-        </div>
-      </div></a>
-
-      <!-- PREDICTION MODELS -->
-      <a class="card models" href="#prediction-models"><div class="project-visual" aria-hidden="true"><svg viewBox="0 0 500 200" class="wave-art"><path d="M0 170 Q90 170 150 125 T250 30 T350 125 T500 170"/><path d="M0 175 Q140 175 210 100 T310 60 T500 175"/><path d="M0 178 Q70 178 120 115 T210 65 T310 140 T500 178"/><path d="M0 180H500"/></svg><span class="visual-note">PROBABILITY, NOT CERTAINTY.</span></div><div class="card-content">
-        <div class="card-top">
-          <span class="category">
-            <span class="icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24">
-                <circle cx="5" cy="12" r="2"/>
-                <circle cx="18" cy="5" r="2"/>
-                <circle cx="18" cy="19" r="2"/>
-                <path d="m7 11 9-5M7 13l9 5"/>
-              </svg>
-            </span>
-            Predictive modeling
-          </span>
-          <span class="project-number">05</span>
-        </div>
-        <h3 class="card-title">Sports Prediction Models</h3>
-        <p class="card-desc">Modeling uncertainty across six sports with Monte Carlo simulation and Elo-based matchup predictions, from soccer and hockey to tennis and UFC.</p>
-        <div class="tags">
-          <span class="tag">Monte Carlo</span>
-          <span class="tag">Elo ratings</span>
-          <span class="tag">6 sports</span>
-        </div>
-        <div class="card-bottom">
-          <span class="project-type">Model collection</span>
-          <span class="project-link">Explore models <span class="arrow" aria-hidden="true">↗</span></span>
-        </div>
-      </div></a>
-
-      <!-- TENNIS -->
-      <a class="card tennis" href="https://takizawadaiki.github.io/grand-slam-economics/" target="_blank" rel="noopener noreferrer"><div class="project-visual" aria-hidden="true"><div class="tennis-art"><i></i><b></b></div><span class="visual-note">THE OTHER SIDE OF THE COURT</span></div><div class="card-content">
-        <div class="card-top">
-          <span class="category">
-            <span class="icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24">
-                <circle cx="12" cy="12" r="9"/>
-                <path d="M5.5 5.5c6 0 13 7 13 13M18.5 5.5c-6 0-13 7-13 13"/>
-              </svg>
-            </span>
-            Tennis economics
-          </span>
-          <span class="project-number">06</span>
-        </div>
-        <h3 class="card-title">TennisIQ</h3>
-        <p class="card-desc">The economics behind the Grand Slams. Explore prize money, tournament revenue, and the financial inequality shaping professional tennis.</p>
-        <div class="tags">
-          <span class="tag">Revenue modeling</span>
-          <span class="tag">Lorenz curve</span>
-          <span class="tag">Player survival</span>
-        </div>
-        <div class="card-bottom">
-          <span class="project-type">Interactive dashboard</span>
-          <span class="project-link">View project <span class="arrow" aria-hidden="true">↗</span></span>
-        </div>
-      </div></a>
-
+    <div class="case-summary">
+      <div class="card-top"><span class="category">Retail analytics</span><span class="project-number">01</span></div>
+      <h3>The Margin Trap</h3>
+      <p>An exploration of product performance, regional differences, and the real cost of discounting across 9,994 retail orders.</p>
+      <div class="case-summary-bottom"><span>SQL · Profitability · Discount analysis</span><span class="case-toggle">View project <b aria-hidden="true">↗</b></span></div>
+    </div>
+  </a>
+<a class="case-study hotel" data-category="business" id="case-hotel" href="https://takizawadaiki.github.io/hotel-booking-analysis/">
+    <div class="case-visual project-visual" aria-hidden="true">
+      <div class="ledger-art"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><span class="visual-note">BOOKED. BUT NOT GUARANTEED.</span>
+      <span class="case-figure">FIELD NOTES / 02</span>
+      <div class="case-hook">A reservation isn’t<br><em>a guarantee.</em></div>
+      <span class="case-seal">↗</span>
+    </div>
+    <div class="case-summary">
+      <div class="card-top"><span class="category">Hospitality analytics</span><span class="project-number">02</span></div>
+      <h3>The Booking Ledger</h3>
+      <p>A closer look at cancellation risk and revenue protection across more than 119,000 hotel bookings.</p>
+      <div class="case-summary-bottom"><span>SQL · Cancellation risk · Revenue protection</span><span class="case-toggle">View project <b aria-hidden="true">↗</b></span></div>
+    </div>
+  </a>
+<a class="case-study business" data-category="sports" id="case-business" href="https://takizawadaiki.github.io/Sports-Business/">
+    <div class="case-visual project-visual" aria-hidden="true">
+      <div class="league-art"><span>NBA</span><span>NFL</span><span>MLB</span><span>NHL</span></div><span class="visual-note">FOUR LEAGUES. DIFFERENT RULES.</span>
+      <span class="case-figure">FIELD NOTES / 03</span>
+      <div class="case-hook">Same ambition.<br><em>Different rules.</em></div>
+      <span class="case-seal">↗</span>
+    </div>
+    <div class="case-summary">
+      <div class="card-top"><span class="category">Sports economics</span><span class="project-number">03</span></div>
+      <h3>Sports Business Intelligence</h3>
+      <p>A comparative view of salary caps, payroll efficiency, revenue structures, and the economics of four major leagues.</p>
+      <div class="case-summary-bottom"><span>Salary caps · Labor share · Payroll efficiency</span><span class="case-toggle">View project <b aria-hidden="true">↗</b></span></div>
+    </div>
+  </a>
+<a class="case-study dodgers" data-category="sports" id="case-dodgers" href="https://takizawadaiki.github.io/LADODGERS/">
+    <div class="case-visual project-visual" aria-hidden="true">
+      <div class="orbit-art"><i></i><i></i><i></i><b>LA</b><span>JP</span></div><span class="visual-note">A GLOBAL RIPPLE EFFECT</span>
+      <span class="case-figure">FIELD NOTES / 04</span>
+      <div class="case-hook">The impact extends<br><em>beyond the field.</em></div>
+      <span class="case-seal">↗</span>
+    </div>
+    <div class="case-summary">
+      <div class="card-top"><span class="category">MLB · Business analytics</span><span class="project-number">04</span></div>
+      <h3>Dodgers Impact Analytics</h3>
+      <p>An exploration of Japanese athletes, fan engagement, social growth, and the business value surrounding the Dodgers.</p>
+      <div class="case-summary-bottom"><span>Engagement · Social analytics · Franchise value</span><span class="case-toggle">View project <b aria-hidden="true">↗</b></span></div>
+    </div>
+  </a>
+<a class="case-study models" data-category="models" id="case-models" href="#prediction-models">
+    <div class="case-visual project-visual" aria-hidden="true">
+      <svg viewBox="0 0 500 200" class="wave-art"><path d="M0 170 Q90 170 150 125 T250 30 T350 125 T500 170"/><path d="M0 175 Q140 175 210 100 T310 60 T500 175"/><path d="M0 178 Q70 178 120 115 T210 65 T310 140 T500 178"/><path d="M0 180H500"/></svg><span class="visual-note">PROBABILITY, NOT CERTAINTY.</span>
+      <span class="case-figure">FIELD NOTES / 05</span>
+      <div class="case-hook">Explore the odds.<br><em>Respect uncertainty.</em></div>
+      <span class="case-seal">↗</span>
+    </div>
+    <div class="case-summary">
+      <div class="card-top"><span class="category">Predictive modeling</span><span class="project-number">05</span></div>
+      <h3>Sports Prediction Models</h3>
+      <p>A collection of Monte Carlo and Elo-based prediction projects spanning soccer, hockey, tennis, UFC, basketball, and baseball.</p>
+      <div class="case-summary-bottom"><span>Monte Carlo · Elo ratings · Scenario analysis</span><span class="case-toggle">View project <b aria-hidden="true">↗</b></span></div>
+    </div>
+  </a>
+<a class="case-study tennis" data-category="sports" id="case-tennis" href="https://takizawadaiki.github.io/grand-slam-economics/">
+    <div class="case-visual project-visual" aria-hidden="true">
+      <div class="tennis-art"><i></i><b></b></div><span class="visual-note">THE OTHER SIDE OF THE COURT</span>
+      <span class="case-figure">FIELD NOTES / 06</span>
+      <div class="case-hook">Grand stages.<br><em>Unequal rewards.</em></div>
+      <span class="case-seal">↗</span>
+    </div>
+    <div class="case-summary">
+      <div class="card-top"><span class="category">Tennis economics</span><span class="project-number">06</span></div>
+      <h3>TennisIQ</h3>
+      <p>The financial side of professional tennis: prize money, tournament revenue, inequality, and player survival.</p>
+      <div class="case-summary-bottom"><span>Revenue modeling · Lorenz curve · Player survival</span><span class="case-toggle">View project <b aria-hidden="true">↗</b></span></div>
+    </div>
+  </a>
     </div>
   </section>
 
@@ -1362,6 +1300,28 @@ h1 {
   resize();sync();
 })();
 
+
+// Category filters enhance the native, keyboard-accessible case studies.
+(() => {
+  const bar = document.querySelector('.project-filters');
+  const studies = Array.from(document.querySelectorAll('.case-study'));
+  const count = document.querySelector('#project-count');
+  bar.hidden = false;
+  bar.addEventListener('click', event => {
+    const button = event.target.closest('button[data-filter]');
+    if (!button) return;
+    const category = button.dataset.filter;
+    bar.querySelectorAll('button').forEach(item => item.setAttribute('aria-pressed', String(item === button)));
+    let total = 0;
+    studies.forEach(study => {
+      study.hidden = category !== 'all' && study.dataset.category !== category;
+      if (!study.hidden) total++;
+    });
+    count.textContent = total + (total === 1 ? ' study' : ' studies');
+  });
+})();
+
 </script>
 </body>
 </html>
+
