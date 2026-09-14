@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta name="theme-color" content="#10120f"/>
+<meta name="description" content="The Bench Dividend: an NBA research study of regular-season bench usage and playoff scoring by Daiki Takizawa."/>
 <title>The Bench Dividend · Daiki Takizawa</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Space+Grotesk:wght@500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
 <style>
@@ -87,37 +89,56 @@ footer{text-align:center;padding:40px;font-size:12px;color:var(--muted);border-t
   .finding-bar{grid-template-columns:1fr}
   .outlier-grid{grid-template-columns:1fr}
 }
+
+/* Dark editorial research design */
+:root{color-scheme:dark;--bg:#10120f;--bg2:#191f16;--bg3:#1b2318;--border:#343e2e;--text:#eeeee4;--muted:#9ca790;--muted2:#bbc3b0;--accent:#ff8050;--green:#c5d7aa;--red:#ef9a7c;--amber:#dfb379}
+html{scroll-behavior:smooth;scroll-padding-top:35px}body{font-size:15px;-webkit-font-smoothing:antialiased}::selection{background:#814b32;color:#fff}a:focus-visible{outline:2px solid var(--accent);outline-offset:6px}a:hover{text-decoration:none}.skip-link{position:fixed;top:-80px;left:20px;background:var(--text);color:var(--bg);padding:10px;z-index:100}.skip-link:focus{top:12px}.reading-progress{position:fixed;top:0;left:0;right:0;height:3px;z-index:50;pointer-events:none}.reading-progress span{display:block;height:100%;background:var(--accent);width:0}
+nav{max-width:1440px;margin:auto;padding:27px 56px;border-color:var(--border);height:100px}.nav-logo{display:flex;align-items:center;font-size:17px;font-weight:500;letter-spacing:-.5px}.nav-logo .logo-block{font-size:24px;letter-spacing:-3px;color:#152010;background:#d1ddbf;display:inline-grid;place-items:center;width:37px;height:38px;margin-right:13px}.nav-logo>span:last-child{color:var(--accent)}.nav-back{color:#b9c3aa;font-size:12px}
+.research-hero{max-width:1440px;margin:0 auto;padding:28px 56px 0}.hero-kicker{display:flex;justify-content:space-between;font:9px var(--mono);letter-spacing:1.2px;color:#aab49b}.hero-kicker i{display:inline-block;background:var(--accent);width:6px;height:6px;border-radius:50%;margin-right:9px}.hero-composition{display:grid;grid-template-columns:1.18fr 1fr;gap:20px;align-items:center;min-height:515px;padding:32px 0}.hero-tag{border:0;padding:0;background:none;border-radius:0;color:#aab79a;font:10px var(--mono);letter-spacing:1.2px;margin-bottom:25px}.hero-title h1{font:500 clamp(68px,8.2vw,119px)/.94 var(--font);letter-spacing:-.07em;margin-bottom:25px}.hero-title h1 em{font-family:Georgia,serif;font-weight:400;color:var(--accent)}.hero-deck{font-size:14px;line-height:1.8;color:#b4bea6}.hero-action{display:inline-flex;align-items:center;gap:45px;background:#d2dfbf;color:#1a2215;padding:12px 18px;font-size:11px;margin-top:8px}.hero-action:hover{background:var(--accent)}.hero-action span{font-size:23px;line-height:1}.court-art{position:relative;min-width:0;border-left:1px solid var(--border);height:440px}.court-art svg{display:block;width:100%;height:100%}.court-art-label{position:absolute;top:0;left:20px;font:8px var(--mono);letter-spacing:1px;color:#929f83}.court-art-bottom{display:flex;justify-content:space-between;gap:10px;position:absolute;bottom:0;left:20px;right:0;font:7px var(--mono);letter-spacing:.7px;color:#98a58a}.court-art-bottom b{color:var(--accent);margin:0 8px}.hero-meta{display:grid;grid-template-columns:repeat(4,1fr);border-block:1px solid var(--border);padding:22px 0;margin:0;gap:25px;font-size:12px;color:#d1d7c6}.hero-meta>span{display:flex;flex-direction:column;align-items:start;gap:5px}.hero-meta small{font:8px var(--mono);letter-spacing:1.2px;color:#8e9a80}
+.research-layout{display:grid;grid-template-columns:215px minmax(0,1fr);gap:65px;max-width:1440px;margin:auto;padding:65px 56px 0}.article-rail{position:sticky;top:35px;align-self:start}.rail-heading,.eyebrow{font:9px var(--mono);letter-spacing:1.2px;color:#aebc9e}.article-rail>a{display:flex;gap:15px;padding:13px 0;font:10px var(--mono);color:#718063;border-bottom:1px solid #ffffff08}.article-rail>a:first-of-type{margin-top:18px}.article-rail>a span{color:#a7b498;font:11px var(--body)}.article-rail>a:hover span,.article-rail>a.active span{color:var(--accent)}.rail-foot{border-top:1px solid var(--border);margin-top:28px;padding-top:20px;font:8px/1.8 var(--mono);color:#839376;letter-spacing:.6px}.content{max-width:none;width:100%;margin:0;padding:0 0 75px}.abstract{border-top:1px solid #63784e;padding-top:22px}.hero-abstract{font:400 clamp(18px,1.7vw,23px)/1.7 var(--font);border:0;padding:0;color:#d2d9c6;margin:17px 0 30px}.finding-bar{background:#1b2417;border:1px solid #3a4b2d;border-radius:0;padding:28px;margin:28px 0 50px;gap:24px}.finding-num{font:400 clamp(28px,3.6vw,49px)/1.2 var(--font);letter-spacing:-2px;white-space:nowrap}.finding-num small{font:italic 19px Georgia,serif;color:#809768;letter-spacing:0}.finding-label{font:9px var(--mono);margin:8px 0 3px;letter-spacing:1px}.finding-sub{font-size:10px;line-height:1.6}.finding+.finding{border-left:1px solid #3a4b2d;padding-left:22px}
+h2{display:flex;align-items:baseline;gap:20px;font:500 clamp(25px,2.7vw,36px)/1.2 var(--font);letter-spacing:-1.2px;padding-top:30px;margin:55px 0 22px}h2>span{font:10px var(--mono);color:var(--accent);letter-spacing:0;white-space:nowrap}.content>p{font-size:14px;line-height:1.9;max-width:800px;margin-bottom:19px}p strong{color:#e6ecd9}.content code{font:11px var(--mono);overflow-wrap:anywhere}.method-block{border-radius:0;background:#192115;padding:27px;border-left:2px solid #a8bb8c;font-size:13px;line-height:1.8}.method-block code{background:#a8bb8c15;color:#c7d6b1}.chart-container{border-radius:0;padding:28px;margin:35px 0;background:#171d14;border-color:#3b472f}.chart-title{font:9px/1.8 var(--mono);color:#c5d1b5;letter-spacing:.9px;margin-bottom:25px}.chart-frame{position:relative;width:100%}.scatter-frame{height:370px}.bars-frame{height:245px}.chart-hint{font-size:10px;color:#92a080;margin:18px 0 0}.outlier-grid{gap:16px}.outlier-card{border-radius:0;padding:25px;background:#182015}.outlier-card.under{background:#231a14}.outlier-kind{font:8px var(--mono);letter-spacing:1px;color:#93a47c;margin-bottom:17px}.under .outlier-kind{color:#bd8a6f}.outlier-team{font:500 43px var(--font);letter-spacing:-2px}.outlier-season{font-size:9px;color:#9fae8e;margin-bottom:20px}.outlier-stat{font-size:11px;gap:15px}.outlier-stat span:last-child{font-size:13px}.outlier-note{font-size:11px;color:#a8b498;line-height:1.8;padding-top:17px;margin-top:18px}.conclusion-box{border:1px solid #655037;border-left:3px solid var(--accent);border-radius:0;background:#241e15;padding:30px;margin:40px 0}.conclusion-box h3{font:10px var(--mono);letter-spacing:1.3px;text-transform:uppercase;margin-bottom:20px}.conclusion-box p{font-size:14px;line-height:1.85;color:#d3cbb8}.article-return{display:block;border-top:1px solid var(--border);padding-top:28px;margin-top:50px;font:400 clamp(27px,3.2vw,43px) var(--font);letter-spacing:-1.5px;color:#d9e2cc}.article-return>span{display:block;font:8px var(--mono);letter-spacing:1px;color:#95a385;margin-bottom:14px}.article-return b{float:right;color:var(--accent);font-weight:400}footer{font-size:10px;color:#92a080;padding:28px;background:#171c14}footer a{color:#c4d3b0}
+@media(max-width:1050px){.research-layout{grid-template-columns:160px minmax(0,1fr);gap:35px;padding-inline:32px}.research-hero{padding-inline:32px}nav{padding-inline:32px}.hero-title h1{font-size:82px}.hero-composition{min-height:460px}.court-art{height:390px}.finding-bar{padding:20px;gap:15px}.finding+.finding{padding-left:15px}.finding-num{font-size:34px}.court-art-bottom{font-size:6px}.court-art-label{font-size:7px}}
+@media(max-width:780px){.research-layout{display:block;padding:35px 24px 0}.article-rail{position:static;display:flex;gap:18px;overflow:auto;padding-bottom:18px;margin-bottom:28px}.article-rail>a{white-space:nowrap;padding:10px 0;border:0;gap:6px}.article-rail>a:first-of-type{margin-top:0}.rail-heading,.rail-foot{display:none}.hero-composition{grid-template-columns:1fr;gap:32px;padding-top:40px}.hero-title h1{font-size:clamp(70px,13vw,100px)}.court-art{height:310px;border-left:0;border-top:1px solid var(--border);padding-top:20px}.court-art-label{top:16px;left:0}.court-art-bottom{left:0;font-size:7px}.hero-meta{grid-template-columns:repeat(2,1fr);gap:22px}.research-hero{padding:25px 24px 0}nav{padding:20px 24px;height:85px}.nav-logo{font-size:14px}.nav-logo .logo-block{width:31px;height:32px;font-size:21px;margin-right:8px}.nav-back{font-size:10px}.hero-kicker{font-size:7px;letter-spacing:.5px}.hero-tag{font-size:8px}.hero-deck{font-size:13px}.hero-abstract{font-size:20px}.finding-bar{grid-template-columns:repeat(3,1fr);gap:12px;padding:20px 16px}.finding-num{font-size:29px;letter-spacing:-1.5px}.finding-num small{font-size:14px}.finding-sub{font-size:9px}.finding-label{font-size:8px}.finding+.finding{padding-left:12px}.chart-container{padding:20px 14px}.scatter-frame{height:330px}.bars-frame{height:240px}.content>p{font-size:13px}.outlier-grid{grid-template-columns:1fr 1fr;gap:12px}.outlier-card{padding:20px}.method-block{padding:22px;font-size:12px}}
+@media(max-width:480px){.finding-bar{grid-template-columns:1fr;gap:20px;padding:25px}.finding+.finding{border-left:0;border-top:1px solid #3a4b2d;padding:18px 0 0}.finding-num{font-size:43px}.finding-num small{font-size:19px}.finding-sub{font-size:11px}.finding-label{font-size:9px}.outlier-grid{grid-template-columns:1fr}.desktop-break{display:none}h2{gap:13px;font-size:27px}.hero-title h1{font-size:clamp(59px,16vw,76px)}.court-art{height:285px}.nav-logo{font-size:12px}.hero-abstract{font-size:18px}.conclusion-box{padding:24px}.article-return{font-size:27px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+
 </style>
 </head>
-<body>
+<body id="top">
+<a class="skip-link" href="#article">Skip to research</a>
+<div class="reading-progress" aria-hidden="true"><span id="reading-progress"></span></div>
 
-<nav>
-  <a href="https://takizawadaiki.github.io" class="nav-logo">DT<span>.</span></a>
-  <a href="https://takizawadaiki.github.io" class="nav-back">← Back to portfolio</a>
+<nav aria-label="Research navigation">
+  <a href="index.html" class="nav-logo"><span class="logo-block">dt</span> Daiki Takizawa<span>.</span></a>
+  <a href="index.html" class="nav-back">← Back to portfolio</a>
 </nav>
 
-<div class="hero">
-  <span class="hero-tag">NBA Research</span>
-  <h1>The Bench Dividend</h1>
-  <div class="hero-meta">
-    <span>Daiki Takizawa</span>
-    <span>June 2026</span>
-    <span>3 seasons · 48 team-observations</span>
-    <span>nba_api · Python</span>
+<header class="research-hero">
+  <div class="hero-kicker"><span><i></i> ORIGINAL RESEARCH / 001</span><span>NBA · 2023–2026</span></div>
+  <div class="hero-composition">
+    <div class="hero-title"><div class="hero-tag">The economics of the second unit</div><h1>The Bench<br><em>Dividend.</em></h1><p class="hero-deck">Does the depth you build in the regular season<br class="desktop-break"> show up when it matters most?</p><a href="#results" class="hero-action">Explore the findings <span aria-hidden="true">↘</span></a></div>
+    <div class="court-art" aria-hidden="true">
+      <div class="court-art-label">FIG. 01 / BEYOND THE STARTING FIVE</div>
+      <svg viewBox="0 0 500 470" fill="none"><defs><radialGradient id="court-glow"><stop stop-color="#bbcba5" stop-opacity=".14"/><stop offset="1" stop-color="#bbcba5" stop-opacity="0"/></radialGradient></defs><circle cx="260" cy="240" r="220" fill="url(#court-glow)"/><g transform="translate(46 38) rotate(-12 205 205)" stroke="#93a37c" stroke-opacity=".5"><rect x="10" y="5" width="365" height="420"/><path d="M10 45V125C10 355 375 355 375 125V45"/><path d="M133 5V174H252V5M168 39H218"/><circle cx="193" cy="174" r="59"/><circle cx="193" cy="65" r="13"/><path d="M10 425H375M136 425a57 57 0 0 1 114 0"/><path d="M-8 215H395M193 -15V445" stroke-dasharray="2 9" stroke-opacity=".2"/><g fill="#c6d6ab" stroke="none"><circle cx="65" cy="166" r="6"/><circle cx="311" cy="190" r="6"/><circle cx="194" cy="249" r="6"/><circle cx="119" cy="302" r="6"/></g><circle cx="280" cy="315" r="20" stroke="#ff8050" stroke-opacity=".45"/><circle cx="280" cy="315" r="7" fill="#ff8050" stroke="none"/></g></svg>
+      <div class="court-art-bottom"><span>REGULAR SEASON <b>→</b> PLAYOFFS</span><span>48 TEAM-OBSERVATIONS</span></div>
+    </div>
   </div>
-  <p class="hero-abstract">Teams that distribute more minutes to bench players during the regular season tend to get more bench production in the playoffs. Across three NBA seasons (2023–26), this relationship is statistically significant — but the outliers reveal that minutes alone don't tell the full story.</p>
-</div>
+  <div class="hero-meta"><span><small>RESEARCH BY</small>Daiki Takizawa</span><span><small>PUBLISHED</small>June 2026</span><span><small>STUDY WINDOW</small>3 NBA seasons</span><span><small>TOOLS</small>nba_api · Python</span></div>
+</header>
+<div class="research-layout">
+  <aside class="article-rail" aria-label="On this page"><span class="rail-heading">INSIDE THE STUDY</span><a href="#motivation">01 <span>The question</span></a><a href="#methodology">02 <span>Data &amp; methodology</span></a><a href="#results">03 <span>The findings</span></a><a href="#outliers">04 <span>The outliers</span></a><a href="#discussion">05 <span>What it means</span></a><a href="#data-code">06 <span>Data &amp; code</span></a><div class="rail-foot">SPORTS ANALYTICS<br>UNIVERSITY OF TORONTO</div></aside>
+  <main class="content" id="article">
+  <div class="abstract"><span class="eyebrow">THE RESEARCH, IN BRIEF</span><p class="hero-abstract">Teams that distribute more minutes to bench players during the regular season tend to get more bench production in the playoffs. Across three NBA seasons (2023–26), this relationship is statistically significant — but the outliers reveal that minutes alone don't tell the full story.</p></div>
 
-<div class="content">
 
   <div class="finding-bar">
     <div class="finding">
-      <span class="finding-num sig">r = 0.300</span>
+      <span class="finding-num sig"><small>r</small> 0.300</span>
       <span class="finding-label">Correlation</span>
       <span class="finding-sub">Bench min (reg) → Bench pts (playoffs)</span>
     </div>
     <div class="finding">
-      <span class="finding-num sig">p = 0.038</span>
+      <span class="finding-num sig"><small>p</small> 0.038</span>
       <span class="finding-label">P-value</span>
       <span class="finding-sub">Significant at α = 0.05</span>
     </div>
@@ -128,11 +149,11 @@ footer{text-align:center;padding:40px;font-size:12px;color:var(--muted);border-t
     </div>
   </div>
 
-  <h2>Motivation</h2>
+  <h2 id="motivation"><span>01 /</span>Motivation</h2>
   <p>Every NBA front office talks about depth. Load management, roster construction, the value of a reliable second unit — these are constant topics in team-building conversations. But the empirical question is rarely asked directly: <strong>does the bench investment you make in the regular season actually show up when it matters most?</strong></p>
   <p>Playoff basketball is famously rotation-heavy. Coaches tighten their rotations, star players log heavy minutes, and bench contributions shrink. If that's true, maybe regular season bench usage is a poor predictor of playoff bench output. Or maybe teams that develop a functional bench throughout the year carry that advantage into the postseason. This research tests which is closer to the truth.</p>
 
-  <h2>Data & Methodology</h2>
+  <h2 id="methodology"><span>02 /</span>Data & Methodology</h2>
   <p>Data was pulled from the NBA Stats API (<code>nba_api</code>) covering the 2023–24, 2024–25, and 2025–26 NBA seasons. For each season, bench player stats were aggregated at the team level for both the regular season and playoffs using the <code>starter_bench_nullable='Bench'</code> filter.</p>
 
   <div class="method-block">
@@ -145,28 +166,28 @@ footer{text-align:center;padding:40px;font-size:12px;color:var(--muted);border-t
 
   <p>Using average per-player minutes (rather than total bench minutes) controls for roster size differences between teams. A team with 20 bench players averaging 10 minutes is meaningfully different from one with 12 bench players averaging 16 minutes — the latter reflects genuine depth investment.</p>
 
-  <h2>Results</h2>
+  <h2 id="results"><span>03 /</span>Results</h2>
   <p>Across 48 team-season observations, the correlation between regular season bench minutes and playoff bench scoring is <strong>r = 0.300 (p = 0.038)</strong> — a moderate positive relationship that clears the conventional significance threshold.</p>
 
   <div class="chart-container">
     <div class="chart-title">Bench Investment vs Playoff Bench Production — 2023 to 2026</div>
-    <canvas id="scatter" height="420"></canvas>
+    <div class="chart-frame scatter-frame"><canvas id="scatter" height="420" role="img" aria-label="Scatter plot of 48 team-season observations, comparing regular-season bench minutes with playoff bench points.">Scatter plot requires JavaScript. Study findings are described in the surrounding text.</canvas></div><p class="chart-hint">Hover or tap a point to inspect a team. Select a season in the legend to show or hide it.</p>
   </div>
 
   <p>The positive trend is consistent across all three seasons, though the effect varies year to year. The 2024–25 season showed the strongest individual-season correlation (r = 0.316), while 2025–26 showed the weakest (r = 0.156), suggesting external factors — injuries, coaching decisions, opponent matchups — add meaningful noise to any single season.</p>
 
   <div class="chart-container">
     <div class="chart-title">Season-by-Season Correlation Breakdown</div>
-    <canvas id="bars" height="200"></canvas>
+    <div class="chart-frame bars-frame"><canvas id="bars" height="200" role="img" aria-label="Reported correlations: 2023–24, 0.285; 2024–25, 0.316; 2025–26, 0.156; combined, 0.300.">Reported correlations: 0.285, 0.316, 0.156, and 0.300 combined.</canvas></div>
   </div>
 
-  <h2>Outlier Analysis</h2>
+  <h2 id="outliers"><span>04 /</span>Outlier Analysis</h2>
   <p>The most informative part of any regression is where the model breaks down. Four teams stand out as significant deviations from the trend — two overperformers and two underperformers.</p>
 
   <div class="outlier-grid">
 
     <div class="outlier-card over">
-      <div class="outlier-team over">DET</div>
+      <div class="outlier-kind">ABOVE THE TREND ↗</div><div class="outlier-team over">DET</div>
       <div class="outlier-season">2024–25</div>
       <div class="outlier-stat"><span>Reg season bench min</span><span>15.4</span></div>
       <div class="outlier-stat"><span>Playoff bench pts</span><span>6.62</span></div>
@@ -174,7 +195,7 @@ footer{text-align:center;padding:40px;font-size:12px;color:var(--muted);border-t
     </div>
 
     <div class="outlier-card over">
-      <div class="outlier-team over">MIN</div>
+      <div class="outlier-kind">ABOVE THE TREND ↗</div><div class="outlier-team over">MIN</div>
       <div class="outlier-season">2025–26</div>
       <div class="outlier-stat"><span>Reg season bench min</span><span>10.6</span></div>
       <div class="outlier-stat"><span>Playoff bench pts</span><span>6.58</span></div>
@@ -182,7 +203,7 @@ footer{text-align:center;padding:40px;font-size:12px;color:var(--muted);border-t
     </div>
 
     <div class="outlier-card under">
-      <div class="outlier-team under">LAL</div>
+      <div class="outlier-kind">BELOW THE TREND ↘</div><div class="outlier-team under">LAL</div>
       <div class="outlier-season">2024–25</div>
       <div class="outlier-stat"><span>Reg season bench min</span><span>13.3</span></div>
       <div class="outlier-stat"><span>Playoff bench pts</span><span>1.72</span></div>
@@ -190,7 +211,7 @@ footer{text-align:center;padding:40px;font-size:12px;color:var(--muted);border-t
     </div>
 
     <div class="outlier-card under">
-      <div class="outlier-team under">PHI</div>
+      <div class="outlier-kind">BELOW THE TREND ↘</div><div class="outlier-team under">PHI</div>
       <div class="outlier-season">2025–26</div>
       <div class="outlier-stat"><span>Reg season bench min</span><span>14.5</span></div>
       <div class="outlier-stat"><span>Playoff bench pts</span><span>2.75</span></div>
@@ -199,7 +220,7 @@ footer{text-align:center;padding:40px;font-size:12px;color:var(--muted);border-t
 
   </div>
 
-  <h2>Discussion</h2>
+  <h2 id="discussion"><span>05 /</span>Discussion</h2>
   <p>The finding supports the intuition that bench development has carry-over value into the playoffs, but the effect is modest. An r of 0.300 means bench minute investment explains roughly <strong>9% of the variance</strong> in playoff bench output — real, but far from deterministic.</p>
   <p>The outliers suggest two important nuances. First, <strong>role clarity may matter more than volume</strong>. Minnesota's bench players logged few regular season minutes but performed at a high level when deployed in the playoffs — implying that knowing your role and executing it under pressure is as valuable as simply accumulating minutes. Second, <strong>star-dependency creates fragility</strong>. The LAL collapse is consistent with a roster where bench players were never truly integrated into the offensive system — they existed to rest the stars, not to function independently.</p>
   <p>For front offices, this suggests that bench investment should be evaluated not just by minutes distributed but by whether bench players are being developed in <strong>meaningful, system-integrated roles</strong> during the regular season.</p>
@@ -210,12 +231,14 @@ footer{text-align:center;padding:40px;font-size:12px;color:var(--muted);border-t
     <p>Future work could incorporate bench net rating (rather than scoring) and control for opponent quality to build a more complete picture of what drives playoff bench performance.</p>
   </div>
 
-  <h2>Data & Code</h2>
+  <h2 id="data-code"><span>06 /</span>Data & Code</h2>
   <p>Data sourced from the NBA Stats API via <code>nba_api</code> (Python). Analysis conducted in Google Colab using pandas, scipy, and matplotlib. All three seasons (2023–24, 2024–25, 2025–26) were pulled using the <code>LeagueDashPlayerStats</code> endpoint with <code>starter_bench_nullable='Bench'</code>.</p>
 
+  <a class="article-return" href="index.html#research"><span>CONTINUE EXPLORING</span>Back to the portfolio <b aria-hidden="true">↗</b></a>
+</main>
 </div>
 
-<footer>Daiki Takizawa · Sports Analytics Research · University of Toronto · <a href="https://takizawadaiki.github.io">Portfolio</a></footer>
+<footer>Daiki Takizawa · Sports Analytics Research · University of Toronto · <a href="index.html">Portfolio</a></footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <script>
@@ -274,6 +297,7 @@ const data2526 = [
   {team:'PHI',reg:14.50,playoff:2.75}
 ];
 
+if (typeof Chart !== 'undefined') {
 const scatterCtx = document.getElementById('scatter').getContext('2d');
 new Chart(scatterCtx, {
   type: 'scatter',
@@ -282,29 +306,29 @@ new Chart(scatterCtx, {
       {
         label: '2023-24',
         data: data2324.map(d=>({x:d.reg,y:d.playoff,team:d.team})),
-        backgroundColor:'#3b82f6',pointRadius:6,pointHoverRadius:8
+        backgroundColor:'#b7c99a',pointRadius:6,pointHoverRadius:8
       },
       {
         label: '2024-25',
         data: data2425.map(d=>({x:d.reg,y:d.playoff,team:d.team})),
-        backgroundColor:'#22c55e',pointRadius:6,pointHoverRadius:8
+        backgroundColor:'#ff8050',pointRadius:6,pointHoverRadius:8
       },
       {
         label: '2025-26',
         data: data2526.map(d=>({x:d.reg,y:d.playoff,team:d.team})),
-        backgroundColor:'#f59e0b',pointRadius:6,pointHoverRadius:8
+        backgroundColor:'#90bfc3',pointRadius:6,pointHoverRadius:8
       }
     ]
   },
   options: {
-    responsive:true,
+    responsive:true, maintainAspectRatio:false, animation:window.matchMedia("(prefers-reduced-motion: reduce)").matches ? false : {duration:500},
     plugins:{
-      legend:{labels:{color:'#94a3b8',font:{size:12}}},
+      legend:{labels:{color:'#b8c7a7',font:{size:12}}},
       tooltip:{callbacks:{label:ctx=>`${ctx.raw.team}: reg ${ctx.raw.x.toFixed(1)}min → ${ctx.raw.y.toFixed(2)}pts`}}
     },
     scales:{
-      x:{title:{display:true,text:'Avg Bench Player Minutes (Regular Season)',color:'#64748b'},ticks:{color:'#64748b'},grid:{color:'#1e2a3a'}},
-      y:{title:{display:true,text:'Avg Bench Player Points (Playoffs)',color:'#64748b'},ticks:{color:'#64748b'},grid:{color:'#1e2a3a'}}
+      x:{title:{display:true,text:'Avg Bench Player Minutes (Regular Season)',color:'#a8b399'},ticks:{color:'#a8b399'},grid:{color:'#303c27'}},
+      y:{title:{display:true,text:'Avg Bench Player Points (Playoffs)',color:'#a8b399'},ticks:{color:'#a8b399'},grid:{color:'#303c27'}}
     }
   }
 });
@@ -317,22 +341,48 @@ new Chart(barsCtx, {
     datasets:[{
       label:'Pearson r',
       data:[0.285, 0.316, 0.156, 0.300],
-      backgroundColor:['#3b82f6','#22c55e','#f59e0b','#e2e8f0'],
+      backgroundColor:['#b7c99a','#ff8050','#90bfc3','#eeeede'],
       borderRadius:4
     }]
   },
   options: {
-    responsive:true,
+    responsive:true, maintainAspectRatio:false, animation:window.matchMedia("(prefers-reduced-motion: reduce)").matches ? false : {duration:500},
     plugins:{
       legend:{display:false},
       tooltip:{callbacks:{label:ctx=>`r = ${ctx.raw.toFixed(3)}`}}
     },
     scales:{
-      x:{ticks:{color:'#64748b'},grid:{display:false}},
-      y:{min:0,max:0.5,title:{display:true,text:'Correlation (r)',color:'#64748b'},ticks:{color:'#64748b'},grid:{color:'#1e2a3a'}}
+      x:{ticks:{color:'#a8b399'},grid:{display:false}},
+      y:{min:0,max:0.5,title:{display:true,text:'Correlation (r)',color:'#a8b399'},ticks:{color:'#a8b399'},grid:{color:'#303c27'}}
     }
   }
 });
+}
+</script>
+<script>
+(() => {
+  const progress = document.querySelector('#reading-progress');
+  let scheduled = false;
+  function update() {
+    const distance = document.documentElement.scrollHeight - innerHeight;
+    progress.style.width = (distance > 0 ? Math.min(100, scrollY / distance * 100) : 0) + '%';
+    scheduled = false;
+  }
+  addEventListener('scroll', () => { if (!scheduled) { scheduled = true; requestAnimationFrame(update); } }, {passive:true});
+  addEventListener('resize', update); update();
+  const links = Array.from(document.querySelectorAll('.article-rail a'));
+  const observer = new IntersectionObserver(entries => {
+    for (const entry of entries) if (entry.isIntersecting) {
+      links.forEach(link => {
+        const active = link.hash === '#' + entry.target.id;
+        link.classList.toggle('active', active);
+        if (active) link.setAttribute('aria-current', 'location'); else link.removeAttribute('aria-current');
+      });
+    }
+  }, {rootMargin:'-5% 0px -65% 0px'});
+  document.querySelectorAll('.content h2[id]').forEach(heading => observer.observe(heading));
+})();
 </script>
 </body>
 </html>
+
