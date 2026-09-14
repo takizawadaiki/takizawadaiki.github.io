@@ -3,515 +3,1012 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta name="theme-color" content="#0b0f17"/>
+<meta name="theme-color" content="#10120f"/>
 <meta name="description" content="Research and interactive analytics projects by Daiki Takizawa. Exploring business performance, sports economics, and predictive modeling."/>
 <title>Daiki Takizawa — Data Analytics</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 
 <style>
-/* FOUNDATION */
-*{box-sizing:border-box;margin:0;padding:0}
-
-:root{
-  --bg:#0b0f17;
-  --surface:#111824;
-  --border:rgba(148,163,184,.14);
-  --text:#edf2fa;
-  --secondary:#a8b4c7;
-  --muted:#8593aa;
-  --blue:#80aaff;
-  --heading:'Space Grotesk',sans-serif;
-  --body:'Inter',sans-serif;
+* {
+  box-sizing:border-box;
+  margin:0;
+  padding:0
 }
-
-html{
+:root {
+  --bg:#10120f;
+  --ink:#f0f0e7;
+  --muted:#a5ab9e;
+  --orange:#ff8050;
+  --border:#30372d;
+  --heading:'Space Grotesk',sans-serif
+}
+html {
   scroll-behavior:smooth;
-  scroll-padding-top:100px;
+  scroll-padding-top:30px
 }
-
-body{
+body {
   background:var(--bg);
-  color:var(--text);
-  font-family:var(--body);
-  font-size:15px;
-  line-height:1.65;
-  -webkit-font-smoothing:antialiased;
+  color:var(--ink);
+  font:15px/1.65 'DM Sans',sans-serif;
+  -webkit-font-smoothing:antialiased
 }
-
-body::before{
-  content:"";
-  position:absolute;
-  inset:0 0 auto;
-  height:700px;
-  background:radial-gradient(
-    ellipse at 75% 0%,
-    rgba(65,106,190,.1),
-    transparent 65%
-  );
-  pointer-events:none;
-  z-index:-1;
+a {
+  color:inherit;
+  text-decoration:none
 }
-
-a{color:inherit;text-decoration:none}
-::selection{background:#32558a;color:#fff}
-
-a:focus-visible{
-  outline:3px solid var(--blue);
-  outline-offset:6px;
+button {
+  font:inherit
 }
-
-.container{
-  width:min(1120px,calc(100% - 80px));
-  margin-inline:auto;
+a:focus-visible,button:focus-visible {
+  outline:3px solid var(--orange);
+  outline-offset:6px
 }
-
-/* HEADER */
-header{
-  border-bottom:1px solid var(--border);
+::selection {
+  background:#80452d
 }
-
-.header-inner{
-  min-height:110px;
+.container {
+  width:min(1380px,calc(100% - 112px));
+  margin:auto
+}
+.skip-link {
+  position:fixed;
+  left:20px;
+  top:-80px;
+  z-index:20;
+  padding:12px;
+  background:var(--ink);
+  color:white
+}
+.skip-link:focus {
+  top:12px
+}
+header .header-inner {
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:24px;
+  height:105px;
+  border-bottom:1px solid var(--border)
 }
-
-.name{
-  font-family:var(--heading);
-  font-size:25px;
-  font-weight:700;
-  letter-spacing:-1px;
-}
-
-.name span{color:var(--blue)}
-
-.tagline{
-  color:var(--muted);
-  font-size:12px;
-  margin-top:3px;
-}
-
-nav{
+.name {
+  font:600 19px var(--heading);
+  letter-spacing:-.7px;
   display:flex;
   align-items:center;
-  gap:28px;
+  gap:5px
 }
-
-nav a{
+.name>span:last-child {
+  color:var(--orange);
+  margin-left:-5px
+}
+.monogram {
+  background:var(--ink);
+  color:var(--bg);
+  font-size:23px;
+  padding:5px 10px;
+  margin-right:12px;
+  letter-spacing:-3px
+}
+.tagline {
+  display:none
+}
+nav {
+  display:flex;
+  gap:34px;
+  align-items:center;
+  font-size:12px
+}
+nav a:hover {
+  color:var(--orange)
+}
+nav svg {
+  width:13px;
+  height:13px
+}
+nav a:last-child {
+  display:flex;
+  gap:12px;
+  align-items:center
+}
+.intro {
+  padding-top:30px
+}
+.hero-top {
+  display:flex;
+  align-items:center;
+  justify-content:space-between
+}
+.eyebrow,.edition,.hero-bottom,.art-top,.section-count,.section-title,.research-label,.data-label,.visual-note,.category,.project-number,.footer-statement>span {
+  font:10px/1.5 var(--heading);
+  letter-spacing:1.2px;
+  text-transform:uppercase
+}
+.eyebrow {
+  display:flex;
+  gap:9px;
+  align-items:center
+}
+.status-dot {
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:var(--orange)
+}
+.edition {
+  color:var(--muted)
+}
+.hero-layout {
+  display:grid;
+  grid-template-columns:1.05fr 1fr;
+  gap:30px;
+  padding:38px 0 40px;
+  align-items:center
+}
+.hero-copy {
+  position:relative;
+  z-index:1
+}
+h1 {
+  font:500 clamp(66px,7.3vw,112px)/.94 var(--heading);
+  letter-spacing:-.075em
+}
+h1>span:not(.title-dot) {
+  color:#929c86
+}
+h1 em {
+  font-family:Georgia,serif;
+  font-weight:400;
+  color:var(--orange);
+  letter-spacing:-.07em
+}
+.title-dot {
+  font-size:.65em;
+  color:var(--orange);
+  display:inline-block;
+  vertical-align:middle;
+  margin-left:25px
+}
+.hero-copy p {
+  max-width:395px;
   font-size:13px;
-  color:var(--secondary);
-  transition:color .2s;
+  line-height:1.85;
+  margin-top:28px;
+  color:var(--muted)
 }
-
-nav a:hover{color:#fff}
-
-nav a:last-child{
-  display:flex;
-  align-items:center;
-  gap:8px;
-}
-
-nav svg{width:14px;height:14px}
-
-/* INTRO */
-.intro{
-  padding:65px 0 48px;
-}
-
-.eyebrow{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  font-size:11px;
-  text-transform:uppercase;
-  letter-spacing:.15em;
-  color:var(--blue);
-  font-weight:600;
-}
-
-.eyebrow::before{
-  content:"";
-  width:22px;
-  height:1px;
-  background:var(--blue);
-}
-
-h1{
-  font-family:var(--heading);
-  font-size:clamp(36px,5.5vw,62px);
-  line-height:1.1;
-  font-weight:500;
-  letter-spacing:-.055em;
-  margin:19px 0 18px;
-}
-
-h1 span{color:var(--muted)}
-
-.intro p{
-  max-width:580px;
-  font-size:15px;
-  color:var(--secondary);
-  line-height:1.8;
-}
-
-/* SECTION HEADINGS */
-.section-top{
-  display:flex;
+.primary-link {
+  display:inline-flex;
   align-items:center;
   justify-content:space-between;
-  gap:20px;
-  margin-bottom:20px;
-}
-
-.section-title{
-  font-family:var(--heading);
+  gap:48px;
+  background:var(--ink);
+  color:var(--bg);
+  padding:12px 20px;
   font-size:12px;
-  font-weight:500;
-  letter-spacing:.13em;
-  text-transform:uppercase;
+  margin-top:23px;
+  transition:background .2s
 }
-
-.section-count{
+.primary-link:hover {
+  background:var(--orange)
+}
+.primary-link span {
+  font-size:22px;
+  line-height:1
+}
+.hero-art {
+  height:510px;
+  position:relative;
+  background:radial-gradient(ellipse at 50% 48%,#263020 0,transparent 67%);
+  border:1px solid var(--border);
+  border-top:0;
+  border-bottom:0;
+  overflow:hidden
+}
+.art-top {
+  position:absolute;
+  top:10px;
+  left:20px;
+  right:20px;
+  display:flex;
+  justify-content:space-between;
+  font-size:8px;
+  letter-spacing:1px;
+  z-index:1
+}
+.art-live {
+  color:var(--muted)
+}
+.art-live i {
+  display:inline-block;
+  width:4px;
+  height:4px;
+  background:var(--orange);
+  margin-right:4px;
+  border-radius:50%
+}
+canvas {
+  width:100%;
+  height:100%;
+  display:block
+}
+.art-caption {
+  position:absolute;
+  bottom:10px;
+  left:22px;
+  right:22px;
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  font-size:11px;
+  line-height:1.6;
+  color:var(--muted)
+}
+.art-caption strong {
+  font-weight:400;
+  color:var(--ink)
+}
+.art-caption button {
+  border:0;
+  border-bottom:1px solid var(--border);
+  background:none;
   color:var(--muted);
-  font-size:12px;
+  font-size:10px;
+  cursor:pointer;
+  padding:7px 0
 }
-
-.research-section{margin-bottom:54px}
-
-/* FEATURED RESEARCH */
-.research-card{
+.art-caption button span {
+  margin-left:10px
+}
+.art-cross {
+  position:absolute;
+  color:#7c896f;
+  font:15px monospace
+}
+.cross-one {
+  top:58px;
+  left:20px
+}
+.cross-two {
+  bottom:65px;
+  right:20px
+}
+.hero-bottom {
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  padding:20px 0;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-size:8px;
+  letter-spacing:.9px
+}
+.hero-bottom>div {
+  display:flex;
+  gap:16px;
+  color:var(--muted)
+}
+.hero-bottom i {
+  color:#6e7b62
+}
+.hero-bottom>a {
+  font-size:22px
+}
+.research-section {
+  padding:60px 0
+}
+.section-top {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:22px
+}
+.section-title {
+  font-size:11px;
+  font-weight:500
+}
+.section-index {
+  color:var(--orange);
+  margin-right:18px
+}
+.section-count {
+  font-size:9px;
+  color:var(--muted)
+}
+.research-card {
+  display:grid;
+  grid-template-columns:1.15fr 1fr;
+  background:#1c261b;
+  color:#f4f2eb;
   position:relative;
   overflow:hidden;
-  display:grid;
-  grid-template-columns:minmax(0,1fr) 245px;
-  gap:40px;
-  padding:36px;
-  border:1px solid rgba(128,170,255,.25);
-  border-radius:18px;
-  background:linear-gradient(115deg,#141e30,#101722 80%);
-  transition:transform .25s,border-color .25s,box-shadow .25s;
+  min-height:370px;
+  border:1px solid #364a30;
+  transition:background .3s
 }
-
-.research-card:hover{
-  transform:translateY(-4px);
-  border-color:rgba(128,170,255,.6);
-  box-shadow:0 18px 50px rgba(0,0,0,.18);
+.research-card:hover {
+  background:#253021
 }
-
-.research-card::before{
-  content:"";
-  position:absolute;
-  top:0;
-  left:36px;
-  width:70px;
-  height:2px;
-  background:var(--blue);
+.research-card>div:first-child {
+  padding:42px 46px;
+  z-index:1
 }
-
-.research-label{
+.research-label {
+  color:#c0cba9;
   display:flex;
   align-items:center;
   gap:9px;
-  color:var(--blue);
-  font-size:11px;
-  font-weight:600;
-  text-transform:uppercase;
-  letter-spacing:.1em;
+  font-size:9px
 }
-
-.research-label svg{width:15px;height:15px}
-
-.research-title{
-  font-family:var(--heading);
-  font-size:clamp(26px,3vw,34px);
-  font-weight:500;
-  line-height:1.2;
-  letter-spacing:-.035em;
-  margin:15px 0 13px;
+.research-label svg {
+  width:14px;
+  height:14px
 }
-
-.research-desc{
-  color:var(--secondary);
-  font-size:14px;
-  max-width:570px;
-  line-height:1.8;
+.research-title {
+  font:400 clamp(36px,4.2vw,62px)/1.03 var(--heading);
+  letter-spacing:-2.5px;
+  margin:22px 0 18px
 }
-
-.research-link{
-  display:inline-flex;
+.research-title em {
+  font-family:Georgia,serif;
+  color:#d4dfa9;
+  font-weight:400
+}
+.research-desc {
+  max-width:410px;
+  font-size:12px;
+  line-height:1.85;
+  color:#b8bfb1
+}
+.research-link {
+  display:flex;
   align-items:center;
-  gap:10px;
-  font-size:13px;
-  color:var(--text);
-  margin-top:25px;
+  gap:32px;
+  font-size:11px;
+  margin-top:26px;
+  color:#e0e7ce
 }
-
-.arrow{
-  display:inline-block;
-  transition:transform .2s;
+.arrow {
+  font-size:18px;
+  transition:transform .2s
 }
-
-.research-card:hover .arrow,
-.card:hover .arrow{transform:translate(3px,-3px)}
-
-.research-data{
-  border-left:1px solid var(--border);
-  padding-left:32px;
+.research-card:hover .arrow,.card:hover .arrow {
+  transform:translate(3px,-3px)
+}
+.research-data {
+  position:relative;
   display:flex;
   flex-direction:column;
-  justify-content:center;
+  justify-content:end;
+  align-items:start;
+  padding:40px;
+  isolation:isolate
 }
-
-.data-label{
-  font-size:10px;
-  color:var(--muted);
-  text-transform:uppercase;
-  letter-spacing:.11em;
+.court {
+  position:absolute;
+  width:330px;
+  height:400px;
+  border:1px solid #a9bc7a;
+  right:-5px;
+  top:-80px;
+  transform:rotate(-24deg);
+  opacity:.4;
+  z-index:-1
 }
-
-.data-value{
-  font-family:var(--heading);
-  font-size:51px;
-  font-weight:500;
-  line-height:1.2;
-  color:#b6ceff;
-  letter-spacing:-.05em;
-  margin:7px 0 5px;
+.court:before {
+  content:'';
+  position:absolute;
+  left:0;
+  right:0;
+  top:120px;
+  height:230px;
+  border:1px solid #a9bc7a;
+  border-radius:0 0 50% 50%
 }
-
-.data-note{font-size:12px;color:var(--secondary)}
-
-.data-bottom{
-  border-top:1px solid var(--border);
-  margin-top:20px;
-  padding-top:15px;
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px 16px;
+.court:after {
+  content:'';
+  position:absolute;
+  width:90px;
+  height:90px;
+  border:1px solid #a9bc7a;
+  border-radius:50%;
+  bottom:-45px;
+  left:120px
+}
+.court-key {
+  position:absolute;
+  width:105px;
+  height:210px;
+  left:112px;
+  top:0;
+  border:1px solid #a9bc7a
+}
+.court-center {
+  position:absolute;
+  width:104px;
+  height:104px;
+  border:1px solid #a9bc7a;
+  top:155px;
+  left:112px;
+  border-radius:50%
+}
+.court-dot {
+  position:absolute;
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background:#d7e7a0;
+  box-shadow:0 0 0 6px #d7e7a018
+}
+.d1 {
+  top:280px;
+  left:20px
+}
+.d2 {
+  top:245px;
+  left:205px
+}
+.d3 {
+  top:140px;
+  left:260px
+}
+.d4 {
+  top:145px;
+  left:60px
+}
+.d5 {
+  top:45px;
+  left:163px
+}
+.data-label {
+  color:#c2c9b7;
+  font-size:9px
+}
+.data-value {
+  font:400 90px/1.15 var(--heading);
+  letter-spacing:-6px;
+  color:#d7e7a0
+}
+.data-note {
   font-size:11px;
-  color:var(--muted);
+  color:#c1c9b6
 }
-
-/* PROJECT GRID */
-.projects-section{padding-bottom:75px}
-
-.grid{
+.data-bottom {
+  display:flex;
+  gap:25px;
+  border-top:1px solid #626e4d;
+  padding-top:13px;
+  margin-top:18px;
+  font-size:10px;
+  color:#c1c9b6
+}
+.projects-section {
+  padding-bottom:72px
+}
+.grid {
   display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:20px;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:35px 24px
 }
-
-.card{
-  --color:#80aaff;
-  --tint:rgba(128,170,255,.08);
+.card {
+  display:flex;
+  flex-direction:column;
+  border-bottom:1px solid var(--border);
+  --color:#536040
+}
+.card-content {
+  padding:20px 0;
+  display:flex;
+  flex-direction:column;
+  flex:1
+}
+.project-visual {
+  height:215px;
   position:relative;
   overflow:hidden;
-  display:flex;
-  flex-direction:column;
-  padding:29px;
-  border:1px solid var(--border);
-  border-radius:16px;
-  background:var(--surface);
-  transition:transform .25s,border-color .25s,box-shadow .25s;
+  background:#202a1e;
+  transition:filter .3s
 }
-
-.card::before{
-  content:"";
+.card:hover .project-visual {
+  filter:brightness(.96)
+}
+.card:hover .card-title {
+  color:var(--orange)
+}
+.visual-note {
   position:absolute;
-  inset:0 0 auto;
-  height:110px;
-  background:linear-gradient(180deg,var(--tint),transparent);
-  pointer-events:none;
+  bottom:14px;
+  left:17px;
+  font-size:8px;
+  letter-spacing:1px;
+  opacity:.75
 }
-
-.card:hover{
-  transform:translateY(-4px);
-  border-color:var(--color);
-  box-shadow:0 16px 36px rgba(0,0,0,.18);
-}
-
-.retail{--color:#7dd3be;--tint:rgba(125,211,190,.07)}
-.hotel{--color:#c4a5f5;--tint:rgba(196,165,245,.07)}
-.business{--color:#80aaff;--tint:rgba(128,170,255,.07)}
-.dodgers{--color:#7dc6ec;--tint:rgba(125,198,236,.07)}
-.models{--color:#edbf7f;--tint:rgba(237,191,127,.07)}
-.tennis{--color:#b9d58c;--tint:rgba(185,213,140,.07)}
-
-.card-top{
-  position:relative;
+.card-top {
   display:flex;
-  align-items:center;
   justify-content:space-between;
-  margin-bottom:28px;
+  align-items:center;
+  margin-bottom:12px
 }
-
-.category{
+.category {
+  font-size:8px;
+  color:var(--muted);
+  letter-spacing:.8px
+}
+.icon {
+  display:none
+}
+.project-number {
+  color:var(--orange);
+  font-size:10px
+}
+.card-title {
+  font:500 23px/1.15 var(--heading);
+  letter-spacing:-.9px;
+  margin-bottom:12px;
+  transition:color .2s
+}
+.card-desc {
+  font-size:11px;
+  line-height:1.85;
+  color:var(--muted);
+  margin-bottom:20px
+}
+.tags {
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap;
+  margin-top:auto;
+  margin-bottom:18px
+}
+.tag {
+  font-size:8px;
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:3px 8px;
+  color:var(--muted)
+}
+.card-bottom {
+  display:flex;
+  justify-content:space-between;
+  align-items:center
+}
+.project-type {
+  font-size:9px;
+  color:var(--muted)
+}
+.project-link {
+  font-size:10px;
   display:flex;
   align-items:center;
-  gap:11px;
-  font-family:var(--heading);
-  font-size:11px;
-  font-weight:500;
-  text-transform:uppercase;
-  letter-spacing:.09em;
-  color:var(--color);
+  gap:12px
 }
-
-.icon{
+.hotel .project-visual {
+  background:#2b2520
+}
+.business .project-visual {
+  background:#202633
+}
+.dodgers .project-visual {
+  background:#1c2b2d
+}
+.models .project-visual {
+  background:#30251c
+}
+.tennis .project-visual {
+  background:#282f1b
+}
+.bar-art {
+  position:absolute;
+  display:flex;
+  align-items:end;
+  gap:6px;
+  height:130px;
+  left:32px;
+  right:32px;
+  top:28px;
+  transform:skewY(-9deg)
+}
+.bar-art i {
+  height:var(--h);
+  flex:1;
+  background:#a4bc78;
+  opacity:calc(.35 + var(--n)*.05);
+  transition:transform .4s
+}
+.card:hover .bar-art i {
+  transform:translateY(-5px)
+}
+.ledger-art {
+  display:grid;
+  grid-template-columns:repeat(10,1fr);
+  gap:7px;
+  position:absolute;
+  left:40px;
+  right:40px;
+  top:30px;
+  transform:rotate(-9deg)
+}
+.ledger-art i {
+  height:12px;
+  background:#b5a17b
+}
+.ledger-art i:nth-child(4n),.ledger-art i:nth-child(11n) {
+  background:#ee8155
+}
+.ledger-art i:nth-child(6n) {
+  opacity:.18
+}
+.league-art {
+  position:absolute;
+  inset:18px 20px 45px;
+  display:flex;
+  gap:8px;
+  align-items:center
+}
+.league-art span {
+  flex:1;
   display:grid;
   place-items:center;
-  width:37px;
-  height:37px;
-  border-radius:10px;
-  background:var(--tint);
-  border:1px solid var(--border);
+  border:1px solid #7e94b8;
+  border-radius:50%;
+  height:130px;
+  font:500 15px var(--heading);
+  color:#bccde9;
+  transform:rotate(-18deg)
 }
-
-.icon svg{
-  width:19px;
-  height:19px;
-  fill:none;
-  stroke:currentColor;
+.league-art span:nth-child(2) {
+  height:100px;
+  background:#8294b633
+}
+.league-art span:nth-child(3) {
+  height:145px
+}
+.league-art span:nth-child(4) {
+  height:85px
+}
+.orbit-art {
+  position:absolute;
+  inset:0;
+  display:grid;
+  place-items:center
+}
+.orbit-art i {
+  position:absolute;
+  width:135px;
+  height:135px;
+  border:1px solid #76a1a6;
+  border-radius:50%;
+  transform:rotate(-25deg) scaleX(1.8)
+}
+.orbit-art i:nth-child(2) {
+  transform:rotate(30deg) scaleX(1.8)
+}
+.orbit-art i:nth-child(3) {
+  transform:rotate(90deg) scaleX(1.3)
+}
+.orbit-art b {
+  font:italic 48px Georgia,serif;
+  color:#b3d5d8;
+  letter-spacing:-7px
+}
+.orbit-art>span {
+  position:absolute;
+  top:32px;
+  right:65px;
+  padding:5px;
+  background:#406c71;
+  color:#fff;
+  font-size:9px;
+  border-radius:50%
+}
+.wave-art {
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:90%;
+  stroke:#d9a16c;
   stroke-width:1.5;
-  stroke-linecap:round;
-  stroke-linejoin:round;
+  fill:#c68d4830
 }
-
-.project-number{
-  font-family:var(--heading);
-  font-size:12px;
+.wave-art path:nth-child(2) {
+  stroke:#ff9758;
+  fill:none
+}
+.wave-art path:nth-child(3) {
+  stroke:#af976d;
+  fill:none
+}
+.wave-art path:last-child {
+  stroke-width:.5;
+  fill:none
+}
+.tennis-art {
+  width:240px;
+  height:300px;
+  position:absolute;
+  border:1px solid #8c9e57;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%) rotate(32deg)
+}
+.tennis-art:before {
+  content:'';
+  position:absolute;
+  inset:0 26px;
+  border-left:1px solid #8c9e57;
+  border-right:1px solid #8c9e57
+}
+.tennis-art:after {
+  content:'';
+  position:absolute;
+  left:0;
+  right:0;
+  top:50%;
+  border-top:2px solid #8c9e57
+}
+.tennis-art i {
+  position:absolute;
+  inset:65px 26px;
+  border:1px solid #8c9e57
+}
+.tennis-art i:after {
+  content:'';
+  position:absolute;
+  height:100%;
+  left:50%;
+  border-left:1px solid #8c9e57
+}
+.tennis-art b {
+  position:absolute;
+  width:23px;
+  height:23px;
+  border-radius:50%;
+  background:#f2f6a4;
+  border:1px solid #b2bf61;
+  top:80px;
+  left:95px;
+  box-shadow:8px 12px 12px #79844430
+}
+footer {
+  background:#181e16;
+  border-top:1px solid var(--border)
+}
+.footer-statement {
+  padding:44px 0 40px
+}
+.footer-statement>span {
   color:var(--muted);
+  font-size:9px
 }
-
-.card-title{
-  font-family:var(--heading);
-  font-size:24px;
-  font-weight:500;
-  line-height:1.25;
-  letter-spacing:-.035em;
-  margin-bottom:12px;
-}
-
-.card-desc{
-  color:var(--secondary);
-  font-size:13px;
-  line-height:1.85;
-  margin-bottom:23px;
-}
-
-.tags{
+.footer-statement>a {
   display:flex;
-  flex-wrap:wrap;
-  gap:7px;
-  margin-top:auto;
-  padding-bottom:25px;
+  justify-content:space-between;
+  align-items:center;
+  font:400 clamp(48px,7vw,90px) var(--heading);
+  letter-spacing:-4px;
+  margin-top:10px
 }
-
-.tag{
-  color:var(--secondary);
+.footer-statement>a span {
+  color:var(--orange)
+}
+.footer-inner {
+  display:flex;
+  justify-content:space-between;
+  border-top:1px solid #303b2b;
+  padding:20px 0;
   font-size:10px;
-  padding:4px 9px;
-  border:1px solid var(--border);
-  border-radius:5px;
-  background:rgba(255,255,255,.015);
+  color:var(--muted)
+}
+@media(min-width:1500px) {
+  .hero-art {
+  height:590px
 }
 
-.card-bottom{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  border-top:1px solid var(--border);
-  padding-top:17px;
+}
+@media(max-width:1000px) {
+  .container {
+  width:calc(100% - 64px)
+}
+.hero-layout {
+  gap:10px
+}
+.hero-art {
+  height:470px
+}
+.art-live {
+  display:none
+}
+.hero-bottom>div {
+  gap:7px;
+  font-size:7px
+}
+.grid {
+  grid-template-columns:repeat(2,minmax(0,1fr))
+}
+.research-card>div:first-child {
+  padding:32px
+}
+.research-data {
+  padding:30px
+}
+.title-dot {
+  margin-left:15px
+}
+.hero-copy p {
+  max-width:320px
 }
 
-.project-type{
-  color:var(--muted);
-  font-size:11px;
 }
-
-.project-link{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  color:var(--color);
+@media(max-width:760px) {
+  .container {
+  width:calc(100% - 36px)
+}
+header .header-inner {
+  height:82px
+}
+.name {
+  font-size:15px
+}
+.monogram {
+  font-size:19px;
+  margin-right:6px;
+  padding:4px 8px
+}
+nav {
+  gap:15px;
+  font-size:10px
+}
+nav .github-link {
+  display:none
+}
+.intro {
+  padding-top:22px
+}
+.eyebrow {
+  font-size:8px;
+  letter-spacing:.5px
+}
+.edition {
+  font-size:7px;
+  letter-spacing:.5px
+}
+.hero-layout {
+  grid-template-columns:1fr;
+  padding-top:30px;
+  gap:30px
+}
+h1 {
+  font-size:clamp(62px,13vw,84px)
+}
+.hero-copy p {
   font-size:12px;
-  font-weight:500;
-  white-space:nowrap;
+  max-width:350px;
+  margin-top:23px
+}
+.hero-art {
+  height:350px
+}
+.art-live {
+  display:inline
+}
+.hero-bottom {
+  font-size:7px;
+  gap:10px;
+  padding:13px 0
+}
+.hero-bottom>div {
+  display:none
+}
+.research-section {
+  padding:36px 0
+}
+.section-title {
+  font-size:9px
+}
+.section-count {
+  font-size:7px;
+  letter-spacing:.6px
+}
+.section-index {
+  margin-right:8px
+}
+.research-card {
+  grid-template-columns:1fr
+}
+.research-card>div:first-child {
+  padding:28px
+}
+.research-title {
+  font-size:46px
+}
+.research-desc {
+  font-size:12px
+}
+.research-data {
+  padding:24px 28px 28px;
+  border-top:1px solid #576049
+}
+.data-value {
+  font-size:72px
+}
+.court {
+  right:-30px;
+  top:-100px;
+  width:250px;
+  opacity:.25
+}
+.grid {
+  grid-template-columns:1fr;
+  gap:28px
+}
+.project-visual {
+  height:225px
+}
+.card-title {
+  font-size:26px
+}
+.card-desc {
+  font-size:12px
+}
+.category,.tag {
+  font-size:9px
+}
+.project-link {
+  font-size:11px
+}
+.footer-statement>a {
+  letter-spacing:-2.5px
+}
+.projects-section {
+  padding-bottom:45px
 }
 
-/* FOOTER */
-footer{border-top:1px solid var(--border)}
-
-.footer-inner{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:20px;
-  padding:27px 0;
-  color:var(--muted);
-  font-size:11px;
+}
+@media(prefers-reduced-motion:reduce) {
+  html {
+  scroll-behavior:auto
+}
+*,*:before,*:after {
+  animation:none!important;
+  transition:none!important
 }
 
-footer a{color:var(--secondary)}
-footer a:hover{color:var(--text)}
-
-/* RESPONSIVE */
-@media(max-width:800px){
-  .container{width:calc(100% - 48px)}
-  .research-card{grid-template-columns:minmax(0,1fr) 190px;gap:25px}
-  .research-data{padding-left:25px}
-  .card{padding:24px}
-  .card-title{font-size:22px}
 }
 
-@media(max-width:640px){
-  html{scroll-padding-top:24px}
-  .container{width:calc(100% - 40px)}
-  .header-inner{min-height:100px;gap:16px}
-  .name{font-size:22px}
-  .tagline{font-size:10px}
-  nav{gap:16px}
-  nav a{font-size:12px}
-  nav .github-link{display:none}
-  .intro{padding:42px 0 36px}
-  .intro p{font-size:14px}
-  .research-card{grid-template-columns:1fr;padding:26px;gap:25px}
-  .research-card::before{left:26px}
-  .research-data{
-    border-left:0;
-    border-top:1px solid var(--border);
-    padding:20px 0 0;
-  }
-  .data-value{font-size:42px}
-  .data-bottom{margin-top:15px}
-  .research-section{margin-bottom:38px}
-  .grid{grid-template-columns:minmax(0,1fr);gap:16px}
-  .card-top{margin-bottom:22px}
-  .card-title{font-size:24px}
-  .projects-section{padding-bottom:45px}
-  .footer-inner{align-items:flex-start}
+
+/* Dark surfaces retain contrast across artwork, controls, and native UI. */
+:root {
+  color-scheme:dark
+}
+.primary-link {
+  background:var(--orange);
+  color:#171b13
+}
+.primary-link:hover {
+  background:#ff9b76
+}
+.monogram {
+  background:#dbe4cd;
+  color:#151a12
+}
+.project-visual {
+  color:#c8d1bd
+}
+.hero-art {
+  background:radial-gradient(ellipse at 50% 48%,#283020 0,transparent 67%)
 }
 
-@media(prefers-reduced-motion:reduce){
-  html{scroll-behavior:auto}
-  *,*::before,*::after{transition:none!important}
-  .card:hover,.research-card:hover{transform:none}
-}
+
 </style>
 </head>
 
 <body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
 
 <header>
   <div class="container header-inner">
     <a href="#top" aria-label="Daiki Takizawa home">
-      <div class="name">Daiki Takizawa<span>.</span></div>
+      <div class="name"><span class="monogram">dt</span> Daiki Takizawa<span>.</span></div>
       <div class="tagline">Data Analytics · University of Toronto</div>
     </a>
 
@@ -528,19 +1025,28 @@ footer a:hover{color:var(--text)}
   </div>
 </header>
 
-<main class="container">
+<main id="main" class="container">
 
   <section class="intro" aria-labelledby="page-title">
-    <div class="eyebrow">Research &amp; analytics portfolio</div>
-    <h1 id="page-title">Behind the numbers.<br><span>Beyond the obvious.</span></h1>
-    <p>Exploring business performance and sports economics through original research, interactive dashboards, and predictive models.</p>
+    <div class="hero-top"><div class="eyebrow"><span class="status-dot"></span> An independent perspective on data</div><span class="edition">PORTFOLIO — 2026</span></div>
+    <div class="hero-layout"><div class="hero-copy">
+      <h1 id="page-title">Behind the<br>numbers.<br><span>Beyond the</span><br><em>obvious.</em><span class="title-dot" aria-hidden="true">✳</span></h1>
+      <p>I’m Daiki. I explore the stories hiding in business performance and sports economics—through research, dashboards, and predictive models.</p>
+      <a class="primary-link" href="#projects">Explore my work <span aria-hidden="true">↘</span></a>
+    </div>
+    <div class="hero-art"><div class="art-top"><span>FIG. 01 / FINDING THE SIGNAL</span><span class="art-live"><i></i> LIVE GENERATIVE STUDY</span></div>
+      <canvas id="signal" aria-label="Decorative animated orange point cloud forming a twisting three-dimensional data sculpture" role="img"></canvas>
+      <div class="art-caption"><span>From complexity,<br><strong>a clearer perspective.</strong></span><button id="motion-toggle" type="button" aria-pressed="false">Pause motion <span aria-hidden="true">Ⅱ</span></button></div>
+      <span class="art-cross cross-one" aria-hidden="true">+</span><span class="art-cross cross-two" aria-hidden="true">+</span>
+    </div></div>
+    <div class="hero-bottom"><span>DATA ANALYTICS · UNIVERSITY OF TORONTO</span><div><span>Business intelligence</span><i>/</i><span>Sports economics</span><i>/</i><span>Predictive modeling</span></div><a href="#research" aria-label="Scroll to featured research">↓</a></div>
   </section>
 
   <!-- FEATURED RESEARCH -->
   <section class="research-section" id="research" aria-labelledby="research-heading">
     <div class="section-top">
-      <h2 class="section-title" id="research-heading">Featured research</h2>
-      <span class="section-count">01 / Original study</span>
+      <h2 class="section-title" id="research-heading"><span class="section-index">01 /</span> Featured research</h2>
+      <span class="section-count">A QUESTION WORTH ASKING</span>
     </div>
 
     <a class="research-card" href="https://takizawadaiki.github.io/bench-research.html">
@@ -553,13 +1059,13 @@ footer a:hover{color:var(--text)}
           NBA · Original research
         </div>
 
-        <h3 class="research-title">The Bench Dividend</h3>
+        <h3 class="research-title">The Bench<br><em>Dividend.</em></h3>
         <p class="research-desc">Does regular season bench investment translate to playoff bench production? An analysis of three NBA seasons explores the relationship—and its limitations.</p>
 
         <span class="research-link">Read the research <span class="arrow" aria-hidden="true">↗</span></span>
       </div>
 
-      <div class="research-data">
+      <div class="research-data"><div class="court" aria-hidden="true"><div class="court-center"></div><div class="court-key"></div><span class="court-dot d1"></span><span class="court-dot d2"></span><span class="court-dot d3"></span><span class="court-dot d4"></span><span class="court-dot d5"></span></div>
         <span class="data-label">Observed correlation</span>
         <span class="data-value">0.300</span>
         <span class="data-note">Pearson’s r · p = 0.038</span>
@@ -574,14 +1080,14 @@ footer a:hover{color:var(--text)}
   <!-- PROJECTS -->
   <section class="projects-section" id="projects" aria-labelledby="projects-heading">
     <div class="section-top">
-      <h2 class="section-title" id="projects-heading">Selected projects</h2>
-      <span class="section-count">06 / Explorations</span>
+      <h2 class="section-title" id="projects-heading"><span class="section-index">02 /</span> Selected projects</h2>
+      <span class="section-count">SIX WAYS TO SEE DIFFERENTLY</span>
     </div>
 
     <div class="grid">
 
       <!-- RETAIL -->
-      <a class="card retail" href="https://takizawadaiki.github.io/retail-profitability-analysis/" target="_blank" rel="noopener noreferrer">
+      <a class="card retail" href="https://takizawadaiki.github.io/retail-profitability-analysis/" target="_blank" rel="noopener noreferrer"><div class="project-visual" aria-hidden="true"><div class="bar-art"><i style="--h:34%;--n:0"></i><i style="--h:51%;--n:1"></i><i style="--h:39%;--n:2"></i><i style="--h:70%;--n:3"></i><i style="--h:56%;--n:4"></i><i style="--h:84%;--n:5"></i><i style="--h:67%;--n:6"></i><i style="--h:94%;--n:7"></i><i style="--h:77%;--n:8"></i><i style="--h:60%;--n:9"></i><i style="--h:42%;--n:10"></i><i style="--h:26%;--n:11"></i></div><span class="visual-note">VOLUME ≠ VALUE</span></div><div class="card-content">
         <div class="card-top">
           <span class="category">
             <span class="icon" aria-hidden="true">
@@ -606,10 +1112,10 @@ footer a:hover{color:var(--text)}
           <span class="project-type">Interactive dashboard</span>
           <span class="project-link">View project <span class="arrow" aria-hidden="true">↗</span></span>
         </div>
-      </a>
+      </div></a>
 
       <!-- HOSPITALITY -->
-      <a class="card hotel" href="https://takizawadaiki.github.io/hotel-booking-analysis/" target="_blank" rel="noopener noreferrer">
+      <a class="card hotel" href="https://takizawadaiki.github.io/hotel-booking-analysis/" target="_blank" rel="noopener noreferrer"><div class="project-visual" aria-hidden="true"><div class="ledger-art"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><span class="visual-note">BOOKED. BUT NOT GUARANTEED.</span></div><div class="card-content">
         <div class="card-top">
           <span class="category">
             <span class="icon" aria-hidden="true">
@@ -632,10 +1138,10 @@ footer a:hover{color:var(--text)}
           <span class="project-type">Interactive dashboard</span>
           <span class="project-link">View project <span class="arrow" aria-hidden="true">↗</span></span>
         </div>
-      </a>
+      </div></a>
 
       <!-- SPORTS BUSINESS -->
-      <a class="card business" href="https://takizawadaiki.github.io/Sports-Business/" target="_blank" rel="noopener noreferrer">
+      <a class="card business" href="https://takizawadaiki.github.io/Sports-Business/" target="_blank" rel="noopener noreferrer"><div class="project-visual" aria-hidden="true"><div class="league-art"><span>NBA</span><span>NFL</span><span>MLB</span><span>NHL</span></div><span class="visual-note">FOUR LEAGUES. DIFFERENT RULES.</span></div><div class="card-content">
         <div class="card-top">
           <span class="category">
             <span class="icon" aria-hidden="true">
@@ -658,10 +1164,10 @@ footer a:hover{color:var(--text)}
           <span class="project-type">Business intelligence</span>
           <span class="project-link">View project <span class="arrow" aria-hidden="true">↗</span></span>
         </div>
-      </a>
+      </div></a>
 
       <!-- DODGERS -->
-      <a class="card dodgers" href="https://takizawadaiki.github.io/LADODGERS/" target="_blank" rel="noopener noreferrer">
+      <a class="card dodgers" href="https://takizawadaiki.github.io/LADODGERS/" target="_blank" rel="noopener noreferrer"><div class="project-visual" aria-hidden="true"><div class="orbit-art"><i></i><i></i><i></i><b>LA</b><span>JP</span></div><span class="visual-note">A GLOBAL RIPPLE EFFECT</span></div><div class="card-content">
         <div class="card-top">
           <span class="category">
             <span class="icon" aria-hidden="true">
@@ -684,10 +1190,10 @@ footer a:hover{color:var(--text)}
           <span class="project-type">Business analytics</span>
           <span class="project-link">View project <span class="arrow" aria-hidden="true">↗</span></span>
         </div>
-      </a>
+      </div></a>
 
       <!-- PREDICTION MODELS -->
-      <a class="card models" href="https://takizawadaiki.github.io/prediction-models.html">
+      <a class="card models" href="#prediction-models"><div class="project-visual" aria-hidden="true"><svg viewBox="0 0 500 200" class="wave-art"><path d="M0 170 Q90 170 150 125 T250 30 T350 125 T500 170"/><path d="M0 175 Q140 175 210 100 T310 60 T500 175"/><path d="M0 178 Q70 178 120 115 T210 65 T310 140 T500 178"/><path d="M0 180H500"/></svg><span class="visual-note">PROBABILITY, NOT CERTAINTY.</span></div><div class="card-content">
         <div class="card-top">
           <span class="category">
             <span class="icon" aria-hidden="true">
@@ -713,10 +1219,10 @@ footer a:hover{color:var(--text)}
           <span class="project-type">Model collection</span>
           <span class="project-link">Explore models <span class="arrow" aria-hidden="true">↗</span></span>
         </div>
-      </a>
+      </div></a>
 
       <!-- TENNIS -->
-      <a class="card tennis" href="https://takizawadaiki.github.io/tennisiq/" target="_blank" rel="noopener noreferrer">
+      <a class="card tennis" href="https://takizawadaiki.github.io/grand-slam-economics/" target="_blank" rel="noopener noreferrer"><div class="project-visual" aria-hidden="true"><div class="tennis-art"><i></i><b></b></div><span class="visual-note">THE OTHER SIDE OF THE COURT</span></div><div class="card-content">
         <div class="card-top">
           <span class="category">
             <span class="icon" aria-hidden="true">
@@ -740,18 +1246,122 @@ footer a:hover{color:var(--text)}
           <span class="project-type">Interactive dashboard</span>
           <span class="project-link">View project <span class="arrow" aria-hidden="true">↗</span></span>
         </div>
-      </a>
+      </div></a>
 
+    </div>
+  </section>
+
+  <!-- The model directory is included here so no extra HTML file is needed. -->
+  <section class="projects-section" id="prediction-models" aria-labelledby="models-heading">
+    <div class="section-top">
+      <h2 class="section-title" id="models-heading"><span class="section-index">03 /</span> Explore the models</h2>
+      <span class="section-count">SIX SPORTS</span>
+    </div>
+    <div class="grid">
+      <a class="card" href="https://takizawadaiki.github.io/world-cup-forecast-model/" target="_blank" rel="noopener noreferrer">
+        <div class="card-content">
+          <h3 class="card-title">Soccer</h3>
+          <span class="project-link">Explore model <span class="arrow" aria-hidden="true">↗</span></span>
+        </div>
+      </a>
+      <a class="card" href="https://takizawadaiki.github.io/NHL-Models/" target="_blank" rel="noopener noreferrer">
+        <div class="card-content">
+          <h3 class="card-title">Hockey</h3>
+          <span class="project-link">Explore model <span class="arrow" aria-hidden="true">↗</span></span>
+        </div>
+      </a>
+      <a class="card" href="https://takizawadaiki.github.io/Tennis-model/" target="_blank" rel="noopener noreferrer">
+        <div class="card-content">
+          <h3 class="card-title">Tennis</h3>
+          <span class="project-link">Explore model <span class="arrow" aria-hidden="true">↗</span></span>
+        </div>
+      </a>
+      <a class="card" href="https://takizawadaiki.github.io/UFC-Prediction-Model/" target="_blank" rel="noopener noreferrer">
+        <div class="card-content">
+          <h3 class="card-title">UFC</h3>
+          <span class="project-link">Explore model <span class="arrow" aria-hidden="true">↗</span></span>
+        </div>
+      </a>
+      <a class="card" href="https://takizawadaiki.github.io/NBA-Models/" target="_blank" rel="noopener noreferrer">
+        <div class="card-content">
+          <h3 class="card-title">Basketball</h3>
+          <span class="project-link">Explore model <span class="arrow" aria-hidden="true">↗</span></span>
+        </div>
+      </a>
+      <a class="card" href="https://takizawadaiki.github.io/MLB-Prediction-Model/" target="_blank" rel="noopener noreferrer">
+        <div class="card-content">
+          <h3 class="card-title">Baseball</h3>
+          <span class="project-link">Explore model <span class="arrow" aria-hidden="true">↗</span></span>
+        </div>
+      </a>
     </div>
   </section>
 </main>
 
-<footer>
+<footer><div class="container footer-statement"><span>THERE’S ALWAYS MORE TO THE STORY.</span><a href="https://github.com/takizawadaiki" target="_blank" rel="noopener noreferrer">Stay curious.<span aria-hidden="true">↗</span></a></div>
   <div class="container footer-inner">
     <span>Daiki Takizawa · Data Analytics</span>
     <a href="#top">Back to top ↑</a>
   </div>
 </footer>
 
+<script>
+(() => {
+  const canvas = document.querySelector('#signal');
+  const context = canvas.getContext('2d');
+  const toggle = document.querySelector('#motion-toggle');
+  if (!context) { toggle.hidden = true; return; }
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let paused = reduced.matches, visible = true, frame = 0, time = 0, width = 0, height = 0, last = 0;
+  const points = [];
+  for (let u = 0; u < 104; u++) {
+    const a = u / 104 * Math.PI * 2;
+    for (let v = 0; v < 44; v++) {
+      const b = v / 44 * Math.PI * 2;
+      const radius = 1.34 + .48 * Math.cos(b);
+      const x = radius * Math.cos(a), y = radius * Math.sin(a), z = .48 * Math.sin(b);
+      const twist = a * 2;
+      points.push([x, y * Math.cos(twist) - z * Math.sin(twist), y * Math.sin(twist) + z * Math.cos(twist)]);
+    }
+  }
+  function draw() {
+    context.clearRect(0, 0, width, height);
+    const angle = time * .00015 + .3, scale = Math.min(width * .215, height * .215);
+    const sin = Math.sin(angle), cos = Math.cos(angle);
+    const projected = points.map(([x,y,z]) => {
+      const rx = x*cos + z*sin, rz = -x*sin + z*cos;
+      const ry = y * .86 - rz * .5, depth = y * .5 + rz * .86;
+      const perspective = 4.5 / (4.5 - depth);
+      return [width/2 + rx * scale * perspective, height/2 + ry * scale * perspective, depth, perspective];
+    }).sort((a,b) => a[2]-b[2]);
+    for (const [x,y,z,p] of projected) {
+      context.beginPath(); context.arc(x,y,Math.max(.5,1.15*p),0,Math.PI*2);
+      context.fillStyle = `rgba(255,133,74,${.24 + (z+2)/4*.65})`;context.fill();
+    }
+  }
+  function resize() {
+    const box = canvas.getBoundingClientRect(), ratio = Math.min(window.devicePixelRatio || 1, 2);
+    width=box.width;height=box.height;canvas.width=Math.round(width*ratio);canvas.height=Math.round(height*ratio);
+    context.setTransform(ratio,0,0,ratio,0,0); draw();
+  }
+  function animate(now) {
+    frame=0;if(paused || !visible || document.hidden)return;
+    if(last)time+=Math.min(now-last,50);last=now;draw();frame=requestAnimationFrame(animate);
+  }
+  function sync() {
+    cancelAnimationFrame(frame);frame=0;last=0;
+    toggle.setAttribute('aria-pressed',String(paused));
+    toggle.innerHTML=paused?'Resume motion <span aria-hidden="true">▷</span>':'Pause motion <span aria-hidden="true">Ⅱ</span>';
+    if(!paused && visible && !document.hidden)frame=requestAnimationFrame(animate);
+  }
+  toggle.addEventListener('click',()=>{paused=!paused;sync()});
+  reduced.addEventListener('change',e=>{paused=e.matches;sync()});
+  document.addEventListener('visibilitychange',sync);
+  new ResizeObserver(resize).observe(canvas);
+  new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;sync()}).observe(canvas);
+  resize();sync();
+})();
+
+</script>
 </body>
 </html>
