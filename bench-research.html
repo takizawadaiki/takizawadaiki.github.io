@@ -1,12 +1,13 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<meta name="theme-color" content="#10120f"/>
-<meta name="description" content="The Bench Dividend: an NBA research study of regular-season bench usage and playoff scoring by Daiki Takizawa."/>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1.0" name="viewport"/>
+<meta content="#10120f" name="theme-color"/>
+<meta content="The Bench Dividend: an exploratory study of supporting talent, playoff scoring and the management questions behind organizational depth." name="description"/>
 <title>The Bench Dividend · Daiki Takizawa</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Space+Grotesk:wght@500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&amp;family=Space+Grotesk:wght@500;600;700&amp;family=Space+Mono:wght@400;700&amp;display=swap" rel="stylesheet"/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -102,145 +103,113 @@ h2{display:flex;align-items:baseline;gap:20px;font:500 clamp(25px,2.7vw,36px)/1.
 @media(max-width:480px){.finding-bar{grid-template-columns:1fr;gap:20px;padding:25px}.finding+.finding{border-left:0;border-top:1px solid #3a4b2d;padding:18px 0 0}.finding-num{font-size:43px}.finding-num small{font-size:19px}.finding-sub{font-size:11px}.finding-label{font-size:9px}.outlier-grid{grid-template-columns:1fr}.desktop-break{display:none}h2{gap:13px;font-size:27px}.hero-title h1{font-size:clamp(59px,16vw,76px)}.court-art{height:285px}.nav-logo{font-size:12px}.hero-abstract{font-size:18px}.conclusion-box{padding:24px}.article-return{font-size:27px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
 
+
+/* Expanded research narrative */
+.status-note{border-left-color:var(--accent)}.status-note p,.method-block p{margin:12px 0;color:var(--muted2)}
+.table-wrap{width:100%;overflow-x:auto;margin:26px 0;border:1px solid var(--border)}
+table{border-collapse:collapse;width:100%;font-size:12px;line-height:1.7;text-align:left}caption{text-align:left;padding:18px 20px;background:var(--bg3);color:var(--text);font:11px/1.7 var(--mono)}th,td{padding:16px 18px;vertical-align:top;border-bottom:1px solid var(--border)}thead th{color:var(--muted);font:10px/1.7 var(--mono);background:var(--bg2)}tbody th{color:var(--text);font-weight:500;width:27%}td{color:var(--muted2)}tbody tr:last-child>*{border-bottom:0}.research-list{padding-left:22px;color:var(--muted2);font-size:13px;line-height:1.9}.research-list li{margin-bottom:14px}.download-links{display:flex;flex-wrap:wrap;gap:12px 24px;margin-top:25px;font-size:12px}.content a{text-decoration:underline;text-underline-offset:4px}.article-return{text-decoration:none!important}.content h3{color:var(--text)}.conclusion-box h3{color:var(--accent)}
+@media(max-width:640px){th,td{padding:12px 10px;font-size:11px}.table-wrap{margin-block:20px}.hero-deck{max-width:32ch}.court-art-bottom{font-size:6px}}
 </style>
 </head>
 <body id="top">
 <a class="skip-link" href="#article">Skip to research</a>
-<div class="reading-progress" aria-hidden="true"><span id="reading-progress"></span></div>
-
+<div aria-hidden="true" class="reading-progress"><span id="reading-progress"></span></div>
 <nav aria-label="Research navigation">
-  <a href="index.html" class="nav-logo"><span class="logo-block">dt</span> Daiki Takizawa<span>.</span></a>
-  <a href="index.html" class="nav-back">← Back to portfolio</a>
+<a class="nav-logo" href="https://takizawadaiki.github.io/index.html"><span class="logo-block">dt</span> Daiki Takizawa<span>.</span></a>
+<a class="nav-back" href="https://takizawadaiki.github.io/index.html">← Back to portfolio</a>
 </nav>
-
 <header class="research-hero">
-  <div class="hero-kicker"><span><i></i> ORIGINAL RESEARCH / 001</span><span>NBA · 2023–2026</span></div>
-  <div class="hero-composition">
-    <div class="hero-title"><div class="hero-tag">The economics of the second unit</div><h1>The Bench<br><em>Dividend.</em></h1><p class="hero-deck">Does the depth you build in the regular season<br class="desktop-break"> show up when it matters most?</p><a href="#results" class="hero-action">Explore the findings <span aria-hidden="true">↘</span></a></div>
-    <div class="court-art" aria-hidden="true">
-      <div class="court-art-label">FIG. 01 / BEYOND THE STARTING FIVE</div>
-      <svg viewBox="0 0 500 470" fill="none"><defs><radialGradient id="court-glow"><stop stop-color="#bbcba5" stop-opacity=".14"/><stop offset="1" stop-color="#bbcba5" stop-opacity="0"/></radialGradient></defs><circle cx="260" cy="240" r="220" fill="url(#court-glow)"/><g transform="translate(46 38) rotate(-12 205 205)" stroke="#93a37c" stroke-opacity=".5"><rect x="10" y="5" width="365" height="420"/><path d="M10 45V125C10 355 375 355 375 125V45"/><path d="M133 5V174H252V5M168 39H218"/><circle cx="193" cy="174" r="59"/><circle cx="193" cy="65" r="13"/><path d="M10 425H375M136 425a57 57 0 0 1 114 0"/><path d="M-8 215H395M193 -15V445" stroke-dasharray="2 9" stroke-opacity=".2"/><g fill="#c6d6ab" stroke="none"><circle cx="65" cy="166" r="6"/><circle cx="311" cy="190" r="6"/><circle cx="194" cy="249" r="6"/><circle cx="119" cy="302" r="6"/></g><circle cx="280" cy="315" r="20" stroke="#ff8050" stroke-opacity=".45"/><circle cx="280" cy="315" r="7" fill="#ff8050" stroke="none"/></g></svg>
-      <div class="court-art-bottom"><span>REGULAR SEASON <b>→</b> PLAYOFFS</span><span>48 TEAM-OBSERVATIONS</span></div>
-    </div>
-  </div>
-  <div class="hero-meta"><span><small>RESEARCH BY</small>Daiki Takizawa</span><span><small>PUBLISHED</small>June 2026</span><span><small>STUDY WINDOW</small>3 NBA seasons</span><span><small>TOOLS</small>nba_api · Python</span></div>
+<div class="hero-kicker"><span><i></i> ORIGINAL RESEARCH / 001</span><span>NBA · 2023–2026</span></div>
+<div class="hero-composition">
+<div class="hero-title"><div class="hero-tag">Talent, opportunity &amp; performance under pressure</div><h1>The Bench<br/><em>Dividend.</em></h1><p class="hero-deck">What can basketball teach us about building a team that can perform beyond its stars?</p><a class="hero-action" href="#results">Explore the findings <span aria-hidden="true">↘</span></a></div>
+<div aria-hidden="true" class="court-art">
+<div class="court-art-label">FIG. 01 / BEYOND THE STARTING FIVE</div>
+<svg fill="none" viewbox="0 0 500 470"><defs><radialgradient id="court-glow"><stop stop-color="#bbcba5" stop-opacity=".14"></stop><stop offset="1" stop-color="#bbcba5" stop-opacity="0"></stop></radialgradient></defs><circle cx="260" cy="240" fill="url(#court-glow)" r="220"></circle><g stroke="#93a37c" stroke-opacity=".5" transform="translate(46 38) rotate(-12 205 205)"><rect height="420" width="365" x="10" y="5"></rect><path d="M10 45V125C10 355 375 355 375 125V45"></path><path d="M133 5V174H252V5M168 39H218"></path><circle cx="193" cy="174" r="59"></circle><circle cx="193" cy="65" r="13"></circle><path d="M10 425H375M136 425a57 57 0 0 1 114 0"></path><path d="M-8 215H395M193 -15V445" stroke-dasharray="2 9" stroke-opacity=".2"></path><g fill="#c6d6ab" stroke="none"><circle cx="65" cy="166" r="6"></circle><circle cx="311" cy="190" r="6"></circle><circle cx="194" cy="249" r="6"></circle><circle cx="119" cy="302" r="6"></circle></g><circle cx="280" cy="315" r="20" stroke="#ff8050" stroke-opacity=".45"></circle><circle cx="280" cy="315" fill="#ff8050" r="7" stroke="none"></circle></g></svg>
+<div class="court-art-bottom"><span>REGULAR SEASON <b>→</b> PLAYOFFS</span><span>48 TEAM-OBSERVATIONS</span></div>
+</div>
+</div>
+<div class="hero-meta"><span><small>RESEARCH BY</small>Daiki Takizawa</span><span><small>REVISED DRAFT</small>September 2026</span><span><small>STUDY WINDOW</small>3 NBA seasons</span><span><small>TOOLS</small>nba_api · Python</span></div>
 </header>
 <div class="research-layout">
-  <aside class="article-rail" aria-label="On this page"><span class="rail-heading">INSIDE THE STUDY</span><a href="#motivation">01 <span>The question</span></a><a href="#methodology">02 <span>Data &amp; methodology</span></a><a href="#results">03 <span>The findings</span></a><a href="#outliers">04 <span>The outliers</span></a><a href="#discussion">05 <span>What it means</span></a><a href="#data-code">06 <span>Data &amp; code</span></a><div class="rail-foot">SPORTS ANALYTICS<br>UNIVERSITY OF TORONTO</div></aside>
-  <main class="content" id="article">
-  <div class="abstract"><span class="eyebrow">THE RESEARCH, IN BRIEF</span><p class="hero-abstract">Teams that distribute more minutes to bench players during the regular season tend to get more bench production in the playoffs. Across three NBA seasons (2023–26), this relationship is statistically significant — but the outliers reveal that minutes alone don't tell the full story.</p></div>
-
-
-  <div class="finding-bar">
-    <div class="finding">
-      <span class="finding-num sig"><small>r</small> 0.300</span>
-      <span class="finding-label">Correlation</span>
-      <span class="finding-sub">Bench min (reg) → Bench pts (playoffs)</span>
-    </div>
-    <div class="finding">
-      <span class="finding-num sig"><small>p</small> 0.038</span>
-      <span class="finding-label">P-value</span>
-      <span class="finding-sub">Significant at α = 0.05</span>
-    </div>
-    <div class="finding">
-      <span class="finding-num">48</span>
-      <span class="finding-label">Observations</span>
-      <span class="finding-sub">16 playoff teams × 3 seasons</span>
-    </div>
-  </div>
-
-  <h2 id="motivation"><span>01 /</span>Motivation</h2>
-  <p>Every NBA front office talks about depth. Load management, roster construction, the value of a reliable second unit — these are constant topics in team-building conversations. But the empirical question is rarely asked directly: <strong>does the bench investment you make in the regular season actually show up when it matters most?</strong></p>
-  <p>Playoff basketball is famously rotation-heavy. Coaches tighten their rotations, star players log heavy minutes, and bench contributions shrink. If that's true, maybe regular season bench usage is a poor predictor of playoff bench output. Or maybe teams that develop a functional bench throughout the year carry that advantage into the postseason. This research tests which is closer to the truth.</p>
-
-  <h2 id="methodology"><span>02 /</span>Data & Methodology</h2>
-  <p>Data was pulled from the NBA Stats API (<code>nba_api</code>) covering the 2023–24, 2024–25, and 2025–26 NBA seasons. For each season, bench player stats were aggregated at the team level for both the regular season and playoffs using the <code>starter_bench_nullable='Bench'</code> filter.</p>
-
-  <div class="method-block">
-    <strong>Key variables:</strong><br/><br/>
-    <code>bench_min</code> — average minutes per game per bench player, regular season<br/><br/>
-    <code>playoff_bench_pts</code> — average points per game per bench player, playoffs<br/><br/>
-    <strong>Sample:</strong> 16 playoff teams per season × 3 seasons = 48 observations<br/><br/>
-    <strong>Test:</strong> Pearson correlation with two-tailed p-value (scipy.stats)
-  </div>
-
-  <p>Using average per-player minutes (rather than total bench minutes) controls for roster size differences between teams. A team with 20 bench players averaging 10 minutes is meaningfully different from one with 12 bench players averaging 16 minutes — the latter reflects genuine depth investment.</p>
-
-  <h2 id="results"><span>03 /</span>Results</h2>
-  <p>Across 48 team-season observations, the correlation between regular season bench minutes and playoff bench scoring is <strong>r = 0.300 (p = 0.038)</strong> — a moderate positive relationship that clears the conventional significance threshold.</p>
-
-  <div class="chart-container">
-    <div class="chart-title">Bench Investment vs Playoff Bench Production — 2023 to 2026</div>
-    <div class="chart-frame scatter-frame"><canvas id="scatter" height="420" role="img" aria-label="Scatter plot of 48 team-season observations, comparing regular-season bench minutes with playoff bench points.">Scatter plot requires JavaScript. Study findings are described in the surrounding text.</canvas></div><p class="chart-hint">Hover or tap a point to inspect a team. Select a season in the legend to show or hide it.</p>
-  </div>
-
-  <p>The positive trend is consistent across all three seasons, though the effect varies year to year. The 2024–25 season showed the strongest individual-season correlation (r = 0.316), while 2025–26 showed the weakest (r = 0.156), suggesting external factors — injuries, coaching decisions, opponent matchups — add meaningful noise to any single season.</p>
-
-  <div class="chart-container">
-    <div class="chart-title">Season-by-Season Correlation Breakdown</div>
-    <div class="chart-frame bars-frame"><canvas id="bars" height="200" role="img" aria-label="Reported correlations: 2023–24, 0.285; 2024–25, 0.316; 2025–26, 0.156; combined, 0.300.">Reported correlations: 0.285, 0.316, 0.156, and 0.300 combined.</canvas></div>
-  </div>
-
-  <h2 id="outliers"><span>04 /</span>Outlier Analysis</h2>
-  <p>The most informative part of any regression is where the model breaks down. Four teams stand out as significant deviations from the trend — two overperformers and two underperformers.</p>
-
-  <div class="outlier-grid">
-
-    <div class="outlier-card over">
-      <div class="outlier-kind">ABOVE THE TREND ↗</div><div class="outlier-team over">DET</div>
-      <div class="outlier-season">2024–25</div>
-      <div class="outlier-stat"><span>Reg season bench min</span><span>15.4</span></div>
-      <div class="outlier-stat"><span>Playoff bench pts</span><span>6.62</span></div>
-      <div class="outlier-note">Detroit's bench significantly outperformed expectations. Their heavy regular season rotation — driven partly by tanking-era depth — translated into a cohesive second unit that held up through the playoffs, ultimately helping them claim the East's top seed in 2025–26.</div>
-    </div>
-
-    <div class="outlier-card over">
-      <div class="outlier-kind">ABOVE THE TREND ↗</div><div class="outlier-team over">MIN</div>
-      <div class="outlier-season">2025–26</div>
-      <div class="outlier-stat"><span>Reg season bench min</span><span>10.6</span></div>
-      <div class="outlier-stat"><span>Playoff bench pts</span><span>6.58</span></div>
-      <div class="outlier-note">Minnesota massively outperformed their bench minute investment. Despite one of the lowest bench usage rates among playoff teams, their bench players were extraordinarily efficient when called upon — suggesting role clarity and player quality matter more than raw minutes logged.</div>
-    </div>
-
-    <div class="outlier-card under">
-      <div class="outlier-kind">BELOW THE TREND ↘</div><div class="outlier-team under">LAL</div>
-      <div class="outlier-season">2024–25</div>
-      <div class="outlier-stat"><span>Reg season bench min</span><span>13.3</span></div>
-      <div class="outlier-stat"><span>Playoff bench pts</span><span>1.72</span></div>
-      <div class="outlier-note">Los Angeles's bench collapsed spectacularly in the 2024–25 playoffs — the most dramatic underperformance in the dataset. Their regular season bench appeared functional, but under playoff intensity their second unit offered almost nothing offensively, placing enormous pressure on their starters.</div>
-    </div>
-
-    <div class="outlier-card under">
-      <div class="outlier-kind">BELOW THE TREND ↘</div><div class="outlier-team under">PHI</div>
-      <div class="outlier-season">2025–26</div>
-      <div class="outlier-stat"><span>Reg season bench min</span><span>14.5</span></div>
-      <div class="outlier-stat"><span>Playoff bench pts</span><span>2.75</span></div>
-      <div class="outlier-note">Philadelphia invested reasonably in their bench during the regular season but saw minimal playoff return. This likely reflects coaching rotation tightening and opponent-specific adjustments that neutralized their depth advantage.</div>
-    </div>
-
-  </div>
-
-  <h2 id="discussion"><span>05 /</span>Discussion</h2>
-  <p>The finding supports the intuition that bench development has carry-over value into the playoffs, but the effect is modest. An r of 0.300 means bench minute investment explains roughly <strong>9% of the variance</strong> in playoff bench output — real, but far from deterministic.</p>
-  <p>The outliers suggest two important nuances. First, <strong>role clarity may matter more than volume</strong>. Minnesota's bench players logged few regular season minutes but performed at a high level when deployed in the playoffs — implying that knowing your role and executing it under pressure is as valuable as simply accumulating minutes. Second, <strong>star-dependency creates fragility</strong>. The LAL collapse is consistent with a roster where bench players were never truly integrated into the offensive system — they existed to rest the stars, not to function independently.</p>
-  <p>For front offices, this suggests that bench investment should be evaluated not just by minutes distributed but by whether bench players are being developed in <strong>meaningful, system-integrated roles</strong> during the regular season.</p>
-
-  <div class="conclusion-box">
-    <h3>Key Takeaway</h3>
-    <p>Across three NBA seasons, teams that gave their bench more regular season minutes tended to get meaningfully better bench production in the playoffs (r = 0.300, p = 0.038). The relationship is statistically significant but explains only ~9% of variance — suggesting bench quality, role clarity, and system integration are equally important factors that minutes alone don't capture.</p>
-    <p>Future work could incorporate bench net rating (rather than scoring) and control for opponent quality to build a more complete picture of what drives playoff bench performance.</p>
-  </div>
-
-  <h2 id="data-code"><span>06 /</span>Data & Code</h2>
-  <p>Data sourced from the NBA Stats API via <code>nba_api</code> (Python). Analysis conducted in Google Colab using pandas, scipy, and matplotlib. All three seasons (2023–24, 2024–25, 2025–26) were pulled using the <code>LeagueDashPlayerStats</code> endpoint with <code>starter_bench_nullable='Bench'</code>.</p>
-
-  <a class="article-return" href="index.html#research"><span>CONTINUE EXPLORING</span>Back to the portfolio <b aria-hidden="true">↗</b></a>
+<aside aria-label="On this page" class="article-rail"><span class="rail-heading">INSIDE THE STUDY</span><a href="#motivation">01 <span>The question</span></a><a href="#methodology">02 <span>What we measure</span></a><a href="#results">03 <span>The evidence</span></a><a href="#outliers">04 <span>Cases &amp; questions</span></a><a href="#discussion">05 <span>What it means</span></a><a href="#next-analysis">06 <span>Testing team success</span></a><a href="#management">07 <span>Beyond basketball</span></a><a href="#data-code">08 <span>Data &amp; reproducibility</span></a><div class="rail-foot">SPORTS ANALYTICS<br/>UNIVERSITY OF TORONTO</div></aside>
+<main class="content" id="article">
+<div class="abstract"><span class="eyebrow">THE RESEARCH, IN BRIEF</span><p class="hero-abstract">Can a team depend less on its stars when the stakes rise? Basketball offers a way to explore that question. This study starts with a narrower test: whether substitutes who play more during the regular season also score more in the playoffs.</p></div>
+<div class="method-block status-note"><strong>Research status · provisional reanalysis</strong><p>The calculations below use the 48 values embedded in the original website. They reveal a modest association, but also inconsistencies in the published results and team list. These are checks of the chart data, not independently validated NBA findings. The original data export and notebook are needed to resolve them.</p><a href="#data-code">See the data audit and reproducible calculations ↗</a></div>
+<div class="finding-bar">
+<div class="finding"><span class="finding-num"><small>r</small> 0.329</span><span class="finding-label">Pooled association</span><span class="finding-sub">Recalculated from chart values</span></div>
+<div class="finding"><span class="finding-num">10.8<small>%</small></span><span class="finding-label">Variation described</span><span class="finding-sub">Simple linear fit; not a causal effect</span></div>
+<div class="finding"><span class="finding-num">48</span><span class="finding-label">Chart observations</span><span class="finding-sub">Team-season records; validation pending</span></div>
+</div>
+<h2 id="motivation"><span>01 /</span>The question, without the jargon</h2>
+<p>Every basketball team has five players on the court. The players who begin a game are its <strong>starters</strong>; the others enter as substitutes, collectively called the <strong>bench</strong>. The <strong>regular season</strong> determines which teams qualify for the <strong>playoffs</strong>, the elimination tournament that decides the champion.</p>
+<p>In this article, <strong>bench production means scoring by substitutes</strong>. It does not include every contribution they make, such as defending or creating opportunities for teammates. <strong>Depth</strong> is the broader idea of having capable players available beyond the main lineup. A large roster and a capable supporting group are different things.</p>
+<p>The organizational question is familiar: how much responsibility should go to established top performers, and how much should go to the people who support them? This first analysis asks whether greater regular-season use of substitutes is associated with their later scoring. It does not yet test whether depth helps a team win.</p>
+<h2 id="methodology"><span>02 /</span>What we actually measure</h2>
+<p>The original study describes NBA Stats data for 2023–24, 2024–25 and 2025–26, collected through <code>nba_api</code> using <code>LeagueDashPlayerStats</code> and <code>starter_bench_nullable='Bench'</code>. This revision can inspect the website’s team-level chart values; it cannot verify the original extraction or aggregation without the source files.</p>
+<div class="table-wrap"><table><caption>Three concepts that should be kept separate</caption><thead><tr><th scope="col">Concept</th><th scope="col">Meaning</th><th scope="col">Measured here?</th></tr></thead><tbody>
+<tr><th scope="row">Usage</th><td>How much substitutes play</td><td>Yes, using the reported average minutes per bench player per game</td></tr>
+<tr><th scope="row">Quality</th><td>How effectively the supporting players contribute</td><td>Only partly: playoff scoring omits defense and does not adjust for minutes</td></tr>
+<tr><th scope="row">Star dependence</th><td>How concentrated the team’s contribution is among a few players</td><td>No; player-level contribution and lineup data are needed</td></tr>
+</tbody></table></div>
+<p>Each point represents one team in one season. The horizontal axis is its reported average regular-season minutes per bench player; the vertical axis is its reported average playoff points per bench player. Both are per-player averages, not total team bench minutes or points.</p>
+<p><strong>Measurement matters.</strong> Averaging player averages does not automatically control for roster size. A player with a brief appearance may receive the same weight as a regular contributor. Trades, games played, and changes between starting and substitute roles can also affect the result. More bench minutes could reflect development opportunities, injuries to starters, or game circumstances; this dataset cannot distinguish them.</p>
+<h2 id="results"><span>03 /</span>The evidence—and how stable it is</h2>
+<p>Recalculating the 48 chart values gives <strong>Pearson r = 0.329</strong>, a modest positive linear association, with a conventional two-sided <strong>p = 0.023</strong> and an approximate <strong>95% confidence interval of 0.049 to 0.561</strong>. The squared correlation is 0.108: the simple fitted relationship describes about 10.8% of the observed variation in scoring. This is not the percentage of playoff success caused by bench usage.</p>
+<div class="chart-container"><div class="chart-title">Substitute playing time and playoff scoring · provisional chart data</div><div class="chart-frame scatter-frame"><canvas aria-label="Scatter plot of 48 provisional chart records; pooled correlation 0.329. Source data validation is pending." id="scatter" role="img">The association is positive but modest; correlation 0.329 across 48 chart records.</canvas></div><p class="chart-hint">Hover or tap a point for its team abbreviation and values. Select a season in the legend to show or hide it. The original chart values are retained for auditability.</p></div>
+<p>A small p-value describes how unusual the statistic would be under the test’s zero-correlation model and assumptions. It does not establish causation or practical importance. Teams recur across seasons, so treating all 48 observations as independent can misstate uncertainty. All p-values and intervals here are exploratory and do not account for dependence within teams.</p>
+<div class="table-wrap"><table><caption>Additional checks calculated from the embedded chart values</caption><thead><tr><th scope="col">Check</th><th scope="col">Result</th><th scope="col">Interpretation</th></tr></thead><tbody>
+<tr><th scope="row">Compare teams within the same season</th><td>Partial r = 0.249<br/>p = 0.096</td><td>After removing season means, the association is weaker and does not clear 0.05 under the conventional test.</td></tr>
+<tr><th scope="row">Compare ranks instead of raw values</th><td>Spearman ρ = 0.308<br/>p = 0.033</td><td>The direction is similar when comparing relative order; this does not establish causation.</td></tr>
+<tr><th scope="row">Omit one season at a time</th><td>r = 0.287–0.389<br/>p = 0.028–0.111</td><td>The positive direction persists, but crossing the significance threshold depends on the sample.</td></tr>
+<tr><th scope="row">Omit one observation at a time</th><td>r = 0.278–0.368</td><td>No single plotted record reverses the sign. This does not validate the underlying records.</td></tr>
+</tbody></table></div>
+<div class="chart-container"><div class="chart-title">Recalculated correlations by season · 16 records each</div><div class="chart-frame bars-frame"><canvas aria-label="Recalculated correlations: 2023–24, 0.015; 2024–25, 0.315; 2025–26, 0.295; pooled, 0.329." id="bars" role="img">Season correlations: 0.015, 0.315, 0.295; pooled correlation: 0.329.</canvas></div></div>
+<p>The season-specific correlations are <strong>0.015, 0.315 and 0.295</strong>, respectively; their p-values are 0.957, 0.235 and 0.268. None clears 0.05 individually. With only 16 records per season, uncertainty is substantial. The near-zero first-season result also contradicts the original claim of a consistently positive trend of similar strength.</p>
+<h2 id="outliers"><span>04 /</span>Cases that raise better questions</h2>
+<p>The following records lie above or below the pooled fitted line. These are descriptive examples, not formally established exceptional cases. Scoring differences alone cannot tell us whether coaching, efficiency, injuries or teamwork caused the result.</p>
+<div class="outlier-grid">
+<div class="outlier-card over"><div class="outlier-kind">ABOVE THE FITTED LINE</div><div class="outlier-team">DET</div><div class="outlier-season">Detroit Pistons · 2024–25</div><div class="outlier-stat"><span>Regular-season minutes</span><span>15.38</span></div><div class="outlier-stat"><span>Playoff points</span><span>6.62</span></div><p class="outlier-note">Was the higher scoring associated with more playoff playing time, better shooting, or different player availability? Minutes and efficiency data could separate those explanations.</p></div>
+<div class="outlier-card over"><div class="outlier-kind">ABOVE THE FITTED LINE</div><div class="outlier-team">MIN</div><div class="outlier-season">Minnesota Timberwolves · 2025–26</div><div class="outlier-stat"><span>Regular-season minutes</span><span>13.80</span></div><div class="outlier-stat"><span>Playoff points</span><span>6.58</span></div><p class="outlier-note">The chart gives 13.80 minutes; the original card incorrectly used 10.6. The “very low usage” interpretation therefore does not follow from this record. Role clarity is a hypothesis, not a measured explanation.</p></div>
+<div class="outlier-card under"><div class="outlier-kind">BELOW THE FITTED LINE</div><div class="outlier-team">LAL</div><div class="outlier-season">Los Angeles Lakers · 2024–25</div><div class="outlier-stat"><span>Regular-season minutes</span><span>13.28</span></div><div class="outlier-stat"><span>Playoff points</span><span>1.72</span></div><p class="outlier-note">Low scoring could reflect fewer opportunities, poor shooting, or both. It does not measure defensive contribution or prove excessive dependence on stars.</p></div>
+<div class="outlier-card under"><div class="outlier-kind">BELOW THE FITTED LINE</div><div class="outlier-team">PHI</div><div class="outlier-season">Philadelphia 76ers · 2025–26</div><div class="outlier-stat"><span>Regular-season minutes</span><span>14.50</span></div><div class="outlier-stat"><span>Playoff points</span><span>2.75</span></div><p class="outlier-note">The observed scoring is below the fitted line. Explaining why requires checking who played, their minutes, and the opponents they faced.</p></div>
+</div>
+<h2 id="discussion"><span>05 /</span>What the evidence means</h2>
+<p><strong>Playing time alone is an incomplete indicator of usable depth.</strong> The provisional association is modest, varies by season, and weakens when season differences are removed. Even if the source data confirms it, teams with greater bench usage may differ in overall strength, player availability or other ways that also influence playoff scoring.</p>
+<p>The practical implication is to evaluate opportunity alongside performance. A coach considering more minutes for substitutes would need to know whether those players maintain team effectiveness and whether the benefit outweighs the immediate cost of resting starters. The present analysis cannot estimate that tradeoff or recommend an optimal allocation of minutes.</p>
+<p>A stronger study should define success before choosing predictors. There is no single “ultimate team”: winning now, sustaining performance across a season, and developing future talent are distinct objectives. The next analysis below makes playoff team performance the primary outcome.</p>
+<h2 id="next-analysis"><span>06 /</span>Next test: does depth help teams succeed?</h2>
+<div class="method-block"><strong>Specified follow-up · not yet estimated</strong><p>The current chart lacks team performance, player-level contributions, lineup information and roster continuity. The design below is a concrete next analysis, not an additional empirical finding.</p></div>
+<h3>Test 1 · Supporting quality and playoff performance</h3>
+<p><strong>Hypothesis:</strong> among similarly strong playoff teams, those whose supporting units perform better during the regular season also perform better in the playoffs.</p>
+<p>Use <strong>playoff team net rating</strong> as the primary outcome: points scored minus points allowed per 100 possessions. Normalizing by possessions helps compare teams playing at different speeds. See the <a href="https://www.nba.com/stats/help/glossary">NBA statistics glossary</a>.</p>
+<p>Define supporting-unit quality in advance as regular-season team net rating during possessions with at least two non-starters on the court, identifying starters separately for each game. This requires lineup or play-by-play data and still reflects teammates and opponents, rather than an isolated bench effect. Specify a minimum possession threshold before examining results and report which teams it excludes.</p>
+<p>Compare a baseline model using regular-season team net rating and season indicators with a model that also includes supporting-unit quality. In a separately labeled sensitivity model, account for playoff opponent strength using opponents’ regular-season net ratings weighted by possessions faced. Report the quality coefficient, uncertainty and improvement in prediction on a held-out season. Avoid interpreting prediction as proof of a development effect.</p>
+<h3>Test 2 · Star concentration and how depth is built</h3>
+<p>Measure <strong>star concentration</strong> as the share of a team’s regular-season points scored by its top three scorers, selected using regular-season data only. This captures scoring concentration, not complete dependence. With a larger historical sample, test whether supporting-unit quality matters differently for teams with more concentrated scoring. Do not divide teams into “star” and “collective” groups using a threshold selected to maximize the result.</p>
+<p>Then examine one possible route to depth: <strong>roster continuity</strong>, defined as the share of current regular-season minutes played by players who were on that team in the previous season. Test its association with supporting-unit quality while accounting for prior team strength and available payroll data. This can identify patterns consistent with continuity’s value; successful teams may also retain players, so it cannot by itself show that retention builds depth.</p>
+<p>Money, scouting, coaching and development are plausible additional explanations. Fewer injuries, creativity and teamwork are separate outcomes or mechanisms that require their own measures. Age and trainer quality should not be treated as demonstrated explanations without relevant data.</p>
+<div class="method-block"><strong>Analysis discipline</strong><p>First rebuild and validate the sample from source data, excluding play-in games. Document extraction dates, aggregation weights and missing records. Expand beyond three seasons if comparable data are available; with 48 records, keep models small. Specify the primary hypothesis and model before fitting them, account for repeated teams, and retain weak or negative results. A larger correlation is not the research objective.</p></div>
+<h2 id="management"><span>07 /</span>Beyond basketball: capacity that can step in</h2>
+<p>For a company, the useful parallel is whether work can continue effectively when a key contributor is unavailable or demand increases. Basketball makes that allocation problem visible, but this study contains no corporate data. The following are <strong>management questions and possible tests</strong>, not business effects established by the NBA analysis.</p>
+<div class="table-wrap"><table><caption>Turning the analogy into a testable business question</caption><thead><tr><th scope="col">Basketball question</th><th scope="col">Organizational translation</th><th scope="col">What to measure</th></tr></thead><tbody>
+<tr><th scope="row">Who can contribute beyond the starters?</th><td>Are critical tasks covered by more than one capable person?</td><td>Share of critical tasks with a trained, assessed backup</td></tr>
+<tr><th scope="row">Does playing time develop useful capacity?</th><td>Does supervised responsibility improve independent delivery?</td><td>Quality and completion time before and after a development rotation</td></tr>
+<tr><th scope="row">How dependent is performance on a few stars?</th><td>Does delivery deteriorate when a key contributor is absent?</td><td>Changes in output, errors and delays during planned absences, accounting for workload</td></tr>
+<tr><th scope="row">Does continuity help?</th><td>Does retaining shared experience improve coordination?</td><td>Handoff failures and recovery time, alongside staffing stability</td></tr>
+</tbody></table></div>
+<p><strong>A practical pilot:</strong> choose a recurring workflow, identify tasks with only one capable owner, and give a backup supervised responsibility. Define acceptable quality and turnaround time before the pilot. Compare results with a similar workflow over the same period, accounting for demand and task complexity, and include training time in the cost. A randomized or staggered rollout, where feasible, would strengthen the evaluation.</p>
+<p>The outcome should fit the industry: incident recovery and release quality in software, account continuity in professional services, or throughput and defects in operations. Company size and manager-to-staff ratios could be contextual variables in a later study; neither is a direct measure of supporting capability. Cross-industry comparisons need comparable definitions and separate evidence.</p>
+<div class="conclusion-box"><h3>Conclusion for decision-makers</h3><p><strong>Ask whether the organization can perform beyond its usual top contributors—and measure that capability directly.</strong> Headcount and opportunities are inputs; reliable performance when others step in is the outcome that matters.</p><p>The basketball reanalysis provides a modest, provisional association between substitute usage and later scoring. It does not establish that giving substitutes more minutes improves team success. Its value is in sharpening the next decision: test whether supporting talent can maintain quality under pressure, then evaluate which investments develop that capacity at an acceptable cost.</p></div>
+<h2 id="data-code"><span>08 /</span>Data, audit &amp; reproducibility</h2>
+<p>This revision uses the numbers embedded in the <a href="https://takizawadaiki.github.io/bench-research.html">original public page</a>, retrieved September 16, 2026. The public repository contained website files but no source notebook or raw NBA export at the time of review. The original extraction dates, game coverage and weighting cannot yet be verified.</p>
+<ul class="research-list"><li><strong>Statistical mismatch:</strong> the original article reported pooled r = 0.300 and p = 0.038; its chart values give r = 0.329 and p = 0.023. The seasonal bar values also differed from the calculations.</li><li><strong>Team-list mismatch:</strong> the 2023–24 array includes Golden State and omits Phoenix. Golden State lost in the play-in; Phoenix played in the first round. See the <a href="https://cdn-uat.nba.com/news/2024-nba-playoffs-schedule">official NBA schedule and results</a>. The row is retained here to audit the original display, not relabeled or treated as a verified playoff record.</li><li><strong>Card mismatch:</strong> Minnesota’s 2025–26 minutes are 13.80 in the plotted data, rather than the 10.6 previously shown in the text.</li><li><strong>Interpretation:</strong> claims about efficiency, injuries, role clarity, coaching and later team success have been replaced with questions that require additional evidence.</li></ul>
+<p>Pearson tests and Fisher-transformed 95% confidence intervals use <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.pearsonr.html">SciPy</a>. The season-adjusted calculation correlates deviations from each season’s mean, with two season indicators accounted for in the test’s degrees of freedom (44). Sensitivity checks preserve the original records. No check resolves source-data validity or dependence between repeated teams.</p>
+<div class="download-links"><a download="" href="chart-values.json">Chart values (JSON) ↗</a><a download="" href="reanalysis.py">Reproduction script ↗</a><a download="" href="audit-results.json">Full numerical results ↗</a><a href="README.md">Methods &amp; remaining data needs ↗</a></div>
+<a class="article-return" href="https://takizawadaiki.github.io/index.html#research"><span>CONTINUE EXPLORING</span>Back to the portfolio <b aria-hidden="true">↗</b></a>
 </main>
 </div>
-
-<footer>Daiki Takizawa · Sports Analytics Research · University of Toronto · <a href="index.html">Portfolio</a></footer>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<footer>Daiki Takizawa · Sports Analytics Research · University of Toronto · <a href="https://takizawadaiki.github.io/index.html">Portfolio</a></footer>
+<script src="chart.umd.min.js"></script>
 <script>
 const data2324 = [
   {team:'BOS',reg:12.4,playoff:2.35},
@@ -340,7 +309,7 @@ new Chart(barsCtx, {
     labels: ['2023-24','2024-25','2025-26','All 3 Seasons'],
     datasets:[{
       label:'Pearson r',
-      data:[0.285, 0.316, 0.156, 0.300],
+      data:[0.01471204624941308, 0.31469494779408325, 0.29451036550692894, 0.32872761912490095],
       backgroundColor:['#b7c99a','#ff8050','#90bfc3','#eeeede'],
       borderRadius:4
     }]
