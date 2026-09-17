@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <meta name="theme-color" content="#10120f"/>
-<meta name="description" content="Research and interactive analytics projects by Daiki Takizawa. Exploring business performance, sports economics, and predictive modeling."/>
+<meta name="description" content="Research and interactive analytics projects by Daiki Takizawa. Exploring wealth management, business performance, sports economics, and predictive modeling."/>
 <title>Daiki Takizawa — Data Analytics</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -1018,6 +1018,20 @@ h1 {
 
 
 .case-study{display:block;color:inherit}.case-study:hover .project-visual{filter:brightness(1.13)}.case-study:hover .case-toggle{color:var(--orange)}.case-study:focus-visible{outline:3px solid var(--orange);outline-offset:5px}
+
+/* Latest wealth-management research */
+.wealth-feature{display:grid;grid-template-columns:1.3fr 1fr;gap:40px;align-items:center;margin:30px 0 12px;padding:34px 38px;border:1px solid #37554e;background:linear-gradient(115deg,#152823,#111d20);color:var(--ink)}
+.wealth-feature .wealth-label{font:11px var(--heading);letter-spacing:1.5px;text-transform:uppercase;color:#91ddc9}
+.wealth-feature h2{font:500 clamp(32px,4.3vw,58px)/1.1 var(--heading);letter-spacing:-2px;margin:15px 0 12px}
+.wealth-feature h2 em{font-family:Georgia,serif;font-weight:400;color:#91ddc9}
+.wealth-feature p{font-size:14px;line-height:1.8;color:#bccbc5;max-width:530px}
+.wealth-feature .wealth-cta{display:inline-flex;gap:30px;align-items:center;margin-top:22px;padding:12px 18px;background:#91ddc9;color:#10221c;font-weight:600;font-size:14px}
+.wealth-feature .wealth-cta:hover{background:#b5eedf}
+.wealth-feature .wealth-detail{border-left:1px solid #37554e;padding-left:34px}
+.wealth-detail strong{display:block;font:400 27px/1.25 var(--heading);margin:12px 0;color:#e2eee8}
+.wealth-detail p{font-size:13px}
+@media(max-width:760px){.wealth-feature{grid-template-columns:1fr;gap:24px;padding:26px 23px;margin-top:22px}.wealth-feature .wealth-detail{border-left:0;border-top:1px solid #37554e;padding:20px 0 0}.wealth-feature h2{letter-spacing:-1px}}
+
 </style>
 </head>
 
@@ -1045,6 +1059,21 @@ h1 {
 </header>
 
 <main id="main" class="container">
+
+  <section class="wealth-feature" aria-labelledby="wealth-heading">
+    <div>
+      <span class="wealth-label">Latest project / Wealth management · CAD</span>
+      <h2 id="wealth-heading">The Cash <em>Drag.</em></h2>
+      <p>What did liquidity cost—and when did it help? Explore cash reserves, portfolio growth and purchasing power through an interactive Canadian-dollar study.</p>
+      <a class="wealth-cta" href="/wealth-management-analysis/">Explore the project <span aria-hidden="true">↗</span></a>
+    </div>
+    <div class="wealth-detail">
+      <span class="wealth-label">Historical portfolio lab / 2016–2025</span>
+      <strong>Money available today.<br>Purchasing power tomorrow.</strong>
+      <p>Adjust cash allocations and withdrawals. Compare inflation-adjusted outcomes using published Canadian fund returns and CPI data.</p>
+    </div>
+  </section>
+
 
   <section class="intro" aria-labelledby="page-title">
     <div class="hero-top"><div class="eyebrow"><span class="status-dot"></span> An independent perspective on data</div><span class="edition">PORTFOLIO — 2026</span></div>
