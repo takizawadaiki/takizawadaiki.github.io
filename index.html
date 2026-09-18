@@ -1032,6 +1032,12 @@ h1 {
 .wealth-detail p{font-size:13px}
 @media(max-width:760px){.wealth-feature{grid-template-columns:1fr;gap:24px;padding:26px 23px;margin-top:22px}.wealth-feature .wealth-detail{border-left:0;border-top:1px solid #37554e;padding:20px 0 0}.wealth-feature h2{letter-spacing:-1px}}
 
+
+.bullpen-feature{border-color:#344f68;background:linear-gradient(115deg,#132a3c,#151f29)}
+.bullpen-feature .wealth-label,.bullpen-feature h2 em{color:#9bcdf0}
+.bullpen-feature .wealth-cta{background:#9bcdf0;color:#112b40}
+.bullpen-feature .wealth-cta:hover{background:#c0e4ff}
+.bullpen-feature .wealth-detail{border-color:#344f68}
 </style>
 </head>
 
@@ -1059,6 +1065,21 @@ h1 {
 </header>
 
 <main id="main" class="container">
+
+  <section class="wealth-feature bullpen-feature" aria-labelledby="bullpen-heading">
+    <div>
+      <span class="wealth-label">Latest project / Baseball operations</span>
+      <h2 id="bullpen-heading">Bullpen <em>Ledger.</em></h2>
+      <p>Does recent workload help predict a reliever’s next appearance? Explore pitcher histories, rest patterns and a Toronto velocity case study—with an honest test of what the data can tell us.</p>
+      <a class="wealth-cta" href="/bullpen-workload-analysis/">Explore the research <span aria-hidden="true">↗</span></a>
+    </div>
+    <div class="wealth-detail">
+      <span class="wealth-label">Retrosheet + Baseball Savant / 2023–2025</span>
+      <strong>38,925 relief appearances.<br>A test on a later season.</strong>
+      <p>Interactive pitcher dossiers, 2025 evaluation, confidence intervals and reproducible analysis. Recent workload did not clearly improve this model’s predictions.</p>
+    </div>
+  </section>
+
 
   <section class="wealth-feature" aria-labelledby="wealth-heading">
     <div>
