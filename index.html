@@ -1067,10 +1067,18 @@ h1 {
 .stat-tile:hover .stat-source{color:var(--ink)}
 @media(max-width:960px){.stats-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:520px){.stats-grid{grid-template-columns:1fr}.stat-tile{min-height:0}}
+
+/* Scroll progress, card glow, hero tilt */
+.scroll-progress{position:fixed;top:0;left:0;right:0;height:3px;z-index:60;background:linear-gradient(90deg,#ff8050,#ffb08a);transform:scaleX(var(--p,0));transform-origin:0 50%;pointer-events:none}
+.case-study,.research-card{position:relative}
+.case-study::after,.research-card::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .35s;background:radial-gradient(340px circle at var(--mx,50%) var(--my,50%),rgba(255,128,80,.13),transparent 62%)}
+.case-study:hover::after,.research-card:hover::after{opacity:1}
+#signal{transform:perspective(900px) rotateX(var(--tilt-x,0deg)) rotateY(var(--tilt-y,0deg));transition:transform .25s ease-out;will-change:transform}
 </style>
 </head>
 
 <body id="top">
+<div class="scroll-progress" aria-hidden="true"></div>
 <a class="skip-link" href="#main">Skip to content</a>
 
 <header>
@@ -1469,12 +1477,42 @@ h1 {
 // Cursor glow on stat tiles (fine pointers only).
 (() => {
   if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
-  document.querySelectorAll('.stat-tile').forEach(tile => {
+  document.querySelectorAll('.stat-tile, .case-study, .research-card').forEach(tile => {
     tile.addEventListener('pointermove', e => {
       const r = tile.getBoundingClientRect();
       tile.style.setProperty('--mx', (e.clientX - r.left) + 'px');
       tile.style.setProperty('--my', (e.clientY - r.top) + 'px');
     });
+  });
+})();
+
+// Scroll progress bar (always on: it is a position indicator, not decoration).
+(() => {
+  const bar = document.querySelector('.scroll-progress');
+  let queued = false;
+  const update = () => {
+    queued = false;
+    const max = document.documentElement.scrollHeight - innerHeight;
+    bar.style.setProperty('--p', max > 0 ? Math.min(scrollY / max, 1).toFixed(4) : 0);
+  };
+  addEventListener('scroll', () => { if (!queued) { queued = true; requestAnimationFrame(update); } }, { passive: true });
+  addEventListener('resize', update);
+  update();
+})();
+
+// Hero art tilts gently toward the cursor (fine pointers, motion allowed only).
+(() => {
+  const art = document.querySelector('.hero-art'), canvas = document.querySelector('#signal');
+  if (!art || !canvas) return;
+  if (!matchMedia('(hover: hover) and (pointer: fine)').matches || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  art.addEventListener('pointermove', e => {
+    const r = art.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+    canvas.style.setProperty('--tilt-y', (x * 9).toFixed(2) + 'deg');
+    canvas.style.setProperty('--tilt-x', (-y * 7).toFixed(2) + 'deg');
+  });
+  art.addEventListener('pointerleave', () => {
+    canvas.style.setProperty('--tilt-x', '0deg'); canvas.style.setProperty('--tilt-y', '0deg');
   });
 })();
 
