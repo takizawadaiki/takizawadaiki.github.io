@@ -1044,6 +1044,29 @@ h1 {
 .js-reveal .rv.in{animation:rv-in .75s cubic-bezier(.2,.7,.2,1) backwards;animation-delay:var(--rv-d,0ms)}
 @keyframes rv-in{from{opacity:0;translate:0 28px}to{opacity:1;translate:0 0}}
 [data-count]{font-variant-numeric:tabular-nums}
+
+/* At a glance: stat tiles with cursor glow and rising bars */
+.stats-strip{padding:8px 0 56px}
+.stats-title{display:flex;align-items:center;gap:10px;font:500 12px/1 var(--heading);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:18px}
+.stats-title em{font-style:normal;opacity:.7;letter-spacing:.08em}
+.stats-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.stat-tile{position:relative;display:flex;flex-direction:column;gap:6px;min-height:236px;padding:22px 20px 18px;border:1px solid var(--border);border-radius:14px;background:linear-gradient(180deg,#151a13,#10120f);overflow:hidden;isolation:isolate;transition:border-color .3s,translate .3s}
+.stat-tile::before{content:"";position:absolute;inset:0;z-index:-1;opacity:0;transition:opacity .35s;background:radial-gradient(260px circle at var(--mx,50%) var(--my,50%),rgba(255,128,80,.2),transparent 62%)}
+.stat-tile:hover{border-color:#6b4a3a;translate:0 -3px}
+.stat-tile:hover::before{opacity:1}
+.stat-tile:focus-visible{outline:3px solid var(--orange);outline-offset:4px}
+.stat-label{font:500 11px/1.3 var(--heading);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.stat-value{font:600 clamp(34px,4vw,50px)/1 var(--heading);letter-spacing:-.03em;color:var(--ink);margin-top:6px}
+.stat-value span{font-variant-numeric:tabular-nums}
+.stat-caption{font-size:13px;line-height:1.45;color:var(--muted);max-width:24ch}
+.stat-bars{display:flex;align-items:flex-end;gap:4px;height:54px;margin-top:auto;padding-top:14px}
+.stat-bars i{flex:1;height:var(--h);min-height:3px;border-radius:2px 2px 0 0;background:linear-gradient(180deg,var(--orange),#7a3a22);opacity:.85;transform-origin:bottom;transition:transform .9s cubic-bezier(.2,.8,.2,1) calc(var(--i)*55ms)}
+.js-reveal .stat-tile:not(.in) .stat-bars i{transform:scaleY(0)}
+.stat-source{display:flex;justify-content:space-between;gap:8px;font:500 11px/1.4 var(--heading);letter-spacing:.04em;color:#7f8678;border-top:1px solid var(--border);padding-top:10px;margin-top:12px}
+.stat-source b{color:var(--orange);font-weight:500}
+.stat-tile:hover .stat-source{color:var(--ink)}
+@media(max-width:960px){.stats-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){.stats-grid{grid-template-columns:1fr}.stat-tile{min-height:0}}
 </style>
 </head>
 
@@ -1118,6 +1141,40 @@ h1 {
   </section>
 
   <!-- FEATURED RESEARCH -->
+  <section class="stats-strip" aria-labelledby="stats-heading">
+    <h2 id="stats-heading" class="stats-title"><span class="status-dot" aria-hidden="true"></span> At a glance <em>/ the scale of the work</em></h2>
+    <div class="stats-grid">
+    <a class="stat-tile" href="/bullpen-workload-analysis/">
+      <span class="stat-label">Baseball operations</span>
+      <strong class="stat-value"><span data-count="38925">38,925</span></strong>
+      <span class="stat-caption">relief appearances tested on a later season</span>
+      <div class="stat-bars" aria-hidden="true"><i style="--h:30%;--i:0"></i><i style="--h:52%;--i:1"></i><i style="--h:40%;--i:2"></i><i style="--h:66%;--i:3"></i><i style="--h:48%;--i:4"></i><i style="--h:74%;--i:5"></i><i style="--h:58%;--i:6"></i><i style="--h:88%;--i:7"></i><i style="--h:70%;--i:8"></i><i style="--h:96%;--i:9"></i><i style="--h:62%;--i:10"></i><i style="--h:80%;--i:11"></i></div>
+      <span class="stat-source">Bullpen Ledger · Retrosheet + Baseball Savant <b aria-hidden="true">↗</b></span>
+    </a>
+    <a class="stat-tile" href="/retail-profitability-analysis/">
+      <span class="stat-label">Retail analytics</span>
+      <strong class="stat-value"><span data-count="9994">9,994</span></strong>
+      <span class="stat-caption">retail orders behind the discount analysis</span>
+      <div class="stat-bars" aria-hidden="true"><i style="--h:84%;--i:0"></i><i style="--h:62%;--i:1"></i><i style="--h:72%;--i:2"></i><i style="--h:44%;--i:3"></i><i style="--h:58%;--i:4"></i><i style="--h:36%;--i:5"></i><i style="--h:50%;--i:6"></i><i style="--h:30%;--i:7"></i><i style="--h:42%;--i:8"></i><i style="--h:26%;--i:9"></i><i style="--h:38%;--i:10"></i><i style="--h:22%;--i:11"></i></div>
+      <span class="stat-source">The Margin Trap · SQL <b aria-hidden="true">↗</b></span>
+    </a>
+    <a class="stat-tile" href="/hotel-booking-analysis/">
+      <span class="stat-label">Hospitality analytics</span>
+      <strong class="stat-value"><span data-count="119000">119,000</span>+</strong>
+      <span class="stat-caption">hotel bookings scored for cancellation risk</span>
+      <div class="stat-bars" aria-hidden="true"><i style="--h:40%;--i:0"></i><i style="--h:46%;--i:1"></i><i style="--h:38%;--i:2"></i><i style="--h:60%;--i:3"></i><i style="--h:72%;--i:4"></i><i style="--h:54%;--i:5"></i><i style="--h:80%;--i:6"></i><i style="--h:66%;--i:7"></i><i style="--h:90%;--i:8"></i><i style="--h:58%;--i:9"></i><i style="--h:70%;--i:10"></i><i style="--h:84%;--i:11"></i></div>
+      <span class="stat-source">The Booking Ledger · SQL <b aria-hidden="true">↗</b></span>
+    </a>
+    <a class="stat-tile" href="#prediction-models">
+      <span class="stat-label">Predictive modeling</span>
+      <strong class="stat-value"><span data-count="6">6</span></strong>
+      <span class="stat-caption">sports with Monte Carlo and Elo models</span>
+      <div class="stat-bars" aria-hidden="true"><i style="--h:50%;--i:0"></i><i style="--h:50%;--i:1"></i><i style="--h:50%;--i:2"></i><i style="--h:50%;--i:3"></i><i style="--h:50%;--i:4"></i><i style="--h:50%;--i:5"></i></div>
+      <span class="stat-source">Explore the models · Soccer to baseball <b aria-hidden="true">↗</b></span>
+    </a>
+    </div>
+  </section>
+
   <section class="research-section" id="research" aria-labelledby="research-heading">
     <div class="section-top">
       <h2 class="section-title" id="research-heading"><span class="section-index">01 /</span> Featured research</h2>
@@ -1380,7 +1437,7 @@ h1 {
 // Scroll reveals and count-up stats. Skipped for visitors who prefer reduced motion.
 (() => {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
-  const targets = document.querySelectorAll('.wealth-feature, .research-card, .section-top, .projects-intro, .project-filters, .case-study, #prediction-models .section-top, #prediction-models a');
+  const targets = document.querySelectorAll('.wealth-feature, .research-card, .section-top, .projects-intro, .project-filters, .case-study, .stats-title, .stat-tile, #prediction-models .section-top, #prediction-models a');
   document.documentElement.classList.add('js-reveal');
   const seen = new Set();
   targets.forEach(el => {
@@ -1407,6 +1464,18 @@ h1 {
     });
   }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
   seen.forEach(el => io.observe(el));
+})();
+
+// Cursor glow on stat tiles (fine pointers only).
+(() => {
+  if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  document.querySelectorAll('.stat-tile').forEach(tile => {
+    tile.addEventListener('pointermove', e => {
+      const r = tile.getBoundingClientRect();
+      tile.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+      tile.style.setProperty('--my', (e.clientY - r.top) + 'px');
+    });
+  });
 })();
 
 </script>
