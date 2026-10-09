@@ -1038,6 +1038,12 @@ h1 {
 .bullpen-feature .wealth-cta{background:#9bcdf0;color:#112b40}
 .bullpen-feature .wealth-cta:hover{background:#c0e4ff}
 .bullpen-feature .wealth-detail{border-color:#344f68}
+
+/* Scroll reveals: added by script only, so the page is fully visible without JS. */
+.js-reveal .rv:not(.in){opacity:0}
+.js-reveal .rv.in{animation:rv-in .75s cubic-bezier(.2,.7,.2,1) backwards;animation-delay:var(--rv-d,0ms)}
+@keyframes rv-in{from{opacity:0;translate:0 28px}to{opacity:1;translate:0 0}}
+[data-count]{font-variant-numeric:tabular-nums}
 </style>
 </head>
 
@@ -1075,7 +1081,7 @@ h1 {
     </div>
     <div class="wealth-detail">
       <span class="wealth-label">Retrosheet + Baseball Savant / 2023–2025</span>
-      <strong>38,925 relief appearances.<br>A test on a later season.</strong>
+      <strong><span data-count="38925">38,925</span> relief appearances.<br>A test on a later season.</strong>
       <p>Interactive pitcher dossiers, 2025 evaluation, confidence intervals and reproducible analysis. Recent workload did not clearly improve this model’s predictions.</p>
     </div>
   </section>
@@ -1162,7 +1168,7 @@ h1 {
     <div class="case-summary">
       <div class="card-top"><span class="category">Retail analytics</span><span class="project-number">01</span></div>
       <h3>The Margin Trap</h3>
-      <p>An exploration of product performance, regional differences, and the real cost of discounting across 9,994 retail orders.</p>
+      <p>An exploration of product performance, regional differences, and the real cost of discounting across <span data-count="9994">9,994</span> retail orders.</p>
       <div class="case-summary-bottom"><span>SQL · Profitability · Discount analysis</span><span class="case-toggle">View project <b aria-hidden="true">↗</b></span></div>
     </div>
   </a>
@@ -1176,7 +1182,7 @@ h1 {
     <div class="case-summary">
       <div class="card-top"><span class="category">Hospitality analytics</span><span class="project-number">02</span></div>
       <h3>The Booking Ledger</h3>
-      <p>A closer look at cancellation risk and revenue protection across more than 119,000 hotel bookings.</p>
+      <p>A closer look at cancellation risk and revenue protection across more than <span data-count="119000">119,000</span> hotel bookings.</p>
       <div class="case-summary-bottom"><span>SQL · Cancellation risk · Revenue protection</span><span class="case-toggle">View project <b aria-hidden="true">↗</b></span></div>
     </div>
   </a>
@@ -1369,6 +1375,38 @@ h1 {
     });
     count.textContent = total + (total === 1 ? ' study' : ' studies');
   });
+})();
+
+// Scroll reveals and count-up stats. Skipped for visitors who prefer reduced motion.
+(() => {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
+  const targets = document.querySelectorAll('.wealth-feature, .research-card, .section-top, .projects-intro, .project-filters, .case-study, #prediction-models .section-top, #prediction-models a');
+  document.documentElement.classList.add('js-reveal');
+  const seen = new Set();
+  targets.forEach(el => {
+    if (seen.has(el)) return; seen.add(el);
+    el.classList.add('rv');
+    const sibs = el.parentElement ? Array.from(el.parentElement.children).filter(c => c.classList.contains('rv') || c.matches('.case-study')) : [];
+    el.style.setProperty('--rv-d', Math.min(Math.max(sibs.indexOf(el),0) % 2, 1) * 90 + 'ms');
+  });
+  const format = n => Math.round(n).toLocaleString('en-US');
+  function countUp(node) {
+    const end = Number(node.dataset.count), start = performance.now(), dur = 1100;
+    (function step(now) {
+      const t = Math.min((now - start) / dur, 1), eased = 1 - Math.pow(1 - t, 3);
+      node.textContent = format(end * eased);
+      if (t < 1) requestAnimationFrame(step); else node.textContent = format(end);
+    })(start);
+  }
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('in');
+      entry.target.querySelectorAll('[data-count]').forEach(countUp);
+      io.unobserve(entry.target);
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+  seen.forEach(el => io.observe(el));
 })();
 
 </script>
