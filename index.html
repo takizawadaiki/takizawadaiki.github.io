@@ -1703,6 +1703,21 @@ w-d.w{display:inline-block;animation:w-rise .8s cubic-bezier(.2,.8,.2,1) backwar
   let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(drawStrips, 150); });
 })();
 
+// Keep the Bench Dividend card in step with audit-results.json (typed values stay as the fallback).
+(async () => {
+  const label = document.querySelector('.research-data .data-label'), value = document.querySelector('.research-data .data-value'), note = document.querySelector('.research-data .data-note');
+  if (!label || !value || !note) return;
+  try {
+    const audit = await (await fetch('audit-results.json')).json();
+    const c = audit.combined; if (!c || typeof c.r !== 'number') return;
+    let rebuilt = false;
+    try { rebuilt = (await fetch('data-provenance.json')).ok; } catch (e) {}
+    value.textContent = c.r.toFixed(3);
+    note.textContent = 'Pearson\u2019s r \u00b7 p = ' + c.p.toFixed(3);
+    label.textContent = rebuilt ? 'Pooled correlation' : 'Pooled correlation \u00b7 provisional';
+  } catch (e) { /* keep the typed values */ }
+})();
+
 </script>
 </body>
 </html>

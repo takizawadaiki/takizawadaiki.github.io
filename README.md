@@ -26,6 +26,21 @@ The public repository listing contained three HTML files and no source dataset o
 
 The revised page retains all original chart records for an auditable provisional reanalysis. It does not silently replace Golden State with Phoenix or claim the remaining records have been verified. Do not turn these calculations into a finalized basketball result without reconciling the input.
 
+## Rebuilding the data from NBA Stats
+
+`rebuild_data.py` reproduces the article's described method (nba_api `LeagueDashPlayerStats`, `starter_bench_nullable='Bench'`, per-player averages, the 16 playoff teams per season) and rewrites `chart-values.json`. It also writes `data-provenance.json` with the retrieval time, parameters, a list of what changed from the previous file, and the pooled correlation under other reasonable definitions of "bench average".
+
+stats.nba.com often blocks cloud servers, so run it on your own computer:
+
+```sh
+pip install -r requirements-rebuild.txt
+python rebuild_data.py            # chart-values.json + data-provenance.json
+python reanalysis.py              # audit-results.json
+git add chart-values.json data-provenance.json audit-results.json && git commit -m "Rebuild data from NBA Stats" && git push
+```
+
+`python rebuild_data.py --selftest` checks the aggregation logic offline. After a rebuild, `dashboard.html` and the homepage card update themselves from the JSON files. `bench-research.html` still contains typed-in numbers and needs a manual pass.
+
 ## Reproduce
 
 With Python 3.9 or later:

@@ -101,7 +101,7 @@ td.num,th.num{text-align:right}
       <div class="eyebrow"><span class="dot"></span> NBA · 3 seasons · 48 team-seasons</div>
       <h1>The Bench<br><em>Dividend.</em> Dashboard</h1>
       <p class="lede">Does a team that plays its substitutes more in the regular season get more scoring from them in the playoffs? Every number below is read from a data file in this repository, and its source is printed under it.</p>
-      <div class="status"><b>Provisional</b><span>These figures are recalculated from the 48 chart values published with the original article. The values have not been reconciled with raw NBA records, so read the associations as exploratory. Details and known data issues are in the <a href="bench-research.html">research write-up</a>.</span></div>
+      <div class="status" id="status"><b id="status-b">Provisional</b><span id="status-t">These figures are recalculated from the 48 chart values published with the original article. The values have not been reconciled with raw NBA records, so read the associations as exploratory. Details and known data issues are in the <a href="bench-research.html">research write-up</a>.</span></div>
     </section>
 
     <noscript><div class="err">This dashboard draws its charts with JavaScript. The full data table is available in the <a href="bench-research.html" style="text-decoration:underline">research write-up</a>.</div></noscript>
@@ -134,7 +134,7 @@ td.num,th.num{text-align:right}
     <section class="sources">
       <h3>Sources and method</h3>
       <ul>
-        <li>Team-season values: <a href="chart-values.json">chart-values.json</a> (copied from the original article; 48 rounded records).</li>
+        <li id="src-data">Team-season values: <a href="chart-values.json">chart-values.json</a> (copied from the original article; 48 rounded records).</li>
         <li>All statistics: <a href="audit-results.json">audit-results.json</a>, produced by <a href="https://github.com/takizawadaiki/takizawadaiki.github.io/blob/main/reanalysis.py">reanalysis.py</a>. The fitted line is computed in your browser from the same 48 points.</li>
         <li>Minutes are average regular-season minutes per bench player per game; points are average playoff points per bench player.</li>
       </ul>
@@ -165,6 +165,20 @@ td.num,th.num{text-align:right}
     box.textContent = 'The data files could not be loaded (' + e.message + '). If you opened this file directly from disk, serve the folder instead: python3 -m http.server.';
     return;
   }
+
+  // If the data was rebuilt from NBA Stats, say so (data-provenance.json is written by rebuild_data.py).
+  try {
+    const pr = await fetch('data-provenance.json');
+    if (pr.ok) {
+      const prov = await pr.json();
+      const when = new Date(prov.retrieved_at_utc).toLocaleDateString('en-CA', { year: 'numeric', month: 'long', day: 'numeric' });
+      const rs = Object.values(prov.sensitivity_pooled_r || {}).map(v => v.pooled_r).filter(Number.isFinite);
+      const range = rs.length ? ' Under alternative ways of averaging the bench, the pooled r ranges from ' + Math.min(...rs).toFixed(3) + ' to ' + Math.max(...rs).toFixed(3) + '.' : '';
+      document.getElementById('status-b').textContent = 'Rebuilt from NBA Stats';
+      document.getElementById('status-t').innerHTML = 'Data retrieved ' + when + ' from stats.nba.com using the method in the article (bench split, per-player averages, playoff teams only).' + range + ' Choices the article leaves open are listed in <a href="data-provenance.json">data-provenance.json</a>.';
+      document.getElementById('src-data').innerHTML = 'Team-season values: <a href="chart-values.json">chart-values.json</a>, rebuilt from NBA Stats on ' + when + ' by <a href="https://github.com/takizawadaiki/takizawadaiki.github.io/blob/main/rebuild_data.py">rebuild_data.py</a>.';
+    }
+  } catch (e) { /* provenance is optional */ }
 
   // ---- KPI tiles: every value is read from audit-results.json ----
   const c = audit.combined, adj = audit.season_adjusted, loo = audit.leave_one_row_out_r_range;
