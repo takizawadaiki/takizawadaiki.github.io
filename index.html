@@ -1074,6 +1074,18 @@ h1 {
 .case-study::after,.research-card::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .35s;background:radial-gradient(340px circle at var(--mx,50%) var(--my,50%),rgba(255,128,80,.13),transparent 62%)}
 .case-study:hover::after,.research-card:hover::after{opacity:1}
 #signal{transform:perspective(900px) rotateX(var(--tilt-x,0deg)) rotateY(var(--tilt-y,0deg));transition:transform .25s ease-out;will-change:transform}
+
+/* Headline words, card tilt, sports ticker */
+w-d.w{display:inline-block;animation:w-rise .8s cubic-bezier(.2,.8,.2,1) backwards;animation-delay:calc(var(--wi)*90ms + 120ms)}
+@keyframes w-rise{from{opacity:0;translate:0 .55em;filter:blur(6px)}to{opacity:1;translate:0 0;filter:blur(0)}}
+.case-study{transform:perspective(1100px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .25s ease-out}
+.ticker{overflow:hidden;border-block:1px solid var(--border);margin:6px 0 22px;mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.ticker-track{display:flex;width:max-content;animation:ticker 32s linear infinite}
+.ticker:hover .ticker-track{animation-play-state:paused}
+.ticker-track>div{display:flex;align-items:center;gap:28px;padding:14px 14px 14px 0;white-space:nowrap}
+.ticker-track span{font:600 clamp(22px,3.4vw,38px)/1 var(--heading);letter-spacing:-.02em;text-transform:uppercase;color:transparent;-webkit-text-stroke:1px #6d7a63}
+.ticker-track b{color:var(--orange);font-weight:400;font-size:20px}
+@keyframes ticker{to{transform:translateX(-50%)}}
 </style>
 </head>
 
@@ -1316,6 +1328,7 @@ h1 {
       <h2 class="section-title" id="models-heading"><span class="section-index">03 /</span> Explore the models</h2>
       <span class="section-count">SIX SPORTS</span>
     </div>
+    <div class="ticker" aria-hidden="true"><div class="ticker-track"><div><span>Soccer</span><b>✳</b><span>Hockey</span><b>✳</b><span>Tennis</span><b>✳</b><span>UFC</span><b>✳</b><span>Basketball</span><b>✳</b><span>Baseball</span><b>✳</b></div><div><span>Soccer</span><b>✳</b><span>Hockey</span><b>✳</b><span>Tennis</span><b>✳</b><span>UFC</span><b>✳</b><span>Basketball</span><b>✳</b><span>Baseball</span><b>✳</b></div></div></div>
     <div class="grid">
       <a class="card" href="/world-cup-forecast-model/" target="_blank" rel="noopener noreferrer">
         <div class="card-content">
@@ -1513,6 +1526,42 @@ h1 {
   });
   art.addEventListener('pointerleave', () => {
     canvas.style.setProperty('--tilt-x', '0deg'); canvas.style.setProperty('--tilt-y', '0deg');
+  });
+})();
+
+// Headline words rise in one by one (skipped for reduced motion).
+(() => {
+  const h1 = document.querySelector('#page-title');
+  if (!h1 || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  let i = 0;
+  const walk = node => {
+    Array.from(node.childNodes).forEach(child => {
+      if (child.nodeType === 3) {
+        const parts = child.textContent.split(/(\s+)/);
+        const frag = document.createDocumentFragment();
+        parts.forEach(part => {
+          if (!part) return;
+          if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(part)); return; }
+          const w = document.createElement('w-d'); w.className = 'w'; w.style.setProperty('--wi', i++); w.textContent = part; frag.appendChild(w);
+        });
+        child.replaceWith(frag);
+      } else if (child.nodeType === 1 && !child.classList.contains('title-dot') && child.tagName !== 'BR') walk(child);
+    });
+  };
+  walk(h1);
+})();
+
+// Gentle 3D tilt on project cards (fine pointers, motion allowed only).
+(() => {
+  if (!matchMedia('(hover: hover) and (pointer: fine)').matches || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  document.querySelectorAll('.case-study').forEach(card => {
+    card.addEventListener('pointermove', e => {
+      const r = card.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+      card.style.setProperty('--ry', (x * 5).toFixed(2) + 'deg');
+      card.style.setProperty('--rx', (-y * 4).toFixed(2) + 'deg');
+    });
+    card.addEventListener('pointerleave', () => { card.style.setProperty('--rx', '0deg'); card.style.setProperty('--ry', '0deg'); });
   });
 })();
 
