@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="theme-color" content="#10120f"/>
+<meta name="description" content="Interactive dashboard for The Bench Dividend: substitute playing time and playoff scoring across three NBA seasons, with every figure traced to its source file."/>
+<title>Bench Dividend Dashboard · Daiki Takizawa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  color-scheme:dark;
+  --bg:#10120f;--card:#151a13;--ink:#f0f0e7;--muted:#a5ab9e;--faint:#7f8678;--border:#30372d;--orange:#ff8050;
+  --heading:'Space Grotesk',sans-serif;
+  /* Categorical slots 1-3, validated for dark surfaces (all-pairs CVD + normal-vision checks pass). */
+  --s1:#3987e5;--s2:#d95926;--s3:#199e70;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font:15px/1.65 'DM Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+.progress{position:fixed;top:0;left:0;right:0;height:3px;z-index:60;background:linear-gradient(90deg,#ff8050,#ffb08a);transform:scaleX(var(--p,0));transform-origin:0 50%;pointer-events:none}
+.skip{position:absolute;left:-999px;top:8px;background:var(--orange);color:#171b13;padding:8px 14px;border-radius:6px;z-index:70}
+.skip:focus{left:12px}
+header.top{display:flex;justify-content:space-between;align-items:center;padding:22px 0;border-bottom:1px solid var(--border);font:500 12px/1 var(--heading);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+header.top a:hover{color:var(--orange)}
+.hero{padding:54px 0 26px}
+.eyebrow{display:flex;align-items:center;gap:10px;font:500 12px/1 var(--heading);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:18px}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--orange)}
+h1{font:600 clamp(40px,7vw,84px)/.98 var(--heading);letter-spacing:-.045em}
+h1 em{font-family:Georgia,'Times New Roman',serif;font-weight:400;font-style:italic;color:var(--orange);letter-spacing:-.04em}
+.lede{max-width:62ch;margin-top:20px;color:var(--muted);font-size:16px}
+.status{display:flex;gap:14px;align-items:flex-start;margin:26px 0 8px;padding:14px 18px;border:1px solid #5a4a2a;background:#1c1a12;border-radius:12px;color:#e6d9b0;font-size:13.5px}
+.status b{font:600 11px/1.5 var(--heading);letter-spacing:.12em;text-transform:uppercase;color:#f0c75e;white-space:nowrap;padding-top:2px}
+.status a{text-decoration:underline;text-underline-offset:3px}
+.kpis{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px;margin:30px 0 14px}
+.kpi{position:relative;display:flex;flex-direction:column;gap:6px;min-height:176px;padding:20px 18px 16px;border:1px solid var(--border);border-radius:14px;background:linear-gradient(180deg,#151a13,#10120f);overflow:hidden;isolation:isolate;transition:border-color .3s,translate .3s}
+.kpi::before{content:"";position:absolute;inset:0;z-index:-1;opacity:0;transition:opacity .35s;background:radial-gradient(240px circle at var(--mx,50%) var(--my,50%),rgba(255,128,80,.2),transparent 62%)}
+.kpi:hover{border-color:#6b4a3a;translate:0 -3px}.kpi:hover::before{opacity:1}
+.kpi .l{font:500 11px/1.3 var(--heading);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.kpi .v{font:600 clamp(30px,3.2vw,42px)/1 var(--heading);letter-spacing:-.03em;margin-top:6px;font-variant-numeric:tabular-nums}
+.kpi .v.t{font-size:clamp(22px,2.15vw,29px);line-height:1.15;margin-top:10px}
+.kpi .n{font-size:12.5px;line-height:1.45;color:var(--muted)}
+.kpi .src{margin-top:auto;border-top:1px solid var(--border);padding-top:9px;font:500 10.5px/1.4 var(--heading);letter-spacing:.03em;color:var(--faint);word-break:break-word}
+.panel{border:1px solid var(--border);border-radius:16px;background:var(--card);padding:26px 26px 22px;margin-top:18px}
+.panel h2{font:600 22px/1.2 var(--heading);letter-spacing:-.02em}
+.panel .sub{color:var(--muted);font-size:14px;margin:6px 0 18px;max-width:70ch}
+.grid2{display:grid;grid-template-columns:1.25fr 1fr;gap:18px}
+.chart-box{position:relative;height:420px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:0 0 12px;font-size:13px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:8px}
+.legend svg{width:12px;height:12px;flex:none}
+.forest{display:grid;gap:4px;margin-top:6px}
+.frow{display:grid;grid-template-columns:104px 1fr;gap:6px 14px;align-items:center;padding:10px 0;border-top:1px solid #232a20}
+.frow:first-child{border-top:0}
+.fname{font:500 13px/1.3 var(--heading);color:var(--ink)}
+.fname small{display:block;color:var(--faint);font:400 11.5px/1.3 'DM Sans',sans-serif;margin-top:2px}
+.ftrack{position:relative;height:30px}
+.ftrack::before{content:"";position:absolute;left:calc((0 + .6)/1.4*100%);top:0;bottom:0;width:1px;background:#4a5445}
+.fci{position:absolute;top:50%;height:3px;border-radius:2px;translate:0 -50%;background:var(--c)}
+.fdot{position:absolute;top:50%;width:13px;height:13px;border-radius:50%;translate:-50% -50%;background:var(--c);box-shadow:0 0 0 2px var(--card);transition:scale .2s}
+.frow:hover .fdot{scale:1.35}
+.fval{grid-column:2;font:500 12.5px/1.3 var(--heading);color:var(--muted);font-variant-numeric:tabular-nums}
+.faxis{position:relative;height:20px;margin-left:118px;font:500 11px/1 var(--heading);color:var(--faint)}
+.faxis span{position:absolute;translate:-50% 0}
+.faxis-note{margin-left:118px;font-size:11.5px;color:var(--faint);margin-top:4px}
+details{margin-top:18px;border:1px solid var(--border);border-radius:14px;background:var(--card)}
+summary{cursor:pointer;padding:16px 22px;font:600 14px/1 var(--heading);letter-spacing:.02em;list-style:none;display:flex;justify-content:space-between}
+summary::after{content:"+";color:var(--orange)}details[open] summary::after{content:"–"}
+.tablewrap{max-height:420px;overflow:auto;border-top:1px solid var(--border)}
+table{width:100%;border-collapse:collapse;font-size:13.5px;font-variant-numeric:tabular-nums}
+th,td{text-align:left;padding:9px 22px;border-bottom:1px solid #232a20}
+th{position:sticky;top:0;background:#10140e;font:500 11px/1 var(--heading);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+td.num,th.num{text-align:right}
+.sources{margin:26px 0 70px;color:var(--muted);font-size:13.5px}
+.sources h3{font:600 12px/1 var(--heading);letter-spacing:.14em;text-transform:uppercase;color:var(--ink);margin-bottom:10px}
+.sources li{margin:6px 0 6px 18px}
+.sources a{text-decoration:underline;text-underline-offset:3px}.sources a:hover{color:var(--orange)}
+.err{padding:20px;border:1px solid #6b3a2a;border-radius:12px;background:#1d1411;color:#f0c1ad;margin:26px 0}
+.rv{opacity:1}
+.js-reveal .rv:not(.in){opacity:0}
+.js-reveal .rv.in{animation:rv-in .75s cubic-bezier(.2,.7,.2,1) backwards;animation-delay:var(--d,0ms)}
+@keyframes rv-in{from{opacity:0;translate:0 26px}to{opacity:1;translate:0 0}}
+:focus-visible{outline:3px solid var(--orange);outline-offset:3px}
+@media(max-width:1000px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.grid2{grid-template-columns:1fr}.kpis .kpi:last-child{grid-column:1/-1}}
+@media(max-width:560px){.wrap{padding:0 16px}.kpis{grid-template-columns:1fr}.panel{padding:18px 14px}.chart-box{height:340px}.frow{grid-template-columns:1fr}.fval{grid-column:1}.faxis,.faxis-note{margin-left:0}.status{flex-direction:column;gap:6px}th,td{padding:9px 12px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="progress" aria-hidden="true"></div>
+<a class="skip" href="#main">Skip to content</a>
+<div class="wrap">
+  <header class="top"><a href="/">← Daiki Takizawa</a><a href="bench-research.html">Read the research ↗</a></header>
+
+  <main id="main">
+    <section class="hero">
+      <div class="eyebrow"><span class="dot"></span> NBA · 3 seasons · 48 team-seasons</div>
+      <h1>The Bench<br><em>Dividend.</em> Dashboard</h1>
+      <p class="lede">Does a team that plays its substitutes more in the regular season get more scoring from them in the playoffs? Every number below is read from a data file in this repository, and its source is printed under it.</p>
+      <div class="status"><b>Provisional</b><span>These figures are recalculated from the 48 chart values published with the original article. The values have not been reconciled with raw NBA records, so read the associations as exploratory. Details and known data issues are in the <a href="bench-research.html">research write-up</a>.</span></div>
+    </section>
+
+    <noscript><div class="err">This dashboard draws its charts with JavaScript. The full data table is available in the <a href="bench-research.html" style="text-decoration:underline">research write-up</a>.</div></noscript>
+    <div id="error" class="err" hidden></div>
+
+    <section class="kpis" id="kpis" aria-label="Headline statistics"></section>
+
+    <div class="grid2">
+      <section class="panel rv" aria-labelledby="scatter-h">
+        <h2 id="scatter-h">Playing time vs playoff scoring</h2>
+        <p class="sub">Each point is one team in one season. Right means substitutes played more in the regular season; up means they scored more in the playoffs. The dashed line is the pooled least-squares fit.</p>
+        <div class="legend" id="legend" aria-hidden="true"></div>
+        <div class="chart-box"><canvas id="scatter" role="img" aria-label="Scatter chart of 48 team-seasons: average regular-season bench minutes against average playoff bench points, with a weak positive fitted line. The full data are in the table below."></canvas></div>
+      </section>
+
+      <section class="panel rv" aria-labelledby="forest-h">
+        <h2 id="forest-h">How sure are we?</h2>
+        <p class="sub">Correlation (r) with its 95% confidence interval. A bar that crosses zero is consistent with no relationship at all.</p>
+        <div class="forest" id="forest"></div>
+        <div class="faxis" id="faxis" aria-hidden="true"></div>
+        <p class="faxis-note">← negative association · positive association →</p>
+      </section>
+    </div>
+
+    <details class="rv">
+      <summary>View all 48 data points</summary>
+      <div class="tablewrap"><table id="table"><thead><tr><th>Team</th><th>Season</th><th class="num">Regular-season bench min</th><th class="num">Playoff bench pts</th></tr></thead><tbody></tbody></table></div>
+    </details>
+
+    <section class="sources">
+      <h3>Sources and method</h3>
+      <ul>
+        <li>Team-season values: <a href="chart-values.json">chart-values.json</a> (copied from the original article; 48 rounded records).</li>
+        <li>All statistics: <a href="audit-results.json">audit-results.json</a>, produced by <a href="https://github.com/takizawadaiki/takizawadaiki.github.io/blob/main/reanalysis.py">reanalysis.py</a>. The fitted line is computed in your browser from the same 48 points.</li>
+        <li>Minutes are average regular-season minutes per bench player per game; points are average playoff points per bench player.</li>
+      </ul>
+    </section>
+  </main>
+</div>
+
+<script src="chart.umd.min.js"></script>
+<script>
+(async () => {
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const SEASONS = [
+    { key: '2023–24', color: '#3987e5', shape: 'circle',   path: '<circle cx="6" cy="6" r="5.2"/>' },
+    { key: '2024–25', color: '#d95926', shape: 'triangle', path: '<path d="M6 .8 11.4 11H.6z"/>' },
+    { key: '2025–26', color: '#199e70', shape: 'rect',     path: '<rect x=".8" y=".8" width="10.4" height="10.4" rx="1.5"/>' }
+  ];
+  const el = (tag, cls, html) => { const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; };
+  const fmt = (n, d = 3) => (n < 0 ? '−' : '') + Math.abs(n).toFixed(d);
+
+  let data, audit;
+  try {
+    const [a, b] = await Promise.all([fetch('chart-values.json'), fetch('audit-results.json')]);
+    if (!a.ok || !b.ok) throw new Error('HTTP ' + (a.ok ? b.status : a.status));
+    data = await a.json(); audit = await b.json();
+  } catch (e) {
+    const box = document.getElementById('error');
+    box.hidden = false;
+    box.textContent = 'The data files could not be loaded (' + e.message + '). If you opened this file directly from disk, serve the folder instead: python3 -m http.server.';
+    return;
+  }
+
+  // ---- KPI tiles: every value is read from audit-results.json ----
+  const c = audit.combined, adj = audit.season_adjusted, loo = audit.leave_one_row_out_r_range;
+  const kpis = [
+    { l: 'Pooled correlation', v: c.r, d: 3, pre: 'r = ', n: `95% CI ${fmt(c.ci[0])} to ${fmt(c.ci[1])} · p = ${c.p.toFixed(3)}`, s: 'audit-results.json › combined' },
+    { l: 'Within-season only', v: adj.r, d: 3, pre: 'r = ', n: `After removing season differences · p = ${adj.p.toFixed(3)} · df ${adj.df}`, s: 'audit-results.json › season_adjusted' },
+    { l: 'Variance explained', v: c.r2 * 100, d: 1, suf: '%', n: `Share of playoff scoring differences tied to playing time (r²), n = ${c.n}`, s: 'audit-results.json › combined.r2' },
+    { l: 'Rank-based check', v: c.spearman, d: 3, pre: 'ρ = ', n: `Spearman correlation · p = ${c.spearman_p.toFixed(3)}`, s: 'audit-results.json › combined.spearman' },
+    { l: 'Drop any one record', text: `${fmt(loo[0])} to ${fmt(loo[1])}`, n: 'Range of r when each of the 48 records is left out in turn', s: 'audit-results.json › leave_one_row_out_r_range' }
+  ];
+  const kroot = document.getElementById('kpis');
+  kpis.forEach((k, i) => {
+    const t = el('div', 'kpi rv');
+    t.style.setProperty('--d', i * 70 + 'ms');
+    const val = el('div', 'v');
+    if (k.text) { val.textContent = k.text; val.classList.add('t'); }
+    else { val.dataset.v = k.v; val.dataset.d = k.d; val.dataset.pre = k.pre || ''; val.dataset.suf = k.suf || ''; val.textContent = (k.pre || '') + fmt(k.v, k.d) + (k.suf || ''); }
+    t.append(el('div', 'l', k.l), val, el('div', 'n', k.n), el('div', 'src', k.s));
+    kroot.append(t);
+  });
+
+  // ---- Scatter ----
+  const pts = s => data.filter(d => d.season === s.key).map(d => ({ x: d.reg, y: d.playoff, team: d.team }));
+  const xs = data.map(d => d.reg), ys = data.map(d => d.playoff), n = data.length;
+  const mx = xs.reduce((a, b) => a + b, 0) / n, my = ys.reduce((a, b) => a + b, 0) / n;
+  const slope = xs.reduce((a, x, i) => a + (x - mx) * (ys[i] - my), 0) / xs.reduce((a, x) => a + (x - mx) ** 2, 0);
+  const icept = my - slope * mx;
+  const x0 = Math.floor(Math.min(...xs) - .3), x1 = Math.ceil(Math.max(...xs) + .3);
+
+  const legend = document.getElementById('legend');
+  SEASONS.forEach(s => legend.append(el('span', '', `<svg viewBox="0 0 12 12" fill="${s.color}">${s.path}</svg>${s.key.replace('–', '–')}`)));
+  legend.append(el('span', '', '<svg viewBox="0 0 12 12"><path d="M0 6h12" stroke="#a5ab9e" stroke-width="2" stroke-dasharray="3 2"/></svg>Fitted line'));
+
+  Chart.defaults.color = '#a5ab9e';
+  Chart.defaults.font.family = "'DM Sans', system-ui, sans-serif";
+  new Chart(document.getElementById('scatter'), {
+    type: 'scatter',
+    data: { datasets: [
+      ...SEASONS.map(s => ({ label: s.key, data: pts(s), backgroundColor: s.color, borderColor: '#151a13', borderWidth: 2, pointStyle: s.shape, pointRadius: 6, pointHoverRadius: 9, pointHitRadius: 14 })),
+      { type: 'line', label: 'Fitted line', data: [{ x: x0, y: icept + slope * x0 }, { x: x1, y: icept + slope * x1 }], borderColor: '#a5ab9e', borderDash: [6, 5], borderWidth: 2, pointRadius: 0, pointHitRadius: 0, fill: false }
+    ] },
+    options: {
+      responsive: true, maintainAspectRatio: false, animation: reduced ? false : { duration: 900 },
+      interaction: { mode: 'nearest', intersect: true },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          filter: item => item.dataset.label !== 'Fitted line',
+          backgroundColor: '#0c0f0a', borderColor: '#4a5445', borderWidth: 1, padding: 12, titleColor: '#f0f0e7', bodyColor: '#c9cfc0', displayColors: true, usePointStyle: true,
+          callbacks: {
+            title: items => items[0].raw.team + ' · ' + items[0].dataset.label,
+            label: ctx => ['Regular season: ' + ctx.raw.x.toFixed(1) + ' min', 'Playoffs: ' + ctx.raw.y.toFixed(2) + ' pts']
+          }
+        }
+      },
+      scales: {
+        x: { min: x0, max: x1, title: { display: true, text: 'Avg regular-season minutes per bench player' }, grid: { color: '#242b21' }, border: { color: '#3a4435' } },
+        y: { title: { display: true, text: 'Avg playoff points per bench player' }, grid: { color: '#242b21' }, border: { color: '#3a4435' } }
+      }
+    }
+  });
+
+  // ---- Forest plot (HTML so it stays readable on phones) ----
+  const lo = -0.6, hi = 0.8, pct = v => ((v - lo) / (hi - lo)) * 100;
+  const forest = document.getElementById('forest');
+  const rows = [
+    ...SEASONS.map(s => ({ name: s.key, sub: '16 team-seasons', color: s.color, r: audit[s.key].r, ci: audit[s.key].ci, p: audit[s.key].p })),
+    { name: 'All seasons', sub: '48 team-seasons', color: '#f0f0e7', r: c.r, ci: c.ci, p: c.p },
+    { name: 'Season-adjusted', sub: 'df ' + adj.df + ' · no interval computed', color: '#a5ab9e', r: adj.r, ci: null, p: adj.p }
+  ];
+  rows.forEach(r => {
+    const row = el('div', 'frow');
+    row.style.setProperty('--c', r.color);
+    row.title = r.name + ': r = ' + fmt(r.r) + (r.ci ? ', 95% CI ' + fmt(r.ci[0]) + ' to ' + fmt(r.ci[1]) : '') + ', p = ' + r.p.toFixed(3);
+    const track = el('div', 'ftrack');
+    if (r.ci) { const ci = el('div', 'fci'); ci.style.left = pct(r.ci[0]) + '%'; ci.style.width = (pct(r.ci[1]) - pct(r.ci[0])) + '%'; track.append(ci); }
+    const dot = el('div', 'fdot'); dot.style.left = pct(r.r) + '%'; track.append(dot);
+    row.append(el('div', 'fname', r.name + '<small>' + r.sub + '</small>'), track, el('div', 'fval', 'r = ' + fmt(r.r) + (r.ci ? ' [' + fmt(r.ci[0]) + ', ' + fmt(r.ci[1]) + ']' : '') + ' · p = ' + r.p.toFixed(3)));
+    forest.append(row);
+  });
+  const axis = document.getElementById('faxis');
+  [-0.5, 0, 0.5].forEach(v => { const t = el('span', '', (v > 0 ? '+' : v < 0 ? '−' : '') + Math.abs(v).toFixed(1)); t.style.left = pct(v) + '%'; axis.append(t); });
+
+  // ---- Table view ----
+  const tb = document.querySelector('#table tbody');
+  data.forEach(d => { const tr = document.createElement('tr'); tr.innerHTML = `<td>${d.team}</td><td>${d.season}</td><td class="num">${d.reg.toFixed(1)}</td><td class="num">${d.playoff.toFixed(2)}</td>`; tb.append(tr); });
+
+  // ---- Motion: reveals, count-up, glow, progress ----
+  const bar = document.querySelector('.progress');
+  let queued = false;
+  const upd = () => { queued = false; const m = document.documentElement.scrollHeight - innerHeight; bar.style.setProperty('--p', m > 0 ? Math.min(scrollY / m, 1).toFixed(4) : 0); };
+  addEventListener('scroll', () => { if (!queued) { queued = true; requestAnimationFrame(upd); } }, { passive: true });
+  addEventListener('resize', upd); upd();
+
+  if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    document.querySelectorAll('.kpi').forEach(t => t.addEventListener('pointermove', e => {
+      const r = t.getBoundingClientRect(); t.style.setProperty('--mx', (e.clientX - r.left) + 'px'); t.style.setProperty('--my', (e.clientY - r.top) + 'px');
+    }));
+  }
+
+  if (!reduced && 'IntersectionObserver' in window) {
+    document.documentElement.classList.add('js-reveal');
+    const count = node => {
+      const end = Number(node.dataset.v), d = Number(node.dataset.d), t0 = performance.now();
+      (function step(now) {
+        const t = Math.min((now - t0) / 1100, 1), e = 1 - Math.pow(1 - t, 3);
+        node.textContent = node.dataset.pre + fmt(end * e, d) + node.dataset.suf;
+        if (t < 1) requestAnimationFrame(step); else node.textContent = node.dataset.pre + fmt(end, d) + node.dataset.suf;
+      })(t0);
+    };
+    const io = new IntersectionObserver(es => es.forEach(en => {
+      if (!en.isIntersecting) return;
+      en.target.classList.add('in');
+      en.target.querySelectorAll('.v[data-v]').forEach(count);
+      io.unobserve(en.target);
+    }), { threshold: .12, rootMargin: '0px 0px -6% 0px' });
+    document.querySelectorAll('.rv').forEach(n => io.observe(n));
+  }
+})();
+</script>
+</body>
+</html>
