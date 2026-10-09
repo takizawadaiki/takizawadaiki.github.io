@@ -1093,6 +1093,42 @@ w-d.w{display:inline-block;animation:w-rise .8s cubic-bezier(.2,.8,.2,1) backwar
 .dash-link small{flex-basis:100%;font-size:13px;color:var(--muted)}
 .dash-link:hover{border-color:#6b4a3a;translate:0 -2px}
 .dash-link:focus-visible{outline:3px solid var(--orange);outline-offset:4px}
+
+/* Homepage data visuals */
+.vz-pair{display:grid;grid-template-columns:1.1fr 1fr;gap:18px;margin-top:18px}
+.vz-card{border:1px solid var(--border);border-radius:16px;background:linear-gradient(180deg,#151a13,#10120f);padding:24px 24px 18px}
+.vz-card h3{font:600 20px/1.2 var(--heading);letter-spacing:-.02em}
+.vz-sub{color:var(--muted);font-size:13.5px;margin:6px 0 14px;max-width:56ch}
+.vz-src{margin-top:12px;padding-top:10px;border-top:1px solid var(--border);font:500 10.5px/1.4 var(--heading);letter-spacing:.03em;color:#7f8678}
+.vz-chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.vz-chips button{display:inline-flex;align-items:center;gap:8px;font:500 12.5px/1 var(--heading);color:var(--ink);background:transparent;border:1px solid var(--border);border-radius:999px;padding:9px 14px;cursor:pointer;transition:border-color .2s,background .2s}
+.vz-chips button:hover{border-color:#6b4a3a}
+.vz-chips button[aria-pressed="true"]{background:#1d241a;border-color:var(--c)}
+.vz-chips button:focus-visible{outline:3px solid var(--orange);outline-offset:3px}
+.vz-chips svg{width:11px;height:11px;flex:none}
+.vz-rank{list-style:none;display:grid;gap:5px}
+.vz-rank li{display:grid;grid-template-columns:38px 1fr 118px;gap:10px;align-items:center;font-size:12.5px;font-variant-numeric:tabular-nums}
+.vz-rank .t{font:600 12px/1 var(--heading);letter-spacing:.04em;color:var(--ink)}
+.vz-rank .b{height:14px;border-radius:3px;background:#1a2117;overflow:hidden}
+.vz-rank .b i{display:block;height:100%;width:var(--w);background:var(--c);border-radius:0 3px 3px 0;transform-origin:left;transition:transform .8s cubic-bezier(.2,.8,.2,1) calc(var(--i)*30ms)}
+.vz-rank .v em{font-style:normal}.vz-rank .v{color:var(--muted);font:500 11.5px/1.2 var(--heading);white-space:nowrap}
+.js-reveal .vz-card:not(.in) .vz-rank .b i{transform:scaleX(0)}
+.vz-rank.swap .b i{transform:scaleX(0);transition:none}
+.vz-strips{display:grid;gap:4px}
+.vz-row{display:grid;grid-template-columns:62px 1fr;gap:10px;align-items:center}
+.vz-row .n{font:500 12.5px/1.2 var(--heading);color:var(--ink)}
+.vz-row .n small{display:block;color:#7f8678;font:400 11px/1.3 'DM Sans',sans-serif}
+.vz-track{position:relative;height:92px;border-top:1px solid #232a20}
+.vz-dot{position:absolute;width:11px;height:11px;border-radius:50%;background:var(--c);box-shadow:0 0 0 2px #151a13;translate:-50% -50%;transition:scale .2s,opacity .6s;cursor:default}
+.vz-dot:hover{scale:1.5;z-index:2}
+.js-reveal .vz-card:not(.in) .vz-dot{opacity:0}
+.vz-med{position:absolute;top:6px;bottom:6px;width:2px;background:#f0f0e7;border-radius:1px;translate:-50% 0;opacity:.85}
+.vz-med span{position:absolute;top:-2px;left:6px;font:500 10.5px/1 var(--heading);color:#c9cfc0;white-space:nowrap}
+.vz-axis{position:relative;height:18px;margin-left:72px;font:500 11px/1 var(--heading);color:#7f8678}
+.vz-axis span{position:absolute;translate:-50% 0}
+.vz-axis-label{margin-left:72px;font-size:11.5px;color:#7f8678;margin-top:2px}
+@media(max-width:960px){.vz-pair{grid-template-columns:1fr}}
+@media(max-width:520px){.vz-card{padding:18px 14px 14px}.vz-rank li{grid-template-columns:34px 1fr 58px}.vz-rank .v em{display:none}.vz-row{grid-template-columns:1fr}.vz-axis,.vz-axis-label{margin-left:0}}
 </style>
 </head>
 
@@ -1235,6 +1271,24 @@ w-d.w{display:inline-block;animation:w-rise .8s cubic-bezier(.2,.8,.2,1) backwar
       </div>
     </a>
     <a class="dash-link" href="dashboard.html"><span>Open the data dashboard</span> <b aria-hidden="true">↗</b><small>Interactive scatter, confidence intervals and every figure traced to its source file</small></a>
+
+    <div class="vz-pair" id="vz-pair" hidden>
+      <section class="vz-card" aria-labelledby="vz-rank-h">
+        <h3 id="vz-rank-h">Who got the most from the bench?</h3>
+        <p class="vz-sub">Average playoff points per bench player, ranked. Bar length uses one scale across all seasons.</p>
+        <div class="vz-chips" id="vz-chips" role="group" aria-label="Season"></div>
+        <ol class="vz-rank" id="vz-rank"></ol>
+        <p class="vz-src">Source: chart-values.json · 16 team-seasons per year</p>
+      </section>
+      <section class="vz-card" aria-labelledby="vz-strip-h">
+        <h3 id="vz-strip-h">Bench minutes, season by season</h3>
+        <p class="vz-sub">Each dot is a team. The tick marks that season’s median, calculated from the same file.</p>
+        <div class="vz-strips" id="vz-strips"></div>
+        <div class="vz-axis" id="vz-axis" aria-hidden="true"></div>
+        <p class="vz-axis-label">Average regular-season minutes per bench player</p>
+        <p class="vz-src">Source: chart-values.json</p>
+      </section>
+    </div>
   </section>
 
   <!-- PROJECTS: each card navigates directly to its project. -->
@@ -1466,7 +1520,7 @@ w-d.w{display:inline-block;animation:w-rise .8s cubic-bezier(.2,.8,.2,1) backwar
 // Scroll reveals and count-up stats. Skipped for visitors who prefer reduced motion.
 (() => {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
-  const targets = document.querySelectorAll('.wealth-feature, .research-card, .section-top, .projects-intro, .project-filters, .case-study, .stats-title, .stat-tile, #prediction-models .section-top, #prediction-models a');
+  const targets = document.querySelectorAll('.wealth-feature, .research-card, .section-top, .projects-intro, .project-filters, .case-study, .vz-card, .stats-title, .stat-tile, #prediction-models .section-top, #prediction-models a');
   document.documentElement.classList.add('js-reveal');
   const seen = new Set();
   targets.forEach(el => {
@@ -1571,6 +1625,82 @@ w-d.w{display:inline-block;animation:w-rise .8s cubic-bezier(.2,.8,.2,1) backwar
     });
     card.addEventListener('pointerleave', () => { card.style.setProperty('--rx', '0deg'); card.style.setProperty('--ry', '0deg'); });
   });
+})();
+
+// Homepage data visuals, drawn from chart-values.json (hidden if the file cannot be loaded).
+(async () => {
+  const root = document.querySelector('#vz-pair');
+  if (!root) return;
+  let data;
+  try { const r = await fetch('chart-values.json'); if (!r.ok) throw 0; data = await r.json(); } catch (e) { return; }
+  const S = [
+    { k: '2023\u201324', c: '#3987e5', path: '<circle cx="6" cy="6" r="5.2"/>' },
+    { k: '2024\u201325', c: '#d95926', path: '<path d="M6 .8 11.4 11H.6z"/>' },
+    { k: '2025\u201326', c: '#199e70', path: '<rect x=".8" y=".8" width="10.4" height="10.4" rx="1.5"/>' }
+  ];
+  const mk = (t, c, h) => { const e = document.createElement(t); if (c) e.className = c; if (h != null) e.innerHTML = h; return e; };
+  const maxPts = Math.max(...data.map(d => d.playoff));
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  root.hidden = false;
+
+  // Ranked bars with season chips
+  const chips = document.querySelector('#vz-chips'), list = document.querySelector('#vz-rank');
+  let cur = S[0];
+  function drawRank(first) {
+    const rows = data.filter(d => d.season === cur.k).sort((a, b) => b.playoff - a.playoff);
+    list.classList.add('swap'); list.innerHTML = '';
+    rows.forEach((d, i) => {
+      const li = mk('li');
+      li.style.setProperty('--c', cur.c); li.style.setProperty('--i', i);
+      li.title = d.team + ' ' + cur.k + ': ' + d.playoff.toFixed(2) + ' playoff pts, ' + d.reg.toFixed(1) + ' regular-season min';
+      li.innerHTML = '<span class="t">' + d.team + '</span><span class="b"><i style="--w:' + (d.playoff / maxPts * 100).toFixed(1) + '%;--c:' + cur.c + ';--i:' + i + '"></i></span><span class="v">' + d.playoff.toFixed(2) + ' pts<em> \u00b7 ' + d.reg.toFixed(1) + ' min</em></span>';
+      list.append(li);
+    });
+    void list.offsetWidth;
+    requestAnimationFrame(() => list.classList.remove('swap'));
+    chips.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.k === cur.k)));
+  }
+  S.forEach(s => {
+    const b = mk('button', '', '<svg viewBox="0 0 12 12" fill="' + s.c + '" aria-hidden="true">' + s.path + '</svg>' + s.k);
+    b.type = 'button'; b.dataset.k = s.k; b.style.setProperty('--c', s.c);
+    b.addEventListener('click', () => { cur = s; drawRank(); });
+    chips.append(b);
+  });
+  drawRank(true);
+
+  // Minutes strips (simple beeswarm), recomputed on resize
+  const strips = document.querySelector('#vz-strips'), axis = document.querySelector('#vz-axis');
+  const lo = 8.5, hi = 16.5, pct = v => (v - lo) / (hi - lo) * 100;
+  const median = a => { const b = [...a].sort((x, y) => x - y), m = b.length >> 1; return b.length % 2 ? b[m] : (b[m - 1] + b[m]) / 2; };
+  function drawStrips() {
+    strips.innerHTML = '';
+    S.forEach(s => {
+      const pts = data.filter(d => d.season === s.k).sort((a, b) => a.reg - b.reg);
+      const row = mk('div', 'vz-row'), track = mk('div', 'vz-track');
+      row.append(mk('div', 'n', s.k + '<small>' + pts.length + ' teams</small>'), track);
+      strips.append(row);
+      const w = track.getBoundingClientRect().width || 300, placed = [];
+      pts.forEach(d => {
+        const x = pct(d.reg) / 100 * w;
+        let off = 0;
+        for (let step = 0; step < 14; step++) {
+          const cand = step === 0 ? 0 : (step % 2 ? 1 : -1) * Math.ceil(step / 2) * 12;
+          if (placed.every(p => Math.hypot(p.x - x, p.y - cand) > 12)) { off = cand; break; }
+        }
+        placed.push({ x, y: off });
+        const dot = mk('span', 'vz-dot'); dot.style.setProperty('--c', s.c);
+        dot.style.left = pct(d.reg) + '%'; dot.style.top = 'calc(50% + ' + off + 'px)';
+        dot.title = d.team + ' \u00b7 ' + s.k + ': ' + d.reg.toFixed(1) + ' min';
+        track.append(dot);
+      });
+      const m = median(pts.map(d => d.reg)), tick = mk('div', 'vz-med', '<span>median ' + m.toFixed(1) + '</span>');
+      tick.style.left = pct(m) + '%'; track.append(tick);
+    });
+  }
+  axis.innerHTML = '';
+  [9, 11, 13, 15].forEach(v => { const t = mk('span', '', String(v)); t.style.left = pct(v) + '%'; axis.append(t); });
+  drawStrips();
+  let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(drawStrips, 150); });
 })();
 
 </script>
