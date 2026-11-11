@@ -1228,7 +1228,33 @@ kbd{font:500 10px/1 var(--heading);border:1px solid var(--border);border-radius:
 #sim-readout{font-size:12px;color:var(--ink);margin-top:10px;min-height:1.6em;font-variant-numeric:tabular-nums}
 @media(max-width:960px){.sim{grid-template-columns:1fr;gap:28px}}
 @media(max-width:520px){.sim{padding:20px 14px}.sim-bars{gap:3px}.sim-v{font-size:9.5px}.sim-x{font-size:9px}.sim-track{height:120px}}
+
+/* ---- Opening: hero first, filling the first screen, with an entrance sequence ---- */
+#signal.intro-run{position:fixed;inset:0;z-index:30;pointer-events:none}
+.art-readout{position:absolute;top:63px;left:42px;font:8px/1 var(--heading);letter-spacing:1px;text-transform:uppercase;color:#8d9a80;font-variant-numeric:tabular-nums;white-space:nowrap}
+.hero-layout{position:relative}
+.hero-layout::before{content:"";position:absolute;inset:0 -56px;z-index:-1;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:56px 56px;mask-image:radial-gradient(ellipse 62% 75% at 74% 50%,#000 5%,transparent 72%)}
+@media(min-width:1001px){
+  .intro{min-height:calc(100svh - 106px);display:flex;flex-direction:column}
+  .hero-layout{flex:1}
+  .hero-art{height:clamp(400px,calc(100svh - 330px),660px)}
+  h1{font-size:clamp(60px,min(7.3vw,11vh),112px)}
+}
+@media(min-width:1001px) and (max-height:780px){.hero-layout{padding:20px 0 22px}}
+@media(max-width:760px){.art-readout{display:none}}
+@media(max-width:1000px){.hero-layout::before{inset:0 -18px;mask-image:radial-gradient(ellipse 90% 60% at 50% 70%,#000 5%,transparent 75%)}}
+.js-intro header,.js-intro .hero-top,.js-intro .hero-copy>p,.js-intro .primary-link,.js-intro .hero-bottom,.js-intro .art-top,.js-intro .art-caption,.js-intro .art-forms,.js-intro .art-readout,.js-intro .art-cross,.js-intro .title-dot,.js-intro .hero-layout::before{animation:intro-rise .9s cubic-bezier(.2,.7,.2,1) backwards}
+.js-intro header{animation-delay:.05s}
+.js-intro .hero-top{animation-delay:.15s}
+.js-intro .hero-copy>p{animation-delay:1s}
+.js-intro .primary-link{animation-delay:1.15s}
+.js-intro .title-dot{animation-delay:.85s}
+.js-intro .hero-layout::before{animation-delay:.6s;animation-duration:1.8s}
+.js-intro .hero-bottom{animation-delay:1.5s}
+.js-intro .art-top,.js-intro .art-caption,.js-intro .art-forms,.js-intro .art-readout,.js-intro .art-cross{animation-delay:2.1s}
+@keyframes intro-rise{from{opacity:0;translate:0 14px}}
 </style>
+<script>if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('js-intro')</script>
 </head>
 
 <body id="top">
@@ -1259,7 +1285,24 @@ kbd{font:500 10px/1 var(--heading);border:1px solid var(--border);border-radius:
 
 <main id="main" class="container">
 
-  <section class="wealth-feature bullpen-feature" aria-labelledby="bullpen-heading">
+  <section class="intro" id="intro" aria-labelledby="page-title">
+    <div class="hero-top"><div class="eyebrow"><span class="status-dot"></span> An independent perspective on data</div><span class="edition">PORTFOLIO — 2026</span></div>
+    <div class="hero-layout"><div class="hero-copy">
+      <h1 id="page-title">Behind the<br>numbers.<br><span>Beyond the</span><br><em>obvious.</em><span class="title-dot" aria-hidden="true">✳</span></h1>
+      <p>I’m Daiki. I explore the stories hiding in business performance and sports economics—through research, dashboards, and predictive models.</p>
+      <a class="primary-link" href="#projects">Explore my work <span aria-hidden="true">↘</span></a>
+    </div>
+    <div class="hero-art"><div class="art-top"><span>FIG. 01 / FINDING THE SIGNAL</span><span class="art-live"><i></i> <span id="art-hint">LIVE GENERATIVE STUDY</span></span></div>
+      <canvas id="signal" aria-label="Decorative animated orange point cloud. It can be dragged to rotate and switched between a ribbon, a scatter and a surface." role="img"></canvas>
+      <div class="art-forms" role="group" aria-label="Point cloud form" hidden><button type="button" data-form="0" aria-pressed="true">Ribbon</button><button type="button" data-form="1" aria-pressed="false">Scatter</button><button type="button" data-form="2" aria-pressed="false">Surface</button></div>
+      <div class="art-caption"><span>From complexity,<br><strong>a clearer perspective.</strong></span><button id="motion-toggle" type="button" aria-pressed="false">Pause motion <span aria-hidden="true">Ⅱ</span></button></div>
+      <span class="art-readout" id="art-readout" aria-hidden="true"></span>
+      <span class="art-cross cross-one" aria-hidden="true">+</span><span class="art-cross cross-two" aria-hidden="true">+</span>
+    </div></div>
+    <div class="hero-bottom"><span>DATA ANALYTICS · UNIVERSITY OF TORONTO</span><div><span>Business intelligence</span><i>/</i><span>Sports economics</span><i>/</i><span>Predictive modeling</span></div><a href="#latest" aria-label="Scroll to latest projects">↓</a></div>
+  </section>
+
+  <section class="wealth-feature bullpen-feature" id="latest" aria-labelledby="bullpen-heading">
     <div>
       <span class="wealth-label">Latest project / Baseball operations</span>
       <h2 id="bullpen-heading">Bullpen <em>Ledger.</em></h2>
@@ -1286,23 +1329,6 @@ kbd{font:500 10px/1 var(--heading);border:1px solid var(--border);border-radius:
       <strong>Money available today.<br>Purchasing power tomorrow.</strong>
       <p>Adjust cash allocations and withdrawals. Compare inflation-adjusted outcomes using published Canadian fund returns and CPI data.</p>
     </div>
-  </section>
-
-
-  <section class="intro" id="intro" aria-labelledby="page-title">
-    <div class="hero-top"><div class="eyebrow"><span class="status-dot"></span> An independent perspective on data</div><span class="edition">PORTFOLIO — 2026</span></div>
-    <div class="hero-layout"><div class="hero-copy">
-      <h1 id="page-title">Behind the<br>numbers.<br><span>Beyond the</span><br><em>obvious.</em><span class="title-dot" aria-hidden="true">✳</span></h1>
-      <p>I’m Daiki. I explore the stories hiding in business performance and sports economics—through research, dashboards, and predictive models.</p>
-      <a class="primary-link" href="#projects">Explore my work <span aria-hidden="true">↘</span></a>
-    </div>
-    <div class="hero-art"><div class="art-top"><span>FIG. 01 / FINDING THE SIGNAL</span><span class="art-live"><i></i> <span id="art-hint">LIVE GENERATIVE STUDY</span></span></div>
-      <canvas id="signal" aria-label="Decorative animated orange point cloud. It can be dragged to rotate and switched between a ribbon, a scatter and a surface." role="img"></canvas>
-      <div class="art-forms" role="group" aria-label="Point cloud form" hidden><button type="button" data-form="0" aria-pressed="true">Ribbon</button><button type="button" data-form="1" aria-pressed="false">Scatter</button><button type="button" data-form="2" aria-pressed="false">Surface</button></div>
-      <div class="art-caption"><span>From complexity,<br><strong>a clearer perspective.</strong></span><button id="motion-toggle" type="button" aria-pressed="false">Pause motion <span aria-hidden="true">Ⅱ</span></button></div>
-      <span class="art-cross cross-one" aria-hidden="true">+</span><span class="art-cross cross-two" aria-hidden="true">+</span>
-    </div></div>
-    <div class="hero-bottom"><span>DATA ANALYTICS · UNIVERSITY OF TORONTO</span><div><span>Business intelligence</span><i>/</i><span>Sports economics</span><i>/</i><span>Predictive modeling</span></div><a href="#research" aria-label="Scroll to featured research">↓</a></div>
   </section>
 
   <!-- FEATURED RESEARCH -->
@@ -1579,8 +1605,8 @@ kbd{font:500 10px/1 var(--heading);border:1px solid var(--border);border-radius:
 </footer>
 
 <nav class="rail" aria-label="Page sections" hidden>
-  <a href="#top" data-spy="#main"><span>Latest</span></a>
-  <a href="#intro" data-spy="#intro"><span>Intro</span></a>
+  <a href="#top" data-spy="#main"><span>Intro</span></a>
+  <a href="#latest" data-spy="#latest"><span>Latest</span></a>
   <a href="#research" data-spy="#research"><span>Research</span></a>
   <a href="#projects" data-spy="#projects"><span>Projects</span></a>
   <a href="#prediction-models" data-spy="#prediction-models"><span>Models</span></a>
@@ -1633,8 +1659,42 @@ kbd{font:500 10px/1 var(--heading);border:1px solid var(--border);border-radius:
   let target = forms[0], morph = 1;
   let paused = reduced.matches, visible = true, frame = 0, time = 0, width = 0, height = 0, last = 0;
   let yaw = 0, pitch = 0, vyaw = 0, dragging = false, px = 0, py = 0, mx = -1, my = -1;
+  const art = canvas.closest('.hero-art'), readout = document.querySelector('#art-readout'), formBar = document.querySelector('.art-forms');
+  const names = ['Ribbon', 'Scatter', 'Surface'];
+  let cx = 0, cy = 0, unit = 0, formIndex = 0, touched = false, idle = 0, shown = '';
+
+  // Opening sequence: the points start scattered across the whole screen and gather into the sculpture.
+  // Skipped for reduced motion, and when the page opens somewhere other than the top.
+  let introOn = !reduced.matches && scrollY < 40 && !location.hash, intro = 0;
+  const ox = new Float32Array(N), oy = new Float32Array(N), od = new Float32Array(N);
+  if (introOn) {
+    canvas.classList.add('intro-run');
+    for (let i = 0; i < N; i++) { ox[i] = rand() * innerWidth; oy[i] = rand() * innerHeight; od[i] = rand(); }
+  }
+  // Where the sculpture is drawn: the middle of the canvas, or of its frame while the canvas covers the screen.
+  function place() {
+    if (introOn) {
+      const plate = art.getBoundingClientRect();
+      cx = plate.left + plate.width / 2; cy = plate.top + plate.height / 2; unit = Math.min(plate.width, plate.height) * .215;
+    } else { cx = width / 2; cy = height / 2; unit = Math.min(width, height) * .215; }
+  }
+  function setForm(index) {
+    formIndex = index; idle = 0;
+    if (formBar) formBar.querySelectorAll('button').forEach(item => item.setAttribute('aria-pressed', String(Number(item.dataset.form) === index)));
+    if (forms[index] === target) return;
+    target = forms[index];
+    if (paused) { pos.set(target); morph = 1; }         // no animation when motion is paused or reduced
+    else { start.set(pos); morph = 0; }
+    kick();
+  }
 
   function step(dt) {
+    if (introOn) {
+      intro += dt / 2600;
+      if (intro >= 1) { introOn = false; canvas.classList.remove('intro-run'); resize(); }
+    }
+    // Until the visitor touches it, the sculpture changes form on its own every few seconds.
+    if (!touched && !paused && !introOn && morph >= 1) { idle += dt; if (idle > 6500) setForm((formIndex + 1) % forms.length); }
     if (morph < 1) {
       morph = Math.min(1, morph + dt / 1400);
       for (let i = 0, k = 0; i < N; i++, k += 3) {
@@ -1654,15 +1714,16 @@ kbd{font:500 10px/1 var(--heading);border:1px solid var(--border);border-radius:
 
   function draw() {
     context.clearRect(0, 0, width, height);
-    const angle = time * .00015 + .3 + yaw, scale = Math.min(width, height) * .215;
+    if (introOn) place();                                // follows the frame if the page scrolls mid-sequence
+    const angle = time * .00015 + .3 + yaw, scale = unit;
     const sin = Math.sin(angle), cos = Math.cos(angle), tilt = .5236 + pitch, ct = Math.cos(tilt), st = Math.sin(tilt);
-    const lens = mx >= 0, R = 90;
+    const lens = mx >= 0 && !introOn, R = 90;
     for (let i = 0, k = 0; i < N; i++, k += 3) {
       const x = pos[k], y = pos[k + 1], z = pos[k + 2];
       const rx = x * cos + z * sin, rz = -x * sin + z * cos;
       const ry = y * ct - rz * st, depth = y * st + rz * ct;
       const p = 4.5 / (4.5 - depth);
-      let X = width / 2 + rx * scale * p, Y = height / 2 + ry * scale * p, r = Math.max(.5, 1.15 * p);
+      let X = cx + rx * scale * p, Y = cy + ry * scale * p, r = Math.max(.5, 1.15 * p);
       let b = ((depth + 2.4) / 4.8 * BINS) | 0;
       b = b < 0 ? 0 : b >= BINS ? BINS - 1 : b;
       if (lens) {
@@ -1673,7 +1734,18 @@ kbd{font:500 10px/1 var(--heading);border:1px solid var(--border);border-radius:
           if (f > .12) b = BINS;                         // nearest points are drawn last, brighter
         }
       }
+      if (introOn) {
+        let t = intro * 1.6 - od[i] * .6;                  // each point leaves at its own moment
+        t = t < 0 ? 0 : t > 1 ? 1 : t;
+        t = t < .5 ? 8 * t * t * t * t : 1 - Math.pow(-2 * t + 2, 4) / 2;
+        X = ox[i] + (X - ox[i]) * t; Y = oy[i] + (Y - oy[i]) * t; r *= .55 + .45 * t;
+      }
       sx[i] = X; sy[i] = Y; sr[i] = r; bin[i] = b;
+    }
+    if (readout) {
+      const degrees = String(Math.round(((angle * 57.2958) % 360 + 360) % 360)).padStart(3, '0');
+      const label = 'N 4,576 · Yaw ' + degrees + '° · ' + names[formIndex];
+      if (label !== shown) { shown = label; readout.textContent = label; }
     }
     // Opacity depends only on depth, so drawing depth bins back to front replaces a per-frame sort.
     for (let b = 0; b <= BINS; b++) {
@@ -1691,7 +1763,7 @@ kbd{font:500 10px/1 var(--heading);border:1px solid var(--border);border-radius:
     const box = canvas.getBoundingClientRect(), ratio = Math.min(window.devicePixelRatio || 1, 2);
     width = box.width; height = box.height;
     canvas.width = Math.round(width * ratio); canvas.height = Math.round(height * ratio);
-    context.setTransform(ratio, 0, 0, ratio, 0, 0); draw();
+    context.setTransform(ratio, 0, 0, ratio, 0, 0); place(); draw();
   }
   function animate(now) {
     frame = 0;
@@ -1712,26 +1784,20 @@ kbd{font:500 10px/1 var(--heading);border:1px solid var(--border);border-radius:
   }
 
   // Form switcher
-  const formBar = document.querySelector('.art-forms');
   if (formBar) {
     formBar.hidden = false;
     formBar.addEventListener('click', event => {
       const button = event.target.closest('button[data-form]');
       if (!button) return;
-      const next = forms[Number(button.dataset.form)];
-      formBar.querySelectorAll('button').forEach(item => item.setAttribute('aria-pressed', String(item === button)));
-      if (next === target) return;
-      target = next;
-      if (paused) { pos.set(target); morph = 1; }       // no animation when motion is paused or reduced
-      else { start.set(pos); morph = 0; }
-      kick();
+      touched = true;
+      setForm(Number(button.dataset.form));
     });
   }
 
   // Drag to rotate. Touch keeps vertical page scrolling and rotates on horizontal drags.
   canvas.addEventListener('pointerdown', event => {
     if (event.pointerType === 'mouse' && event.button !== 0) return;
-    dragging = true; px = event.clientX; py = event.clientY; vyaw = 0;
+    dragging = true; touched = true; px = event.clientX; py = event.clientY; vyaw = 0;
     canvas.setPointerCapture(event.pointerId); canvas.classList.add('dragging');
   });
   canvas.addEventListener('pointermove', event => {
