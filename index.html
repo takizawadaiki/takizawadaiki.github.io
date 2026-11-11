@@ -1044,6 +1044,11 @@ h1 {
 @media(max-width:760px){.wealth-feature{grid-template-columns:1fr;gap:24px;padding:26px 23px;margin-top:22px}.wealth-feature .wealth-detail{border-left:0;border-top:1px solid #37554e;padding:20px 0 0}.wealth-feature h2{letter-spacing:-1px}}
 
 
+.pitch-feature{border-color:#6b4a3a;background:linear-gradient(115deg,#2a1c14,#1b1612)}
+.pitch-feature .wealth-label,.pitch-feature h2 em{color:#ffb08a}
+.pitch-feature .wealth-cta{background:var(--orange);color:#171b13}
+.pitch-feature .wealth-cta:hover{background:#ff9b76}
+.pitch-feature .wealth-detail{border-color:#6b4a3a}
 .bullpen-feature{border-color:#344f68;background:linear-gradient(115deg,#132a3c,#151f29)}
 .bullpen-feature .wealth-label,.bullpen-feature h2 em{color:#9bcdf0}
 .bullpen-feature .wealth-cta{background:#9bcdf0;color:#112b40}
@@ -1060,14 +1065,14 @@ h1 {
 .stats-strip{padding:8px 0 56px}
 .stats-title{display:flex;align-items:center;gap:10px;font:500 12px/1 var(--heading);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:18px}
 .stats-title em{font-style:normal;opacity:.7;letter-spacing:.08em}
-.stats-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.stats-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
 .stat-tile{position:relative;display:flex;flex-direction:column;gap:6px;min-height:236px;padding:22px 20px 18px;border:1px solid var(--border);border-radius:14px;background:linear-gradient(180deg,#151a13,#10120f);overflow:hidden;isolation:isolate;transition:border-color .3s,translate .3s}
 .stat-tile::before{content:"";position:absolute;inset:0;z-index:-1;opacity:0;transition:opacity .35s;background:radial-gradient(260px circle at var(--mx,50%) var(--my,50%),rgba(255,128,80,.2),transparent 62%)}
 .stat-tile:hover{border-color:#6b4a3a;translate:0 -3px}
 .stat-tile:hover::before{opacity:1}
 .stat-tile:focus-visible{outline:3px solid var(--orange);outline-offset:4px}
 .stat-label{font:500 11px/1.3 var(--heading);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
-.stat-value{font:600 clamp(34px,4vw,50px)/1 var(--heading);letter-spacing:-.03em;color:var(--ink);margin-top:6px}
+.stat-value{font:600 clamp(30px,3.1vw,46px)/1 var(--heading);letter-spacing:-.03em;color:var(--ink);margin-top:6px}
 .stat-value span{font-variant-numeric:tabular-nums}
 .stat-caption{font-size:13px;line-height:1.45;color:var(--muted);max-width:24ch}
 .stat-bars{display:flex;align-items:flex-end;gap:4px;height:54px;margin-top:auto;padding-top:14px}
@@ -1076,7 +1081,8 @@ h1 {
 .stat-source{display:flex;justify-content:space-between;gap:8px;font:500 11px/1.4 var(--heading);letter-spacing:.04em;color:#7f8678;border-top:1px solid var(--border);padding-top:10px;margin-top:12px}
 .stat-source b{color:var(--orange);font-weight:500}
 .stat-tile:hover .stat-source{color:var(--ink)}
-@media(max-width:760px){.stats-grid{grid-template-columns:1fr}.stat-tile{min-height:0}}
+@media(max-width:1100px){.stats-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){.stats-grid{grid-template-columns:1fr}.stat-tile{min-height:0}}
 
 /* Scroll progress, card glow, hero tilt */
 .scroll-progress{position:fixed;top:0;left:0;right:0;height:3px;z-index:60;background:linear-gradient(90deg,#ff8050,#ffb08a);transform:scaleX(var(--p,0));transform-origin:0 50%;pointer-events:none}
@@ -1321,9 +1327,24 @@ kbd{font:500 10px/1 var(--heading);border:1px solid var(--border);border-radius:
     <div class="hero-bottom"><span>DATA ANALYTICS · UNIVERSITY OF TORONTO</span><div><span>Business intelligence</span><i>/</i><span>Sports economics</span><i>/</i><span>Predictive modeling</span></div><a href="#latest" aria-label="Scroll to latest projects">↓</a></div>
   </section>
 
-  <section class="wealth-feature bullpen-feature" id="latest" aria-labelledby="bullpen-heading">
+  <section class="wealth-feature pitch-feature" id="latest" aria-labelledby="pitch-heading">
     <div>
-      <span class="wealth-label">Latest project / Baseball operations</span>
+      <span class="wealth-label">Latest project / Baseball research</span>
+      <h2 id="pitch-heading">Pitch Quality, <em>Tested.</em></h2>
+      <p>Does the shape of a pitch say something about next season that this season’s results do not? A model that learns from 2021–2023 and is judged on seasons it never saw.</p>
+      <a class="wealth-cta" href="/pitch-quality-model/">Explore the research <span aria-hidden="true">↗</span></a>
+    </div>
+    <div class="wealth-detail">
+      <span class="wealth-label">Statcast / 2021–2026</span>
+      <strong><span data-count="4237711">4,237,711</span> pitches rated.<br>A modest gain on unseen seasons.</strong>
+      <p>Added to a pitcher’s own results, the rating cut next-season prediction error by about 3%, with intervals that only just exclude zero. Searchable leaderboard, open code and 15 automated checks.</p>
+    </div>
+  </section>
+
+
+  <section class="wealth-feature bullpen-feature" aria-labelledby="bullpen-heading">
+    <div>
+      <span class="wealth-label">Baseball operations</span>
       <h2 id="bullpen-heading">Bullpen <em>Ledger.</em></h2>
       <p>Does recent workload help predict a reliever’s next appearance? Explore pitcher histories, rest patterns and a Toronto velocity case study—with an honest test of what the data can tell us.</p>
       <a class="wealth-cta" href="/bullpen-workload-analysis/">Explore the research <span aria-hidden="true">↗</span></a>
@@ -1338,7 +1359,7 @@ kbd{font:500 10px/1 var(--heading);border:1px solid var(--border);border-radius:
 
   <section class="wealth-feature" aria-labelledby="wealth-heading">
     <div>
-      <span class="wealth-label">Latest project / Wealth management · CAD</span>
+      <span class="wealth-label">Wealth management · CAD</span>
       <h2 id="wealth-heading">The Cash <em>Drag.</em></h2>
       <p>What did liquidity cost—and when did it help? Explore cash reserves, portfolio growth and purchasing power through an interactive Canadian-dollar study.</p>
       <a class="wealth-cta" href="/wealth-management-analysis/">Explore the project <span aria-hidden="true">↗</span></a>
@@ -1354,6 +1375,13 @@ kbd{font:500 10px/1 var(--heading);border:1px solid var(--border);border-radius:
   <section class="stats-strip" aria-labelledby="stats-heading">
     <h2 id="stats-heading" class="stats-title"><span class="status-dot" aria-hidden="true"></span> At a glance <em>/ the scale of the work</em></h2>
     <div class="stats-grid">
+    <a class="stat-tile" href="/pitch-quality-model/">
+      <span class="stat-label">Baseball research</span>
+      <strong class="stat-value"><span data-count="4237711">4,237,711</span></strong>
+      <span class="stat-caption">pitches rated, then tested on unseen seasons</span>
+      <div class="stat-bars" aria-hidden="true"><i style="--h:36%;--i:0"></i><i style="--h:44%;--i:1"></i><i style="--h:40%;--i:2"></i><i style="--h:58%;--i:3"></i><i style="--h:52%;--i:4"></i><i style="--h:70%;--i:5"></i><i style="--h:64%;--i:6"></i><i style="--h:82%;--i:7"></i><i style="--h:74%;--i:8"></i><i style="--h:92%;--i:9"></i><i style="--h:84%;--i:10"></i><i style="--h:98%;--i:11"></i></div>
+      <span class="stat-source">Pitch Quality Model · Statcast <b aria-hidden="true">↗</b></span>
+    </a>
     <a class="stat-tile" href="/bullpen-workload-analysis/">
       <span class="stat-label">Baseball operations</span>
       <strong class="stat-value"><span data-count="38925">38,925</span></strong>
@@ -2047,7 +2075,7 @@ kbd{font:500 10px/1 var(--heading);border:1px solid var(--border);border-radius:
   };
   document.querySelectorAll('.wealth-feature').forEach(feature => {
     const link = feature.querySelector('a.wealth-cta');
-    add(text(feature, 'h2').replace(/\.$/, ''), 'Latest project', link && link.getAttribute('href'), text(feature, '.wealth-label') + ' ' + text(feature, 'p'));
+    add(text(feature, 'h2').replace(/\.$/, ''), 'Featured project', link && link.getAttribute('href'), text(feature, '.wealth-label') + ' ' + text(feature, 'p'));
   });
   const research = document.querySelector('.research-card');
   if (research) add(text(research, '.research-title').replace(/\.$/, ''), 'Original research', research.getAttribute('href'), 'NBA basketball bench playoffs correlation');
