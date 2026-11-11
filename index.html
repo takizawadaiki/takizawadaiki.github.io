@@ -1044,6 +1044,11 @@ h1 {
 @media(max-width:760px){.wealth-feature{grid-template-columns:1fr;gap:24px;padding:26px 23px;margin-top:22px}.wealth-feature .wealth-detail{border-left:0;border-top:1px solid #37554e;padding:20px 0 0}.wealth-feature h2{letter-spacing:-1px}}
 
 
+.cap-feature{border-color:#2f4a6b;background:linear-gradient(115deg,#14202e,#11181f)}
+.cap-feature .wealth-label,.cap-feature h2 em{color:#9cc6ff}
+.cap-feature .wealth-cta{background:#9cc6ff;color:#0f1b2a}
+.cap-feature .wealth-cta:hover{background:#c0dbff}
+.cap-feature .wealth-detail{border-color:#2f4a6b}
 .pitch-feature{border-color:#6b4a3a;background:linear-gradient(115deg,#2a1c14,#1b1612)}
 .pitch-feature .wealth-label,.pitch-feature h2 em{color:#ffb08a}
 .pitch-feature .wealth-cta{background:var(--orange);color:#171b13}
@@ -1327,9 +1332,23 @@ kbd{font:500 10px/1 var(--heading);border:1px solid var(--border);border-radius:
     <div class="hero-bottom"><span>DATA ANALYTICS · UNIVERSITY OF TORONTO</span><div><span>Business intelligence</span><i>/</i><span>Sports economics</span><i>/</i><span>Predictive modeling</span></div><a href="#latest" aria-label="Scroll to latest projects">↓</a></div>
   </section>
 
-  <section class="wealth-feature pitch-feature" id="latest" aria-labelledby="pitch-heading">
+  <section class="wealth-feature cap-feature" id="latest" aria-labelledby="cap-heading">
     <div>
-      <span class="wealth-label">Latest project / Baseball research</span>
+      <span class="wealth-label">Latest project / Sports business</span>
+      <h2 id="cap-heading">Should Baseball Have <em>a Salary Cap?</em></h2>
+      <p>MLB’s labour deal expires on December 1 and the league wants a hard cap. Set the cap and the floor yourself, then see what 27 seasons of payrolls and four leagues of standings say about each side’s case.</p>
+      <a class="wealth-cta" href="/salary-cap/">Try the simulator <span aria-hidden="true">↗</span></a>
+    </div>
+    <div class="wealth-detail">
+      <span class="wealth-label">MLB · NBA · NFL · NHL / 2000–2026</span>
+      <strong><span data-count="810">810</span> team seasons tested.<br>The floor moves more teams than the cap.</strong>
+      <p>Payroll does buy wins, but the capped NBA is less even than baseball. Under the league’s own offer, 12 teams would have to spend more and 8 would have to cut.</p>
+    </div>
+  </section>
+
+  <section class="wealth-feature pitch-feature" aria-labelledby="pitch-heading">
+    <div>
+      <span class="wealth-label">Baseball research</span>
       <h2 id="pitch-heading">Pitch Quality, <em>Tested.</em></h2>
       <p>Does the shape of a pitch say something about next season that this season’s results do not? A model that learns from 2021–2023 and is judged on seasons it never saw.</p>
       <a class="wealth-cta" href="/pitch-quality-model/">Explore the research <span aria-hidden="true">↗</span></a>

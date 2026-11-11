@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="theme-color" content="#10120f"/>
+<meta name="description" content="Should MLB have a salary cap? An interactive test of the league's 2026 offer, using 27 seasons of payrolls and four leagues of standings."/>
+<title>Should MLB Have a Salary Cap? · Daiki Takizawa</title>
+<link rel="canonical" href="https://takizawadaiki.github.io/salary-cap/"/>
+<meta property="og:type" content="website"/>
+<meta property="og:site_name" content="Daiki Takizawa"/>
+<meta property="og:title" content="Should MLB Have a Salary Cap? · Daiki Takizawa"/>
+<meta property="og:description" content="Set the cap and floor yourself, then see what 27 seasons of payrolls and four leagues of standings say about the league's 2026 offer."/>
+<meta property="og:url" content="https://takizawadaiki.github.io/salary-cap/"/>
+<meta property="og:image" content="https://takizawadaiki.github.io/og-image.png"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  color-scheme:dark;
+  --bg:#10120f;--card:#151a13;--ink:#f0f0e7;--muted:#a5ab9e;--border:#30372d;--orange:#ff8050;
+  --blue:#3987e5;--heading:'Space Grotesk',sans-serif;
+}
+html{scroll-behavior:smooth;scroll-padding-top:24px}
+body{background:var(--bg);color:var(--ink);font:15px/1.65 'DM Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button{font:inherit}
+.wrap{width:min(1240px,calc(100% - 64px));margin:0 auto}
+.progress{position:fixed;top:0;left:0;right:0;height:3px;z-index:60;background:linear-gradient(90deg,#ff8050,#ffb08a);transform:scaleX(var(--p,0));transform-origin:0 50%;pointer-events:none}
+.skip{position:fixed;left:16px;top:-80px;z-index:70;background:var(--orange);color:#171b13;padding:10px 14px;border-radius:6px}
+.skip:focus{top:12px}
+:focus-visible{outline:3px solid var(--orange);outline-offset:3px}
+header.top{display:flex;justify-content:space-between;align-items:center;gap:16px;height:92px;border-bottom:1px solid var(--border)}
+.brand{display:flex;align-items:center;font:600 18px var(--heading);letter-spacing:-.6px}
+.brand i{font-style:normal;background:#dbe4cd;color:#151a12;font-size:21px;padding:4px 9px;margin-right:13px;letter-spacing:-3px}
+.brand b{color:var(--orange)}
+.top nav{display:flex;gap:26px;font-size:12px;color:var(--muted)}
+.top nav a:hover{color:var(--orange)}
+.eyebrow,.k{font:500 10.5px/1.5 var(--heading);letter-spacing:1.3px;text-transform:uppercase;color:var(--muted)}
+.eyebrow{display:flex;align-items:center;gap:9px}
+.eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--orange)}
+.hero{padding:56px 0 30px;display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:48px;align-items:end}
+h1{font:500 clamp(40px,5.6vw,82px)/.98 var(--heading);letter-spacing:-.055em;margin-top:18px}
+h1 em{font-family:Georgia,'Times New Roman',serif;font-weight:400;font-style:italic;color:var(--orange);letter-spacing:-.04em}
+.lede{color:var(--muted);font-size:15.5px;line-height:1.8;max-width:54ch}
+.verdict{display:grid;grid-template-columns:auto 1fr auto;gap:22px;align-items:center;border:1px solid #5b4435;border-left:3px solid var(--orange);background:#1b1612;border-radius:0 12px 12px 0;padding:18px 22px;margin-top:8px}
+.verdict .k{color:var(--orange);white-space:nowrap}
+.verdict p{font-size:15px;line-height:1.6}
+.verdict p strong{font-weight:600}
+.verdict a{font:500 12.5px var(--heading);white-space:nowrap;border-bottom:1px solid var(--border);padding-bottom:3px}
+.verdict a:hover{color:var(--orange)}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:26px 0 8px}
+.kpi{position:relative;display:flex;flex-direction:column;gap:6px;min-height:170px;padding:20px 18px 16px;border:1px solid var(--border);border-radius:14px;background:linear-gradient(180deg,#151a13,#10120f);overflow:hidden;isolation:isolate;transition:border-color .3s,translate .3s}
+.kpi::before{content:"";position:absolute;inset:0;z-index:-1;opacity:0;transition:opacity .35s;background:radial-gradient(240px circle at var(--mx,50%) var(--my,50%),rgba(255,128,80,.2),transparent 62%)}
+.kpi:hover{border-color:#6b4a3a;translate:0 -3px}.kpi:hover::before{opacity:1}
+.kpi .v{font:600 clamp(30px,3.2vw,44px)/1 var(--heading);letter-spacing:-.03em;margin-top:6px;font-variant-numeric:tabular-nums}
+.kpi .n{font-size:12.5px;line-height:1.5;color:var(--muted)}
+.kpi .src{margin-top:auto;border-top:1px solid var(--border);padding-top:9px;font:500 10.5px/1.4 var(--heading);letter-spacing:.03em;color:#8d9486}
+section{padding:54px 0 0}
+.sec-top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:6px 20px;border-bottom:1px solid var(--border);padding-bottom:14px;margin-bottom:22px}
+.sec-top .k b{color:var(--orange);font-weight:500;margin-right:14px}
+h2{font:400 clamp(26px,3.1vw,42px)/1.1 var(--heading);letter-spacing:-.035em;max-width:22ch}
+h2 em{font-family:Georgia,serif;font-style:italic;color:#a6b693}
+.sec-head{display:flex;justify-content:space-between;align-items:end;gap:40px;margin-bottom:24px}
+.sec-head p{color:var(--muted);font-size:14px;line-height:1.75;max-width:52ch}
+.panel{border:1px solid var(--border);border-radius:16px;background:var(--card);padding:24px 24px 20px}
+.panel h3{font:600 18px/1.25 var(--heading);letter-spacing:-.02em}
+.panel .sub{color:var(--muted);font-size:13.5px;line-height:1.65;margin:6px 0 16px;max-width:66ch}
+.grid2{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:18px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.chips button{font:500 12.5px/1 var(--heading);color:var(--ink);background:transparent;border:1px solid var(--border);border-radius:999px;padding:10px 14px;cursor:pointer;transition:border-color .2s,background .2s}
+.chips button:hover{border-color:#6b4a3a}
+.chips button[aria-pressed="true"]{background:#e0e7d7;color:#1a2115;border-color:#e0e7d7}
+.chart-box{position:relative;height:400px}
+.src{font:500 10.5px/1.5 var(--heading);letter-spacing:.03em;color:#8d9486}
+.panel>.src{margin-top:14px;padding-top:10px;border-top:1px solid var(--border)}
+/* timeline */
+.timeline{display:grid;grid-template-columns:3fr 1fr 1fr 1fr;gap:8px}
+.tl{border:1px solid var(--border);border-radius:12px;padding:16px;background:var(--card)}
+.tl .yrs{font:600 22px/1 var(--heading);letter-spacing:-.02em;margin:8px 0 6px;font-variant-numeric:tabular-nums}
+.tl p{font-size:12.5px;line-height:1.55;color:var(--muted)}
+.tl.judge{border-color:#6b4a3a;background:#1b1612}.tl.judge .k{color:var(--orange)}
+/* interval plots */
+.forest{display:grid;gap:2px}
+.frow{display:grid;grid-template-columns:minmax(120px,190px) 1fr;gap:4px 14px;align-items:center;padding:9px 0;border-top:1px solid #232a20}
+.frow:first-child{border-top:0}
+.fname{font:500 12.5px/1.3 var(--heading)}
+.frow.me .fname{color:var(--orange)}
+.ftrack{position:relative;height:24px}
+.ftrack .zero{position:absolute;top:0;bottom:0;width:1px;background:#4a5445}
+.fci{position:absolute;top:50%;height:3px;border-radius:2px;translate:0 -50%;background:#7f8678}
+.fdot{position:absolute;top:50%;width:12px;height:12px;border-radius:50%;translate:-50% -50%;background:var(--ink);box-shadow:0 0 0 2px var(--card)}
+.frow.me .fdot{background:var(--orange)}.frow.me .fci{background:#b0603f}
+.fval{grid-column:2;font:500 12px/1.3 var(--heading);color:var(--muted);font-variant-numeric:tabular-nums}
+.faxis{position:relative;height:18px;margin-top:4px;font:500 10.5px/1 var(--heading);color:#8d9486;font-variant-numeric:tabular-nums}
+.faxis span{position:absolute;translate:-50% 0}
+.faxis.pad{margin-left:calc(min(190px,max(120px,30%)) + 14px)}
+/* signal vs luck */
+.bars{display:grid;gap:14px;margin-top:8px}
+.bar .lab{display:flex;justify-content:space-between;font:500 13px var(--heading);margin-bottom:6px}
+.bar .lab span:last-child{font-variant-numeric:tabular-nums}
+.bar .t{height:16px;border-radius:4px;background:#1a2117;overflow:hidden}
+.bar .t i{display:block;height:100%;width:var(--w);border-radius:0 4px 4px 0;background:var(--c);transform-origin:left;transition:transform 1s cubic-bezier(.2,.8,.2,1)}
+.js-reveal .rv:not(.in) .bar .t i{transform:scaleX(0)}
+/* tables */
+.toolbar{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;justify-content:space-between;margin-bottom:14px}
+.toolbar .chips{margin:0}
+.search{flex:1;min-width:200px;max-width:320px;background:#10120f;border:1px solid var(--border);border-radius:999px;color:var(--ink);font:500 14px var(--heading);padding:10px 16px}
+.search::placeholder{color:#8a917f}
+.tablewrap{max-height:520px;overflow:auto;border:1px solid var(--border);border-radius:12px}
+table{width:100%;border-collapse:collapse;font-size:13.5px;font-variant-numeric:tabular-nums}
+th,td{text-align:left;padding:10px 16px;border-bottom:1px solid #232a20;white-space:nowrap}
+th{position:sticky;top:0;background:#10140e;font:500 10.5px/1.2 var(--heading);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);z-index:1}
+td.num,th.num{text-align:right}
+td.rank{color:#8d9486;width:1%}
+td .rb{display:inline-block;vertical-align:middle;height:8px;border-radius:2px;background:var(--blue);margin-right:10px}
+tbody tr:hover{background:#171d14}
+.empty{padding:22px 16px;color:var(--muted)}
+/* notes */
+.cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.list{list-style:none;display:grid;gap:10px;margin-top:12px}
+.list li{position:relative;padding-left:18px;font-size:13.5px;line-height:1.65;color:#c9cfc0}
+.list li::before{content:"";position:absolute;left:0;top:.62em;width:6px;height:6px;border-radius:50%;background:var(--orange)}
+.list li b{color:var(--ink);font-weight:600}
+dl.terms{display:grid;grid-template-columns:auto 1fr;gap:8px 18px;margin-top:12px;font-size:13.5px}
+dl.terms dt{font:600 12.5px/1.6 var(--heading);white-space:nowrap}
+dl.terms dd{color:#c9cfc0;line-height:1.6}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+.btn{display:inline-flex;align-items:center;gap:14px;padding:13px 20px;border-radius:999px;font:600 13px/1 var(--heading);border:1px solid var(--border);transition:background .2s,border-color .2s}
+.btn:hover{border-color:#6b4a3a}
+.btn.primary{background:var(--orange);color:#171b13;border-color:var(--orange)}.btn.primary:hover{background:#ff9b76}
+footer{margin:64px 0 60px;padding-top:20px;border-top:1px solid var(--border);display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 30px;font-size:12.5px;color:var(--muted)}
+footer a{text-decoration:underline;text-underline-offset:3px}footer a:hover{color:var(--orange)}
+.err{padding:18px 20px;border:1px solid #6b3a2a;border-radius:12px;background:#1d1411;color:#f0c1ad;margin:26px 0}
+[hidden]{display:none!important}
+.js-reveal .rv:not(.in){opacity:0}
+.js-reveal .rv.in{animation:rv-in .75s cubic-bezier(.2,.7,.2,1) backwards}
+@keyframes rv-in{from{opacity:0;translate:0 24px}}
+@media(max-width:980px){.hero{grid-template-columns:1fr;gap:22px;padding-top:40px}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.grid2,.cols{grid-template-columns:1fr}.sec-head{display:block}.sec-head p{margin-top:14px}.timeline{grid-template-columns:repeat(2,minmax(0,1fr))}.verdict{grid-template-columns:1fr;gap:8px}}
+@media(max-width:560px){.wrap{width:calc(100% - 32px)}header.top{height:76px}.top nav a.hide-s{display:none}.kpis{grid-template-columns:1fr}.kpi{min-height:0}.panel{padding:18px 14px 16px}.chart-box{height:330px}.frow{grid-template-columns:1fr}.fval{grid-column:1}.faxis.pad{margin-left:0}.timeline{grid-template-columns:1fr}th,td{padding:9px 10px}dl.terms{grid-template-columns:1fr;gap:2px 0}dl.terms dd{margin-bottom:8px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
+/* salary cap page */
+.sliders{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 28px;margin:6px 0 18px}
+.slider{display:block}
+.slider .lab{display:flex;justify-content:space-between;align-items:baseline;font:500 13px var(--heading);margin-bottom:8px}
+.slider output{font:600 22px/1 var(--heading);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+input[type=range]{width:100%;height:28px;accent-color:var(--orange);cursor:pointer;background:transparent}
+.simstats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:16px}
+.ss{border:1px solid var(--border);border-radius:12px;padding:14px 14px 12px;background:#10120f;display:flex;flex-direction:column;gap:4px}
+.ss b{font:600 26px/1.1 var(--heading);letter-spacing:-.02em;font-variant-numeric:tabular-nums;margin-top:4px}
+.ss span:last-child{font-size:12.5px;color:var(--muted);line-height:1.45}
+.ss.over{border-left:3px solid #d95926}.ss.under{border-left:3px solid #3987e5}
+.legend{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:12.5px;color:var(--muted);margin-bottom:10px}
+.legend span{display:inline-flex;align-items:center;gap:7px}
+.sw{width:12px;height:12px;border-radius:3px;display:inline-block}
+.sw.over{background:#d95926}.sw.under{background:#3987e5}.sw.none{background:#5d6657}.sw.line{width:2px;height:14px;border-radius:0;background:var(--ink)}
+.teambars{position:relative;display:grid;gap:3px}
+.tb{display:grid;grid-template-columns:44px minmax(0,1fr) 150px;gap:10px;align-items:center;font-size:12.5px;min-height:22px}
+.tb .ab{font:600 12px var(--heading);color:#c9cfc0}
+.tb .track{position:relative;height:16px;background:#1a2117;border-radius:3px}
+.tb .bar-now{position:absolute;left:0;top:0;bottom:0;border-radius:3px;background:#5d6657;width:var(--w);transition:background .25s}
+.tb.over .bar-now{background:#5a2c18}.tb.under .bar-now{background:#3987e5}
+.tb .bar-keep{position:absolute;left:0;top:0;bottom:0;border-radius:3px 0 0 3px;background:#d95926;width:var(--k)}
+.tb .bar-add{position:absolute;top:0;bottom:0;left:var(--w);width:var(--a);background:repeating-linear-gradient(135deg,#3987e5 0 3px,#1c3c66 3px 6px);border-radius:0 3px 3px 0}
+.tb .chg{font-variant-numeric:tabular-nums;color:var(--muted);white-space:nowrap;text-align:right}
+.tb.over .chg{color:#ff9b76}.tb.under .chg{color:#8fc0ff}
+.tb .chg small{color:#8d9486;font-size:11.5px;margin-left:6px}
+.vline{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--ink);pointer-events:none;z-index:2;left:calc(54px + (100% - 214px) * var(--x))}
+.vline::after{content:attr(data-l);position:absolute;top:-18px;left:6px;font:600 10.5px var(--heading);letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;color:var(--ink)}
+.teambars{margin-top:24px}
+.chart-box.short{height:280px}
+.cols.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.bar .lab small{color:var(--muted);font-weight:400;margin-left:8px}
+.beforeafter{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.ba{border:1px solid var(--border);border-radius:12px;padding:16px;background:#10120f}
+.ba h4{font:600 14px var(--heading);margin-bottom:10px}
+.ba dl{display:grid;grid-template-columns:1fr auto;gap:6px 14px;font-size:13.5px}
+.ba dt{color:var(--muted)}.ba dd{font:600 14px var(--heading);font-variant-numeric:tabular-nums;text-align:right}
+@media(max-width:980px){.simstats{grid-template-columns:repeat(2,minmax(0,1fr))}.cols.three{grid-template-columns:1fr}}
+@media(max-width:560px){.sliders{grid-template-columns:1fr}.tb{grid-template-columns:36px minmax(0,1fr) 78px;gap:8px}.tb .chg small{display:none}.vline{left:calc(44px + (100% - 130px) * var(--x))}.beforeafter{grid-template-columns:1fr}.chart-box.short{height:250px}.ss b{font-size:22px}}
+.vline.fl::after{left:auto;right:6px}
+</style>
+</head>
+<body>
+<div class="progress" aria-hidden="true"></div>
+<a class="skip" href="#main">Skip to content</a>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="https://takizawadaiki.github.io/" aria-label="Daiki Takizawa home"><i>dt</i>Daiki Takizawa<b>.</b></a>
+    <nav aria-label="Page">
+      <a class="hide-s" href="#simulator">Simulator</a>
+      <a class="hide-s" href="#money">Money and wins</a>
+      <a class="hide-s" href="#leagues">Other leagues</a>
+      <a class="hide-s" href="https://github.com/takizawadaiki/takizawadaiki.github.io/tree/main/salary-cap">Code ↗</a>
+      <a href="https://takizawadaiki.github.io/#projects">← All projects</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <div class="hero">
+      <div>
+        <div class="eyebrow">Sports business · MLB labour talks, November 2026</div>
+        <h1>Should baseball have <em>a salary cap?</em></h1>
+      </div>
+      <p class="lede">MLB’s labour deal expires on December 1. The league has offered a hard cap of $258.2 million and a floor of $180.2 million from 2028, and the players’ union says it will never accept a cap. This page tests the claims both sides make, with 27 seasons of payrolls and four leagues of standings, and lets you set the cap yourself.</p>
+    </div>
+
+    <noscript><div class="err">This page draws its numbers and charts with JavaScript. The data is in <a href="data/mlb_team_seasons.csv" style="text-decoration:underline">data/mlb_team_seasons.csv</a>.</div></noscript>
+    <div id="error" class="err" hidden></div>
+
+    <div class="verdict rv">
+      <span class="k">Short answer</span>
+      <p id="verdict">Loading the results…</p>
+      <a href="#verdict-sec">The full verdict ↓</a>
+    </div>
+
+    <div class="kpis" id="kpis"></div>
+
+    <section id="simulator" aria-labelledby="sim-h">
+      <div class="sec-top"><span class="k"><b>01</b>Set the rules</span><span class="k">2026 payrolls · 30 teams</span></div>
+      <div class="sec-head">
+        <h2 id="sim-h">Move the cap and the floor. <em>See who pays.</em></h2>
+        <p>Each bar is a team’s 2026 payroll as the league counts it for the luxury tax. Teams above the cap must cut down to it, and teams below the floor must spend up to it. Nothing else changes, so this shows the direct effect of the rule and not how teams would react.</p>
+      </div>
+      <div class="panel rv">
+        <div class="chips" id="presets" role="group" aria-label="Presets"></div>
+        <div class="sliders">
+          <label class="slider"><span class="lab"><span>Cap</span><output id="cap-out"></output></span>
+            <input type="range" id="cap" min="150" max="450" step="1" aria-label="Salary cap in millions of dollars"/></label>
+          <label class="slider"><span class="lab"><span>Floor</span><output id="floor-out"></output></span>
+            <input type="range" id="floor" min="40" max="260" step="1" aria-label="Salary floor in millions of dollars"/></label>
+        </div>
+        <div class="simstats" aria-live="polite">
+          <div class="ss over"><span class="k">Teams over the cap</span><b id="s-over"></b><span id="s-cut"></span></div>
+          <div class="ss under"><span class="k">Teams under the floor</span><b id="s-under"></b><span id="s-add"></span></div>
+          <div class="ss"><span class="k">Total player pay</span><b id="s-net"></b><span id="s-net-n"></span></div>
+          <div class="ss"><span class="k">Top five vs bottom five</span><b id="s-ratio"></b><span id="s-ratio-n"></span></div>
+        </div>
+        <div class="legend"><span><i class="sw over"></i>Has to cut</span><span><i class="sw under"></i>Has to spend more</span><span><i class="sw none"></i>Unaffected</span><span><i class="sw line"></i>Cap and floor</span></div>
+        <div class="teambars" id="teambars"></div>
+        <p class="src" id="sim-check"></p>
+      </div>
+    </section>
+
+    <section id="money" aria-labelledby="money-h">
+      <div class="sec-top"><span class="k"><b>02</b>The owners’ argument</span><span class="k">2000–2026 · 810 team seasons</span></div>
+      <div class="sec-head">
+        <h2 id="money-h">Does money <em>buy wins?</em></h2>
+        <p id="money-lede">The case for a cap rests on one claim: teams that spend more win more, so small markets cannot compete. The data supports part of that claim.</p>
+      </div>
+      <div class="grid2">
+        <div class="panel rv">
+          <h3>Payroll against wins, every team since 2000</h3>
+          <p class="sub">Payroll is shown relative to the league average that season, so 2.0 means twice the average. Wins are scaled to a 162-game season.</p>
+          <div class="chips" id="era-chips" role="group" aria-label="Seasons"></div>
+          <div class="chart-box"><canvas id="scatter" role="img" aria-label="Scatter chart of relative payroll against wins"></canvas></div>
+          <p class="src" id="scatter-note"></p>
+        </div>
+        <div class="panel rv">
+          <h3>Wins by payroll rank</h3>
+          <p class="sub">Average wins per 162 games and share of seasons that ended in the playoffs, by where the team ranked in payroll that year.</p>
+          <div class="bars" id="rank-bars"></div>
+          <p class="src" id="rank-note"></p>
+        </div>
+      </div>
+      <div class="cols" style="margin-top:18px">
+        <div class="panel rv">
+          <h3>Is the gap between rich and poor growing?</h3>
+          <p class="sub">Average payroll of the five highest spenders divided by the five lowest, each season.</p>
+          <div class="chart-box short"><canvas id="gap" role="img" aria-label="Line chart of the payroll gap by season"></canvas></div>
+          <p class="src" id="gap-note"></p>
+        </div>
+        <div class="panel rv">
+          <h3>Is money mattering more?</h3>
+          <p class="sub">Strength of the link between payroll and winning percentage within each season. 0 is no link and 1 is a perfect one.</p>
+          <div class="chart-box short"><canvas id="rline" role="img" aria-label="Line chart of the payroll and wins correlation by season"></canvas></div>
+          <p class="src" id="r-note"></p>
+        </div>
+      </div>
+    </section>
+
+    <section id="leagues" aria-labelledby="leagues-h">
+      <div class="sec-top"><span class="k"><b>03</b>The evidence from capped leagues</span><span class="k">MLB · NBA · NFL · NHL</span></div>
+      <div class="sec-head">
+        <h2 id="leagues-h">Do caps make <em>leagues more even?</em></h2>
+        <p>The NBA, NFL and NHL all limit payrolls. If a cap produces balance, those leagues should look more even than baseball. Two measures: how spread out the standings are within a season, and how much last season’s record carries into the next.</p>
+      </div>
+      <div class="cols">
+        <div class="panel rv">
+          <h3>How spread out are the standings?</h3>
+          <p class="sub">Spread of winning percentages compared with a league where every game is a coin flip. 1.0 is as even as chance allows, and higher is less even. Average of seasons 2000 to 2025.</p>
+          <div class="bars" id="ns-bars"></div>
+          <p class="src">This is the Noll-Scully ratio. NHL uses points percentage, which narrows its spread slightly because of the point for an overtime loss.</p>
+        </div>
+        <div class="panel rv">
+          <h3>Do the same teams stay on top?</h3>
+          <p class="sub">Link between a team’s record one season and its record the next. Lower means more turnover. Lines show 95% intervals.</p>
+          <div class="forest" id="persist"></div>
+          <div class="faxis pad" id="persist-axis"></div>
+          <p class="src" id="persist-note"></p>
+        </div>
+      </div>
+      <div class="panel rv" style="margin-top:18px">
+        <h3>The one league that added a cap in this period</h3>
+        <p class="sub" id="nhl-text"></p>
+        <div class="beforeafter" id="nhl-ba"></div>
+        <p class="src">The NHL changed two other things in 2005: it replaced ties with shootouts and tightened its obstruction rules. The change in balance cannot be credited to the cap alone.</p>
+      </div>
+    </section>
+
+    <section id="verdict-sec" aria-labelledby="verdict-h">
+      <div class="sec-top"><span class="k"><b>04</b>Verdict</span><span class="k">What the evidence supports</span></div>
+      <div class="sec-head">
+        <h2 id="verdict-h">A cap alone is unproven. <em>The floor does more of the work.</em></h2>
+        <p>Money matters in baseball, so the owners have a real problem to point to. The evidence that a cap would fix it is weaker: capped leagues are not reliably more even, and under the league’s own offer the floor moves more teams and more money than the cap. This reading does not cover the share of revenue players receive, which is the part of the offer that matters most to them.</p>
+      </div>
+      <div class="cols three">
+        <div class="panel rv"><span class="k">For the owners</span><ul class="list" id="v-owners"></ul></div>
+        <div class="panel rv"><span class="k">For the players</span><ul class="list" id="v-players"></ul></div>
+        <div class="panel rv"><span class="k">What this cannot settle</span><ul class="list" id="v-open"></ul></div>
+      </div>
+    </section>
+
+    <section id="method" aria-labelledby="method-h">
+      <div class="sec-top"><span class="k"><b>05</b>Method</span><span class="k">Sources and limits</span></div>
+      <div class="cols">
+        <div class="panel rv">
+          <h3 id="method-h">Where the numbers come from</h3>
+          <ul class="list">
+            <li><b>Payrolls:</b> Cot’s Baseball Contracts (Baseball Prospectus), 2000 to 2026, retrieved 11 November 2026. Year-end 40-man payrolls are used for history. The simulator uses projected 2026 luxury-tax payrolls.</li>
+            <li><b>MLB records, playoff teams and champions:</b> MLB Stats API, 2000 to 2026.</li>
+            <li><b>NBA:</b> NBA Stats standings, 1999–00 to 2025–26. <b>NHL:</b> NHL Stats API, 1995–96 to 2025–26. <b>NFL:</b> nflverse game results, 1999 to 2025.</li>
+            <li><b>The league’s offer:</b> Associated Press report of 4 November 2026.</li>
+          </ul>
+          <div class="cta">
+            <a class="btn primary" href="https://github.com/takizawadaiki/takizawadaiki.github.io/tree/main/salary-cap">View the code and data <span aria-hidden="true">↗</span></a>
+            <a class="btn" href="data/mlb_team_seasons.csv">Download the MLB data (CSV)</a>
+          </div>
+        </div>
+        <div class="panel rv">
+          <h3>What to keep in mind</h3>
+          <ul class="list">
+            <li><b>The simulator is static.</b> It applies the rule to 2026 payrolls and assumes nothing else changes. Real teams would restructure contracts, and the league’s offer lets a team spend 90% of the floor in a given year.</li>
+            <li><b>Correlation is not cause.</b> Payroll and wins move together, but winning teams also earn more and then spend more. The estimated win changes are what the past link implies, and they are not forecasts.</li>
+            <li><b>Leagues differ in more than their cap.</b> Roster size, the draft, season length and the role of single stars all affect balance. The NBA comparison shows that a cap does not guarantee balance, and it does not show that a cap has no effect.</li>
+            <li><b>Payroll figures are unofficial.</b> They are compiled from published reports, and the 2026 values are projections.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>Daiki Takizawa · University of Toronto · Built November 2026</span>
+    <span><a href="https://takizawadaiki.github.io/">Portfolio</a> · <a href="https://github.com/takizawadaiki/takizawadaiki.github.io/tree/main/salary-cap">Code and data</a></span>
+  </footer>
+</div>
+<script src="../chart.umd.min.js"></script>
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fmtM = v => '$' + (Math.abs(v) >= 1000 ? (v / 1000).toFixed(2) + 'B' : Math.round(v) + 'M');
+  const signed = v => (v > 0 ? '+' : v < 0 ? '−' : '') + fmtM(Math.abs(v)).replace('$', '$');
+  const num = (v, d = 2) => v.toFixed(d).replace('-', '−');
+  const mean = a => a.reduce((s, x) => s + x, 0) / a.length;
+  const el = (tag, cls, html) => { const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; };
+  const C = { blue: '#3987e5', orange: '#d95926', green: '#199e70', grid: '#262d22', ink: '#f0f0e7', muted: '#a5ab9e' };
+
+  const progress = document.querySelector('.progress');
+  const onScroll = () => { const h = document.documentElement; progress.style.setProperty('--p', h.scrollTop / Math.max(1, h.scrollHeight - h.clientHeight)); };
+  addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+  fetch('results/results.json').then(r => { if (!r.ok) throw new Error(r.status); return r.json(); }).then(render).catch(e => {
+    $('error').hidden = false; $('error').textContent = 'The results file could not be loaded (' + e.message + '). The data is in the repository linked at the bottom of the page.';
+    $('verdict').textContent = 'Results unavailable.';
+  });
+
+  function render(R) {
+    const M = R.money, B = R.balance, S = R.simulator, P = S.proposal;
+    const g = M.rank_groups, top = g[0], bottom = g[5];
+    const bottom10Titles = g[4].titles + g[5].titles;
+    const lastChamp = M.champions[M.champions.length - 1];
+
+    $('verdict').innerHTML = `Payroll matters: the five biggest spenders average <strong>${top.wins_per_162.toFixed(0)} wins</strong> and the five smallest <strong>${bottom.wins_per_162.toFixed(0)}</strong>. But a cap is no guarantee of balance, since the capped NBA is less even than baseball on both measures here. Under the league’s own offer, the floor would force more teams to change than the cap.`;
+
+    // KPI tiles
+    const kpis = [
+      { k: 'Payroll and wins', v: M.pooled_r.toFixed(2), n: `Correlation across ${M.n} team seasons. Payroll explains about ${Math.round(M.r_squared * 100)}% of the differences in winning.`, s: `95% interval ${M.pooled_r_ci[0].toFixed(2)} to ${M.pooled_r_ci[1].toFixed(2)}` },
+      { k: 'Titles from the bottom ten', v: String(bottom10Titles), n: `World Series won since 2000 by a team in the bottom ten in payroll. ${M.champions_top10} of ${M.champions.length} went to the top ten.`, s: 'Year-end payroll rank, 2000–2026' },
+      { k: 'Teams the offer would move', v: `${S.check.under.length} + ${S.check.over.length}`, n: `${S.check.under.length} teams sit below the proposed floor and ${S.check.over.length} above the proposed cap, on 2026 payrolls.`, s: `Cap $${P.cap}M · floor $${P.floor}M` },
+      { k: 'Capped NBA vs MLB', v: `${B.NBA.noll_scully.toFixed(2)} vs ${B.MLB.noll_scully.toFixed(2)}`, n: 'Spread of the standings, where 1.0 is as even as chance allows. The NBA has had a cap since 1984.', s: 'Seasons 2000–2025' },
+    ];
+    kpis.forEach(k => { const d = el('div', 'kpi rv'); d.append(el('span', 'k', k.k), el('div', 'v', k.v), el('p', 'n', k.n), el('span', 'src', k.s)); $('kpis').append(d); });
+
+    simulator(S);
+    money(R);
+    leagues(B);
+
+    // Verdict lists
+    const era = M.eras, by = R.by_year, y26 = by[by.length - 1], y18 = by.find(y => y.season === 2018), y00 = by[0];
+    const add = (id, items) => items.forEach(t => $(id).append(el('li', null, t)));
+    add('v-owners', [
+      `<b>Spending and winning go together.</b> A team spending 50% above the league average wins about ${M.wins_per_50pct_above_average.toFixed(1)} more games a season than an average spender.`,
+      `<b>The bottom of the payroll table does not win titles.</b> Teams ranked 21st to 30th in payroll have won ${bottom10Titles} of the last ${M.champions.length} World Series and reached the playoffs in ${Math.round((g[4].playoff_rate + g[5].playoff_rate) / 2 * 100)}% of their seasons, against ${Math.round(top.playoff_rate * 100)}% for the top five.`,
+      `<b>The gap has widened since 2018.</b> The top five outspent the bottom five by ${y18.top5_bottom5.toFixed(1)} times in 2018 and by ${y26.top5_bottom5.toFixed(1)} times in 2026.`,
+    ]);
+    add('v-players', [
+      `<b>A cap does not guarantee balance.</b> The NBA has a cap and is the least even of the four leagues on both measures. Baseball’s year-to-year turnover (${B.MLB.next_season_r.toFixed(2)}) is close to the capped NHL’s (${B.NHL.next_season_r.toFixed(2)}).`,
+      `<b>Money explains a minority of winning.</b> About ${Math.round(M.r_squared * 100)}% of the differences in team records line up with payroll, and the link is no stronger now (${era[2].r.toFixed(2)} in 2022–26) than in 2000–11 (${era[0].r.toFixed(2)}). The ${lastChamp.season} World Series was won by Milwaukee, ${ordinal(lastChamp.rank)} in payroll, over Tampa Bay, ${ordinal(R.simulator.finalist_rank)}.`,
+      `<b>The gap is not new.</b> The 2026 ratio of ${y26.top5_bottom5.toFixed(1)} is the same as in 2000 (${y00.top5_bottom5.toFixed(1)}), and baseball’s standings in 2022–26 (${B.MLB.recent.noll_scully.toFixed(2)} on the spread measure) were still more even than the NBA’s average (${B.NBA.noll_scully.toFixed(2)}).`,
+    ]);
+    add('v-open', [
+      `<b>The revenue split.</b> The offer ties the cap to a 50-50 split of revenue. Whether players gain or lose depends on that share and on how revenue is counted, and team revenues are not public.`,
+      `<b>How teams would react.</b> On 2026 payrolls the floor adds ${fmtM(S.check.add)} and the cap removes ${fmtM(S.check.cut)}, a net gain for players of ${fmtM(S.check.net)}. The league’s earlier offer in May would have been a net cut of ${fmtM(Math.abs(S.may_offer.net))} on the same payrolls. Whether low-payroll owners would really spend up to a floor is the open question.`,
+      `<b>Cause and effect.</b> Winning also raises revenue, which raises payroll. The link between money and wins is real, but its size as a cause is smaller than the raw numbers suggest.`,
+    ]);
+
+    if (!reduced && 'IntersectionObserver' in window) {
+      document.documentElement.classList.add('js-reveal');
+      const io = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } }), { threshold: .08, rootMargin: '0px 0px -5% 0px' });
+      document.querySelectorAll('.rv').forEach(n => io.observe(n));
+    }
+  }
+
+  function ordinal(n) { const s = ['th', 'st', 'nd', 'rd'], v = n % 100; return n + (s[(v - 20) % 10] || s[v] || s[0]); }
+
+  // ---------- 01 simulator ----------
+  function simulator(S) {
+    const teams = S.teams.slice().sort((a, b) => b.payroll - a.payroll), P = S.proposal, MAX = 450;
+    const cap = $('cap'), floor = $('floor'), box = $('teambars');
+    const baseAvg = mean(teams.map(t => t.payroll));
+    const ratio = v => { const s = v.slice().sort((a, b) => b - a); return mean(s.slice(0, 5)) / mean(s.slice(-5)); };
+    const ratio0 = ratio(teams.map(t => t.payroll));
+    const capLine = el('div', 'vline'), floorLine = el('div', 'vline fl');
+    capLine.dataset.l = 'Cap'; floorLine.dataset.l = 'Floor';
+    box.append(capLine, floorLine);
+    const rows = teams.map(t => {
+      const r = el('div', 'tb');
+      r.innerHTML = `<span class="ab" title="${t.name}">${t.team}</span><div class="track"><div class="bar-now"></div><div class="bar-keep"></div><div class="bar-add"></div></div><span class="chg"></span>`;
+      r.style.setProperty('--w', (t.payroll / MAX * 100) + '%');
+      box.append(r); return r;
+    });
+    const presets = [
+      { label: 'League offer, November', cap: Math.round(P.cap), floor: Math.round(P.floor) },
+      { label: 'League offer, May', cap: 245, floor: 171 },
+      { label: 'Tax line as a cap', cap: 244, floor: 40 },
+      { label: 'Floor only', cap: 450, floor: Math.round(P.floor) },
+      { label: 'No limits', cap: 450, floor: 40 },
+    ];
+    presets.forEach(p => { const b = el('button', null, p.label); b.type = 'button'; b.addEventListener('click', () => { cap.value = p.cap; floor.value = p.floor; update(); }); $('presets').append(b); p.b = b; });
+
+    function update(src) {
+      let c = +cap.value, f = +floor.value;
+      if (f > c) { if (src === 'floor') { c = f; cap.value = c; } else { f = c; floor.value = f; } }
+      // the two presets that match the offers use the exact figures
+      const exact = presets.find(p => p.cap === c && p.floor === f);
+      const cc = exact && exact.label.includes('November') ? P.cap : exact && exact.label.includes('May') ? 245.3 : c;
+      const ff = exact && exact.label.includes('November') ? P.floor : exact && exact.label.includes('May') ? 171.2 : f;
+      const noCap = c >= 450, noFloor = f <= 40;
+      $('cap-out').textContent = noCap ? 'None' : '$' + cc + 'M';
+      $('floor-out').textContent = noFloor ? 'None' : '$' + ff + 'M';
+      const capV = noCap ? Infinity : cc, floorV = noFloor ? 0 : ff;
+      const next = teams.map(t => Math.min(Math.max(t.payroll, floorV), capV));
+      const newAvg = mean(next);
+      let cut = 0, addT = 0, nOver = 0, nUnder = 0;
+      teams.forEach((t, i) => {
+        const d = next[i] - t.payroll, r = rows[i];
+        const wins = S.slope * (next[i] / newAvg - t.payroll / baseAvg) * 162;
+        r.classList.toggle('over', d < 0); r.classList.toggle('under', d > 0);
+        r.style.setProperty('--k', d < 0 ? (next[i] / MAX * 100) + '%' : '0%');
+        r.style.setProperty('--a', d > 0 ? (d / MAX * 100) + '%' : '0%');
+        const w = Math.abs(wins) >= .5 ? `<small>≈ ${wins > 0 ? '+' : '−'}${Math.abs(wins).toFixed(0)} win${Math.abs(wins).toFixed(0) === '1' ? '' : 's'}</small>` : '';
+        r.lastElementChild.innerHTML = d ? `${d > 0 ? '+' : '−'}${fmtM(Math.abs(d))}${w}` : `${fmtM(t.payroll)}${w}`;
+        if (d < 0) { cut -= d; nOver++; } if (d > 0) { addT += d; nUnder++; }
+      });
+      capLine.hidden = noCap; floorLine.hidden = noFloor;
+      capLine.style.setProperty('--x', Math.min(cc, MAX) / MAX); floorLine.style.setProperty('--x', ff / MAX);
+      const net = addT - cut, total = teams.reduce((s, t) => s + t.payroll, 0);
+      $('s-over').textContent = nOver; $('s-cut').textContent = nOver ? `must cut ${fmtM(cut)} in total` : 'no team has to cut';
+      $('s-under').textContent = nUnder; $('s-add').textContent = nUnder ? `must add ${fmtM(addT)} in total` : 'no team has to add';
+      $('s-net').textContent = Math.abs(net) < .5 ? 'No change' : (net > 0 ? '+' : '−') + fmtM(Math.abs(net));
+      $('s-net-n').textContent = Math.abs(net) >= .5 ? `${(Math.abs(net) / total * 100).toFixed(1)}% ${net > 0 ? 'more' : 'less'} than the ${fmtM(total)} paid in 2026` : `unchanged from ${fmtM(total)}`;
+      const r1 = ratio(next);
+      $('s-ratio').textContent = r1.toFixed(1) + '×'; $('s-ratio-n').textContent = `was ${ratio0.toFixed(1)}× in 2026`;
+      presets.forEach(p => p.b.setAttribute('aria-pressed', String(p.cap === c && p.floor === f)));
+    }
+    cap.addEventListener('input', () => update('cap')); floor.addEventListener('input', () => update('floor'));
+    cap.value = presets[0].cap; floor.value = presets[0].floor; update();
+    const k = S.check;
+    $('sim-check').innerHTML = `Check against the reported figures: at the league’s November numbers this page flags the same ${k.over.length} teams over the cap and the same ${k.under.length} under the floor that the Associated Press named. Its totals are ${fmtM(k.cut)} to cut (reported: $${P.reported_cut}M) and ${fmtM(k.add)} to add (reported: $${P.reported_add}M). The small differences come from using public payroll estimates. Win changes use the 2012–2026 link between luxury-tax payroll and wins and are rough guides only. Payrolls: Cot’s Baseball Contracts.`;
+  }
+
+  // ---------- 02 money and wins ----------
+  function money(R) {
+    const M = R.money;
+    Chart.defaults.color = C.muted; Chart.defaults.font.family = "'DM Sans', system-ui, sans-serif"; Chart.defaults.font.size = 12;
+    if (reduced) Chart.defaults.animation = false;
+    const eras = [{ label: 'All seasons', a: 2000, b: 2026 }, { label: '2000–2011', a: 2000, b: 2011 }, { label: '2012–2021', a: 2012, b: 2021 }, { label: '2022–2026', a: 2022, b: 2026 }];
+    const pt = d => ({ x: d.x, y: +(d.y * 162).toFixed(1), t: d.t, s: d.s });
+    const chart = new Chart($('scatter'), {
+      type: 'scatter',
+      data: { datasets: [] },
+      options: {
+        maintainAspectRatio: false,
+        scales: {
+          x: { title: { display: true, text: 'Payroll relative to league average' }, grid: { color: C.grid }, min: 0, max: 2.75, ticks: { stepSize: .5, includeBounds: false, callback: v => v.toFixed(1) + '×' } },
+          y: { title: { display: true, text: 'Wins per 162 games' }, grid: { color: C.grid }, min: 40, max: 120, ticks: { stepSize: 20 } },
+        },
+        plugins: {
+          legend: { position: 'bottom', labels: { usePointStyle: true, boxWidth: 8 } },
+          tooltip: { callbacks: { label: c => c.raw.t ? `${c.raw.s} ${c.raw.t}: ${c.raw.x.toFixed(2)}× payroll, ${c.raw.y.toFixed(0)} wins` : 'Trend' } },
+        },
+      },
+    });
+    function draw(e) {
+      const sel = R.scatter.filter(d => d.s >= e.a && d.s <= e.b);
+      const xs = sel.map(d => d.x), ys = sel.map(d => d.y * 162), mx = mean(xs), my = mean(ys);
+      const b = xs.reduce((s, x, i) => s + (x - mx) * (ys[i] - my), 0) / xs.reduce((s, x) => s + (x - mx) ** 2, 0), a = my - b * mx;
+      const r = b * Math.sqrt(xs.reduce((s, x) => s + (x - mx) ** 2, 0) / ys.reduce((s, y) => s + (y - my) ** 2, 0));
+      chart.data.datasets = [
+        { label: 'Missed the playoffs', data: sel.filter(d => !d.p).map(pt), backgroundColor: 'rgba(141,148,134,.55)', pointRadius: 3, pointHoverRadius: 6 },
+        { label: 'Made the playoffs', data: sel.filter(d => d.p && !d.c).map(pt), backgroundColor: 'rgba(57,135,229,.85)', pointRadius: 3.5, pointHoverRadius: 6 },
+        { label: 'Won the World Series', data: sel.filter(d => d.c).map(pt), backgroundColor: C.orange, borderColor: C.ink, borderWidth: 1.5, pointRadius: 6, pointHoverRadius: 8, pointStyle: 'rectRot' },
+        { label: 'Trend', type: 'line', data: [{ x: .25, y: a + b * .25 }, { x: 2.6, y: a + b * 2.6 }], borderColor: C.ink, borderWidth: 2, borderDash: [6, 5], pointRadius: 0, pointHitRadius: 0 },
+      ];
+      chart.update();
+      $('scatter-note').textContent = `${sel.length} team seasons. Correlation ${r.toFixed(2)}. Each extra 10% of the league-average payroll goes with about ${(b * .1).toFixed(1)} more wins. Sources: Cot’s Baseball Contracts, MLB Stats API.`;
+      $('era-chips').querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', String(x.textContent === e.label)));
+    }
+    eras.forEach(e => { const b = el('button', null, e.label); b.type = 'button'; b.addEventListener('click', () => draw(e)); $('era-chips').append(b); });
+    draw(eras[0]);
+
+    M.rank_groups.forEach(gp => {
+      const d = el('div', 'bar');
+      d.innerHTML = `<div class="lab"><span>Payroll rank ${gp.label.replace('-', '–')}<small>${gp.titles} title${gp.titles === 1 ? '' : 's'}</small></span><span>${gp.wins_per_162.toFixed(1)} wins · ${Math.round(gp.playoff_rate * 100)}% playoffs</span></div><div class="t"><i style="--w:${((gp.wins_per_162 - 60) / 35 * 100).toFixed(1)}%;--c:${C.blue}"></i></div>`;
+      $('rank-bars').append(d);
+    });
+    $('rank-note').textContent = 'Bars run from 60 to 95 wins. Year-end 40-man payrolls, 2000–2026; 2020 scaled from 60 games.';
+
+    const line = (id, key, color, yOpts) => new Chart($(id), {
+      type: 'line',
+      data: { labels: R.by_year.map(y => y.season), datasets: [{ data: R.by_year.map(y => y[key]), borderColor: color, backgroundColor: color, borderWidth: 2.5, pointRadius: 2.5, pointHoverRadius: 6, tension: .25 }] },
+      options: { maintainAspectRatio: false, plugins: { legend: { display: false } }, interaction: { mode: 'index', intersect: false },
+        scales: { x: { grid: { display: false }, ticks: { maxRotation: 0, autoSkipPadding: 14 } }, y: Object.assign({ grid: { color: C.grid } }, yOpts) } },
+    });
+    line('gap', 'top5_bottom5', C.orange, { min: 2, max: 4.5, ticks: { callback: v => v.toFixed(1) + '×' } });
+    line('rline', 'r', C.blue, { min: 0, max: .8 });
+    const by = R.by_year, lo = by.reduce((m, y) => y.top5_bottom5 < m.top5_bottom5 ? y : m), hi = by.reduce((m, y) => y.top5_bottom5 > m.top5_bottom5 ? y : m), last = by[by.length - 1];
+    $('gap-note').textContent = `Lowest ${lo.top5_bottom5.toFixed(1)}× in ${lo.season}, highest ${hi.top5_bottom5.toFixed(1)}× in ${hi.season}, and ${last.top5_bottom5.toFixed(1)}× in ${last.season}. The gap has grown since 2018 but is close to where it stood in the early 2000s.`;
+    const e = M.eras;
+    $('r-note').textContent = `Average link by period: ${e[0].r.toFixed(2)} in 2000–11, ${e[1].r.toFixed(2)} in 2012–21 and ${e[2].r.toFixed(2)} in 2022–26. The intervals overlap, so there is no clear sign that money matters more now.`;
+  }
+
+  // ---------- 03 leagues ----------
+  function leagues(B) {
+    const info = { MLB: 'No cap · luxury tax', NBA: 'Soft cap since 1984', NHL: 'Hard cap since 2005', NFL: 'Hard cap since 1994' };
+    const order = ['NBA', 'MLB', 'NHL', 'NFL'];
+    order.forEach(k => {
+      const d = el('div', 'bar');
+      d.innerHTML = `<div class="lab"><span>${k}<small>${info[k]}</small></span><span>${B[k].noll_scully.toFixed(2)}</span></div><div class="t"><i style="--w:${(B[k].noll_scully / 3 * 100).toFixed(1)}%;--c:${k === 'MLB' ? C.orange : C.blue}"></i></div>`;
+      $('ns-bars').append(d);
+    });
+    const lo = 0, hi = .8, pos = v => ((v - lo) / (hi - lo) * 100) + '%';
+    order.slice().sort((a, b) => B[b].next_season_r - B[a].next_season_r).forEach(k => {
+      const v = B[k], row = el('div', 'frow' + (k === 'MLB' ? ' me' : ''));
+      row.innerHTML = `<span class="fname">${k}</span><div class="ftrack"><span class="fci" style="left:${pos(v.next_season_r_ci[0])};width:calc(${pos(v.next_season_r_ci[1])} - ${pos(v.next_season_r_ci[0])})"></span><span class="fdot" style="left:${pos(v.next_season_r)}"></span></div><span class="fval">${v.next_season_r.toFixed(2)} (${v.next_season_r_ci[0].toFixed(2)} to ${v.next_season_r_ci[1].toFixed(2)}) · five seasons later: ${num(v.five_season_r)}</span>`;
+      $('persist').append(row);
+    });
+    [0, .2, .4, .6, .8].forEach(t => { const s = el('span', null, t.toFixed(1)); s.style.left = pos(t); $('persist-axis').append(s); });
+    $('persist-note').textContent = `Five seasons on, the link is near zero in every league (${order.map(k => k + ' ' + num(B[k].five_season_r)).join(', ')}). Long-run standing is hard to hold with or without a cap.`;
+    const b = B.NHL.before_cap, a = B.NHL.after_cap;
+    $('nhl-text').textContent = `The NHL brought in a hard cap for the 2005–06 season. Its standings became slightly more even afterwards, and year-to-year carryover fell from ${b.next_season_r.toFixed(2)} to ${a.next_season_r.toFixed(2)}. The two intervals overlap, so the change is modest.`;
+    [['Before the cap · 1995–96 to 2003–04', b], ['After the cap · 2005–06 to 2025–26', a]].forEach(([h, v]) => {
+      const d = el('div', 'ba');
+      d.innerHTML = `<h4>${h}</h4><dl><dt>Spread of the standings</dt><dd>${v.noll_scully.toFixed(2)}</dd><dt>Carryover to next season</dt><dd>${v.next_season_r.toFixed(2)} (${v.next_season_r_ci[0].toFixed(2)} to ${v.next_season_r_ci[1].toFixed(2)})</dd><dt>Carryover five seasons on</dt><dd>${v.five_season_r.toFixed(2)}</dd></dl>`;
+      $('nhl-ba').append(d);
+    });
+  }
+})();
+</script>
+</body>
+</html>
