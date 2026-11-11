@@ -1073,7 +1073,6 @@ h1 {
 .case-study,.research-card{position:relative}
 .case-study::after,.research-card::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .35s;background:radial-gradient(340px circle at var(--mx,50%) var(--my,50%),rgba(255,128,80,.13),transparent 62%)}
 .case-study:hover::after,.research-card:hover::after{opacity:1}
-#signal{transform:perspective(900px) rotateX(var(--tilt-x,0deg)) rotateY(var(--tilt-y,0deg));transition:transform .25s ease-out;will-change:transform}
 
 /* Headline words, card tilt, sports ticker */
 w-d.w{display:inline-block;animation:w-rise .8s cubic-bezier(.2,.8,.2,1) backwards;animation-delay:calc(var(--wi)*90ms + 120ms)}
@@ -1129,6 +1128,106 @@ w-d.w{display:inline-block;animation:w-rise .8s cubic-bezier(.2,.8,.2,1) backwar
 .vz-axis-label{margin-left:72px;font-size:11.5px;color:#7f8678;margin-top:2px}
 @media(max-width:960px){.vz-pair{grid-template-columns:1fr}}
 @media(max-width:520px){.vz-card{padding:18px 14px 14px}.vz-rank li{grid-template-columns:34px 1fr 58px}.vz-rank .v em{display:none}.vz-row{grid-template-columns:1fr}.vz-axis,.vz-axis-label{margin-left:0}}
+
+/* ---- Interactive upgrade: hero forms, search palette, section rail, live simulation ---- */
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+kbd{font:500 10px/1 var(--heading);border:1px solid var(--border);border-radius:5px;padding:4px 6px;color:var(--muted);background:#171c15}
+
+/* Hero point cloud controls */
+#signal{cursor:grab;touch-action:pan-y}
+#signal.dragging{cursor:grabbing}
+.art-caption{pointer-events:none}
+.art-caption button{pointer-events:auto}
+.art-forms{position:absolute;top:36px;right:20px;z-index:1;display:flex;gap:4px;padding:3px;border:1px solid var(--border);border-radius:999px;background:rgba(16,18,15,.72);backdrop-filter:blur(4px)}
+.art-forms button{border:0;border-radius:999px;background:transparent;color:var(--muted);font:500 10px/1 var(--heading);letter-spacing:.6px;text-transform:uppercase;padding:8px 12px;cursor:pointer;transition:background .2s,color .2s}
+.art-forms button:hover{color:var(--ink)}
+.art-forms button[aria-pressed="true"]{background:#e0e7d7;color:#1a2115}
+.art-forms button:focus-visible{outline-offset:2px}
+@media(pointer:coarse){.art-forms button{padding:12px 13px}}
+
+/* Search palette */
+.nav-search{display:inline-flex;align-items:center;gap:9px;border:1px solid var(--border);border-radius:999px;background:transparent;color:var(--muted);padding:7px 9px 7px 14px;font-size:12px;cursor:pointer;transition:border-color .2s,color .2s}
+.nav-search:hover{border-color:#6b4a3a;color:var(--ink)}
+.nav-search:focus-visible{outline-offset:3px}
+.cmdk{width:min(640px,calc(100% - 32px));max-width:none;margin:12vh auto auto;padding:0;border:1px solid #3d4737;border-radius:16px;background:#131711;color:var(--ink);box-shadow:0 30px 90px rgba(0,0,0,.65);overflow:hidden}
+.cmdk::backdrop{background:rgba(8,10,7,.72);backdrop-filter:blur(5px)}
+.cmdk[open]{animation:cmdk-in .18s cubic-bezier(.2,.8,.2,1)}
+@keyframes cmdk-in{from{opacity:0;translate:0 10px;scale:.98}}
+.cmdk-head{display:flex;align-items:center;gap:12px;padding:16px 18px;border-bottom:1px solid var(--border)}
+.cmdk-head svg{width:16px;height:16px;color:var(--muted);flex:none}
+.cmdk-head input{flex:1;min-width:0;background:none;border:0;outline:0;color:var(--ink);font:500 16px/1.4 var(--heading)}
+.cmdk-head input::placeholder{color:#8a917f}
+#cmdk-list{list-style:none;max-height:min(52vh,420px);overflow:auto;padding:8px}
+#cmdk-list a{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:11px 12px;border-radius:9px}
+#cmdk-list [aria-selected="true"] a{background:#20281c;box-shadow:inset 2px 0 0 var(--orange)}
+.cmdk-t{font:500 14px/1.3 var(--heading)}
+.cmdk-k{font:500 10px/1.3 var(--heading);letter-spacing:1px;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.cmdk-empty{padding:22px 12px;color:var(--muted);font-size:13px}
+.cmdk-foot{display:flex;gap:18px;padding:10px 18px;border-top:1px solid var(--border);font-size:11px;color:var(--muted)}
+.cmdk-foot kbd{margin-right:4px}
+@media(pointer:coarse){.cmdk-foot{display:none}}
+@media(max-width:760px){.nav-search{padding:0;width:38px;height:38px;justify-content:center}.nav-search span,.nav-search kbd,.nav-models,nav a.github-link{display:none}.name{white-space:nowrap}.cmdk{margin-top:8vh}}
+
+/* Section rail */
+.rail{position:fixed;right:20px;top:50%;translate:0 -50%;z-index:40;display:none;flex-direction:column;gap:6px}
+@media(min-width:1200px){.rail{display:flex}}
+.rail a{position:relative;display:flex;align-items:center;justify-content:center;width:22px;height:24px}
+.rail a::before{content:"";width:6px;height:6px;border-radius:3px;background:#4a5445;transition:height .25s,background .25s}
+.rail a:hover::before{background:var(--ink)}
+.rail a[aria-current]::before{background:var(--orange);height:18px}
+.rail a span{position:absolute;right:28px;white-space:nowrap;font:500 10px/1 var(--heading);letter-spacing:1px;text-transform:uppercase;color:var(--ink);background:#171c15;border:1px solid var(--border);border-radius:6px;padding:6px 8px;opacity:0;translate:6px 0;pointer-events:none;transition:opacity .2s,translate .2s}
+.rail a:hover span,.rail a:focus-visible span{opacity:1;translate:0 0}
+.rail a:focus-visible{outline-offset:2px}
+
+/* Filter changes animate where the browser supports view transitions */
+::view-transition-group(*){animation-duration:.35s}
+
+/* Live simulation */
+.sim{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.25fr);gap:38px;border:1px solid var(--border);border-radius:16px;background:linear-gradient(180deg,#151a13,#10120f);padding:30px;margin:0 0 44px;scroll-margin-top:30px}
+.sim-label,.sim-k{display:block;font:500 10px/1.5 var(--heading);letter-spacing:1.2px;text-transform:uppercase;color:var(--muted)}
+.sim h3{font:400 clamp(28px,3vw,40px)/1.08 var(--heading);letter-spacing:-1.4px;margin:12px 0 14px}
+.sim h3 em{font-family:Georgia,serif;color:var(--orange);font-weight:400}
+.sim-copy>p{font-size:13px;color:var(--muted);line-height:1.8;max-width:46ch}
+.sim-controls{display:grid;gap:14px;margin:24px 0 18px}
+.sim-controls label{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font:500 12.5px/1.3 var(--heading)}
+.sim-controls output{font:600 24px/1 var(--heading);font-variant-numeric:tabular-nums}
+.sim-controls input[type=range]{width:100%;height:28px;accent-color:var(--orange);cursor:pointer}
+.sim-chips{display:flex;flex-wrap:wrap;gap:8px}
+.sim-chips button{font:500 12.5px/1 var(--heading);color:var(--ink);background:transparent;border:1px solid var(--border);border-radius:999px;padding:10px 14px;cursor:pointer;transition:border-color .2s,background .2s}
+.sim-chips button:hover{border-color:#6b4a3a}
+.sim-chips button[aria-pressed="true"]{background:#e0e7d7;color:#1a2115;border-color:#e0e7d7}
+.sim-chips button:focus-visible,.sim-run:focus-visible{outline-offset:3px}
+.sim-run{justify-self:start;display:inline-flex;gap:10px;align-items:center;background:var(--orange);color:#171b13;border:0;border-radius:999px;padding:13px 20px;font:600 13px/1 var(--heading);cursor:pointer;transition:background .2s}
+.sim-run:hover{background:#ff9b76}
+.sim-copy>p.sim-note{font-size:11.5px;line-height:1.6;border-top:1px solid var(--border);padding-top:12px}
+.sim-head{display:flex;justify-content:space-between;align-items:flex-end;gap:14px 20px;flex-wrap:wrap}
+.sim-head strong{display:block;font:600 clamp(42px,5vw,64px)/1 var(--heading);letter-spacing:-.03em;font-variant-numeric:tabular-nums;margin:6px 0 8px}
+.sim-sub{font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.sim-legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12px;color:var(--muted)}
+.sim-legend span{display:inline-flex;align-items:center;gap:7px}
+.sim-legend i{width:10px;height:10px;border-radius:2px}
+.sim-legend b{width:14px;height:2px;background:#f0f0e7}
+.sim-bars{display:flex;gap:6px;margin-top:22px}
+.sim-col{flex:1;min-width:0;display:flex;flex-direction:column;text-align:center}
+.sim-v{font:500 11px/1 var(--heading);color:var(--ink);font-variant-numeric:tabular-nums;margin-bottom:6px}
+.sim-track{position:relative;height:150px;border-bottom:1px solid #3a4435}
+.sim-track i{position:absolute;left:0;right:0;bottom:0;height:0;border-radius:4px 4px 0 0;transition:height .12s linear}
+.sim-track b{position:absolute;left:-2px;right:-2px;height:2px;background:#f0f0e7;translate:0 50%;box-shadow:0 0 0 1px #151a13}
+.sim-x{font:500 10.5px/1 var(--heading);color:var(--muted);margin-top:8px;white-space:nowrap}
+.sim-conv{margin-top:24px;border-top:1px solid var(--border);padding-top:14px}
+.sim-plot{position:relative;margin-top:12px;padding-left:38px}
+.sim-plot svg{display:block;width:100%;height:120px;overflow:visible;touch-action:pan-y}
+.sim-grid{stroke:#242b21;vector-effect:non-scaling-stroke}
+.sim-exact{stroke:#f0f0e7;stroke-width:1.5;stroke-dasharray:5 4;vector-effect:non-scaling-stroke}
+.sim-line{fill:none;stroke:#3987e5;stroke-width:2;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+.sim-cross{stroke:#a5ab9e;vector-effect:non-scaling-stroke}
+.sim-y{position:absolute;left:0;top:0;height:120px;display:flex;flex-direction:column;justify-content:space-between;font:500 10.5px/1 var(--heading);color:var(--muted);font-variant-numeric:tabular-nums}
+.sim-y span:first-child{translate:0 -40%}.sim-y span:last-child{translate:0 40%}
+.sim-xaxis{display:flex;justify-content:space-between;padding-left:38px;margin-top:8px;font:500 10.5px/1 var(--heading);color:var(--muted);font-variant-numeric:tabular-nums}
+.sim-xtitle{padding-left:38px;margin-top:6px;font-size:11px;color:var(--muted)}
+#sim-readout{font-size:12px;color:var(--ink);margin-top:10px;min-height:1.6em;font-variant-numeric:tabular-nums}
+@media(max-width:960px){.sim{grid-template-columns:1fr;gap:28px}}
+@media(max-width:520px){.sim{padding:20px 14px}.sim-bars{gap:3px}.sim-v{font-size:9.5px}.sim-x{font-size:9px}.sim-track{height:120px}}
 </style>
 </head>
 
@@ -1144,8 +1243,10 @@ w-d.w{display:inline-block;animation:w-rise .8s cubic-bezier(.2,.8,.2,1) backwar
     </a>
 
     <nav aria-label="Main navigation">
+      <button type="button" class="nav-search" id="cmdk-open" aria-label="Search" aria-haspopup="dialog" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span>Search</span><kbd id="cmdk-key">⌘K</kbd></button>
       <a href="#research">Research</a>
       <a href="#projects">Projects</a>
+      <a class="nav-models" href="#prediction-models">Models</a>
       <a class="github-link" href="https://github.com/takizawadaiki" target="_blank" rel="noopener noreferrer">
         GitHub
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
@@ -1188,15 +1289,16 @@ w-d.w{display:inline-block;animation:w-rise .8s cubic-bezier(.2,.8,.2,1) backwar
   </section>
 
 
-  <section class="intro" aria-labelledby="page-title">
+  <section class="intro" id="intro" aria-labelledby="page-title">
     <div class="hero-top"><div class="eyebrow"><span class="status-dot"></span> An independent perspective on data</div><span class="edition">PORTFOLIO — 2026</span></div>
     <div class="hero-layout"><div class="hero-copy">
       <h1 id="page-title">Behind the<br>numbers.<br><span>Beyond the</span><br><em>obvious.</em><span class="title-dot" aria-hidden="true">✳</span></h1>
       <p>I’m Daiki. I explore the stories hiding in business performance and sports economics—through research, dashboards, and predictive models.</p>
       <a class="primary-link" href="#projects">Explore my work <span aria-hidden="true">↘</span></a>
     </div>
-    <div class="hero-art"><div class="art-top"><span>FIG. 01 / FINDING THE SIGNAL</span><span class="art-live"><i></i> LIVE GENERATIVE STUDY</span></div>
-      <canvas id="signal" aria-label="Decorative animated orange point cloud forming a twisting three-dimensional data sculpture" role="img"></canvas>
+    <div class="hero-art"><div class="art-top"><span>FIG. 01 / FINDING THE SIGNAL</span><span class="art-live"><i></i> <span id="art-hint">LIVE GENERATIVE STUDY</span></span></div>
+      <canvas id="signal" aria-label="Decorative animated orange point cloud. It can be dragged to rotate and switched between a ribbon, a scatter and a surface." role="img"></canvas>
+      <div class="art-forms" role="group" aria-label="Point cloud form" hidden><button type="button" data-form="0" aria-pressed="true">Ribbon</button><button type="button" data-form="1" aria-pressed="false">Scatter</button><button type="button" data-form="2" aria-pressed="false">Surface</button></div>
       <div class="art-caption"><span>From complexity,<br><strong>a clearer perspective.</strong></span><button id="motion-toggle" type="button" aria-pressed="false">Pause motion <span aria-hidden="true">Ⅱ</span></button></div>
       <span class="art-cross cross-one" aria-hidden="true">+</span><span class="art-cross cross-two" aria-hidden="true">+</span>
     </div></div>
@@ -1391,6 +1493,43 @@ w-d.w{display:inline-block;animation:w-rise .8s cubic-bezier(.2,.8,.2,1) backwar
       <span class="section-count">SIX SPORTS</span>
     </div>
     <div class="ticker" aria-hidden="true"><div class="ticker-track"><div><span>Soccer</span><b>✳</b><span>Hockey</span><b>✳</b><span>Tennis</span><b>✳</b><span>UFC</span><b>✳</b><span>Basketball</span><b>✳</b><span>Baseball</span><b>✳</b></div><div><span>Soccer</span><b>✳</b><span>Hockey</span><b>✳</b><span>Tennis</span><b>✳</b><span>UFC</span><b>✳</b><span>Basketball</span><b>✳</b><span>Baseball</span><b>✳</b></div></div></div>
+    <div class="sim" id="sim" hidden>
+      <div class="sim-copy">
+        <span class="sim-label">Try the idea / a teaching toy</span>
+        <h3>One series, <em>ten thousand times.</em></h3>
+        <p>The models below rest on the same move: play the matchup over and over, then count what happened. Set how often Team A wins a single game and watch the estimate settle toward the exact answer.</p>
+        <div class="sim-controls">
+          <label for="sim-p">Team A wins a single game <output id="sim-p-out" for="sim-p">55%</output></label>
+          <input id="sim-p" type="range" min="30" max="70" step="1" value="55">
+          <div class="sim-chips" role="group" aria-label="Series length"><button type="button" data-n="3" aria-pressed="false">Best of 3</button><button type="button" data-n="5" aria-pressed="false">Best of 5</button><button type="button" data-n="7" aria-pressed="true">Best of 7</button></div>
+          <button type="button" class="sim-run" id="sim-run">Run 10,000 series <span aria-hidden="true">↻</span></button>
+        </div>
+        <p class="sim-note">Simplified on purpose: every game uses the same probability, with no home advantage, injuries or momentum. It runs in your browser and is not one of the linked models.</p>
+      </div>
+      <div class="sim-out">
+        <div class="sim-head">
+          <div><span class="sim-k">Team A wins the series</span><strong id="sim-est">0.0%</strong><span class="sim-sub" id="sim-sub"></span></div>
+          <div class="sim-legend" aria-hidden="true"><span><i style="background:#3987e5"></i>Team A wins</span><span><i style="background:#d95926"></i>Team B wins</span><span><b></b>Exact probability</span></div>
+        </div>
+        <div class="sim-bars" id="sim-bars"></div>
+        <div class="sim-conv">
+          <span class="sim-k">Team A’s share of series won, as the run builds up</span>
+          <div class="sim-plot">
+            <div class="sim-y" aria-hidden="true"><span>100%</span><span>50%</span><span>0%</span></div>
+            <svg id="sim-conv" viewBox="0 0 600 120" preserveAspectRatio="none" role="img" aria-label="Line chart of Team A’s running share of series won as simulated series accumulate, settling toward the exact probability shown as a dashed line.">
+              <line class="sim-grid" x1="0" x2="600" y1="0" y2="0"/><line class="sim-grid" x1="0" x2="600" y1="60" y2="60"/><line class="sim-grid" x1="0" x2="600" y1="120" y2="120"/>
+              <line class="sim-exact" x1="0" x2="600" y1="60" y2="60"/>
+              <path class="sim-line" d="M0 0"/>
+              <line class="sim-cross" x1="0" x2="0" y1="0" y2="120" visibility="hidden"/>
+            </svg>
+          </div>
+          <div class="sim-xaxis" aria-hidden="true"><span>1</span><span>10</span><span>100</span><span>1,000</span><span>10,000</span></div>
+          <p class="sim-xtitle">Simulated series (log scale)</p>
+          <p id="sim-readout"></p>
+        </div>
+        <p class="sr-only" id="sim-live" aria-live="polite"></p>
+      </div>
+    </div>
     <div class="grid">
       <a class="card" href="/world-cup-forecast-model/" target="_blank" rel="noopener noreferrer">
         <div class="card-content">
@@ -1439,61 +1578,193 @@ w-d.w{display:inline-block;animation:w-rise .8s cubic-bezier(.2,.8,.2,1) backwar
   </div>
 </footer>
 
+<nav class="rail" aria-label="Page sections" hidden>
+  <a href="#top" data-spy="#main"><span>Latest</span></a>
+  <a href="#intro" data-spy="#intro"><span>Intro</span></a>
+  <a href="#research" data-spy="#research"><span>Research</span></a>
+  <a href="#projects" data-spy="#projects"><span>Projects</span></a>
+  <a href="#prediction-models" data-spy="#prediction-models"><span>Models</span></a>
+</nav>
+
+<dialog class="cmdk" id="cmdk" aria-label="Search this site">
+  <div class="cmdk-head">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+    <input id="cmdk-input" type="text" role="combobox" aria-expanded="true" aria-controls="cmdk-list" aria-autocomplete="list" aria-label="Search projects, models and research" placeholder="Search projects, models and research" autocomplete="off" spellcheck="false">
+    <kbd>esc</kbd>
+  </div>
+  <ul id="cmdk-list" role="listbox" aria-label="Results"></ul>
+  <div class="cmdk-foot"><span><kbd>↑</kbd><kbd>↓</kbd>to move</span><span><kbd>↵</kbd>to open</span></div>
+</dialog>
+
 <script>
+// Hero point cloud: three forms to morph between, drag to rotate, and a cursor lens.
 (() => {
   const canvas = document.querySelector('#signal');
   const context = canvas.getContext('2d');
   const toggle = document.querySelector('#motion-toggle');
   if (!context) { toggle.hidden = true; return; }
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
-  let paused = reduced.matches, visible = true, frame = 0, time = 0, width = 0, height = 0, last = 0;
-  const points = [];
-  for (let u = 0; u < 104; u++) {
-    const a = u / 104 * Math.PI * 2;
-    for (let v = 0; v < 44; v++) {
-      const b = v / 44 * Math.PI * 2;
-      const radius = 1.34 + .48 * Math.cos(b);
-      const x = radius * Math.cos(a), y = radius * Math.sin(a), z = .48 * Math.sin(b);
-      const twist = a * 2;
-      points.push([x, y * Math.cos(twist) - z * Math.sin(twist), y * Math.sin(twist) + z * Math.cos(twist)]);
+  const U = 104, V = 44, N = U * V, BINS = 14;
+
+  // Deterministic noise, so the scatter looks the same on every visit.
+  let seed = 20260;
+  const rand = () => { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 4294967296; };
+  const gauss = () => Math.sqrt(-2 * Math.log(1 - rand())) * Math.cos(2 * Math.PI * rand());
+
+  const forms = [new Float32Array(N * 3), new Float32Array(N * 3), new Float32Array(N * 3)];
+  for (let u = 0, k = 0; u < U; u++) {
+    const a = u / U * Math.PI * 2;
+    for (let v = 0; v < V; v++, k += 3) {
+      // 0: the original twisted ribbon
+      const b = v / V * Math.PI * 2, radius = 1.34 + .48 * Math.cos(b);
+      const x = radius * Math.cos(a), y = radius * Math.sin(a), z = .48 * Math.sin(b), twist = a * 2;
+      forms[0][k] = x; forms[0][k + 1] = y * Math.cos(twist) - z * Math.sin(twist); forms[0][k + 2] = y * Math.sin(twist) + z * Math.cos(twist);
+      // 1: a noisy scatter around a trend line
+      const sx = (rand() * 2 - 1) * 1.6;
+      forms[1][k] = sx; forms[1][k + 1] = -.5 * sx + gauss() * .34; forms[1][k + 2] = gauss() * .5;
+      // 2: a bell-shaped surface on a regular grid
+      const gx = (u / (U - 1) - .5) * 3, gz = (v / (V - 1) - .5) * 2.2;
+      forms[2][k] = gx; forms[2][k + 1] = .62 - 1.55 * Math.exp(-(gx * gx + gz * gz * 1.4) / .7); forms[2][k + 2] = gz;
     }
   }
+
+  const start = Float32Array.from(forms[0]), pos = Float32Array.from(forms[0]);
+  const sx = new Float32Array(N), sy = new Float32Array(N), sr = new Float32Array(N), bin = new Uint8Array(N);
+  let target = forms[0], morph = 1;
+  let paused = reduced.matches, visible = true, frame = 0, time = 0, width = 0, height = 0, last = 0;
+  let yaw = 0, pitch = 0, vyaw = 0, dragging = false, px = 0, py = 0, mx = -1, my = -1;
+
+  function step(dt) {
+    if (morph < 1) {
+      morph = Math.min(1, morph + dt / 1400);
+      for (let i = 0, k = 0; i < N; i++, k += 3) {
+        let t = morph * 1.35 - i / N * .35;            // a wave that sweeps through the points
+        t = t < 0 ? 0 : t > 1 ? 1 : t;
+        t = t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+        pos[k] = start[k] + (target[k] - start[k]) * t;
+        pos[k + 1] = start[k + 1] + (target[k + 1] - start[k + 1]) * t;
+        pos[k + 2] = start[k + 2] + (target[k + 2] - start[k + 2]) * t;
+      }
+    }
+    if (!dragging && vyaw) {                             // a little spin after letting go
+      yaw += vyaw * dt; vyaw *= Math.pow(.94, dt / 16);
+      if (Math.abs(vyaw) < .00002) vyaw = 0;
+    }
+  }
+
   function draw() {
     context.clearRect(0, 0, width, height);
-    const angle = time * .00015 + .3, scale = Math.min(width * .215, height * .215);
-    const sin = Math.sin(angle), cos = Math.cos(angle);
-    const projected = points.map(([x,y,z]) => {
-      const rx = x*cos + z*sin, rz = -x*sin + z*cos;
-      const ry = y * .86 - rz * .5, depth = y * .5 + rz * .86;
-      const perspective = 4.5 / (4.5 - depth);
-      return [width/2 + rx * scale * perspective, height/2 + ry * scale * perspective, depth, perspective];
-    }).sort((a,b) => a[2]-b[2]);
-    for (const [x,y,z,p] of projected) {
-      context.beginPath(); context.arc(x,y,Math.max(.5,1.15*p),0,Math.PI*2);
-      context.fillStyle = `rgba(255,133,74,${.24 + (z+2)/4*.65})`;context.fill();
+    const angle = time * .00015 + .3 + yaw, scale = Math.min(width, height) * .215;
+    const sin = Math.sin(angle), cos = Math.cos(angle), tilt = .5236 + pitch, ct = Math.cos(tilt), st = Math.sin(tilt);
+    const lens = mx >= 0, R = 90;
+    for (let i = 0, k = 0; i < N; i++, k += 3) {
+      const x = pos[k], y = pos[k + 1], z = pos[k + 2];
+      const rx = x * cos + z * sin, rz = -x * sin + z * cos;
+      const ry = y * ct - rz * st, depth = y * st + rz * ct;
+      const p = 4.5 / (4.5 - depth);
+      let X = width / 2 + rx * scale * p, Y = height / 2 + ry * scale * p, r = Math.max(.5, 1.15 * p);
+      let b = ((depth + 2.4) / 4.8 * BINS) | 0;
+      b = b < 0 ? 0 : b >= BINS ? BINS - 1 : b;
+      if (lens) {
+        const dx = X - mx, dy = Y - my, d2 = dx * dx + dy * dy;
+        if (d2 < R * R) {
+          const d = Math.sqrt(d2) || 1, f = (1 - d / R) * (1 - d / R);
+          X += dx / d * f * 18; Y += dy / d * f * 18; r *= 1 + f * 1.3;
+          if (f > .12) b = BINS;                         // nearest points are drawn last, brighter
+        }
+      }
+      sx[i] = X; sy[i] = Y; sr[i] = r; bin[i] = b;
+    }
+    // Opacity depends only on depth, so drawing depth bins back to front replaces a per-frame sort.
+    for (let b = 0; b <= BINS; b++) {
+      context.beginPath();
+      for (let i = 0; i < N; i++) {
+        if (bin[i] !== b) continue;
+        context.moveTo(sx[i] + sr[i], sy[i]); context.arc(sx[i], sy[i], sr[i], 0, 6.2832);
+      }
+      context.fillStyle = b === BINS ? 'rgba(255,196,160,.95)' : 'rgba(255,133,74,' + (.24 + (b + .5) / BINS * .65).toFixed(3) + ')';
+      context.fill();
     }
   }
+
   function resize() {
     const box = canvas.getBoundingClientRect(), ratio = Math.min(window.devicePixelRatio || 1, 2);
-    width=box.width;height=box.height;canvas.width=Math.round(width*ratio);canvas.height=Math.round(height*ratio);
-    context.setTransform(ratio,0,0,ratio,0,0); draw();
+    width = box.width; height = box.height;
+    canvas.width = Math.round(width * ratio); canvas.height = Math.round(height * ratio);
+    context.setTransform(ratio, 0, 0, ratio, 0, 0); draw();
   }
   function animate(now) {
-    frame=0;if(paused || !visible || document.hidden)return;
-    if(last)time+=Math.min(now-last,50);last=now;draw();frame=requestAnimationFrame(animate);
+    frame = 0;
+    if (!visible || document.hidden) { last = 0; return; }
+    const dt = last ? Math.min(now - last, 50) : 16; last = now;
+    if (!paused && !dragging) time += dt;
+    step(dt); draw();
+    if (!paused || morph < 1 || vyaw) frame = requestAnimationFrame(animate); else last = 0;
   }
+  // Draws at least one frame; keeps going only while something is moving.
+  function kick() { if (!frame && visible && !document.hidden) frame = requestAnimationFrame(animate); }
   function sync() {
-    cancelAnimationFrame(frame);frame=0;last=0;
-    toggle.setAttribute('aria-pressed',String(paused));
-    toggle.innerHTML=paused?'Resume motion <span aria-hidden="true">▷</span>':'Pause motion <span aria-hidden="true">Ⅱ</span>';
-    if(!paused && visible && !document.hidden)frame=requestAnimationFrame(animate);
+    cancelAnimationFrame(frame); frame = 0; last = 0;
+    toggle.setAttribute('aria-pressed', String(paused));
+    toggle.innerHTML = paused ? 'Resume motion <span aria-hidden="true">▷</span>' : 'Pause motion <span aria-hidden="true">Ⅱ</span>';
+    if (paused) vyaw = 0;
+    kick();
   }
-  toggle.addEventListener('click',()=>{paused=!paused;sync()});
-  reduced.addEventListener('change',e=>{paused=e.matches;sync()});
-  document.addEventListener('visibilitychange',sync);
+
+  // Form switcher
+  const formBar = document.querySelector('.art-forms');
+  if (formBar) {
+    formBar.hidden = false;
+    formBar.addEventListener('click', event => {
+      const button = event.target.closest('button[data-form]');
+      if (!button) return;
+      const next = forms[Number(button.dataset.form)];
+      formBar.querySelectorAll('button').forEach(item => item.setAttribute('aria-pressed', String(item === button)));
+      if (next === target) return;
+      target = next;
+      if (paused) { pos.set(target); morph = 1; }       // no animation when motion is paused or reduced
+      else { start.set(pos); morph = 0; }
+      kick();
+    });
+  }
+
+  // Drag to rotate. Touch keeps vertical page scrolling and rotates on horizontal drags.
+  canvas.addEventListener('pointerdown', event => {
+    if (event.pointerType === 'mouse' && event.button !== 0) return;
+    dragging = true; px = event.clientX; py = event.clientY; vyaw = 0;
+    canvas.setPointerCapture(event.pointerId); canvas.classList.add('dragging');
+  });
+  canvas.addEventListener('pointermove', event => {
+    if (event.pointerType === 'mouse') {
+      const box = canvas.getBoundingClientRect();
+      mx = event.clientX - box.left; my = event.clientY - box.top;
+    }
+    if (dragging) {
+      const dx = event.clientX - px, dy = event.clientY - py; px = event.clientX; py = event.clientY;
+      yaw += dx * .008;
+      vyaw = Math.max(-.004, Math.min(.004, dx * .0005));
+      if (event.pointerType === 'mouse') pitch = Math.max(-.9, Math.min(.9, pitch + dy * .006));
+    }
+    kick();
+  });
+  const release = () => {
+    if (!dragging) return;
+    dragging = false; canvas.classList.remove('dragging');
+    if (paused) vyaw = 0;
+    kick();
+  };
+  canvas.addEventListener('pointerup', release);
+  canvas.addEventListener('pointercancel', release);
+  canvas.addEventListener('pointerleave', () => { mx = my = -1; kick(); });
+  const hint = document.querySelector('#art-hint');
+  if (hint) hint.textContent = 'Drag to rotate';
+
+  toggle.addEventListener('click', () => { paused = !paused; sync(); });
+  reduced.addEventListener('change', event => { paused = event.matches; sync(); });
+  document.addEventListener('visibilitychange', sync);
   new ResizeObserver(resize).observe(canvas);
-  new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;sync()}).observe(canvas);
-  resize();sync();
+  new IntersectionObserver(entries => { visible = entries[0].isIntersecting; sync(); }).observe(canvas);
+  resize(); sync();
 })();
 
 
@@ -1507,20 +1778,27 @@ w-d.w{display:inline-block;animation:w-rise .8s cubic-bezier(.2,.8,.2,1) backwar
     const button = event.target.closest('button[data-filter]');
     if (!button) return;
     const category = button.dataset.filter;
-    bar.querySelectorAll('button').forEach(item => item.setAttribute('aria-pressed', String(item === button)));
-    let total = 0;
-    studies.forEach(study => {
-      study.hidden = category !== 'all' && study.dataset.category !== category;
-      if (!study.hidden) total++;
-    });
-    count.textContent = total + (total === 1 ? ' study' : ' studies');
+    const apply = () => {
+      bar.querySelectorAll('button').forEach(item => item.setAttribute('aria-pressed', String(item === button)));
+      let total = 0;
+      studies.forEach(study => {
+        study.hidden = category !== 'all' && study.dataset.category !== category;
+        if (!study.hidden) total++;
+      });
+      count.textContent = total + (total === 1 ? ' study' : ' studies');
+    };
+    // Cards slide to their new places where the browser supports view transitions.
+    if (document.startViewTransition && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      studies.forEach((study, i) => { study.style.viewTransitionName = 'case-' + i; });
+      document.startViewTransition(apply).finished.finally(() => studies.forEach(study => { study.style.viewTransitionName = ''; }));
+    } else apply();
   });
 })();
 
 // Scroll reveals and count-up stats. Skipped for visitors who prefer reduced motion.
 (() => {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
-  const targets = document.querySelectorAll('.wealth-feature, .research-card, .section-top, .projects-intro, .project-filters, .case-study, .vz-card, .stats-title, .stat-tile, #prediction-models .section-top, #prediction-models a');
+  const targets = document.querySelectorAll('.wealth-feature, .research-card, .section-top, .projects-intro, .project-filters, .case-study, .vz-card, .sim, .stats-title, .stat-tile, #prediction-models .section-top, #prediction-models a');
   document.documentElement.classList.add('js-reveal');
   const seen = new Set();
   targets.forEach(el => {
@@ -1573,22 +1851,6 @@ w-d.w{display:inline-block;animation:w-rise .8s cubic-bezier(.2,.8,.2,1) backwar
   addEventListener('scroll', () => { if (!queued) { queued = true; requestAnimationFrame(update); } }, { passive: true });
   addEventListener('resize', update);
   update();
-})();
-
-// Hero art tilts gently toward the cursor (fine pointers, motion allowed only).
-(() => {
-  const art = document.querySelector('.hero-art'), canvas = document.querySelector('#signal');
-  if (!art || !canvas) return;
-  if (!matchMedia('(hover: hover) and (pointer: fine)').matches || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  art.addEventListener('pointermove', e => {
-    const r = art.getBoundingClientRect();
-    const x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
-    canvas.style.setProperty('--tilt-y', (x * 9).toFixed(2) + 'deg');
-    canvas.style.setProperty('--tilt-x', (-y * 7).toFixed(2) + 'deg');
-  });
-  art.addEventListener('pointerleave', () => {
-    canvas.style.setProperty('--tilt-x', '0deg'); canvas.style.setProperty('--tilt-y', '0deg');
-  });
 })();
 
 // Headline words rise in one by one (skipped for reduced motion).
@@ -1716,6 +1978,251 @@ w-d.w{display:inline-block;animation:w-rise .8s cubic-bezier(.2,.8,.2,1) backwar
     note.textContent = 'Pearson\u2019s r \u00b7 p = ' + c.p.toFixed(3);
     label.textContent = rebuilt ? 'Pooled correlation' : 'Pooled correlation \u00b7 provisional';
   } catch (e) { /* keep the typed values */ }
+})();
+
+// Search palette (Cmd/Ctrl+K or "/"): jump to any project, model or section. Entries are read from the page.
+(() => {
+  const dialog = document.querySelector('#cmdk'), opener = document.querySelector('#cmdk-open');
+  if (!dialog || !opener || typeof dialog.showModal !== 'function') return;
+  const input = dialog.querySelector('#cmdk-input'), list = dialog.querySelector('#cmdk-list');
+  const text = (root, selector) => {
+    const node = root.querySelector(selector);
+    if (!node) return '';
+    const copy = node.cloneNode(true);
+    copy.querySelectorAll('br').forEach(br => br.replaceWith(' '));
+    return copy.textContent.replace(/\s+/g, ' ').trim();
+  };
+  const items = [];
+  const add = (title, kind, href, extra, newTab) => {
+    if (title && href) items.push({ title, kind, href, newTab: !!newTab, hay: (title + ' ' + kind + ' ' + (extra || '')).toLowerCase() });
+  };
+  document.querySelectorAll('.wealth-feature').forEach(feature => {
+    const link = feature.querySelector('a.wealth-cta');
+    add(text(feature, 'h2').replace(/\.$/, ''), 'Latest project', link && link.getAttribute('href'), text(feature, '.wealth-label') + ' ' + text(feature, 'p'));
+  });
+  const research = document.querySelector('.research-card');
+  if (research) add(text(research, '.research-title').replace(/\.$/, ''), 'Original research', research.getAttribute('href'), 'NBA basketball bench playoffs correlation');
+  const dash = document.querySelector('.dash-link');
+  if (dash) add('Bench Dividend dashboard', 'Dashboard', dash.getAttribute('href'), 'NBA scatter confidence intervals data');
+  document.querySelectorAll('.case-study').forEach(card => add(text(card, 'h3'), text(card, '.category'), card.getAttribute('href'), text(card, '.case-summary-bottom span') + ' ' + text(card, '.case-summary > p')));
+  document.querySelectorAll('#prediction-models .card').forEach(card => add(text(card, 'h3') + ' model', 'Prediction model', card.getAttribute('href'), 'monte carlo elo forecast simulation', true));
+  if (document.querySelector('#sim')) add('Run a simulation', 'Interactive', '#sim', 'monte carlo series probability try');
+  add('Featured research', 'Section', '#research');
+  add('Selected work', 'Section', '#projects', 'projects');
+  add('Explore the models', 'Section', '#prediction-models', 'prediction');
+  add('GitHub profile', 'External', 'https://github.com/takizawadaiki', 'code repositories source', true);
+
+  let shown = [], active = 0;
+  function render() {
+    const tokens = input.value.toLowerCase().split(/\s+/).filter(Boolean);
+    shown = items
+      .map((item, index) => {
+        if (!tokens.every(token => item.hay.includes(token))) return null;
+        const title = item.title.toLowerCase(), first = tokens[0] || '';
+        return { item, index, score: !first ? 0 : title.startsWith(first) ? 0 : title.includes(first) ? 1 : 2 };
+      })
+      .filter(Boolean)
+      .sort((a, b) => a.score - b.score || a.index - b.index)
+      .map(entry => entry.item);
+    active = 0;
+    list.textContent = '';
+    if (!shown.length) {
+      const empty = document.createElement('li');
+      empty.className = 'cmdk-empty'; empty.setAttribute('role', 'presentation');
+      empty.textContent = 'Nothing matches that. Try a sport, a method or a project name.';
+      list.append(empty);
+    }
+    shown.forEach((item, i) => {
+      const li = document.createElement('li'), a = document.createElement('a'), title = document.createElement('span'), kind = document.createElement('span');
+      li.id = 'cmdk-o-' + i; li.setAttribute('role', 'option');
+      a.href = item.href; a.tabIndex = -1;
+      if (item.newTab) { a.target = '_blank'; a.rel = 'noopener noreferrer'; }
+      title.className = 'cmdk-t'; title.textContent = item.title;
+      kind.className = 'cmdk-k'; kind.textContent = item.kind + (item.newTab ? ' ↗' : '');
+      a.append(title, kind); li.append(a); list.append(li);
+      li.addEventListener('pointermove', () => { if (active !== i) { active = i; mark(false); } });
+    });
+    mark(false);
+  }
+  function mark(scroll) {
+    list.querySelectorAll('[role="option"]').forEach((li, i) => li.setAttribute('aria-selected', String(i === active)));
+    const current = list.querySelector('#cmdk-o-' + active);
+    if (current) { input.setAttribute('aria-activedescendant', current.id); if (scroll) current.scrollIntoView({ block: 'nearest' }); }
+    else input.removeAttribute('aria-activedescendant');
+  }
+  function open() {
+    if (dialog.open) return;
+    input.value = ''; render(); dialog.showModal(); input.focus();
+  }
+  opener.hidden = false;
+  const key = document.querySelector('#cmdk-key');
+  if (key) key.textContent = /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent) ? '⌘K' : 'Ctrl K';
+  opener.addEventListener('click', open);
+  document.addEventListener('keydown', event => {
+    const typing = /^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement && document.activeElement.tagName) || (document.activeElement && document.activeElement.isContentEditable);
+    if ((event.key === 'k' || event.key === 'K') && (event.metaKey || event.ctrlKey) && !event.altKey) { event.preventDefault(); dialog.open ? dialog.close() : open(); }
+    else if (event.key === '/' && !typing && !event.metaKey && !event.ctrlKey && !event.altKey) { event.preventDefault(); open(); }
+  });
+  input.addEventListener('input', render);
+  input.addEventListener('keydown', event => {
+    if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+      event.preventDefault();
+      if (shown.length) { active = (active + (event.key === 'ArrowDown' ? 1 : shown.length - 1)) % shown.length; mark(true); }
+    } else if (event.key === 'Enter') {
+      event.preventDefault();
+      const link = list.querySelector('#cmdk-o-' + active + ' a');
+      if (link) link.click();
+    }
+  });
+  list.addEventListener('click', event => { if (event.target.closest('a')) dialog.close(); });
+  dialog.addEventListener('click', event => { if (event.target === dialog) dialog.close(); });   // click on the backdrop
+})();
+
+// Section rail: shows where you are on the page (wide screens only, see CSS).
+(() => {
+  const rail = document.querySelector('.rail');
+  if (!rail) return;
+  const links = Array.from(rail.querySelectorAll('a'));
+  const targets = links.map(link => document.querySelector(link.dataset.spy));
+  if (targets.some(target => !target)) return;
+  rail.hidden = false;
+  let queued = false;
+  const update = () => {
+    queued = false;
+    const line = innerHeight * .4;
+    let current = 0;
+    targets.forEach((target, i) => { if (target.getBoundingClientRect().top <= line) current = i; });
+    links.forEach((link, i) => { if (i === current) link.setAttribute('aria-current', 'true'); else link.removeAttribute('aria-current'); });
+  };
+  addEventListener('scroll', () => { if (!queued) { queued = true; requestAnimationFrame(update); } }, { passive: true });
+  addEventListener('resize', update);
+  update();
+})();
+
+// Live Monte Carlo demo: simulate a playoff series in the browser and compare with the exact answer.
+(() => {
+  const root = document.querySelector('#sim');
+  if (!root) return;
+  const TOTAL = 10000, A = '#3987e5', B = '#d95926';
+  const slider = root.querySelector('#sim-p'), out = root.querySelector('#sim-p-out'), chips = root.querySelector('.sim-chips');
+  const runButton = root.querySelector('#sim-run'), est = root.querySelector('#sim-est'), sub = root.querySelector('#sim-sub');
+  const bars = root.querySelector('#sim-bars'), live = root.querySelector('#sim-live');
+  const svg = root.querySelector('#sim-conv'), path = svg.querySelector('.sim-line'), exactLine = svg.querySelector('.sim-exact'), cross = svg.querySelector('.sim-cross');
+  const readout = root.querySelector('#sim-readout');
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  const W = 600, H = 120, pct = (v, d) => (v * 100).toFixed(d == null ? 1 : d) + '%';
+  let games = 7, token = 0, trace = [], exactA = 0, seen = false;
+  root.hidden = false;
+
+  const choose = (n, k) => { let c = 1; for (let i = 1; i <= k; i++) c = c * (n - k + i) / i; return c; };
+  // Exact chance of each outcome: the winner takes the last game, and the loser has k wins before it.
+  function exact(p, n) {
+    const w = (n + 1) / 2, q = 1 - p, a = [], b = [];
+    for (let k = 0; k < w; k++) {
+      a.push(choose(w - 1 + k, k) * Math.pow(p, w) * Math.pow(q, k));
+      b.push(choose(w - 1 + k, k) * Math.pow(q, w) * Math.pow(p, k));
+    }
+    return { w, dist: a.concat(b.slice().reverse()), winA: a.reduce((s, v) => s + v, 0) };
+  }
+  function playSeries(p, w) {
+    let a = 0, b = 0;
+    while (a < w && b < w) { if (Math.random() < p) a++; else b++; }
+    return a === w ? b : 2 * w - 1 - a;       // index into the bar order: A in w..n, then B in n..w
+  }
+  function buildBars(w) {
+    bars.textContent = '';
+    const n = 2 * w - 1;
+    for (let i = 0; i < 2 * w; i++) {
+      const isA = i < w, length = isA ? w + i : n - (i - w);
+      const col = document.createElement('div');
+      col.className = 'sim-col';
+      col.innerHTML = '<span class="sim-v">0%</span><div class="sim-track"><i style="background:' + (isA ? A : B) + '"></i><b></b></div><span class="sim-x">' + (isA ? 'A' : 'B') + ' in ' + length + '</span>';
+      bars.append(col);
+    }
+  }
+  function paint(counts, done, winsA, ex, final) {
+    const top = Math.max.apply(null, ex.dist) * 1.3;
+    Array.from(bars.children).forEach((col, i) => {
+      const share = done ? counts[i] / done : 0;
+      col.querySelector('i').style.height = Math.min(share / top, 1) * 100 + '%';
+      col.querySelector('b').style.bottom = Math.min(ex.dist[i] / top, 1) * 100 + '%';
+      col.querySelector('.sim-v').textContent = pct(share);
+      col.title = col.querySelector('.sim-x').textContent + ' games: ' + counts[i].toLocaleString('en-US') + ' of ' + done.toLocaleString('en-US') + ' series (' + pct(share) + '). Exact: ' + pct(ex.dist[i]) + '.';
+    });
+    const share = done ? winsA / done : 0;
+    est.textContent = pct(share);
+    sub.textContent = 'after ' + done.toLocaleString('en-US') + ' simulated series · exact answer ' + pct(ex.winA);
+    const d = trace.map((pt, i) => (i ? 'L' : 'M') + (Math.log10(pt[0]) / 4 * W).toFixed(1) + ' ' + ((1 - pt[1]) * H).toFixed(1)).join(' ');
+    path.setAttribute('d', d || 'M0 0');
+    const y = ((1 - ex.winA) * H).toFixed(1);
+    exactLine.setAttribute('y1', y); exactLine.setAttribute('y2', y);
+    if (final) {
+      const gap = Math.abs(share - ex.winA) * 100;
+      live.textContent = 'Simulation finished. Team A won ' + pct(share) + ' of ' + done.toLocaleString('en-US') + ' series. The exact answer is ' + pct(ex.winA) + ', a gap of ' + gap.toFixed(1) + ' percentage points.';
+      readout.textContent = 'Final gap from the exact answer: ' + gap.toFixed(1) + ' points. Hover the line to step through the run.';
+    }
+  }
+  function run() {
+    const mine = ++token, p = Number(slider.value) / 100, ex = exact(p, games), w = ex.w;
+    const counts = new Array(2 * w).fill(0);
+    let done = 0, winsA = 0, nextMark = 1, begun = 0;
+    trace = []; exactA = ex.winA;
+    cross.setAttribute('visibility', 'hidden');
+    readout.textContent = 'Running…';
+    if (bars.children.length !== 2 * w) buildBars(w);
+    const advance = until => {
+      while (done < until) {
+        const i = playSeries(p, w);
+        counts[i]++; done++; if (i < w) winsA++;
+        if (done >= nextMark) { trace.push([done, winsA / done]); nextMark = Math.max(done + 1, Math.round(done * 1.08)); }
+      }
+    };
+    if (reduced.matches) { advance(TOTAL); trace.push([TOTAL, winsA / TOTAL]); paint(counts, done, winsA, ex, true); return; }
+    const frame = now => {
+      if (mine !== token) return;                 // a newer run replaced this one
+      if (!begun) begun = now;
+      const t = Math.min((now - begun) / 1700, 1);
+      advance(Math.min(TOTAL, Math.max(1, Math.round(Math.pow(10, 4 * t)))));   // even pace on the log scale
+      if (t === 1 && trace[trace.length - 1][0] !== TOTAL) trace.push([TOTAL, winsA / TOTAL]);
+      paint(counts, done, winsA, ex, t === 1);
+      if (t < 1) requestAnimationFrame(frame);
+    };
+    requestAnimationFrame(frame);
+  }
+
+  slider.addEventListener('input', () => { out.textContent = slider.value + '%'; });
+  slider.addEventListener('change', run);
+  chips.addEventListener('click', event => {
+    const button = event.target.closest('button[data-n]');
+    if (!button) return;
+    games = Number(button.dataset.n);
+    chips.querySelectorAll('button').forEach(item => item.setAttribute('aria-pressed', String(item === button)));
+    run();
+  });
+  runButton.addEventListener('click', run);
+
+  // Step through the run by hovering the convergence line.
+  svg.addEventListener('pointermove', event => {
+    if (!trace.length) return;
+    const box = svg.getBoundingClientRect(), n = Math.pow(10, Math.min(Math.max((event.clientX - box.left) / box.width, 0), 1) * 4);
+    let best = trace[0];
+    trace.forEach(pt => { if (Math.abs(Math.log10(pt[0]) - Math.log10(n)) < Math.abs(Math.log10(best[0]) - Math.log10(n))) best = pt; });
+    const x = (Math.log10(best[0]) / 4 * W).toFixed(1);
+    cross.setAttribute('x1', x); cross.setAttribute('x2', x); cross.setAttribute('visibility', 'visible');
+    readout.textContent = 'After ' + best[0].toLocaleString('en-US') + ' series: ' + pct(best[1]) + ' (exact ' + pct(exactA) + ')';
+  });
+  svg.addEventListener('pointerleave', () => { cross.setAttribute('visibility', 'hidden'); });
+
+  // First run starts when the panel scrolls into view, so the build-up is seen.
+  buildBars(4);
+  paint(new Array(8).fill(0), 0, 0, exact(Number(slider.value) / 100, games), false);
+  if ('IntersectionObserver' in window) {
+    const watcher = new IntersectionObserver(entries => {
+      if (seen || !entries[0].isIntersecting) return;
+      seen = true; watcher.disconnect(); run();
+    }, { threshold: .35 });
+    watcher.observe(root);
+  } else run();
 })();
 
 </script>
