@@ -1195,7 +1195,7 @@ kbd{font:500 10px/1 var(--heading);border:1px solid var(--border);border-radius:
 /* Live simulation */
 .sim{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.25fr);gap:38px;border:1px solid var(--border);border-radius:16px;background:linear-gradient(180deg,#151a13,#10120f);padding:30px;margin:0 0 44px;scroll-margin-top:30px}
 .sim-label,.sim-k{display:block;font:500 10px/1.5 var(--heading);letter-spacing:1.2px;text-transform:uppercase;color:var(--muted)}
-.sim h3{font:400 clamp(28px,3vw,40px)/1.08 var(--heading);letter-spacing:-1.4px;margin:12px 0 14px}
+.sim h3{font:400 clamp(23px,2.3vw,32px)/1.18 var(--heading);letter-spacing:-.9px;margin:12px 0 14px}
 .sim h3 em{font-family:Georgia,serif;color:var(--orange);font-weight:400}
 .sim-copy>p{font-size:13px;color:var(--muted);line-height:1.8;max-width:46ch}
 .sim-controls{display:grid;gap:14px;margin:24px 0 18px}
@@ -1217,7 +1217,11 @@ kbd{font:500 10px/1 var(--heading);border:1px solid var(--border);border-radius:
 .sim-legend span{display:inline-flex;align-items:center;gap:7px}
 .sim-legend i{width:10px;height:10px;border-radius:2px}
 .sim-legend b{width:14px;height:2px;background:#f0f0e7}
-.sim-bars{display:flex;gap:6px;margin-top:22px}
+.sim-bars{display:flex;gap:6px;margin-top:16px}
+.sim-block{margin-top:22px}
+.sim-block .sim-legend{margin-top:10px}
+.sim-cap{font-size:12.5px;line-height:1.6;color:var(--muted);margin-top:5px;max-width:62ch}
+.sim-note b{color:var(--ink);font-weight:600}
 .sim-col{flex:1;min-width:0;display:flex;flex-direction:column;text-align:center}
 .sim-v{font:500 11px/1 var(--heading);color:var(--ink);font-variant-numeric:tabular-nums;margin-bottom:6px}
 .sim-track{position:relative;height:150px;border-bottom:1px solid #3a4435}
@@ -1480,25 +1484,30 @@ kbd{font:500 10px/1 var(--heading);border:1px solid var(--border);border-radius:
     </div>
     <div class="sim" id="sim" hidden>
       <div class="sim-copy">
-        <span class="sim-label">Try the idea / a teaching toy</span>
-        <h3>One series, <em>ten thousand times.</em></h3>
-        <p>My prediction models rest on one move: play the matchup over and over, then count what happened. Set how often Team A wins a single game and watch the estimate settle toward the exact answer.</p>
+        <span class="sim-label">An example you can run</span>
+        <h3 id="sim-q">If Team A wins <em>55%</em> of its games, how often does it win a <em>best-of-7</em> series?</h3>
+        <p>There are two ways to find out: work it out with probability, or play the series thousands of times and count. This does both, so you can watch the count land on the exact answer.</p>
         <div class="sim-controls">
-          <label for="sim-p">Team A wins a single game <output id="sim-p-out" for="sim-p">55%</output></label>
+          <label for="sim-p">How often Team A wins a single game <output id="sim-p-out" for="sim-p">55%</output></label>
           <input id="sim-p" type="range" min="30" max="70" step="1" value="55">
           <div class="sim-chips" role="group" aria-label="Series length"><button type="button" data-n="3" aria-pressed="false">Best of 3</button><button type="button" data-n="5" aria-pressed="false">Best of 5</button><button type="button" data-n="7" aria-pressed="true">Best of 7</button></div>
-          <button type="button" class="sim-run" id="sim-run">Run 10,000 series <span aria-hidden="true">↻</span></button>
+          <button type="button" class="sim-run" id="sim-run">Play 10,000 series <span aria-hidden="true">↻</span></button>
         </div>
-        <p class="sim-note">Simplified on purpose: every game uses the same probability, with no home advantage, injuries or momentum. It runs in your browser and is separate from the <a href="prediction-models.html">six prediction models</a>.</p>
+        <p class="sim-note"><b>Why it matters.</b> Real matchups have injuries, home advantage and form, and no formula covers all of that. Counting simulated games still works, which is how my <a href="prediction-models.html">six prediction models</a> produce their odds. This example keeps every game at the same probability so that an exact answer exists to check against.</p>
       </div>
       <div class="sim-out">
         <div class="sim-head">
           <div><span class="sim-k">Team A wins the series</span><strong id="sim-est">0.0%</strong><span class="sim-sub" id="sim-sub"></span></div>
+        </div>
+        <div class="sim-block">
+          <span class="sim-k">How the series ended</span>
+          <p class="sim-cap">“A in 4” means Team A won in four games. Taller bars happened more often. The white line on each bar is the exact probability.</p>
           <div class="sim-legend" aria-hidden="true"><span><i style="background:#3987e5"></i>Team A wins</span><span><i style="background:#d95926"></i>Team B wins</span><span><b></b>Exact probability</span></div>
         </div>
         <div class="sim-bars" id="sim-bars"></div>
         <div class="sim-conv">
-          <span class="sim-k">Team A’s share of series won, as the run builds up</span>
+          <span class="sim-k">The more series played, the closer the count gets</span>
+          <p class="sim-cap">The blue line is Team A’s share of wins so far. The dashed line is the exact answer. Early on the count jumps around, then settles as more series are played.</p>
           <div class="sim-plot">
             <div class="sim-y" aria-hidden="true"><span>100%</span><span>50%</span><span>0%</span></div>
             <svg id="sim-conv" viewBox="0 0 600 120" preserveAspectRatio="none" role="img" aria-label="Line chart of Team A’s running share of series won as simulated series accumulate, settling toward the exact probability shown as a dashed line.">
@@ -1509,7 +1518,7 @@ kbd{font:500 10px/1 var(--heading);border:1px solid var(--border);border-radius:
             </svg>
           </div>
           <div class="sim-xaxis" aria-hidden="true"><span>1</span><span>10</span><span>100</span><span>1,000</span><span>10,000</span></div>
-          <p class="sim-xtitle">Simulated series (log scale)</p>
+          <p class="sim-xtitle">Series played so far (each mark is ten times the last)</p>
           <p id="sim-readout"></p>
         </div>
         <p class="sr-only" id="sim-live" aria-live="polite"></p>
@@ -2189,7 +2198,7 @@ kbd{font:500 10px/1 var(--heading);border:1px solid var(--border);border-radius:
     });
     const share = done ? winsA / done : 0;
     est.textContent = pct(share);
-    sub.textContent = 'after ' + done.toLocaleString('en-US') + ' simulated series · exact answer ' + pct(ex.winA);
+    sub.textContent = done ? 'Team A won ' + winsA.toLocaleString('en-US') + ' of ' + done.toLocaleString('en-US') + ' simulated series. Exact answer: ' + pct(ex.winA) + '.' : 'Exact answer: ' + pct(ex.winA) + '. Not played yet.';
     const d = trace.map((pt, i) => (i ? 'L' : 'M') + (Math.log10(pt[0]) / 4 * W).toFixed(1) + ' ' + ((1 - pt[1]) * H).toFixed(1)).join(' ');
     path.setAttribute('d', d || 'M0 0');
     const y = ((1 - ex.winA) * H).toFixed(1);
@@ -2197,7 +2206,7 @@ kbd{font:500 10px/1 var(--heading);border:1px solid var(--border);border-radius:
     if (final) {
       const gap = Math.abs(share - ex.winA) * 100;
       live.textContent = 'Simulation finished. Team A won ' + pct(share) + ' of ' + done.toLocaleString('en-US') + ' series. The exact answer is ' + pct(ex.winA) + ', a gap of ' + gap.toFixed(1) + ' percentage points.';
-      readout.textContent = 'Final gap from the exact answer: ' + gap.toFixed(1) + ' points. Hover the line to step through the run.';
+      readout.textContent = 'The count finished ' + gap.toFixed(1) + ' points from the exact answer. Hover the line to see it at any moment.';
     }
   }
   function run() {
@@ -2206,7 +2215,7 @@ kbd{font:500 10px/1 var(--heading);border:1px solid var(--border);border-radius:
     let done = 0, winsA = 0, nextMark = 1, begun = 0;
     trace = []; exactA = ex.winA;
     cross.setAttribute('visibility', 'hidden');
-    readout.textContent = 'Running…';
+    readout.textContent = 'Playing…';
     if (bars.children.length !== 2 * w) buildBars(w);
     const advance = until => {
       while (done < until) {
@@ -2228,12 +2237,15 @@ kbd{font:500 10px/1 var(--heading);border:1px solid var(--border);border-radius:
     requestAnimationFrame(frame);
   }
 
-  slider.addEventListener('input', () => { out.textContent = slider.value + '%'; });
+  const question = root.querySelector('#sim-q');
+  const ask = () => { question.innerHTML = 'If Team A wins <em>' + Number(slider.value) + '%</em> of its games, how often does it win a <em>best-of-' + games + '</em> series?'; };
+  slider.addEventListener('input', () => { out.textContent = slider.value + '%'; ask(); });
   slider.addEventListener('change', run);
   chips.addEventListener('click', event => {
     const button = event.target.closest('button[data-n]');
     if (!button) return;
     games = Number(button.dataset.n);
+    ask();
     chips.querySelectorAll('button').forEach(item => item.setAttribute('aria-pressed', String(item === button)));
     run();
   });
@@ -2247,7 +2259,7 @@ kbd{font:500 10px/1 var(--heading);border:1px solid var(--border);border-radius:
     trace.forEach(pt => { if (Math.abs(Math.log10(pt[0]) - Math.log10(n)) < Math.abs(Math.log10(best[0]) - Math.log10(n))) best = pt; });
     const x = (Math.log10(best[0]) / 4 * W).toFixed(1);
     cross.setAttribute('x1', x); cross.setAttribute('x2', x); cross.setAttribute('visibility', 'visible');
-    readout.textContent = 'After ' + best[0].toLocaleString('en-US') + ' series: ' + pct(best[1]) + ' (exact ' + pct(exactA) + ')';
+    readout.textContent = 'After ' + best[0].toLocaleString('en-US') + ' series, Team A had won ' + pct(best[1]) + '. Exact answer: ' + pct(exactA) + '.';
   });
   svg.addEventListener('pointerleave', () => { cross.setAttribute('visibility', 'hidden'); });
 
