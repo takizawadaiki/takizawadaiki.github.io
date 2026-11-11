@@ -6,6 +6,17 @@
 <meta name="theme-color" content="#10120f"/>
 <meta name="description" content="Research and interactive analytics projects by Daiki Takizawa. Exploring wealth management, business performance, sports economics, and predictive modeling."/>
 <title>Daiki Takizawa — Data Analytics</title>
+<link rel="canonical" href="https://takizawadaiki.github.io/"/>
+<meta property="og:type" content="website"/>
+<meta property="og:site_name" content="Daiki Takizawa"/>
+<meta property="og:title" content="Daiki Takizawa · Data analytics portfolio"/>
+<meta property="og:description" content="Research and interactive analytics projects by Daiki Takizawa. Exploring wealth management, business performance, sports economics, and predictive modeling."/>
+<meta property="og:url" content="https://takizawadaiki.github.io/"/>
+<meta property="og:image" content="https://takizawadaiki.github.io/og-image.png"/>
+<meta property="og:image:width" content="1200"/>
+<meta property="og:image:height" content="630"/>
+<meta property="og:image:alt" content="Daiki Takizawa. Behind the numbers. Beyond the obvious. An orange point-cloud sculpture on a dark background."/>
+<meta name="twitter:card" content="summary_large_image"/>
 
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -1253,6 +1264,10 @@ kbd{font:500 10px/1 var(--heading);border:1px solid var(--border);border-radius:
 .js-intro .hero-bottom{animation-delay:1.5s}
 .js-intro .art-top,.js-intro .art-caption,.js-intro .art-forms,.js-intro .art-readout,.js-intro .art-cross{animation-delay:2.1s}
 @keyframes intro-rise{from{opacity:0;translate:0 14px}}
+
+/* Finding line on project cards */
+.case-summary>p.case-finding{min-height:0;max-width:none;font-size:13px;line-height:1.6;color:var(--ink);border-left:2px solid var(--accent);padding-left:12px;margin:0 0 12px}
+.case-finding b{display:block;font:500 9px/1.6 var(--heading);letter-spacing:1.4px;text-transform:uppercase;color:var(--accent);margin-bottom:3px}
 </style>
 <script>if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('js-intro')</script>
 </head>
@@ -1270,9 +1285,9 @@ kbd{font:500 10px/1 var(--heading);border:1px solid var(--border);border-radius:
 
     <nav aria-label="Main navigation">
       <button type="button" class="nav-search" id="cmdk-open" aria-label="Search" aria-haspopup="dialog" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span>Search</span><kbd id="cmdk-key">⌘K</kbd></button>
-      <a href="#research">Research</a>
       <a href="#projects">Projects</a>
       <a class="nav-models" href="#prediction-models">Models</a>
+      <a href="#research">Research</a>
       <a class="github-link" href="https://github.com/takizawadaiki" target="_blank" rel="noopener noreferrer">
         GitHub
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
@@ -1345,14 +1360,14 @@ kbd{font:500 10px/1 var(--heading);border:1px solid var(--border);border-radius:
     <a class="stat-tile" href="/retail-profitability-analysis/">
       <span class="stat-label">Retail analytics</span>
       <strong class="stat-value"><span data-count="9994">9,994</span></strong>
-      <span class="stat-caption">retail orders behind the discount analysis</span>
+      <span class="stat-caption">retail records behind the discount analysis</span>
       <div class="stat-bars" aria-hidden="true"><i style="--h:84%;--i:0"></i><i style="--h:62%;--i:1"></i><i style="--h:72%;--i:2"></i><i style="--h:44%;--i:3"></i><i style="--h:58%;--i:4"></i><i style="--h:36%;--i:5"></i><i style="--h:50%;--i:6"></i><i style="--h:30%;--i:7"></i><i style="--h:42%;--i:8"></i><i style="--h:26%;--i:9"></i><i style="--h:38%;--i:10"></i><i style="--h:22%;--i:11"></i></div>
       <span class="stat-source">The Margin Trap · SQL <b aria-hidden="true">↗</b></span>
     </a>
     <a class="stat-tile" href="/hotel-booking-analysis/">
       <span class="stat-label">Hospitality analytics</span>
       <strong class="stat-value"><span data-count="119000">119,000</span>+</strong>
-      <span class="stat-caption">hotel bookings scored for cancellation risk</span>
+      <span class="stat-caption">hotel booking records in the cancellation analysis</span>
       <div class="stat-bars" aria-hidden="true"><i style="--h:40%;--i:0"></i><i style="--h:46%;--i:1"></i><i style="--h:38%;--i:2"></i><i style="--h:60%;--i:3"></i><i style="--h:72%;--i:4"></i><i style="--h:54%;--i:5"></i><i style="--h:80%;--i:6"></i><i style="--h:66%;--i:7"></i><i style="--h:90%;--i:8"></i><i style="--h:58%;--i:9"></i><i style="--h:70%;--i:10"></i><i style="--h:84%;--i:11"></i></div>
       <span class="stat-source">The Booking Ledger · SQL <b aria-hidden="true">↗</b></span>
     </a>
@@ -1366,62 +1381,9 @@ kbd{font:500 10px/1 var(--heading);border:1px solid var(--border);border-radius:
     </div>
   </section>
 
-  <section class="research-section" id="research" aria-labelledby="research-heading">
-    <div class="section-top">
-      <h2 class="section-title" id="research-heading"><span class="section-index">01 /</span> Featured research</h2>
-      <span class="section-count">A QUESTION WORTH ASKING</span>
-    </div>
-
-    <a class="research-card" href="bench-research.html">
-      <div>
-        <div class="research-label">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-            <path d="M14 3H5v18h14V8l-5-5Z"/>
-            <path d="M14 3v5h5M8 12h8M8 16h6"/>
-          </svg>
-          NBA · Original research
-        </div>
-
-        <h3 class="research-title">The Bench<br><em>Dividend.</em></h3>
-        <p class="research-desc">Does regular season bench investment translate to playoff bench production? An analysis of three NBA seasons explores the relationship—and its limitations.</p>
-
-        <span class="research-link">Read the research <span class="arrow" aria-hidden="true">↗</span></span>
-      </div>
-
-      <div class="research-data"><div class="court" aria-hidden="true"><div class="court-center"></div><div class="court-key"></div><span class="court-dot d1"></span><span class="court-dot d2"></span><span class="court-dot d3"></span><span class="court-dot d4"></span><span class="court-dot d5"></span></div>
-        <span class="data-label">Pooled correlation · provisional</span>
-        <span class="data-value">0.329</span>
-        <span class="data-note">Pearson’s r · p = 0.023</span>
-        <div class="data-bottom">
-          <span>3 NBA seasons</span>
-          <span>48 observations</span>
-        </div>
-      </div>
-    </a>
-    <a class="dash-link" href="dashboard.html"><span>Open the data dashboard</span> <b aria-hidden="true">↗</b><small>Interactive scatter, confidence intervals and every figure traced to its source file</small></a>
-
-    <div class="vz-pair" id="vz-pair" hidden>
-      <section class="vz-card" aria-labelledby="vz-rank-h">
-        <h3 id="vz-rank-h">Who got the most from the bench?</h3>
-        <p class="vz-sub">Average playoff points per bench player, ranked. Bar length uses one scale across all seasons.</p>
-        <div class="vz-chips" id="vz-chips" role="group" aria-label="Season"></div>
-        <ol class="vz-rank" id="vz-rank"></ol>
-        <p class="vz-src">Source: chart-values.json · 16 team-seasons per year</p>
-      </section>
-      <section class="vz-card" aria-labelledby="vz-strip-h">
-        <h3 id="vz-strip-h">Bench minutes, season by season</h3>
-        <p class="vz-sub">Each dot is a team. The tick marks that season’s median, calculated from the same file.</p>
-        <div class="vz-strips" id="vz-strips"></div>
-        <div class="vz-axis" id="vz-axis" aria-hidden="true"></div>
-        <p class="vz-axis-label">Average regular-season minutes per bench player</p>
-        <p class="vz-src">Source: chart-values.json</p>
-      </section>
-    </div>
-  </section>
-
   <!-- PROJECTS: each card navigates directly to its project. -->
   <section class="projects-section" id="projects" aria-labelledby="projects-heading">
-    <div class="section-top"><h2 class="section-title" id="projects-heading"><span class="section-index">02 /</span> Selected work</h2><span class="section-count">RESEARCH, WITH A POINT OF VIEW</span></div>
+    <div class="section-top"><h2 class="section-title" id="projects-heading"><span class="section-index">01 /</span> Selected work</h2><span class="section-count">RESEARCH, WITH A POINT OF VIEW</span></div>
     <div class="projects-intro"><h2>A closer look.<br><em>A different perspective.</em></h2><p>From the economics of a booking to the business of a championship. Choose a project to explore the research, dashboards, and models behind the work.</p></div>
     <div class="project-filters" hidden aria-label="Filter projects"><div role="group" aria-label="Project categories"><button type="button" data-filter="all" aria-pressed="true">All work <span>06</span></button><button type="button" data-filter="business" aria-pressed="false">Business <span>02</span></button><button type="button" data-filter="sports" aria-pressed="false">Sports economics <span>03</span></button><button type="button" data-filter="models" aria-pressed="false">Prediction <span>01</span></button></div><span id="project-count" role="status" aria-live="polite">6 studies</span></div>
     <div class="case-grid">
@@ -1435,7 +1397,8 @@ kbd{font:500 10px/1 var(--heading);border:1px solid var(--border);border-radius:
     <div class="case-summary">
       <div class="card-top"><span class="category">Retail analytics</span><span class="project-number">01</span></div>
       <h3>The Margin Trap</h3>
-      <p>An exploration of product performance, regional differences, and the real cost of discounting across <span data-count="9994">9,994</span> retail orders.</p>
+      <p class="case-finding"><b>Finding</b>Central’s margin is still last, at 6.9%, once every region is given the same product mix. National totals hide $36,971 of losses in 14 product–region groups.</p>
+      <p>An exploration of product performance, regional differences, and the real cost of discounting across <span data-count="9994">9,994</span> retail records.</p>
       <div class="case-summary-bottom"><span>SQL · Profitability · Discount analysis</span><span class="case-toggle">View project <b aria-hidden="true">↗</b></span></div>
     </div>
   </a>
@@ -1449,6 +1412,7 @@ kbd{font:500 10px/1 var(--heading);border:1px solid var(--border);border-radius:
     <div class="case-summary">
       <div class="card-top"><span class="category">Hospitality analytics</span><span class="project-number">02</span></div>
       <h3>The Booking Ledger</h3>
+      <p class="case-finding"><b>Finding</b>Online travel agents account for about 20,700 cancellations and Groups about 12,100, even though Groups cancel at the higher rate (61.1% against 36.7%).</p>
       <p>A closer look at cancellation risk and revenue protection across more than <span data-count="119000">119,000</span> hotel bookings.</p>
       <div class="case-summary-bottom"><span>SQL · Cancellation risk · Revenue protection</span><span class="case-toggle">View project <b aria-hidden="true">↗</b></span></div>
     </div>
@@ -1463,6 +1427,7 @@ kbd{font:500 10px/1 var(--heading);border:1px solid var(--border);border-radius:
     <div class="case-summary">
       <div class="card-top"><span class="category">Sports economics</span><span class="project-number">03</span></div>
       <h3>Sports Business Intelligence</h3>
+      <p class="case-finding"><b>Finding</b>The top NBA contract takes 38.6% of the salary cap. The top NHL contract takes 14.7%, and the NFL’s 21.5%.</p>
       <p>A comparative view of salary caps, payroll efficiency, revenue structures, and the economics of four major leagues.</p>
       <div class="case-summary-bottom"><span>Salary caps · Labor share · Payroll efficiency</span><span class="case-toggle">View project <b aria-hidden="true">↗</b></span></div>
     </div>
@@ -1477,6 +1442,7 @@ kbd{font:500 10px/1 var(--heading);border:1px solid var(--border);border-radius:
     <div class="case-summary">
       <div class="card-top"><span class="category">MLB · Business analytics</span><span class="project-number">04</span></div>
       <h3>Dodgers Impact Analytics</h3>
+      <p class="case-finding"><b>Finding</b>Compiled estimates put franchise value at $7.8B, up from $4.8B before the 2023 signings, with $70M of new Japanese sponsorship in year one.</p>
       <p>An exploration of Japanese athletes, fan engagement, social growth, and the business value surrounding the Dodgers.</p>
       <div class="case-summary-bottom"><span>Engagement · Social analytics · Franchise value</span><span class="case-toggle">View project <b aria-hidden="true">↗</b></span></div>
     </div>
@@ -1505,6 +1471,7 @@ kbd{font:500 10px/1 var(--heading);border:1px solid var(--border);border-radius:
     <div class="case-summary">
       <div class="card-top"><span class="category">Tennis economics</span><span class="project-number">06</span></div>
       <h3>TennisIQ</h3>
+      <p class="case-finding"><b>Finding</b>Grand Slam revenue has grown an estimated 412% since 2000. Prize money, after inflation, has grown 94%.</p>
       <p>The financial side of professional tennis: prize money, tournament revenue, inequality, and player survival.</p>
       <div class="case-summary-bottom"><span>Revenue modeling · Lorenz curve · Player survival</span><span class="case-toggle">View project <b aria-hidden="true">↗</b></span></div>
     </div>
@@ -1515,7 +1482,7 @@ kbd{font:500 10px/1 var(--heading);border:1px solid var(--border);border-radius:
   <!-- The model directory is included here so no extra HTML file is needed. -->
   <section class="projects-section" id="prediction-models" aria-labelledby="models-heading">
     <div class="section-top">
-      <h2 class="section-title" id="models-heading"><span class="section-index">03 /</span> Explore the models</h2>
+      <h2 class="section-title" id="models-heading"><span class="section-index">02 /</span> Explore the models</h2>
       <span class="section-count">SIX SPORTS</span>
     </div>
     <div class="ticker" aria-hidden="true"><div class="ticker-track"><div><span>Soccer</span><b>✳</b><span>Hockey</span><b>✳</b><span>Tennis</span><b>✳</b><span>UFC</span><b>✳</b><span>Basketball</span><b>✳</b><span>Baseball</span><b>✳</b></div><div><span>Soccer</span><b>✳</b><span>Hockey</span><b>✳</b><span>Tennis</span><b>✳</b><span>UFC</span><b>✳</b><span>Basketball</span><b>✳</b><span>Baseball</span><b>✳</b></div></div></div>
@@ -1595,6 +1562,59 @@ kbd{font:500 10px/1 var(--heading);border:1px solid var(--border);border-radius:
       </a>
     </div>
   </section>
+
+  <section class="research-section" id="research" aria-labelledby="research-heading">
+    <div class="section-top">
+      <h2 class="section-title" id="research-heading"><span class="section-index">03 /</span> Research in progress</h2>
+      <span class="section-count">PROVISIONAL · SOURCE DATA NOT YET VERIFIED</span>
+    </div>
+
+    <a class="research-card" href="bench-research.html">
+      <div>
+        <div class="research-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <path d="M14 3H5v18h14V8l-5-5Z"/>
+            <path d="M14 3v5h5M8 12h8M8 16h6"/>
+          </svg>
+          NBA · Original research
+        </div>
+
+        <h3 class="research-title">The Bench<br><em>Dividend.</em></h3>
+        <p class="research-desc">Does regular season bench investment translate to playoff bench production? An analysis of three NBA seasons explores the relationship—and its limitations.</p>
+
+        <span class="research-link">Read the research <span class="arrow" aria-hidden="true">↗</span></span>
+      </div>
+
+      <div class="research-data"><div class="court" aria-hidden="true"><div class="court-center"></div><div class="court-key"></div><span class="court-dot d1"></span><span class="court-dot d2"></span><span class="court-dot d3"></span><span class="court-dot d4"></span><span class="court-dot d5"></span></div>
+        <span class="data-label">Pooled correlation · provisional</span>
+        <span class="data-value">0.329</span>
+        <span class="data-note">Pearson’s r · p = 0.023</span>
+        <div class="data-bottom">
+          <span>3 NBA seasons</span>
+          <span>48 observations</span>
+        </div>
+      </div>
+    </a>
+    <a class="dash-link" href="dashboard.html"><span>Open the data dashboard</span> <b aria-hidden="true">↗</b><small>Interactive scatter, confidence intervals and every figure traced to its source file</small></a>
+
+    <div class="vz-pair" id="vz-pair" hidden>
+      <section class="vz-card" aria-labelledby="vz-rank-h">
+        <h3 id="vz-rank-h">Who got the most from the bench?</h3>
+        <p class="vz-sub">Average playoff points per bench player, ranked. Bar length uses one scale across all seasons.</p>
+        <div class="vz-chips" id="vz-chips" role="group" aria-label="Season"></div>
+        <ol class="vz-rank" id="vz-rank"></ol>
+        <p class="vz-src">Source: chart-values.json · 16 team-seasons per year</p>
+      </section>
+      <section class="vz-card" aria-labelledby="vz-strip-h">
+        <h3 id="vz-strip-h">Bench minutes, season by season</h3>
+        <p class="vz-sub">Each dot is a team. The tick marks that season’s median, calculated from the same file.</p>
+        <div class="vz-strips" id="vz-strips"></div>
+        <div class="vz-axis" id="vz-axis" aria-hidden="true"></div>
+        <p class="vz-axis-label">Average regular-season minutes per bench player</p>
+        <p class="vz-src">Source: chart-values.json</p>
+      </section>
+    </div>
+  </section>
 </main>
 
 <footer><div class="container footer-statement"><span>THERE’S ALWAYS MORE TO THE STORY.</span><a href="https://github.com/takizawadaiki" target="_blank" rel="noopener noreferrer">Stay curious.<span aria-hidden="true">↗</span></a></div>
@@ -1607,9 +1627,9 @@ kbd{font:500 10px/1 var(--heading);border:1px solid var(--border);border-radius:
 <nav class="rail" aria-label="Page sections" hidden>
   <a href="#top" data-spy="#main"><span>Intro</span></a>
   <a href="#latest" data-spy="#latest"><span>Latest</span></a>
-  <a href="#research" data-spy="#research"><span>Research</span></a>
   <a href="#projects" data-spy="#projects"><span>Projects</span></a>
   <a href="#prediction-models" data-spy="#prediction-models"><span>Models</span></a>
+  <a href="#research" data-spy="#research"><span>Research</span></a>
 </nav>
 
 <dialog class="cmdk" id="cmdk" aria-label="Search this site">
@@ -2073,7 +2093,7 @@ kbd{font:500 10px/1 var(--heading);border:1px solid var(--border);border-radius:
   document.querySelectorAll('.case-study').forEach(card => add(text(card, 'h3'), text(card, '.category'), card.getAttribute('href'), text(card, '.case-summary-bottom span') + ' ' + text(card, '.case-summary > p')));
   document.querySelectorAll('#prediction-models .card').forEach(card => add(text(card, 'h3') + ' model', 'Prediction model', card.getAttribute('href'), 'monte carlo elo forecast simulation', true));
   if (document.querySelector('#sim')) add('Run a simulation', 'Interactive', '#sim', 'monte carlo series probability try');
-  add('Featured research', 'Section', '#research');
+  add('Research in progress', 'Section', '#research', 'bench dividend nba');
   add('Selected work', 'Section', '#projects', 'projects');
   add('Explore the models', 'Section', '#prediction-models', 'prediction');
   add('GitHub profile', 'External', 'https://github.com/takizawadaiki', 'code repositories source', true);
