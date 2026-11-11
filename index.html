@@ -1060,7 +1060,7 @@ h1 {
 .stats-strip{padding:8px 0 56px}
 .stats-title{display:flex;align-items:center;gap:10px;font:500 12px/1 var(--heading);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:18px}
 .stats-title em{font-style:normal;opacity:.7;letter-spacing:.08em}
-.stats-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.stats-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
 .stat-tile{position:relative;display:flex;flex-direction:column;gap:6px;min-height:236px;padding:22px 20px 18px;border:1px solid var(--border);border-radius:14px;background:linear-gradient(180deg,#151a13,#10120f);overflow:hidden;isolation:isolate;transition:border-color .3s,translate .3s}
 .stat-tile::before{content:"";position:absolute;inset:0;z-index:-1;opacity:0;transition:opacity .35s;background:radial-gradient(260px circle at var(--mx,50%) var(--my,50%),rgba(255,128,80,.2),transparent 62%)}
 .stat-tile:hover{border-color:#6b4a3a;translate:0 -3px}
@@ -1076,8 +1076,7 @@ h1 {
 .stat-source{display:flex;justify-content:space-between;gap:8px;font:500 11px/1.4 var(--heading);letter-spacing:.04em;color:#7f8678;border-top:1px solid var(--border);padding-top:10px;margin-top:12px}
 .stat-source b{color:var(--orange);font-weight:500}
 .stat-tile:hover .stat-source{color:var(--ink)}
-@media(max-width:960px){.stats-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:520px){.stats-grid{grid-template-columns:1fr}.stat-tile{min-height:0}}
+@media(max-width:760px){.stats-grid{grid-template-columns:1fr}.stat-tile{min-height:0}}
 
 /* Scroll progress, card glow, hero tilt */
 .scroll-progress{position:fixed;top:0;left:0;right:0;height:3px;z-index:60;background:linear-gradient(90deg,#ff8050,#ffb08a);transform:scaleX(var(--p,0));transform-origin:0 50%;pointer-events:none}
@@ -1268,6 +1267,8 @@ kbd{font:500 10px/1 var(--heading);border:1px solid var(--border);border-radius:
 /* Finding line on project cards */
 .case-summary>p.case-finding{min-height:0;max-width:none;font-size:13px;line-height:1.6;color:var(--ink);border-left:2px solid var(--accent);padding-left:12px;margin:0 0 12px}
 .case-finding b{display:block;font:500 9px/1.6 var(--heading);letter-spacing:1.4px;text-transform:uppercase;color:var(--accent);margin-bottom:3px}
+.sim-note a{text-decoration:underline;text-underline-offset:3px}
+.sim-note a:hover{color:var(--orange)}
 </style>
 <script>if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('js-intro')</script>
 </head>
@@ -1286,7 +1287,6 @@ kbd{font:500 10px/1 var(--heading);border:1px solid var(--border);border-radius:
     <nav aria-label="Main navigation">
       <button type="button" class="nav-search" id="cmdk-open" aria-label="Search" aria-haspopup="dialog" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span>Search</span><kbd id="cmdk-key">⌘K</kbd></button>
       <a href="#projects">Projects</a>
-      <a class="nav-models" href="#prediction-models">Models</a>
       <a href="#research">Research</a>
       <a class="github-link" href="https://github.com/takizawadaiki" target="_blank" rel="noopener noreferrer">
         GitHub
@@ -1370,13 +1370,6 @@ kbd{font:500 10px/1 var(--heading);border:1px solid var(--border);border-radius:
       <span class="stat-caption">hotel booking records in the cancellation analysis</span>
       <div class="stat-bars" aria-hidden="true"><i style="--h:40%;--i:0"></i><i style="--h:46%;--i:1"></i><i style="--h:38%;--i:2"></i><i style="--h:60%;--i:3"></i><i style="--h:72%;--i:4"></i><i style="--h:54%;--i:5"></i><i style="--h:80%;--i:6"></i><i style="--h:66%;--i:7"></i><i style="--h:90%;--i:8"></i><i style="--h:58%;--i:9"></i><i style="--h:70%;--i:10"></i><i style="--h:84%;--i:11"></i></div>
       <span class="stat-source">The Booking Ledger · SQL <b aria-hidden="true">↗</b></span>
-    </a>
-    <a class="stat-tile" href="#prediction-models">
-      <span class="stat-label">Predictive modeling</span>
-      <strong class="stat-value"><span data-count="6">6</span></strong>
-      <span class="stat-caption">sports with Monte Carlo and Elo models</span>
-      <div class="stat-bars" aria-hidden="true"><i style="--h:50%;--i:0"></i><i style="--h:50%;--i:1"></i><i style="--h:50%;--i:2"></i><i style="--h:50%;--i:3"></i><i style="--h:50%;--i:4"></i><i style="--h:50%;--i:5"></i></div>
-      <span class="stat-source">Explore the models · Soccer to baseball <b aria-hidden="true">↗</b></span>
     </a>
     </div>
   </section>
@@ -1480,24 +1473,23 @@ kbd{font:500 10px/1 var(--heading);border:1px solid var(--border);border-radius:
   </section>
 
   <!-- The model directory is included here so no extra HTML file is needed. -->
-  <section class="projects-section" id="prediction-models" aria-labelledby="models-heading">
+  <section class="projects-section" id="method" aria-labelledby="method-heading">
     <div class="section-top">
-      <h2 class="section-title" id="models-heading"><span class="section-index">02 /</span> Explore the models</h2>
-      <span class="section-count">SIX SPORTS</span>
+      <h2 class="section-title" id="method-heading"><span class="section-index">02 /</span> Method, live</h2>
+      <span class="section-count">A SIMULATION YOU CAN RUN</span>
     </div>
-    <div class="ticker" aria-hidden="true"><div class="ticker-track"><div><span>Soccer</span><b>✳</b><span>Hockey</span><b>✳</b><span>Tennis</span><b>✳</b><span>UFC</span><b>✳</b><span>Basketball</span><b>✳</b><span>Baseball</span><b>✳</b></div><div><span>Soccer</span><b>✳</b><span>Hockey</span><b>✳</b><span>Tennis</span><b>✳</b><span>UFC</span><b>✳</b><span>Basketball</span><b>✳</b><span>Baseball</span><b>✳</b></div></div></div>
     <div class="sim" id="sim" hidden>
       <div class="sim-copy">
         <span class="sim-label">Try the idea / a teaching toy</span>
         <h3>One series, <em>ten thousand times.</em></h3>
-        <p>The models below rest on the same move: play the matchup over and over, then count what happened. Set how often Team A wins a single game and watch the estimate settle toward the exact answer.</p>
+        <p>My prediction models rest on one move: play the matchup over and over, then count what happened. Set how often Team A wins a single game and watch the estimate settle toward the exact answer.</p>
         <div class="sim-controls">
           <label for="sim-p">Team A wins a single game <output id="sim-p-out" for="sim-p">55%</output></label>
           <input id="sim-p" type="range" min="30" max="70" step="1" value="55">
           <div class="sim-chips" role="group" aria-label="Series length"><button type="button" data-n="3" aria-pressed="false">Best of 3</button><button type="button" data-n="5" aria-pressed="false">Best of 5</button><button type="button" data-n="7" aria-pressed="true">Best of 7</button></div>
           <button type="button" class="sim-run" id="sim-run">Run 10,000 series <span aria-hidden="true">↻</span></button>
         </div>
-        <p class="sim-note">Simplified on purpose: every game uses the same probability, with no home advantage, injuries or momentum. It runs in your browser and is not one of the linked models.</p>
+        <p class="sim-note">Simplified on purpose: every game uses the same probability, with no home advantage, injuries or momentum. It runs in your browser and is separate from the <a href="prediction-models.html">six prediction models</a>.</p>
       </div>
       <div class="sim-out">
         <div class="sim-head">
@@ -1522,44 +1514,6 @@ kbd{font:500 10px/1 var(--heading);border:1px solid var(--border);border-radius:
         </div>
         <p class="sr-only" id="sim-live" aria-live="polite"></p>
       </div>
-    </div>
-    <div class="grid">
-      <a class="card" href="/world-cup-forecast-model/" target="_blank" rel="noopener noreferrer">
-        <div class="card-content">
-          <h3 class="card-title">Soccer</h3>
-          <span class="project-link">Explore model <span class="arrow" aria-hidden="true">↗</span></span>
-        </div>
-      </a>
-      <a class="card" href="/NHL-Models/" target="_blank" rel="noopener noreferrer">
-        <div class="card-content">
-          <h3 class="card-title">Hockey</h3>
-          <span class="project-link">Explore model <span class="arrow" aria-hidden="true">↗</span></span>
-        </div>
-      </a>
-      <a class="card" href="/Tennis-model/" target="_blank" rel="noopener noreferrer">
-        <div class="card-content">
-          <h3 class="card-title">Tennis</h3>
-          <span class="project-link">Explore model <span class="arrow" aria-hidden="true">↗</span></span>
-        </div>
-      </a>
-      <a class="card" href="/UFC-Prediction-Model/" target="_blank" rel="noopener noreferrer">
-        <div class="card-content">
-          <h3 class="card-title">UFC</h3>
-          <span class="project-link">Explore model <span class="arrow" aria-hidden="true">↗</span></span>
-        </div>
-      </a>
-      <a class="card" href="/NBA-Models/" target="_blank" rel="noopener noreferrer">
-        <div class="card-content">
-          <h3 class="card-title">Basketball</h3>
-          <span class="project-link">Explore model <span class="arrow" aria-hidden="true">↗</span></span>
-        </div>
-      </a>
-      <a class="card" href="/MLB-Prediction-Model/" target="_blank" rel="noopener noreferrer">
-        <div class="card-content">
-          <h3 class="card-title">Baseball</h3>
-          <span class="project-link">Explore model <span class="arrow" aria-hidden="true">↗</span></span>
-        </div>
-      </a>
     </div>
   </section>
 
@@ -1628,7 +1582,7 @@ kbd{font:500 10px/1 var(--heading);border:1px solid var(--border);border-radius:
   <a href="#top" data-spy="#main"><span>Intro</span></a>
   <a href="#latest" data-spy="#latest"><span>Latest</span></a>
   <a href="#projects" data-spy="#projects"><span>Projects</span></a>
-  <a href="#prediction-models" data-spy="#prediction-models"><span>Models</span></a>
+  <a href="#method" data-spy="#method"><span>Method</span></a>
   <a href="#research" data-spy="#research"><span>Research</span></a>
 </nav>
 
@@ -1884,7 +1838,7 @@ kbd{font:500 10px/1 var(--heading);border:1px solid var(--border);border-radius:
 // Scroll reveals and count-up stats. Skipped for visitors who prefer reduced motion.
 (() => {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
-  const targets = document.querySelectorAll('.wealth-feature, .research-card, .section-top, .projects-intro, .project-filters, .case-study, .vz-card, .sim, .stats-title, .stat-tile, #prediction-models .section-top, #prediction-models a');
+  const targets = document.querySelectorAll('.wealth-feature, .research-card, .section-top, .projects-intro, .project-filters, .case-study, .vz-card, .sim, .stats-title, .stat-tile, #method .section-top');
   document.documentElement.classList.add('js-reveal');
   const seen = new Set();
   targets.forEach(el => {
@@ -2091,11 +2045,9 @@ kbd{font:500 10px/1 var(--heading);border:1px solid var(--border);border-radius:
   const dash = document.querySelector('.dash-link');
   if (dash) add('Bench Dividend dashboard', 'Dashboard', dash.getAttribute('href'), 'NBA scatter confidence intervals data');
   document.querySelectorAll('.case-study').forEach(card => add(text(card, 'h3'), text(card, '.category'), card.getAttribute('href'), text(card, '.case-summary-bottom span') + ' ' + text(card, '.case-summary > p')));
-  document.querySelectorAll('#prediction-models .card').forEach(card => add(text(card, 'h3') + ' model', 'Prediction model', card.getAttribute('href'), 'monte carlo elo forecast simulation', true));
-  if (document.querySelector('#sim')) add('Run a simulation', 'Interactive', '#sim', 'monte carlo series probability try');
+  if (document.querySelector('#sim')) add('Run a simulation', 'Interactive', '#sim', 'monte carlo series probability method models');
   add('Research in progress', 'Section', '#research', 'bench dividend nba');
   add('Selected work', 'Section', '#projects', 'projects');
-  add('Explore the models', 'Section', '#prediction-models', 'prediction');
   add('GitHub profile', 'External', 'https://github.com/takizawadaiki', 'code repositories source', true);
 
   let shown = [], active = 0;
