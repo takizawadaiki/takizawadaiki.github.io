@@ -30,7 +30,7 @@ The revised page retains all original chart records for an auditable provisional
 
 `rebuild_data.py` reproduces the article's described method (nba_api `LeagueDashPlayerStats`, `starter_bench_nullable='Bench'`, per-player averages, the 16 playoff teams per season) and rewrites `chart-values.json`. It also writes `data-provenance.json` with the retrieval time, parameters, a list of what changed from the previous file, and the pooled correlation under other reasonable definitions of "bench average".
 
-stats.nba.com often blocks cloud servers, so run it on your own computer:
+stats.nba.com blocks GitHub's servers (a run there timed out on 11 November 2026). The simplest route is Google Colab: open [`notebooks/rebuild_bench_data.ipynb`](https://colab.research.google.com/github/takizawadaiki/takizawadaiki.github.io/blob/main/notebooks/rebuild_bench_data.ipynb) and choose Runtime, Run all. Or run it on your own computer:
 
 ```sh
 pip install -r requirements-rebuild.txt
