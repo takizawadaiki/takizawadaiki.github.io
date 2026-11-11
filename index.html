@@ -1556,8 +1556,8 @@ kbd{font:500 10px/1 var(--heading);border:1px solid var(--border);border-radius:
 
   <section class="research-section" id="research" aria-labelledby="research-heading">
     <div class="section-top">
-      <h2 class="section-title" id="research-heading"><span class="section-index">03 /</span> Research in progress</h2>
-      <span class="section-count">PROVISIONAL · SOURCE DATA NOT YET VERIFIED</span>
+      <h2 class="section-title" id="research-heading"><span class="section-index">03 /</span> Original research</h2>
+      <span class="section-count">REBUILT FROM NBA STATS · NOVEMBER 2026</span>
     </div>
 
     <a class="research-card" href="bench-research.html">
@@ -1577,9 +1577,9 @@ kbd{font:500 10px/1 var(--heading);border:1px solid var(--border);border-radius:
       </div>
 
       <div class="research-data"><div class="court" aria-hidden="true"><div class="court-center"></div><div class="court-key"></div><span class="court-dot d1"></span><span class="court-dot d2"></span><span class="court-dot d3"></span><span class="court-dot d4"></span><span class="court-dot d5"></span></div>
-        <span class="data-label">Pooled correlation · provisional</span>
-        <span class="data-value">0.329</span>
-        <span class="data-note">Pearson’s r · p = 0.023</span>
+        <span class="data-label">Pooled correlation</span>
+        <span class="data-value">0.300</span>
+        <span class="data-note">Pearson’s r · p = 0.038</span>
         <div class="data-bottom">
           <span>3 NBA seasons</span>
           <span>48 observations</span>
@@ -2083,7 +2083,7 @@ kbd{font:500 10px/1 var(--heading);border:1px solid var(--border);border-radius:
   if (dash) add('Bench Dividend dashboard', 'Dashboard', dash.getAttribute('href'), 'NBA scatter confidence intervals data');
   document.querySelectorAll('.case-study').forEach(card => add(text(card, 'h3'), text(card, '.category'), card.getAttribute('href'), text(card, '.case-summary-bottom span') + ' ' + text(card, '.case-summary > p')));
   if (document.querySelector('#sim')) add('Run a simulation', 'Interactive', '#sim', 'monte carlo series probability method models');
-  add('Research in progress', 'Section', '#research', 'bench dividend nba');
+  add('Research', 'Section', '#research', 'bench dividend nba');
   add('Selected work', 'Section', '#projects', 'projects');
   add('GitHub profile', 'External', 'https://github.com/takizawadaiki', 'code repositories source', true);
 

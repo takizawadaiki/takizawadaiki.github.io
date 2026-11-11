@@ -1,0 +1,65 @@
+{
+  "retrieved_at_utc": "2026-11-11T16:15:23+00:00",
+  "source": "stats.nba.com leaguedashplayerstats (the endpoint nba_api LeagueDashPlayerStats calls), requested through the NBA.com stats site in a desktop browser because NBA Stats refused connections from GitHub and Colab servers",
+  "parameters": {
+    "StarterBench": "Bench",
+    "PerMode": "PerGame",
+    "season_types": [
+      "Regular Season",
+      "Playoffs"
+    ],
+    "seasons": [
+      "2023-24",
+      "2024-25",
+      "2025-26"
+    ]
+  },
+  "aggregation": "unweighted mean of per-player per-game averages; playoff teams only (play-in excluded); no minimum games",
+  "computed_by": "a line-for-line JavaScript port of aggregate() in rebuild_data.py, run in the browser on the raw rows; it passed the same self-test cases, and one team-season was recomputed in Python from its raw rows and matched under three definitions",
+  "team_values_file": "bench-team-values.json",
+  "known_limitation": "the endpoint reports traded players once, under their final team; a player with one bench appearance counts as much as a regular reserve under the primary definition",
+  "records": 48,
+  "sensitivity_pooled_r": {
+    "primary (unweighted, all bench players)": {
+      "n": 48,
+      "pooled_r": 0.3001
+    },
+    "weighted by games played": {
+      "n": 48,
+      "pooled_r": 0.4079
+    },
+    "bench players with at least 10 regular-season games": {
+      "n": 48,
+      "pooled_r": 0.3101
+    },
+    "bench players on the playoff roster only": {
+      "n": 48,
+      "pooled_r": 0.2878
+    }
+  },
+  "changes_from_previous_chart_values": [
+    "BOS 2023–24: reg 12.4 -> 13.23, playoff 2.35 -> 3.84",
+    "CLE 2023–24: reg 12.8 -> 13.42, playoff 3.9 -> 3.88",
+    "DAL 2023–24: reg 13.5 -> 13.86, playoff 3.2 -> 3.18",
+    "DEN 2025–26: reg 10.76 -> 14.12, playoff 3.68 -> 3.68",
+    "DET 2025–26: reg 10.96 -> 13.43, playoff 4.51 -> 4.51",
+    "removed GSW 2023–24 (was in the original data)",
+    "HOU 2025–26: reg 10.27 -> 13.53, playoff 2.89 -> 2.89",
+    "IND 2023–24: reg 12.1 -> 13.46, playoff 3.45 -> 4.21",
+    "LAC 2023–24: reg 13.0 -> 13.26, playoff 3.58 -> 3.89",
+    "LAL 2023–24: reg 12.5 -> 14.33, playoff 3.8 -> 3.02",
+    "MIA 2023–24: reg 12.1 -> 15.77, playoff 4.18 -> 4.17",
+    "MIN 2023–24: reg 10.6 -> 13.05, playoff 4.98 -> 3.15",
+    "MIN 2025–26: reg 13.8 -> 13.22, playoff 6.58 -> 6.58",
+    "NOP 2023–24: reg 12.2 -> 12.27, playoff 2.58 -> 2.55",
+    "NYK 2023–24: reg 11.7 -> 11.99, playoff 2.72 -> 4.81",
+    "NYK 2025–26: reg 9.75 -> 13.46, playoff 3.63 -> 3.63",
+    "OKC 2023–24: reg 13.1 -> 12.29, playoff 3.15 -> 3.14",
+    "ORL 2023–24: reg 11.8 -> 12.43, playoff 3.78 -> 3.75",
+    "ORL 2025–26: reg 10.17 -> 12.93, playoff 3.28 -> 3.28",
+    "PHI 2023–24: reg 12.0 -> 13.3, playoff 3.82 -> 3.78",
+    "added PHX 2023–24",
+    "SAS 2025–26: reg 9.16 -> 13.52, playoff 3.74 -> 3.74",
+    "TOR 2025–26: reg 12.36 -> 12.2, playoff 4.57 -> 4.57"
+  ]
+}

@@ -47,14 +47,16 @@ def aggregate(reg_rows, po_rows, min_games=0, weighted=False, playoff_roster_onl
 
     Returns {team: {'reg': x, 'playoff': y}} for every team that has playoff bench rows.
     """
-    def by_team(rows):
+    def by_team(rows, least=0):
         out = {}
         for r in rows:
-            if r['GP'] >= min_games:
+            if r['GP'] >= least:
                 out.setdefault(r['TEAM_ABBREVIATION'], []).append(r)
         return out
 
-    reg, po = by_team(reg_rows), by_team(po_rows)
+    # The games threshold applies to the regular season only. Applied to the playoffs as well it
+    # would drop every team that went out early, which is not what the check is for.
+    reg, po = by_team(reg_rows, min_games), by_team(po_rows)
     result = {}
     for team, po_players in po.items():
         reg_players = reg.get(team, [])
@@ -138,7 +140,8 @@ def main():
             raise SystemExit(f'{season}: expected 16 playoff teams, found {len(teams)}: {sorted(teams)}. '
                              'The season may be incomplete, or the endpoint changed.')
         for team, v in teams.items():
-            records.append(dict(team=team, reg=round(v['reg'], 2), playoff=round(v['playoff'], 2), season=season_label(season)))
+            # Four decimals: rounding to two shifts the pooled correlation in the third decimal place.
+            records.append(dict(team=team, reg=round(v['reg'], 4), playoff=round(v['playoff'], 4), season=season_label(season)))
 
     # Keep the file's order stable: by season, then by the previous file's team order, then alphabetically.
     prior_order = {(r['team'], r['season']): i for i, r in enumerate(previous)}
@@ -148,7 +151,7 @@ def main():
     variants = {
         'primary (unweighted, all bench players)': {},
         'weighted by games played': dict(weighted=True),
-        'bench players with at least 10 games': dict(min_games=10),
+        'bench players with at least 10 regular-season games': dict(min_games=10),
         'bench players on the playoff roster only': dict(playoff_roster_only=True),
     }
     sensitivity = {}

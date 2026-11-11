@@ -1,98 +1,98 @@
 [
   {
     "team": "BOS",
-    "reg": 12.4,
-    "playoff": 2.35,
+    "reg": 13.2308,
+    "playoff": 3.8364,
     "season": "2023\u201324"
   },
   {
     "team": "MIL",
-    "reg": 11.9,
-    "playoff": 2.4,
+    "reg": 11.8667,
+    "playoff": 2.3667,
     "season": "2023\u201324"
   },
   {
     "team": "NYK",
-    "reg": 11.7,
-    "playoff": 2.72,
+    "reg": 11.9875,
+    "playoff": 4.8111,
     "season": "2023\u201324"
   },
   {
     "team": "MIA",
-    "reg": 12.1,
-    "playoff": 4.18,
+    "reg": 15.7667,
+    "playoff": 4.1714,
     "season": "2023\u201324"
   },
   {
     "team": "CLE",
-    "reg": 12.8,
-    "playoff": 3.9,
+    "reg": 13.4154,
+    "playoff": 3.875,
     "season": "2023\u201324"
   },
   {
     "team": "ORL",
-    "reg": 11.8,
-    "playoff": 3.78,
+    "reg": 12.425,
+    "playoff": 3.7455,
     "season": "2023\u201324"
   },
   {
     "team": "IND",
-    "reg": 12.1,
-    "playoff": 3.45,
+    "reg": 13.4625,
+    "playoff": 4.2111,
     "season": "2023\u201324"
   },
   {
     "team": "PHI",
-    "reg": 12.0,
-    "playoff": 3.82,
+    "reg": 13.3,
+    "playoff": 3.78,
     "season": "2023\u201324"
   },
   {
     "team": "OKC",
-    "reg": 13.1,
-    "playoff": 3.15,
+    "reg": 12.2857,
+    "playoff": 3.1444,
     "season": "2023\u201324"
   },
   {
     "team": "DEN",
-    "reg": 10.3,
-    "playoff": 2.33,
+    "reg": 10.2667,
+    "playoff": 2.3222,
     "season": "2023\u201324"
   },
   {
     "team": "MIN",
-    "reg": 10.6,
-    "playoff": 4.98,
+    "reg": 13.05,
+    "playoff": 3.15,
     "season": "2023\u201324"
   },
   {
     "team": "LAL",
-    "reg": 12.5,
-    "playoff": 3.8,
+    "reg": 14.3294,
+    "playoff": 3.025,
     "season": "2023\u201324"
   },
   {
     "team": "DAL",
-    "reg": 13.5,
-    "playoff": 3.2,
+    "reg": 13.8647,
+    "playoff": 3.18,
     "season": "2023\u201324"
   },
   {
     "team": "LAC",
-    "reg": 13.0,
-    "playoff": 3.58,
+    "reg": 13.2571,
+    "playoff": 3.8889,
     "season": "2023\u201324"
   },
   {
     "team": "NOP",
-    "reg": 12.2,
-    "playoff": 2.58,
+    "reg": 12.2714,
+    "playoff": 2.55,
     "season": "2023\u201324"
   },
   {
-    "team": "GSW",
-    "reg": 13.2,
-    "playoff": 3.85,
+    "team": "PHX",
+    "reg": 13.0857,
+    "playoff": 2.9667,
     "season": "2023\u201324"
   },
   {
@@ -103,182 +103,182 @@
   },
   {
     "team": "DET",
-    "reg": 15.38,
+    "reg": 15.3846,
     "playoff": 6.62,
     "season": "2024\u201325"
   },
   {
     "team": "ORL",
-    "reg": 15.29,
-    "playoff": 3.01,
+    "reg": 15.2923,
+    "playoff": 3.0143,
     "season": "2024\u201325"
   },
   {
     "team": "CLE",
-    "reg": 14.31,
+    "reg": 14.3071,
     "playoff": 5.0,
     "season": "2024\u201325"
   },
   {
     "team": "OKC",
-    "reg": 14.21,
+    "reg": 14.2143,
     "playoff": 4.35,
     "season": "2024\u201325"
   },
   {
     "team": "GSW",
-    "reg": 14.15,
-    "playoff": 5.63,
+    "reg": 14.1533,
+    "playoff": 5.6333,
     "season": "2024\u201325"
   },
   {
     "team": "HOU",
-    "reg": 14.12,
-    "playoff": 3.08,
+    "reg": 14.1214,
+    "playoff": 3.0778,
     "season": "2024\u201325"
   },
   {
     "team": "MEM",
-    "reg": 13.93,
+    "reg": 13.9375,
     "playoff": 4.8,
     "season": "2024\u201325"
   },
   {
     "team": "DEN",
-    "reg": 13.66,
-    "playoff": 3.39,
+    "reg": 13.6571,
+    "playoff": 3.3875,
     "season": "2024\u201325"
   },
   {
     "team": "LAL",
-    "reg": 13.28,
-    "playoff": 1.72,
+    "reg": 13.2778,
+    "playoff": 1.7222,
     "season": "2024\u201325"
   },
   {
     "team": "BOS",
-    "reg": 13.28,
-    "playoff": 3.69,
+    "reg": 13.275,
+    "playoff": 3.6909,
     "season": "2024\u201325"
   },
   {
     "team": "MIL",
-    "reg": 12.96,
+    "reg": 12.9625,
     "playoff": 4.8,
     "season": "2024\u201325"
   },
   {
     "team": "LAC",
-    "reg": 12.89,
+    "reg": 12.8857,
     "playoff": 3.59,
     "season": "2024\u201325"
   },
   {
     "team": "IND",
     "reg": 12.4,
-    "playoff": 4.64,
+    "playoff": 4.6444,
     "season": "2024\u201325"
   },
   {
     "team": "NYK",
-    "reg": 11.43,
+    "reg": 11.4308,
     "playoff": 2.7,
     "season": "2024\u201325"
   },
   {
     "team": "MIN",
-    "reg": 10.59,
-    "playoff": 4.98,
+    "reg": 10.5875,
+    "playoff": 4.9778,
     "season": "2024\u201325"
   },
   {
     "team": "MIN",
-    "reg": 13.8,
-    "playoff": 6.58,
+    "reg": 13.22,
+    "playoff": 6.5818,
     "season": "2025\u201326"
   },
   {
     "team": "BOS",
     "reg": 14.4,
-    "playoff": 5.53,
+    "playoff": 5.5333,
     "season": "2025\u201326"
   },
   {
     "team": "OKC",
-    "reg": 15.78,
+    "reg": 15.7786,
     "playoff": 5.32,
     "season": "2025\u201326"
   },
   {
     "team": "LAL",
-    "reg": 14.12,
+    "reg": 14.1,
     "playoff": 5.05,
     "season": "2025\u201326"
   },
   {
     "team": "TOR",
-    "reg": 12.36,
+    "reg": 12.2,
     "playoff": 4.57,
     "season": "2025\u201326"
   },
   {
     "team": "DET",
-    "reg": 10.96,
-    "playoff": 4.51,
+    "reg": 13.4333,
+    "playoff": 4.5091,
     "season": "2025\u201326"
   },
   {
     "team": "ATL",
-    "reg": 15.17,
-    "playoff": 4.04,
+    "reg": 15.1684,
+    "playoff": 4.0444,
     "season": "2025\u201326"
   },
   {
     "team": "SAS",
-    "reg": 9.16,
+    "reg": 13.5222,
     "playoff": 3.74,
     "season": "2025\u201326"
   },
   {
     "team": "POR",
     "reg": 15.4,
-    "playoff": 3.73,
+    "playoff": 3.7333,
     "season": "2025\u201326"
   },
   {
     "team": "DEN",
-    "reg": 10.76,
-    "playoff": 3.68,
+    "reg": 14.12,
+    "playoff": 3.6778,
     "season": "2025\u201326"
   },
   {
     "team": "NYK",
-    "reg": 9.75,
+    "reg": 13.4643,
     "playoff": 3.63,
     "season": "2025\u201326"
   },
   {
     "team": "CLE",
-    "reg": 15.15,
-    "playoff": 3.53,
+    "reg": 15.1526,
+    "playoff": 3.5273,
     "season": "2025\u201326"
   },
   {
     "team": "PHX",
-    "reg": 15.36,
-    "playoff": 3.43,
+    "reg": 15.3647,
+    "playoff": 3.4333,
     "season": "2025\u201326"
   },
   {
     "team": "ORL",
-    "reg": 10.17,
-    "playoff": 3.28,
+    "reg": 12.9267,
+    "playoff": 3.2778,
     "season": "2025\u201326"
   },
   {
     "team": "HOU",
-    "reg": 10.27,
-    "playoff": 2.89,
+    "reg": 13.525,
+    "playoff": 2.8889,
     "season": "2025\u201326"
   },
   {

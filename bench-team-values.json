@@ -1,0 +1,1018 @@
+{
+ "note": "Team-level averages for every definition in data-provenance.json, to four decimals, as computed from the NBA Stats bench split on the retrieval date.",
+ "retrieved_at_utc": "2026-11-11T16:15:23+00:00",
+ "bench_rows": {
+  "2023-24": {
+   "regular_season": 481,
+   "playoffs": 137
+  },
+  "2024-25": {
+   "regular_season": 468,
+   "playoffs": 148
+  },
+  "2025-26": {
+   "regular_season": 496,
+   "playoffs": 159
+  }
+ },
+ "definitions": {
+  "primary": "primary (unweighted, all bench players)",
+  "weighted": "weighted by games played",
+  "min10": "bench players with at least 10 regular-season games",
+  "roster": "bench players on the playoff roster only"
+ },
+ "values": {
+  "primary": {
+   "2023-24": [
+    {
+     "team": "BOS",
+     "reg": 13.2308,
+     "playoff": 3.8364
+    },
+    {
+     "team": "CLE",
+     "reg": 13.4154,
+     "playoff": 3.875
+    },
+    {
+     "team": "DAL",
+     "reg": 13.8647,
+     "playoff": 3.18
+    },
+    {
+     "team": "DEN",
+     "reg": 10.2667,
+     "playoff": 2.3222
+    },
+    {
+     "team": "IND",
+     "reg": 13.4625,
+     "playoff": 4.2111
+    },
+    {
+     "team": "LAC",
+     "reg": 13.2571,
+     "playoff": 3.8889
+    },
+    {
+     "team": "LAL",
+     "reg": 14.3294,
+     "playoff": 3.025
+    },
+    {
+     "team": "MIA",
+     "reg": 15.7667,
+     "playoff": 4.1714
+    },
+    {
+     "team": "MIL",
+     "reg": 11.8667,
+     "playoff": 2.3667
+    },
+    {
+     "team": "MIN",
+     "reg": 13.05,
+     "playoff": 3.15
+    },
+    {
+     "team": "NOP",
+     "reg": 12.2714,
+     "playoff": 2.55
+    },
+    {
+     "team": "NYK",
+     "reg": 11.9875,
+     "playoff": 4.8111
+    },
+    {
+     "team": "OKC",
+     "reg": 12.2857,
+     "playoff": 3.1444
+    },
+    {
+     "team": "ORL",
+     "reg": 12.425,
+     "playoff": 3.7455
+    },
+    {
+     "team": "PHI",
+     "reg": 13.3,
+     "playoff": 3.78
+    },
+    {
+     "team": "PHX",
+     "reg": 13.0857,
+     "playoff": 2.9667
+    }
+   ],
+   "2024-25": [
+    {
+     "team": "BOS",
+     "reg": 13.275,
+     "playoff": 3.6909
+    },
+    {
+     "team": "CLE",
+     "reg": 14.3071,
+     "playoff": 5.0
+    },
+    {
+     "team": "DEN",
+     "reg": 13.6571,
+     "playoff": 3.3875
+    },
+    {
+     "team": "DET",
+     "reg": 15.3846,
+     "playoff": 6.62
+    },
+    {
+     "team": "GSW",
+     "reg": 14.1533,
+     "playoff": 5.6333
+    },
+    {
+     "team": "HOU",
+     "reg": 14.1214,
+     "playoff": 3.0778
+    },
+    {
+     "team": "IND",
+     "reg": 12.4,
+     "playoff": 4.6444
+    },
+    {
+     "team": "LAC",
+     "reg": 12.8857,
+     "playoff": 3.59
+    },
+    {
+     "team": "LAL",
+     "reg": 13.2778,
+     "playoff": 1.7222
+    },
+    {
+     "team": "MEM",
+     "reg": 13.9375,
+     "playoff": 4.8
+    },
+    {
+     "team": "MIA",
+     "reg": 16.05,
+     "playoff": 5.8
+    },
+    {
+     "team": "MIL",
+     "reg": 12.9625,
+     "playoff": 4.8
+    },
+    {
+     "team": "MIN",
+     "reg": 10.5875,
+     "playoff": 4.9778
+    },
+    {
+     "team": "NYK",
+     "reg": 11.4308,
+     "playoff": 2.7
+    },
+    {
+     "team": "OKC",
+     "reg": 14.2143,
+     "playoff": 4.35
+    },
+    {
+     "team": "ORL",
+     "reg": 15.2923,
+     "playoff": 3.0143
+    }
+   ],
+   "2025-26": [
+    {
+     "team": "ATL",
+     "reg": 15.1684,
+     "playoff": 4.0444
+    },
+    {
+     "team": "BOS",
+     "reg": 14.4,
+     "playoff": 5.5333
+    },
+    {
+     "team": "CLE",
+     "reg": 15.1526,
+     "playoff": 3.5273
+    },
+    {
+     "team": "DEN",
+     "reg": 14.12,
+     "playoff": 3.6778
+    },
+    {
+     "team": "DET",
+     "reg": 13.4333,
+     "playoff": 4.5091
+    },
+    {
+     "team": "HOU",
+     "reg": 13.525,
+     "playoff": 2.8889
+    },
+    {
+     "team": "LAL",
+     "reg": 14.1,
+     "playoff": 5.05
+    },
+    {
+     "team": "MIN",
+     "reg": 13.22,
+     "playoff": 6.5818
+    },
+    {
+     "team": "NYK",
+     "reg": 13.4643,
+     "playoff": 3.63
+    },
+    {
+     "team": "OKC",
+     "reg": 15.7786,
+     "playoff": 5.32
+    },
+    {
+     "team": "ORL",
+     "reg": 12.9267,
+     "playoff": 3.2778
+    },
+    {
+     "team": "PHI",
+     "reg": 14.5,
+     "playoff": 2.75
+    },
+    {
+     "team": "PHX",
+     "reg": 15.3647,
+     "playoff": 3.4333
+    },
+    {
+     "team": "POR",
+     "reg": 15.4,
+     "playoff": 3.7333
+    },
+    {
+     "team": "SAS",
+     "reg": 13.5222,
+     "playoff": 3.74
+    },
+    {
+     "team": "TOR",
+     "reg": 12.2,
+     "playoff": 4.57
+    }
+   ]
+  },
+  "weighted": {
+   "2023-24": [
+    {
+     "team": "BOS",
+     "reg": 15.1851,
+     "playoff": 4.0223
+    },
+    {
+     "team": "CLE",
+     "reg": 16.2617,
+     "playoff": 4.3298
+    },
+    {
+     "team": "DAL",
+     "reg": 15.1178,
+     "playoff": 3.8533
+    },
+    {
+     "team": "DEN",
+     "reg": 13.0179,
+     "playoff": 2.9467
+    },
+    {
+     "team": "IND",
+     "reg": 15.7756,
+     "playoff": 5.7959
+    },
+    {
+     "team": "LAC",
+     "reg": 16.1507,
+     "playoff": 4.9969
+    },
+    {
+     "team": "LAL",
+     "reg": 14.0743,
+     "playoff": 3.1684
+    },
+    {
+     "team": "MIA",
+     "reg": 17.1794,
+     "playoff": 4.1667
+    },
+    {
+     "team": "MIL",
+     "reg": 14.5508,
+     "playoff": 2.6806
+    },
+    {
+     "team": "MIN",
+     "reg": 14.5502,
+     "playoff": 4.8071
+    },
+    {
+     "team": "NOP",
+     "reg": 16.1113,
+     "playoff": 3.5381
+    },
+    {
+     "team": "NYK",
+     "reg": 15.0643,
+     "playoff": 5.7196
+    },
+    {
+     "team": "OKC",
+     "reg": 14.1843,
+     "playoff": 3.5148
+    },
+    {
+     "team": "ORL",
+     "reg": 14.6964,
+     "playoff": 4.3556
+    },
+    {
+     "team": "PHI",
+     "reg": 14.4246,
+     "playoff": 4.4
+    },
+    {
+     "team": "PHX",
+     "reg": 14.8036,
+     "playoff": 3.6
+    }
+   ],
+   "2024-25": [
+    {
+     "team": "BOS",
+     "reg": 15.2385,
+     "playoff": 4.6534
+    },
+    {
+     "team": "CLE",
+     "reg": 15.9651,
+     "playoff": 5.6083
+    },
+    {
+     "team": "DEN",
+     "reg": 13.502,
+     "playoff": 4.5262
+    },
+    {
+     "team": "DET",
+     "reg": 16.6568,
+     "playoff": 8.0
+    },
+    {
+     "team": "GSW",
+     "reg": 15.5074,
+     "playoff": 5.0345
+    },
+    {
+     "team": "HOU",
+     "reg": 14.0793,
+     "playoff": 4.3757
+    },
+    {
+     "team": "IND",
+     "reg": 14.8049,
+     "playoff": 5.7946
+    },
+    {
+     "team": "LAC",
+     "reg": 15.1778,
+     "playoff": 4.2256
+    },
+    {
+     "team": "LAL",
+     "reg": 14.1553,
+     "playoff": 2.0444
+    },
+    {
+     "team": "MEM",
+     "reg": 15.2866,
+     "playoff": 4.496
+    },
+    {
+     "team": "MIA",
+     "reg": 18.0582,
+     "playoff": 5.3458
+    },
+    {
+     "team": "MIL",
+     "reg": 15.6563,
+     "playoff": 5.6727
+    },
+    {
+     "team": "MIN",
+     "reg": 14.7866,
+     "playoff": 6.6987
+    },
+    {
+     "team": "NYK",
+     "reg": 13.1987,
+     "playoff": 3.3821
+    },
+    {
+     "team": "OKC",
+     "reg": 14.6067,
+     "playoff": 4.8327
+    },
+    {
+     "team": "ORL",
+     "reg": 15.2102,
+     "playoff": 3.0808
+    }
+   ],
+   "2025-26": [
+    {
+     "team": "ATL",
+     "reg": 14.6531,
+     "playoff": 4.5811
+    },
+    {
+     "team": "BOS",
+     "reg": 15.3696,
+     "playoff": 5.3646
+    },
+    {
+     "team": "CLE",
+     "reg": 16.522,
+     "playoff": 4.65
+    },
+    {
+     "team": "DEN",
+     "reg": 15.7042,
+     "playoff": 4.83
+    },
+    {
+     "team": "DET",
+     "reg": 15.83,
+     "playoff": 4.4721
+    },
+    {
+     "team": "HOU",
+     "reg": 14.1475,
+     "playoff": 2.78
+    },
+    {
+     "team": "LAL",
+     "reg": 14.5734,
+     "playoff": 3.6746
+    },
+    {
+     "team": "MIN",
+     "reg": 15.2731,
+     "playoff": 6.64
+    },
+    {
+     "team": "NYK",
+     "reg": 14.0062,
+     "playoff": 4.1465
+    },
+    {
+     "team": "OKC",
+     "reg": 16.9129,
+     "playoff": 5.7935
+    },
+    {
+     "team": "ORL",
+     "reg": 13.8587,
+     "playoff": 4.3125
+    },
+    {
+     "team": "PHI",
+     "reg": 15.5246,
+     "playoff": 3.2086
+    },
+    {
+     "team": "PHX",
+     "reg": 15.3283,
+     "playoff": 2.7793
+    },
+    {
+     "team": "POR",
+     "reg": 15.5942,
+     "playoff": 4.065
+    },
+    {
+     "team": "SAS",
+     "reg": 14.721,
+     "playoff": 4.7053
+    },
+    {
+     "team": "TOR",
+     "reg": 13.7008,
+     "playoff": 5.2419
+    }
+   ]
+  },
+  "roster": {
+   "2023-24": [
+    {
+     "team": "BOS",
+     "reg": 14.33,
+     "playoff": 3.8364
+    },
+    {
+     "team": "CLE",
+     "reg": 17.1,
+     "playoff": 3.875
+    },
+    {
+     "team": "DAL",
+     "reg": 14.87,
+     "playoff": 3.18
+    },
+    {
+     "team": "DEN",
+     "reg": 12.0333,
+     "playoff": 2.3222
+    },
+    {
+     "team": "IND",
+     "reg": 12.5778,
+     "playoff": 4.2111
+    },
+    {
+     "team": "LAC",
+     "reg": 15.5222,
+     "playoff": 3.8889
+    },
+    {
+     "team": "LAL",
+     "reg": 18.6,
+     "playoff": 3.025
+    },
+    {
+     "team": "MIA",
+     "reg": 14.8143,
+     "playoff": 4.1714
+    },
+    {
+     "team": "MIL",
+     "reg": 13.2333,
+     "playoff": 2.3667
+    },
+    {
+     "team": "MIN",
+     "reg": 11.7,
+     "playoff": 3.15
+    },
+    {
+     "team": "NOP",
+     "reg": 14.375,
+     "playoff": 2.55
+    },
+    {
+     "team": "NYK",
+     "reg": 12.5111,
+     "playoff": 4.8111
+    },
+    {
+     "team": "OKC",
+     "reg": 14.4875,
+     "playoff": 3.1444
+    },
+    {
+     "team": "ORL",
+     "reg": 13.6818,
+     "playoff": 3.7455
+    },
+    {
+     "team": "PHI",
+     "reg": 17.98,
+     "playoff": 3.78
+    },
+    {
+     "team": "PHX",
+     "reg": 14.1444,
+     "playoff": 2.9667
+    }
+   ],
+   "2024-25": [
+    {
+     "team": "BOS",
+     "reg": 14.06,
+     "playoff": 3.6909
+    },
+    {
+     "team": "CLE",
+     "reg": 15.8,
+     "playoff": 5.0
+    },
+    {
+     "team": "DEN",
+     "reg": 14.5625,
+     "playoff": 3.3875
+    },
+    {
+     "team": "DET",
+     "reg": 18.48,
+     "playoff": 6.62
+    },
+    {
+     "team": "GSW",
+     "reg": 13.9583,
+     "playoff": 5.6333
+    },
+    {
+     "team": "HOU",
+     "reg": 14.6111,
+     "playoff": 3.0778
+    },
+    {
+     "team": "IND",
+     "reg": 14.0778,
+     "playoff": 4.6444
+    },
+    {
+     "team": "LAC",
+     "reg": 14.47,
+     "playoff": 3.59
+    },
+    {
+     "team": "LAL",
+     "reg": 15.5,
+     "playoff": 1.7222
+    },
+    {
+     "team": "MEM",
+     "reg": 14.3375,
+     "playoff": 4.8
+    },
+    {
+     "team": "MIA",
+     "reg": 18.7375,
+     "playoff": 5.8
+    },
+    {
+     "team": "MIL",
+     "reg": 16.5727,
+     "playoff": 4.8
+    },
+    {
+     "team": "MIN",
+     "reg": 13.4556,
+     "playoff": 4.9778
+    },
+    {
+     "team": "NYK",
+     "reg": 13.43,
+     "playoff": 2.7
+    },
+    {
+     "team": "OKC",
+     "reg": 17.63,
+     "playoff": 4.35
+    },
+    {
+     "team": "ORL",
+     "reg": 15.2286,
+     "playoff": 3.0143
+    }
+   ],
+   "2025-26": [
+    {
+     "team": "ATL",
+     "reg": 14.4556,
+     "playoff": 4.0444
+    },
+    {
+     "team": "BOS",
+     "reg": 15.3417,
+     "playoff": 5.5333
+    },
+    {
+     "team": "CLE",
+     "reg": 18.3727,
+     "playoff": 3.5273
+    },
+    {
+     "team": "DEN",
+     "reg": 14.2,
+     "playoff": 3.6778
+    },
+    {
+     "team": "DET",
+     "reg": 15.16,
+     "playoff": 4.5091
+    },
+    {
+     "team": "HOU",
+     "reg": 13.7333,
+     "playoff": 2.8889
+    },
+    {
+     "team": "LAL",
+     "reg": 14.73,
+     "playoff": 5.05
+    },
+    {
+     "team": "MIN",
+     "reg": 15.3636,
+     "playoff": 6.5818
+    },
+    {
+     "team": "NYK",
+     "reg": 14.31,
+     "playoff": 3.63
+    },
+    {
+     "team": "OKC",
+     "reg": 18.2889,
+     "playoff": 5.32
+    },
+    {
+     "team": "ORL",
+     "reg": 15.2111,
+     "playoff": 3.2778
+    },
+    {
+     "team": "PHI",
+     "reg": 14.58,
+     "playoff": 2.75
+    },
+    {
+     "team": "PHX",
+     "reg": 16.7,
+     "playoff": 3.4333
+    },
+    {
+     "team": "POR",
+     "reg": 17.8667,
+     "playoff": 3.7333
+    },
+    {
+     "team": "SAS",
+     "reg": 13.17,
+     "playoff": 3.74
+    },
+    {
+     "team": "TOR",
+     "reg": 12.86,
+     "playoff": 4.57
+    }
+   ]
+  },
+  "min10": {
+   "2023-24": [
+    {
+     "team": "BOS",
+     "reg": 15.0,
+     "playoff": 3.8364
+    },
+    {
+     "team": "CLE",
+     "reg": 14.8727,
+     "playoff": 3.875
+    },
+    {
+     "team": "DAL",
+     "reg": 15.3231,
+     "playoff": 3.18
+    },
+    {
+     "team": "DEN",
+     "reg": 10.2667,
+     "playoff": 2.3222
+    },
+    {
+     "team": "IND",
+     "reg": 15.9727,
+     "playoff": 4.2111
+    },
+    {
+     "team": "LAC",
+     "reg": 13.7364,
+     "playoff": 3.8889
+    },
+    {
+     "team": "LAL",
+     "reg": 14.3267,
+     "playoff": 3.025
+    },
+    {
+     "team": "MIA",
+     "reg": 16.25,
+     "playoff": 4.1714
+    },
+    {
+     "team": "MIL",
+     "reg": 11.7462,
+     "playoff": 2.3667
+    },
+    {
+     "team": "MIN",
+     "reg": 10.9364,
+     "playoff": 3.15
+    },
+    {
+     "team": "NOP",
+     "reg": 16.2444,
+     "playoff": 2.55
+    },
+    {
+     "team": "NYK",
+     "reg": 14.8083,
+     "playoff": 4.8111
+    },
+    {
+     "team": "OKC",
+     "reg": 12.8818,
+     "playoff": 3.1444
+    },
+    {
+     "team": "ORL",
+     "reg": 12.8385,
+     "playoff": 3.7455
+    },
+    {
+     "team": "PHI",
+     "reg": 14.5923,
+     "playoff": 3.78
+    },
+    {
+     "team": "PHX",
+     "reg": 13.0417,
+     "playoff": 2.9667
+    }
+   ],
+   "2024-25": [
+    {
+     "team": "BOS",
+     "reg": 13.4273,
+     "playoff": 3.6909
+    },
+    {
+     "team": "CLE",
+     "reg": 14.9833,
+     "playoff": 5.0
+    },
+    {
+     "team": "DEN",
+     "reg": 11.6833,
+     "playoff": 3.3875
+    },
+    {
+     "team": "DET",
+     "reg": 16.9,
+     "playoff": 6.62
+    },
+    {
+     "team": "GSW",
+     "reg": 14.9,
+     "playoff": 5.6333
+    },
+    {
+     "team": "HOU",
+     "reg": 15.0167,
+     "playoff": 3.0778
+    },
+    {
+     "team": "IND",
+     "reg": 12.9538,
+     "playoff": 4.6444
+    },
+    {
+     "team": "LAC",
+     "reg": 14.3583,
+     "playoff": 3.59
+    },
+    {
+     "team": "LAL",
+     "reg": 14.1143,
+     "playoff": 1.7222
+    },
+    {
+     "team": "MEM",
+     "reg": 14.4,
+     "playoff": 4.8
+    },
+    {
+     "team": "MIA",
+     "reg": 16.8786,
+     "playoff": 5.8
+    },
+    {
+     "team": "MIL",
+     "reg": 12.2462,
+     "playoff": 4.8
+    },
+    {
+     "team": "MIN",
+     "reg": 12.4545,
+     "playoff": 4.9778
+    },
+    {
+     "team": "NYK",
+     "reg": 12.45,
+     "playoff": 2.7
+    },
+    {
+     "team": "OKC",
+     "reg": 14.125,
+     "playoff": 4.35
+    },
+    {
+     "team": "ORL",
+     "reg": 15.1545,
+     "playoff": 3.0143
+    }
+   ],
+   "2025-26": [
+    {
+     "team": "ATL",
+     "reg": 15.4533,
+     "playoff": 4.0444
+    },
+    {
+     "team": "BOS",
+     "reg": 14.95,
+     "playoff": 5.5333
+    },
+    {
+     "team": "CLE",
+     "reg": 17.275,
+     "playoff": 3.5273
+    },
+    {
+     "team": "DEN",
+     "reg": 13.4,
+     "playoff": 3.6778
+    },
+    {
+     "team": "DET",
+     "reg": 14.3182,
+     "playoff": 4.5091
+    },
+    {
+     "team": "HOU",
+     "reg": 13.6636,
+     "playoff": 2.8889
+    },
+    {
+     "team": "LAL",
+     "reg": 13.325,
+     "playoff": 5.05
+    },
+    {
+     "team": "MIN",
+     "reg": 13.6909,
+     "playoff": 6.5818
+    },
+    {
+     "team": "NYK",
+     "reg": 14.0692,
+     "playoff": 3.63
+    },
+    {
+     "team": "OKC",
+     "reg": 17.27,
+     "playoff": 5.32
+    },
+    {
+     "team": "ORL",
+     "reg": 14.69,
+     "playoff": 3.2778
+    },
+    {
+     "team": "PHI",
+     "reg": 14.6846,
+     "playoff": 2.75
+    },
+    {
+     "team": "PHX",
+     "reg": 15.6077,
+     "playoff": 3.4333
+    },
+    {
+     "team": "POR",
+     "reg": 15.2538,
+     "playoff": 3.7333
+    },
+    {
+     "team": "SAS",
+     "reg": 13.4583,
+     "playoff": 3.74
+    },
+    {
+     "team": "TOR",
+     "reg": 12.2636,
+     "playoff": 4.57
+    }
+   ]
+  }
+ }
+}

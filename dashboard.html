@@ -112,7 +112,7 @@ td.num,th.num{text-align:right}
       <div class="eyebrow"><span class="dot"></span> NBA · 3 seasons · 48 team-seasons</div>
       <h1>The Bench<br><em>Dividend.</em> Dashboard</h1>
       <p class="lede">Does a team that plays its substitutes more in the regular season get more scoring from them in the playoffs? Every number below is read from a data file in this repository, and its source is printed under it.</p>
-      <div class="status" id="status"><b id="status-b">Provisional</b><span id="status-t">These figures are recalculated from the 48 chart values published with the original article. The values have not been reconciled with raw NBA records, so read the associations as exploratory. Details and known data issues are in the <a href="bench-research.html">research write-up</a>.</span></div>
+      <div class="status" id="status"><b id="status-b">Data</b><span id="status-t">Team-season values for three NBA seasons. How they were obtained is recorded in <a href="data-provenance.json">data-provenance.json</a>. Read the associations as exploratory; details are in the <a href="bench-research.html">research write-up</a>.</span></div>
     </section>
 
     <noscript><div class="err">This dashboard draws its charts with JavaScript. The full data table is available in the <a href="bench-research.html" style="text-decoration:underline">research write-up</a>.</div></noscript>
@@ -186,8 +186,8 @@ td.num,th.num{text-align:right}
       const rs = Object.values(prov.sensitivity_pooled_r || {}).map(v => v.pooled_r).filter(Number.isFinite);
       const range = rs.length ? ' Under alternative ways of averaging the bench, the pooled r ranges from ' + Math.min(...rs).toFixed(3) + ' to ' + Math.max(...rs).toFixed(3) + '.' : '';
       document.getElementById('status-b').textContent = 'Rebuilt from NBA Stats';
-      document.getElementById('status-t').innerHTML = 'Data retrieved ' + when + ' from stats.nba.com using the method in the article (bench split, per-player averages, playoff teams only).' + range + ' Choices the article leaves open are listed in <a href="data-provenance.json">data-provenance.json</a>.';
-      document.getElementById('src-data').innerHTML = 'Team-season values: <a href="chart-values.json">chart-values.json</a>, rebuilt from NBA Stats on ' + when + ' by <a href="https://github.com/takizawadaiki/takizawadaiki.github.io/blob/main/rebuild_data.py">rebuild_data.py</a>.';
+      document.getElementById('status-t').innerHTML = 'Data retrieved ' + when + ' from stats.nba.com using the method in the article (bench split, per-player averages, playoff teams only).' + range + ' Read the associations as exploratory; the <a href="bench-research.html">research write-up</a> covers how stable they are.';
+      document.getElementById('src-data').innerHTML = 'Team-season values: <a href="chart-values.json">chart-values.json</a>, rebuilt from NBA Stats on ' + when + '. How: <a href="data-provenance.json">data-provenance.json</a>.';
     }
   } catch (e) { /* provenance is optional */ }
 
