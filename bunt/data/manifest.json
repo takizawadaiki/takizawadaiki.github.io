@@ -1,0 +1,21 @@
+{
+  "source": "Baseball Savant Statcast search, via pybaseball.statcast",
+  "retrieved_at_utc": "2026-11-12T22:54:25+00:00",
+  "seasons": [
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025,
+    2026
+  ],
+  "plate_appearances": 2088742,
+  "bunts": 19205,
+  "games": 27622
+}
