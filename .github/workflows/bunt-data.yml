@@ -3,8 +3,16 @@ name: Bunt data
 # Downloads Statcast season by season, reduces it to plate appearances, and commits the small tables in bunt/data.
 on:
   workflow_dispatch:
+    inputs:
+      seasons:
+        description: Seasons to download, as a JSON list
+        default: "[2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026]"
+      reuse_run:
+        description: Optional id of an earlier run whose season files should be reused
+        default: ""
 permissions:
   contents: write
+  actions: read
 jobs:
   season:
     runs-on: ubuntu-latest
@@ -13,7 +21,7 @@ jobs:
       fail-fast: false
       max-parallel: 4
       matrix:
-        season: [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026]
+        season: ${{ fromJSON(inputs.seasons) }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -40,6 +48,15 @@ jobs:
           pattern: pa-*
           path: out
           merge-multiple: true
+      - if: inputs.reuse_run != ''
+        uses: actions/download-artifact@v4
+        with:
+          pattern: pa-*
+          path: out
+          merge-multiple: true
+          run-id: ${{ inputs.reuse_run }}
+          github-token: ${{ github.token }}
+      - run: ls -la out
       - run: python bunt/pipeline/aggregate.py out bunt/data
       - name: Commit data
         run: |

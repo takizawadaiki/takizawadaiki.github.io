@@ -40,16 +40,21 @@ def download(season: int, pause: float = 2.0) -> pd.DataFrame:
             except Exception as exc:  # Savant sometimes drops a request
                 print('    retry after', exc, flush=True)
                 time.sleep(20 * (attempt + 1))
-        if f is None or f.empty:
-            if m1 in (3, 10):       # a season can start in April or end in September
-                continue
-            raise SystemExit(f'No data for {start} to {end}')
+        if f is None or f.empty:      # no games that month (March or October in most years, April to June in 2020)
+            print('    no games')
+            continue
         missing = [c for c in NEEDED if c not in f.columns]
         if missing:
             raise SystemExit(f'Statcast no longer returns: {missing}')
         frames.append(f.loc[f['game_type'] == 'R', NEEDED])
         time.sleep(pause)
-    return pd.concat(frames, ignore_index=True)
+    if not frames:
+        raise SystemExit(f'No data returned for {season}')
+    out = pd.concat(frames, ignore_index=True)
+    least = 200_000 if season == 2020 else 600_000      # a full season has about 700,000 pitches
+    if season < date.today().year and len(out) < least:
+        raise SystemExit(f'Only {len(out):,} pitches for {season}; a month is probably missing')
+    return out
 
 
 def to_plate_appearances(p: pd.DataFrame, season: int) -> pd.DataFrame:
