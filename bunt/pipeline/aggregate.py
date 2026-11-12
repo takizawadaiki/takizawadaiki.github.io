@@ -57,7 +57,7 @@ def main(src, dst):
     sit[sit['bunt']][cols].to_csv(dst / 'bunts.csv', index=False)
 
     # 3. everyone who did not bunt (and never showed bunt) in the same situations, in groups
-    keys = ['season', 'inning_bucket', 'diff_bucket', 'outs', 'bases', 'batter_class', 'ghost']
+    keys = ['season', 'inning_bucket', 'diff_bucket', 'outs', 'bases', 'batter_class', 'ghost', 'top']
     swing = sit[~sit['bunt'] & ~sit['any_bunt_pitch']]
     base = swing.groupby(keys).agg(n=('runs_rest', 'size'), runs=('runs_rest', 'sum'), scored=('scored', 'sum'), won=('bat_won', 'sum')).reset_index()
     fullsw = swing[~swing['walkoff_half']].groupby(keys).agg(n_full=('runs_rest', 'size'), runs_full=('runs_rest', 'sum')).reset_index()
