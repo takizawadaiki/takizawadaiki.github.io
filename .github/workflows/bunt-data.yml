@@ -62,7 +62,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git pull --rebase
           git add bunt/data
           git diff --cached --quiet && echo "No change." || git commit -m "Update bunt data from Statcast"
+          git pull --rebase
           git push

@@ -147,22 +147,30 @@ def outcome_mix(bunts):
 
 
 def ghost_runner(bunts, baseline):
-    """Extra innings since 2020: automatic runner on second, nobody out, first batter of the half-inning."""
-    b = [x for x in bunts if x['ghost'] == 'True']
-    sw = defaultdict(float)
-    for r in baseline:
-        if r['ghost'] == 'True':
-            for c in ('n', 'runs', 'scored', 'won'):
-                sw[c] += float(r[c])
-    n = len(b)
-    scored, won = sum(int(x['runs_rest']) > 0 for x in b), sum(x['bat_won'] == 'True' for x in b)
-    return dict(bunts=n, swings=int(sw['n']), bunt_share=round(n / (n + sw['n']), 4),
-                bunt_score=round(scored / n, 4), bunt_score_ci=wilson(scored, n), swing_score=round(sw['scored'] / sw['n'], 4),
-                swing_score_ci=wilson(int(sw['scored']), int(sw['n'])),
-                bunt_runs=round(sum(int(x['runs_rest']) for x in b) / n, 3), swing_runs=round(sw['runs'] / sw['n'], 3),
-                bunt_win=round(won / n, 4), bunt_win_ci=wilson(won, n), swing_win=round(sw['won'] / sw['n'], 4),
-                swing_win_ci=wilson(int(sw['won']), int(sw['n'])),
-                outcomes={k: round(sum(classify(x['events'], 0, int(x['after_outs'])) == k for x in b) / n, 4) for k in KINDS})
+    """Extra innings since 2020: automatic runner on second, nobody out, first batter of the half-inning.
+    Split by who is batting, because the home team in a tie needs exactly one run to win."""
+    groups = dict(visitors=lambda top, diff: top, home_tied=lambda top, diff: (not top) and diff == 0,
+                  home_behind=lambda top, diff: (not top) and diff < 0)
+    diff_value = {'-2': -2, '-1': -1, '0': 0, '+1': 1, '+2': 2}
+    out = {}
+    for name, test in list(groups.items()) + [('all', lambda top, diff: True)]:
+        b = [x for x in bunts if x['ghost'] == 'True' and test(x['top'] == 'True', int(x['score_diff']))]
+        sw = defaultdict(float)
+        for r in baseline:
+            if r['ghost'] == 'True' and test(r['top'] == 'True', diff_value[r['diff_bucket']]):
+                for c in ('n', 'runs', 'scored', 'won'):
+                    sw[c] += float(r[c])
+        n = len(b)
+        if n < 20 or sw['n'] < 50:
+            continue
+        scored, won = sum(int(x['runs_rest']) > 0 for x in b), sum(x['bat_won'] == 'True' for x in b)
+        out[name] = dict(bunts=n, swings=int(sw['n']), bunt_share=round(n / (n + sw['n']), 4),
+                         bunt_score=round(scored / n, 4), bunt_score_ci=wilson(scored, n), swing_score=round(sw['scored'] / sw['n'], 4),
+                         swing_score_ci=wilson(int(sw['scored']), int(sw['n'])),
+                         bunt_runs=round(sum(int(x['runs_rest']) for x in b) / n, 3), swing_runs=round(sw['runs'] / sw['n'], 3),
+                         bunt_win=round(won / n, 4), bunt_win_ci=wilson(won, n), swing_win=round(sw['won'] / sw['n'], 4),
+                         swing_win_ci=wilson(int(sw['won']), int(sw['n'])))
+    return out
 
 
 def league_model(tot, mix):
@@ -264,7 +272,8 @@ if __name__ == '__main__':
     for e in r['evidence']:
         if e['outs'] == 0 and e['bases'] in ('100', '010', '110'):
             print('evidence', e['bases'], e['batter'], e['bunts'], 'runs', e['bunt_runs'], e['swing_runs'], e['runs_diff_ci'], 'score', e['bunt_score'], e['swing_score'], e['bunt_score_ci'])
-    print('ghost', r['ghost'])
+    for k, v in r['ghost'].items():
+        print('ghost', k, v)
     for lg in ('MLB', 'NPB', 'NPB_2011'):
         L = r['leagues'][lg]
         print(lg, 'R/inn model', L['model_runs_per_inning'], 'actual', L['actual_runs_per_inning'])
