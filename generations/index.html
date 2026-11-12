@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="theme-color" content="#10120f"/>
+<meta name="description" content="Enter two birth years and compare what each person faced at 25 in Canada: pay, house prices, mortgage payments, rent, tuition and jobs, 1976 to 2025."/>
+<link rel="icon" href="/favicon.ico" sizes="48x48"/>
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"/>
+<link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
+<title>Is Your Generation Worse Off? · Daiki Takizawa</title>
+<link rel="canonical" href="https://takizawadaiki.github.io/generations/"/>
+<meta property="og:type" content="website"/>
+<meta property="og:site_name" content="Daiki Takizawa"/>
+<meta property="og:title" content="Is Your Generation Worse Off Than Your Parents'? · Daiki Takizawa"/>
+<meta property="og:description" content="Enter two birth years and compare what each person faced at 25 in Canada: pay, housing, rent, tuition and jobs."/>
+<meta property="og:url" content="https://takizawadaiki.github.io/generations/"/>
+<meta property="og:image" content="https://takizawadaiki.github.io/og-image.png"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  color-scheme:dark;
+  --bg:#10120f;--card:#151a13;--ink:#f0f0e7;--muted:#a5ab9e;--border:#30372d;--orange:#ff8050;
+  --blue:#3987e5;--heading:'Space Grotesk',sans-serif;
+}
+html{scroll-behavior:smooth;scroll-padding-top:24px}
+body{background:var(--bg);color:var(--ink);font:15px/1.65 'DM Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button{font:inherit}
+.wrap{width:min(1240px,calc(100% - 64px));margin:0 auto}
+.progress{position:fixed;top:0;left:0;right:0;height:3px;z-index:60;background:linear-gradient(90deg,#ff8050,#ffb08a);transform:scaleX(var(--p,0));transform-origin:0 50%;pointer-events:none}
+.skip{position:fixed;left:16px;top:-80px;z-index:70;background:var(--orange);color:#171b13;padding:10px 14px;border-radius:6px}
+.skip:focus{top:12px}
+:focus-visible{outline:3px solid var(--orange);outline-offset:3px}
+header.top{display:flex;justify-content:space-between;align-items:center;gap:16px;height:92px;border-bottom:1px solid var(--border)}
+.brand{display:flex;align-items:center;font:600 18px var(--heading);letter-spacing:-.6px}
+.brand i{font-style:normal;background:#dbe4cd;color:#151a12;font-size:21px;padding:4px 9px;margin-right:13px;letter-spacing:-3px}
+.brand b{color:var(--orange)}
+.top nav{display:flex;gap:26px;font-size:12px;color:var(--muted)}
+.top nav a:hover{color:var(--orange)}
+.eyebrow,.k{font:500 10.5px/1.5 var(--heading);letter-spacing:1.3px;text-transform:uppercase;color:var(--muted)}
+.eyebrow{display:flex;align-items:center;gap:9px}
+.eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--orange)}
+.hero{padding:56px 0 30px;display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:48px;align-items:end}
+h1{font:500 clamp(40px,5.6vw,82px)/.98 var(--heading);letter-spacing:-.055em;margin-top:18px}
+h1 em{font-family:Georgia,'Times New Roman',serif;font-weight:400;font-style:italic;color:var(--orange);letter-spacing:-.04em}
+.lede{color:var(--muted);font-size:15.5px;line-height:1.8;max-width:54ch}
+.verdict{display:grid;grid-template-columns:auto 1fr auto;gap:22px;align-items:center;border:1px solid #5b4435;border-left:3px solid var(--orange);background:#1b1612;border-radius:0 12px 12px 0;padding:18px 22px;margin-top:8px}
+.verdict .k{color:var(--orange);white-space:nowrap}
+.verdict p{font-size:15px;line-height:1.6}
+.verdict p strong{font-weight:600}
+.verdict a{font:500 12.5px var(--heading);white-space:nowrap;border-bottom:1px solid var(--border);padding-bottom:3px}
+.verdict a:hover{color:var(--orange)}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:26px 0 8px}
+.kpi{position:relative;display:flex;flex-direction:column;gap:6px;min-height:170px;padding:20px 18px 16px;border:1px solid var(--border);border-radius:14px;background:linear-gradient(180deg,#151a13,#10120f);overflow:hidden;isolation:isolate;transition:border-color .3s,translate .3s}
+.kpi::before{content:"";position:absolute;inset:0;z-index:-1;opacity:0;transition:opacity .35s;background:radial-gradient(240px circle at var(--mx,50%) var(--my,50%),rgba(255,128,80,.2),transparent 62%)}
+.kpi:hover{border-color:#6b4a3a;translate:0 -3px}.kpi:hover::before{opacity:1}
+.kpi .v{font:600 clamp(30px,3.2vw,44px)/1 var(--heading);letter-spacing:-.03em;margin-top:6px;font-variant-numeric:tabular-nums}
+.kpi .n{font-size:12.5px;line-height:1.5;color:var(--muted)}
+.kpi .src{margin-top:auto;border-top:1px solid var(--border);padding-top:9px;font:500 10.5px/1.4 var(--heading);letter-spacing:.03em;color:#8d9486}
+section{padding:54px 0 0}
+.sec-top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:6px 20px;border-bottom:1px solid var(--border);padding-bottom:14px;margin-bottom:22px}
+.sec-top .k b{color:var(--orange);font-weight:500;margin-right:14px}
+h2{font:400 clamp(26px,3.1vw,42px)/1.1 var(--heading);letter-spacing:-.035em;max-width:22ch}
+h2 em{font-family:Georgia,serif;font-style:italic;color:#a6b693}
+.sec-head{display:flex;justify-content:space-between;align-items:end;gap:40px;margin-bottom:24px}
+.sec-head p{color:var(--muted);font-size:14px;line-height:1.75;max-width:52ch}
+.panel{border:1px solid var(--border);border-radius:16px;background:var(--card);padding:24px 24px 20px}
+.panel h3{font:600 18px/1.25 var(--heading);letter-spacing:-.02em}
+.panel .sub{color:var(--muted);font-size:13.5px;line-height:1.65;margin:6px 0 16px;max-width:66ch}
+.grid2{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:18px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.chips button{font:500 12.5px/1 var(--heading);color:var(--ink);background:transparent;border:1px solid var(--border);border-radius:999px;padding:10px 14px;cursor:pointer;transition:border-color .2s,background .2s}
+.chips button:hover{border-color:#6b4a3a}
+.chips button[aria-pressed="true"]{background:#e0e7d7;color:#1a2115;border-color:#e0e7d7}
+.chart-box{position:relative;height:400px}
+.src{font:500 10.5px/1.5 var(--heading);letter-spacing:.03em;color:#8d9486}
+.panel>.src{margin-top:14px;padding-top:10px;border-top:1px solid var(--border)}
+/* timeline */
+.timeline{display:grid;grid-template-columns:3fr 1fr 1fr 1fr;gap:8px}
+.tl{border:1px solid var(--border);border-radius:12px;padding:16px;background:var(--card)}
+.tl .yrs{font:600 22px/1 var(--heading);letter-spacing:-.02em;margin:8px 0 6px;font-variant-numeric:tabular-nums}
+.tl p{font-size:12.5px;line-height:1.55;color:var(--muted)}
+.tl.judge{border-color:#6b4a3a;background:#1b1612}.tl.judge .k{color:var(--orange)}
+/* interval plots */
+.forest{display:grid;gap:2px}
+.frow{display:grid;grid-template-columns:minmax(120px,190px) 1fr;gap:4px 14px;align-items:center;padding:9px 0;border-top:1px solid #232a20}
+.frow:first-child{border-top:0}
+.fname{font:500 12.5px/1.3 var(--heading)}
+.frow.me .fname{color:var(--orange)}
+.ftrack{position:relative;height:24px}
+.ftrack .zero{position:absolute;top:0;bottom:0;width:1px;background:#4a5445}
+.fci{position:absolute;top:50%;height:3px;border-radius:2px;translate:0 -50%;background:#7f8678}
+.fdot{position:absolute;top:50%;width:12px;height:12px;border-radius:50%;translate:-50% -50%;background:var(--ink);box-shadow:0 0 0 2px var(--card)}
+.frow.me .fdot{background:var(--orange)}.frow.me .fci{background:#b0603f}
+.fval{grid-column:2;font:500 12px/1.3 var(--heading);color:var(--muted);font-variant-numeric:tabular-nums}
+.faxis{position:relative;height:18px;margin-top:4px;font:500 10.5px/1 var(--heading);color:#8d9486;font-variant-numeric:tabular-nums}
+.faxis span{position:absolute;translate:-50% 0}
+.faxis.pad{margin-left:calc(min(190px,max(120px,30%)) + 14px)}
+/* signal vs luck */
+.bars{display:grid;gap:14px;margin-top:8px}
+.bar .lab{display:flex;justify-content:space-between;font:500 13px var(--heading);margin-bottom:6px}
+.bar .lab span:last-child{font-variant-numeric:tabular-nums}
+.bar .t{height:16px;border-radius:4px;background:#1a2117;overflow:hidden}
+.bar .t i{display:block;height:100%;width:var(--w);border-radius:0 4px 4px 0;background:var(--c);transform-origin:left;transition:transform 1s cubic-bezier(.2,.8,.2,1)}
+.js-reveal .rv:not(.in) .bar .t i{transform:scaleX(0)}
+/* tables */
+.toolbar{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;justify-content:space-between;margin-bottom:14px}
+.toolbar .chips{margin:0}
+.search{flex:1;min-width:200px;max-width:320px;background:#10120f;border:1px solid var(--border);border-radius:999px;color:var(--ink);font:500 14px var(--heading);padding:10px 16px}
+.search::placeholder{color:#8a917f}
+.tablewrap{max-height:520px;overflow:auto;border:1px solid var(--border);border-radius:12px}
+table{width:100%;border-collapse:collapse;font-size:13.5px;font-variant-numeric:tabular-nums}
+th,td{text-align:left;padding:10px 16px;border-bottom:1px solid #232a20;white-space:nowrap}
+th{position:sticky;top:0;background:#10140e;font:500 10.5px/1.2 var(--heading);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);z-index:1}
+td.num,th.num{text-align:right}
+td.rank{color:#8d9486;width:1%}
+td .rb{display:inline-block;vertical-align:middle;height:8px;border-radius:2px;background:var(--blue);margin-right:10px}
+tbody tr:hover{background:#171d14}
+.empty{padding:22px 16px;color:var(--muted)}
+/* notes */
+.cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.list{list-style:none;display:grid;gap:10px;margin-top:12px}
+.list li{position:relative;padding-left:18px;font-size:13.5px;line-height:1.65;color:#c9cfc0}
+.list li::before{content:"";position:absolute;left:0;top:.62em;width:6px;height:6px;border-radius:50%;background:var(--orange)}
+.list li b{color:var(--ink);font-weight:600}
+dl.terms{display:grid;grid-template-columns:auto 1fr;gap:8px 18px;margin-top:12px;font-size:13.5px}
+dl.terms dt{font:600 12.5px/1.6 var(--heading);white-space:nowrap}
+dl.terms dd{color:#c9cfc0;line-height:1.6}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+.btn{display:inline-flex;align-items:center;gap:14px;padding:13px 20px;border-radius:999px;font:600 13px/1 var(--heading);border:1px solid var(--border);transition:background .2s,border-color .2s}
+.btn:hover{border-color:#6b4a3a}
+.btn.primary{background:var(--orange);color:#171b13;border-color:var(--orange)}.btn.primary:hover{background:#ff9b76}
+footer{margin:64px 0 60px;padding-top:20px;border-top:1px solid var(--border);display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 30px;font-size:12.5px;color:var(--muted)}
+footer a{text-decoration:underline;text-underline-offset:3px}footer a:hover{color:var(--orange)}
+.err{padding:18px 20px;border:1px solid #6b3a2a;border-radius:12px;background:#1d1411;color:#f0c1ad;margin:26px 0}
+[hidden]{display:none!important}
+.js-reveal .rv:not(.in){opacity:0}
+.js-reveal .rv.in{animation:rv-in .75s cubic-bezier(.2,.7,.2,1) backwards}
+@keyframes rv-in{from{opacity:0;translate:0 24px}}
+@media(max-width:980px){.hero{grid-template-columns:1fr;gap:22px;padding-top:40px}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.grid2,.cols{grid-template-columns:1fr}.sec-head{display:block}.sec-head p{margin-top:14px}.timeline{grid-template-columns:repeat(2,minmax(0,1fr))}.verdict{grid-template-columns:1fr;gap:8px}}
+@media(max-width:560px){.wrap{width:calc(100% - 32px)}header.top{height:76px}.top nav a.hide-s{display:none}.kpis{grid-template-columns:1fr}.kpi{min-height:0}.panel{padding:18px 14px 16px}.chart-box{height:330px}.frow{grid-template-columns:1fr}.fval{grid-column:1}.faxis.pad{margin-left:0}.timeline{grid-template-columns:1fr}th,td{padding:9px 10px}dl.terms{grid-template-columns:1fr;gap:2px 0}dl.terms dd{margin-bottom:8px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
+/* generations page */
+.visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.sliders{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 28px;margin:6px 0 18px}
+.sliders.three{grid-template-columns:1.2fr 1.2fr .8fr}
+.slider{display:block}
+.slider .lab{display:flex;justify-content:space-between;align-items:baseline;font:500 13px var(--heading);margin-bottom:8px}
+.slider output{font:600 26px/1 var(--heading);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+#me-out{color:#ff9b76}#pa-out{color:#8fc0ff}
+input[type=range]{width:100%;height:28px;cursor:pointer;background:transparent}
+#me{accent-color:#d95926}#pa{accent-color:#3987e5}
+select{width:100%;height:40px;margin-top:2px;padding:0 12px;border-radius:10px;border:1px solid var(--border);background:#10120f;color:var(--ink);font:500 14px var(--heading)}
+.score{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:18px}
+.sc{border:1px solid var(--border);border-radius:14px;padding:18px 18px 16px;background:#161a14;display:flex;flex-direction:column;gap:10px;border-top:3px solid #5d6657}
+.sc.worse{border-top-color:#d95926}.sc.better{border-top-color:#199e70}
+.sc .top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.sc .tag{font:600 10.5px var(--heading);letter-spacing:.08em;text-transform:uppercase;padding:4px 9px;border-radius:99px;background:#2a3026;color:#c9cfc0;white-space:nowrap}
+.sc.worse .tag{background:#3b2015;color:#ffb08f}.sc.better .tag{background:#12382b;color:#7fe0bb}
+.sc h3{font:600 15px var(--heading);margin:0}
+.sc .pair{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.sc .pair div{display:flex;flex-direction:column;gap:3px}
+.sc .pair span{font-size:11.5px;color:var(--muted)}
+.sc .pair b{font:600 23px/1.1 var(--heading);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.sc .pair .me b{color:#ff9b76}.sc .pair .pa b{color:#8fc0ff}
+.sc p{font-size:12.5px;line-height:1.5;color:var(--muted);margin:0}
+.cols.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.cols>.panel,.grid2>.panel{min-width:0}
+.table-wrap{overflow-x:auto}
+.heat{width:100%;border-collapse:separate;border-spacing:3px;font-size:12.5px;min-width:640px}
+.heat th{font:600 11px/1.3 var(--heading);color:#c9cfc0;text-align:right;padding:6px 8px;text-transform:none;letter-spacing:0;vertical-align:bottom}
+.heat th:first-child,.heat td:first-child{text-align:left}
+.heat td{padding:7px 8px;text-align:right;font-variant-numeric:tabular-nums;border-radius:4px;background:#1a2117;white-space:nowrap}
+.heat td:first-child{background:transparent;color:var(--muted);font-weight:500}
+.heat td.g{background:#12382b;color:#b9f0da}.heat td.r{background:#3b2015;color:#ffc9b1}.heat td.na{color:#5d6657}
+.heat tr.me td:first-child{color:#ff9b76;font-weight:700}.heat tr.pa td:first-child{color:#8fc0ff;font-weight:700}
+.heat tr.me td{box-shadow:inset 0 2px 0 #d95926,inset 0 -2px 0 #d95926}.heat tr.pa td{box-shadow:inset 0 2px 0 #3987e5,inset 0 -2px 0 #3987e5}
+.heat tr.me td:first-child,.heat tr.pa td:first-child{box-shadow:none}
+@media(max-width:980px){.score{grid-template-columns:repeat(2,minmax(0,1fr))}.cols.three,.sliders.three{grid-template-columns:1fr}}
+@media(max-width:560px){.sliders{grid-template-columns:1fr}.score{grid-template-columns:1fr}.sc .pair b{font-size:21px}}
+</style>
+</head>
+<body>
+<div class="progress" aria-hidden="true"></div>
+<a class="skip" href="#main">Skip to content</a>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="https://takizawadaiki.github.io/" aria-label="Daiki Takizawa home"><i>dt</i>Daiki Takizawa<b>.</b></a>
+    <nav aria-label="Page">
+      <a class="hide-s" href="#compare">Compare</a>
+      <a class="hide-s" href="#income">Income</a>
+      <a class="hide-s" href="#housing">Housing</a>
+      <a class="hide-s" href="#picture">Every year</a>
+      <a class="hide-s" href="https://github.com/takizawadaiki/takizawadaiki.github.io/tree/main/generations">Code ↗</a>
+      <a href="https://takizawadaiki.github.io/#projects">← All projects</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <div class="hero">
+      <div>
+        <div class="eyebrow">Economics · Canada, 1976 to 2025</div>
+        <h1>Is your generation worse off <em>than your parents’?</em></h1>
+      </div>
+      <p class="lede">Enter two birth years. This page compares what each person faced at 25 in Canada: pay, house prices, mortgage payments, rent, tuition and the job market. Every dollar figure is adjusted for inflation, and every number comes from Statistics Canada, CMHC or the Bank for International Settlements.</p>
+    </div>
+
+    <noscript><div class="err">This page draws its numbers and charts with JavaScript. The data is in <a href="data/canada_by_year.csv" style="text-decoration:underline">data/canada_by_year.csv</a>.</div></noscript>
+    <div id="error" class="err" hidden></div>
+
+    <section id="compare" aria-labelledby="cmp-h" style="margin-top:8px">
+      <div class="panel rv picker">
+        <h2 id="cmp-h" class="visually-hidden">Choose two birth years</h2>
+        <div class="chips" id="presets" role="group" aria-label="Presets"></div>
+        <div class="sliders three">
+          <label class="slider"><span class="lab"><span>You were born in</span><output id="me-out"></output></span>
+            <input type="range" id="me" min="1967" max="2005" step="1" aria-label="Your birth year"/></label>
+          <label class="slider"><span class="lab"><span>Your parent was born in</span><output id="pa-out"></output></span>
+            <input type="range" id="pa" min="1952" max="1990" step="1" aria-label="Your parent's birth year"/></label>
+          <label class="slider"><span class="lab"><span>City, for rent</span></span>
+            <select id="city" aria-label="City used for rent"></select></label>
+        </div>
+        <p class="sub" id="ages-note" style="margin:0"></p>
+      </div>
+
+      <div class="verdict rv" style="margin-top:18px">
+        <span class="k">Result</span>
+        <p id="headline" aria-live="polite">Loading the results…</p>
+        <a href="#picture">Every year ↓</a>
+      </div>
+
+      <div class="score" id="score" aria-live="polite"></div>
+      <p class="src" style="margin-top:12px">“Better” and “worse” mean a difference of more than 3%. Income, house prices and mortgage payments use the year each person turned 25. Tuition uses the year they turned 20. Rent data starts in 1987, so it is blank for anyone who turned 25 before then.</p>
+    </section>
+
+    <section id="income" aria-labelledby="inc-h">
+      <div class="sec-top"><span class="k"><b>01</b>Pay</span><span class="k">Median income, ages 25 to 34</span></div>
+      <div class="sec-head">
+        <h2 id="inc-h">Young adults earn <em id="inc-word">less</em> than in 1976.</h2>
+        <p id="inc-lede"></p>
+      </div>
+      <div class="grid2">
+        <div class="panel rv">
+          <h3>Median income of 25 to 34 year olds</h3>
+          <p class="sub">In 2025 dollars. The larger dots are the two years you chose.</p>
+          <div class="chart-box"><canvas id="c-income" role="img" aria-label="Line chart of median income for ages 25 to 34"></canvas></div>
+          <p class="src">Source: Statistics Canada, table 11-10-0239-01. Median total income of people with income, before tax.</p>
+        </div>
+        <div class="panel rv">
+          <h3>Men and women moved in opposite directions</h3>
+          <p class="sub">Median income, ages 25 to 34, in 2025 dollars.</p>
+          <div class="chart-box"><canvas id="c-gender" role="img" aria-label="Line chart of median income for men and women aged 25 to 34"></canvas></div>
+          <p class="src" id="gender-note"></p>
+        </div>
+      </div>
+    </section>
+
+    <section id="housing" aria-labelledby="hou-h">
+      <div class="sec-top"><span class="k"><b>02</b>Housing</span><span class="k">Prices, mortgages and rent</span></div>
+      <div class="sec-head">
+        <h2 id="hou-h">A home costs <em id="hou-word">three times</em> as much against a young income.</h2>
+        <p id="hou-lede"></p>
+      </div>
+      <div class="grid2">
+        <div class="panel rv">
+          <h3>House prices and mortgage payments against young incomes</h3>
+          <p class="sub">Both lines are set to 100 in 1976. The payment line allows for the mortgage rate that year, which is why it sits below the price line today.</p>
+          <div class="chart-box"><canvas id="c-house" role="img" aria-label="Line chart of house prices and mortgage payments relative to young incomes"></canvas></div>
+          <p class="src">Sources: Bank for International Settlements residential property prices for Canada; CMHC five-year conventional mortgage rate; Statistics Canada income. Payment assumes a 25-year mortgage on the same share of the price.</p>
+        </div>
+        <div class="panel rv">
+          <h3>Rent for a one-bedroom apartment in <span id="rent-city"></span></h3>
+          <p class="sub">Average monthly rent in 2025 dollars, and as a share of the median young income.</p>
+          <div class="chart-box"><canvas id="c-rent" role="img" aria-label="Line chart of one-bedroom rent"></canvas></div>
+          <p class="src" id="rent-note"></p>
+        </div>
+      </div>
+    </section>
+
+    <section id="school" aria-labelledby="sch-h">
+      <div class="sec-top"><span class="k"><b>03</b>School and work</span><span class="k">Tuition and jobs</span></div>
+      <div class="sec-head">
+        <h2 id="sch-h">Tuition is up <em id="tu-word"></em>. The job market is about the same.</h2>
+        <p id="sch-lede"></p>
+      </div>
+      <div class="grid2">
+        <div class="panel rv">
+          <h3>Average undergraduate tuition</h3>
+          <p class="sub">For Canadian students, per year, in 2025 dollars. The dots mark the year each person turned 20.</p>
+          <div class="chart-box"><canvas id="c-tuition" role="img" aria-label="Line chart of average undergraduate tuition"></canvas></div>
+          <p class="src">Source: Statistics Canada, tables 37-10-0150-01 (to 2005/06) and 37-10-0003-01 (from 2006/07).</p>
+        </div>
+        <div class="panel rv">
+          <h3>Unemployment rate</h3>
+          <p class="sub">Share of the labour force without work, for ages 25 to 29 and 15 to 24.</p>
+          <div class="chart-box"><canvas id="c-jobs" role="img" aria-label="Line chart of unemployment rates for young people"></canvas></div>
+          <p class="src" id="jobs-note"></p>
+        </div>
+      </div>
+    </section>
+
+    <section id="picture" aria-labelledby="pic-h">
+      <div class="sec-top"><span class="k"><b>04</b>Every year</span><span class="k">Who had it hardest at 25?</span></div>
+      <div class="sec-head">
+        <h2 id="pic-h">No generation <em>had it all.</em></h2>
+        <p>Each row is the year a group turned 25. Each cell is shaded by how that year ranks among all the years with data: green for the easiest third, red for the hardest third. Your two years are outlined.</p>
+      </div>
+      <div class="panel rv">
+        <div class="table-wrap"><table class="heat" id="heat"></table></div>
+        <p class="src">Rent is for the city chosen above and starts in 1987. Income, the house price index and the payment index end in 2024, the latest year of income data.</p>
+      </div>
+      <div class="cols three" style="margin-top:18px" id="takeaways"></div>
+    </section>
+
+    <section id="method" aria-labelledby="method-h">
+      <div class="sec-top"><span class="k"><b>05</b>Method</span><span class="k">Sources and limits</span></div>
+      <div class="cols">
+        <div class="panel rv">
+          <h3 id="method-h">Where the numbers come from</h3>
+          <ul class="list">
+            <li><b>Income:</b> Statistics Canada, table 11-10-0239-01, median total income of people aged 25 to 34, 1976 to 2024.</li>
+            <li><b>Prices:</b> Statistics Canada Consumer Price Index, annual average, table 18-10-0005-01. All dollar figures are in 2025 dollars.</li>
+            <li><b>House prices:</b> Bank for International Settlements, residential property prices for Canada, via FRED (series QCAN628BIS).</li>
+            <li><b>Mortgage rate:</b> CMHC five-year conventional mortgage lending rate, Statistics Canada table 34-10-0145-01.</li>
+            <li><b>Rent:</b> CMHC average rent for one-bedroom units in apartment buildings of six units and over, Statistics Canada table 34-10-0133-01.</li>
+            <li><b>Tuition:</b> Statistics Canada tables 37-10-0150-01 and 37-10-0003-01. <b>Jobs:</b> Labour Force Survey, table 14-10-0327-01.</li>
+          </ul>
+          <div class="cta">
+            <a class="btn primary" href="https://github.com/takizawadaiki/takizawadaiki.github.io/tree/main/generations">View the code and data <span aria-hidden="true">↗</span></a>
+            <a class="btn" href="data/canada_by_year.csv">Download the data (CSV)</a>
+          </div>
+        </div>
+        <div class="panel rv">
+          <h3>What to keep in mind</h3>
+          <ul class="list">
+            <li><b>These are national medians and averages.</b> They describe a typical person, and nobody is exactly typical. Results differ a lot by city, education and family background.</li>
+            <li><b>Income is before tax and per person.</b> More 25 to 34 year olds are in school now than in 1976, and far more women work full time, which changes who is counted in the median.</li>
+            <li><b>The housing lines are indexes.</b> They show how prices and payments moved against income, and they do not give a price in dollars. The payment line ignores the down payment, which is harder to save when prices are high.</li>
+            <li><b>CMHC rents cover older purpose-built apartments</b> and include long-term tenants, so they sit below what a new renter is asked to pay today.</li>
+            <li><b>Six measures are not a life.</b> Health, safety, technology, travel and choice have changed too, mostly for the better, and are not counted here.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>Daiki Takizawa · University of Toronto · Built November 2026</span>
+    <span><a href="https://takizawadaiki.github.io/">Portfolio</a> · <a href="https://github.com/takizawadaiki/takizawadaiki.github.io/tree/main/generations">Code and data</a></span>
+  </footer>
+</div>
+<script src="../chart.umd.min.js"></script>
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const el = (tag, cls, html) => { const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; };
+  const C = { me: '#d95926', pa: '#3987e5', green: '#199e70', line: '#c9cfc0', grid: '#262d22', ink: '#f0f0e7', muted: '#a5ab9e' };
+  const money = v => '$' + Math.round(v).toLocaleString('en-CA');
+  const pct = (v, d = 0) => (v > 0 ? '+' : v < 0 ? '−' : '') + Math.abs(v).toFixed(d) + '%';
+
+  const progress = document.querySelector('.progress');
+  const onScroll = () => { const h = document.documentElement; progress.style.setProperty('--p', h.scrollTop / Math.max(1, h.scrollHeight - h.clientHeight)); };
+  addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+  fetch('results/results.json').then(r => { if (!r.ok) throw new Error(r.status); return r.json(); }).then(render).catch(e => {
+    $('error').hidden = false; $('error').textContent = 'The results file could not be loaded (' + e.message + '). The data is in the repository linked at the bottom of the page.';
+    $('headline').textContent = 'Results unavailable.';
+  });
+
+  function render(R) {
+    const S = R.summary, Y = {}, LAST = S.last, FIRST = S.first, LASTINC = S.last_income_year, BAND = R.config.similar_band;
+    R.years.forEach(r => Y[r.year] = r);
+    const years = R.years.map(r => r.year);
+    const tuitionAt = y => y >= FIRST ? Y[y].tuition : R.early_tuition[y];
+    const me = $('me'), pa = $('pa'), city = $('city');
+    R.cities.forEach(c => { const o = el('option', null, c); o.value = c; city.append(o); });
+
+    const METRICS = [
+      { key: 'income', dir: 1, name: 'Median income at 25 to 34', fmt: money, note: 'A year, in 2025 dollars' },
+      { key: 'house_to_income', dir: -1, name: 'House prices against income', fmt: v => Math.round(v), note: 'Index, 1976 = 100' },
+      { key: 'payment_to_income', dir: -1, name: 'Mortgage payment against income', fmt: v => Math.round(v), note: 'Index, 1976 = 100, at that year’s rate' },
+      { key: 'rent', dir: -1, name: 'One-bedroom rent', fmt: money, note: 'A month, in 2025 dollars' },
+      { key: 'tuition', dir: -1, name: 'Undergraduate tuition', fmt: money, note: 'A year, in 2025 dollars, at age 20' },
+      { key: 'unemployment', dir: -1, name: 'Unemployment, ages 25 to 29', fmt: v => v.toFixed(1) + '%', note: 'Share of the labour force' },
+    ];
+    function snapshot(born) {
+      const y = Math.min(born + 25, LAST), yi = Math.min(y, LASTINC), ty = Math.min(born + 20, LAST);
+      return { y, yi, ty, income: Y[yi].income, house_to_income: Y[yi].house_to_income, payment_to_income: Y[yi].payment_to_income,
+        rent: Y[y].rent[city.value] ?? null, tuition: tuitionAt(ty) ?? null, unemployment: Y[y].unemployment, rate: Y[y].mortgage_rate };
+    }
+    const judge = (a, b, dir) => { if (a == null || b == null) return null; const ch = (a - b) / b; return Math.abs(ch) <= BAND ? 'same' : (ch * dir > 0 ? 'better' : 'worse'); };
+
+    // ---------- charts ----------
+    Chart.defaults.color = C.muted; Chart.defaults.font.family = "'DM Sans', system-ui, sans-serif"; Chart.defaults.font.size = 12;
+    if (reduced) Chart.defaults.animation = false;
+    const charts = [];
+    function line(id, sets, yOpts, markKey) {
+      const ch = new Chart($(id), {
+        type: 'line',
+        data: { labels: years, datasets: sets.map(s => ({ label: s.label, data: years.map(y => s.get(Y[y])), borderColor: s.color, backgroundColor: s.color, borderWidth: s.thin ? 1.75 : 2.5, borderDash: s.dash || [], tension: .25, spanGaps: false, pointRadius: 0, pointHoverRadius: 5, yAxisID: s.axis || 'y' })) },
+        options: { maintainAspectRatio: false, interaction: { mode: 'index', intersect: false },
+          plugins: { legend: { display: sets.length > 1, position: 'bottom', labels: { usePointStyle: true, pointStyle: 'line', boxWidth: 28 } },
+            tooltip: { callbacks: { label: c => `${c.dataset.label}: ${sets[c.datasetIndex].fmt(c.parsed.y)}` } } },
+          scales: Object.assign({ x: { grid: { display: false }, ticks: { maxRotation: 0, autoSkipPadding: 18 } }, y: Object.assign({ grid: { color: C.grid } }, yOpts.y) }, yOpts.y2 ? { y2: Object.assign({ position: 'right', grid: { display: false } }, yOpts.y2) } : {}) },
+      });
+      ch.$mark = markKey || 'y'; charts.push(ch); return ch;
+    }
+    const k = v => '$' + (v / 1000).toFixed(0) + 'k';
+    line('c-income', [{ label: 'Ages 25 to 34', get: r => r.income, color: C.line, fmt: money }, { label: 'Ages 45 to 54', get: r => r.income_4554, color: '#6f7a66', fmt: money, thin: true, dash: [5, 4] }], { y: { min: 30000, ticks: { callback: k } } }, 'yi');
+    line('c-gender', [{ label: 'Men', get: r => r.income_men, color: '#3987e5', fmt: money }, { label: 'Women', get: r => r.income_women, color: '#199e70', fmt: money }], { y: { min: 20000, ticks: { callback: k } } }, 'yi');
+    line('c-house', [{ label: 'House prices against income', get: r => r.house_to_income, color: C.line, fmt: v => Math.round(v) }, { label: 'Mortgage payment against income', get: r => r.payment_to_income, color: '#e0a84a', fmt: v => Math.round(v) }], { y: { min: 50 } }, 'yi');
+    const rentChart = line('c-rent', [{ label: 'Monthly rent (left)', get: r => r.rent[city.value] ?? null, color: C.line, fmt: money }, { label: 'Share of young income (right)', get: r => r.rent_share[city.value] ?? null, color: '#e0a84a', fmt: v => v.toFixed(0) + '%', axis: 'y2', thin: true }], { y: { min: 600, ticks: { callback: v => '$' + v.toLocaleString('en-CA') } }, y2: { min: 15, ticks: { callback: v => v + '%' } } });
+    const tuitionChart = line('c-tuition', [{ label: 'Tuition', get: r => r.tuition, color: C.line, fmt: money }], { y: { min: 0, ticks: { callback: v => '$' + v.toLocaleString('en-CA') } } }, 'ty');
+    line('c-jobs', [{ label: 'Ages 25 to 29', get: r => r.unemployment, color: C.line, fmt: v => v.toFixed(1) + '%' }, { label: 'Ages 15 to 24', get: r => r.unemployment_1524, color: '#6f7a66', fmt: v => v.toFixed(1) + '%', thin: true, dash: [5, 4] }], { y: { min: 0, ticks: { callback: v => v + '%' } } });
+
+    function markCharts(a, b) {
+      charts.forEach(ch => {
+        const ya = a[ch.$mark], yb = b[ch.$mark], d = ch.data.datasets[0];
+        d.pointRadius = years.map(y => y === ya || y === yb ? 7 : 0);
+        d.pointBackgroundColor = years.map(y => y === ya ? C.me : y === yb ? C.pa : d.borderColor);
+        d.pointBorderColor = years.map(y => y === ya || y === yb ? C.ink : d.borderColor);
+        d.pointBorderWidth = 2;
+        ch.update(reduced ? 'none' : undefined);
+      });
+    }
+
+    // ---------- heat table ----------
+    const tercile = {};
+    function rankAll() {
+      METRICS.forEach(m => {
+        const get = y => m.key === 'rent' ? (Y[y].rent[city.value] ?? null) : Y[y][m.key];
+        const vals = years.map(y => [y, get(y)]).filter(v => v[1] != null).sort((p, q) => (p[1] - q[1]) * -m.dir);
+        const n = vals.length; tercile[m.key] = {};
+        vals.forEach(([y], i) => tercile[m.key][y] = i < n / 3 ? 'g' : i >= 2 * n / 3 ? 'r' : '');
+      });
+    }
+    function heat(a, b) {
+      const short = ['Income', 'House price index', 'Payment index', 'Rent', 'Tuition that year', 'Unemployment'];
+      let h = '<thead><tr><th>Turned 25 in</th>' + short.map(s => `<th>${s}</th>`).join('') + '</tr></thead><tbody>';
+      years.filter(y => y % 2 === 0 || y === a.y || y === b.y).forEach(y => {
+        const cls = y === a.y ? 'me' : y === b.y ? 'pa' : '';
+        h += `<tr class="${cls}"><td>${y}${y === a.y ? ' · you' : y === b.y ? ' · parent' : ''}</td>` + METRICS.map(m => {
+          const v = m.key === 'rent' ? (Y[y].rent[city.value] ?? null) : Y[y][m.key];
+          return v == null ? '<td class="na">–</td>' : `<td class="${tercile[m.key][y] || ''}">${m.fmt(v)}</td>`;
+        }).join('') + '</tr>';
+      });
+      $('heat').innerHTML = h + '</tbody>';
+    }
+
+    // ---------- scorecard ----------
+    function update(src) {
+      let b = +me.value, p = +pa.value;
+      if (b - p < 15) { if (src === 'pa') { b = Math.min(2005, p + 15); me.value = b; p = Math.min(p, b - 15); pa.value = p; } else { p = Math.max(1952, b - 15); pa.value = p; } }
+      $('me-out').textContent = b; $('pa-out').textContent = p;
+      const A = snapshot(b), B = snapshot(p);
+      const young = b + 25 > LAST;
+      $('ages-note').textContent = `${b + 25 > LAST ? `You have not turned 25 yet, so your side uses ${LAST}, the latest year of data` : `You turned 25 in ${b + 25}`}. Your parent turned 25 in ${B.y}, when the five-year mortgage rate was ${B.rate.toFixed(1)}%. In ${A.y} it was ${A.rate.toFixed(1)}%.`;
+      let worse = 0, better = 0, n = 0; $('score').innerHTML = '';
+      METRICS.forEach(m => {
+        const a = A[m.key], q = B[m.key], v = judge(a, q, m.dir);
+        if (v) { n++; if (v === 'worse') worse++; if (v === 'better') better++; }
+        const ch = a != null && q != null ? (a - q) / q * 100 : null;
+        const card = el('div', 'sc ' + (v || 'na'));
+        const tag = v === 'worse' ? 'Worse for you' : v === 'better' ? 'Better for you' : v === 'same' ? 'About the same' : 'No data';
+        const how = ch == null ? `Rent data for ${city.value} starts in 1987.` : m.key === 'unemployment' ? `${Math.abs(a - q).toFixed(1)} points ${a > q ? 'higher' : 'lower'} than your parent faced.` : `${pct(ch)} against your parent. ${m.note}.`;
+        card.innerHTML = `<div class="top"><h3>${m.name}</h3><span class="tag">${tag}</span></div><div class="pair"><div class="me"><span>You · ${m.key === 'tuition' ? A.ty : m.key === 'rent' || m.key === 'unemployment' ? A.y : A.yi}</span><b>${a == null ? '–' : m.fmt(a)}</b></div><div class="pa"><span>Parent · ${m.key === 'tuition' ? B.ty : m.key === 'rent' || m.key === 'unemployment' ? B.y : B.yi}</span><b>${q == null ? '–' : m.fmt(q)}</b></div></div><p>${how}</p>`;
+        $('score').append(card);
+      });
+      const same = n - worse - better;
+      $('headline').innerHTML = `Someone born in <strong>${b}</strong> ${worse > better ? 'had it harder than' : better > worse ? 'had it easier than' : 'came out about level with'} a parent born in <strong>${p}</strong>: worse on <strong>${worse}</strong> of ${n} measures, better on <strong>${better}</strong>${same ? `, and about the same on ${same}` : ''}.`;
+      $('presets').querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', String(+x.dataset.b === b && +x.dataset.p === p)));
+      $('rent-city').textContent = city.value;
+      rentChart.data.datasets[0].data = years.map(y => Y[y].rent[city.value] ?? null);
+      rentChart.data.datasets[1].data = years.map(y => Y[y].rent_share[city.value] ?? null);
+      const rc = S.rent[city.value];
+      $('rent-note').textContent = `In ${city.value}, real rent rose ${rc.change_pct.toFixed(0)}% between 1987 and ${LAST}, and went from ${rc.share_start.toFixed(0)}% to ${rc.share_end.toFixed(0)}% of the median young income. Source: CMHC, Statistics Canada table 34-10-0133-01.`;
+      rankAll(); heat(A, B); markCharts(A, B);
+    }
+    [['Gen Z and Gen X', 2000, 1970], ['Millennial and Boomer', 1990, 1960], ['Gen X and Boomer', 1975, 1952], ['Born 2005 and 1975', 2005, 1975]].forEach(([label, b, p]) => {
+      const btn = el('button', null, `${label} · ${b} and ${p}`); btn.type = 'button'; btn.dataset.b = b; btn.dataset.p = p;
+      btn.addEventListener('click', () => { me.value = b; pa.value = p; update(); }); $('presets').append(btn);
+    });
+    me.addEventListener('input', () => update('me')); pa.addEventListener('input', () => update('pa')); city.addEventListener('change', () => update());
+
+    // ---------- static findings ----------
+    const I = S.income, H = S.housing, T = S.tuition, J = S.jobs;
+    $('inc-word').textContent = I.change_pct < 0 ? 'less' : 'more';
+    $('inc-lede').textContent = `The median 25 to 34 year old took in ${money(I.start)} in 1976 and ${money(I.end)} in ${LASTINC}, in today’s dollars. That is ${Math.abs(I.change_pct).toFixed(0)}% ${I.change_pct < 0 ? 'lower' : 'higher'}. Over the same years the median for 45 to 54 year olds rose ${I.age4554_change_pct.toFixed(0)}%. The low point was ${I.low.year}, at ${money(I.low.value)}.`;
+    $('gender-note').textContent = `Men’s median fell ${Math.abs(I.men_change_pct).toFixed(0)}% and women’s rose ${I.women_change_pct.toFixed(0)}% between 1976 and ${LASTINC}. The overall fall is a fall in young men’s pay, partly offset by far more women working full time. Source: Statistics Canada, table 11-10-0239-01.`;
+    $('hou-word').textContent = (H.to_income_end / 100).toFixed(1).replace('.0', '') + ' times';
+    $('hou-lede').textContent = `After inflation, house prices rose ${H.real_price_change_pct.toFixed(0)}% between 1976 and ${LAST} while young incomes fell. Measured against the median young income, prices stood at ${H.to_income_end} in ${LASTINC} against 100 in 1976, after peaking at ${Math.round(H.to_income_peak.value)} in ${H.to_income_peak.year}. Lower interest rates soften this. Mortgage rates reached ${H.rate_peak.value.toFixed(1)}% in ${H.rate_peak.year}, so the monthly payment on the same share of a home is ${(H.payment_end / 100).toFixed(1)} times its 1976 level, not three times.`;
+    $('tu-word').textContent = T.change_pct.toFixed(0) + '%';
+    $('sch-lede').textContent = `Average undergraduate tuition was ${money(T.start)} a year in 1976 and ${money(T.end)} in ${LAST}, in today’s dollars. It was lowest in ${T.low.year} at ${money(T.low.value)}. Unemployment for 25 to 29 year olds was ${Y[FIRST].unemployment.toFixed(1)}% in 1976 and ${J.end.toFixed(1)}% in ${LAST}. The worst year to be looking for work was ${J.peak.year}, at ${J.peak.value.toFixed(1)}%.`;
+    $('jobs-note').textContent = `The share of employed 25 to 29 year olds working full time slipped from ${J.full_time_start.toFixed(0)}% in 1976 to ${J.full_time_end.toFixed(0)}% in ${LAST}. Source: Statistics Canada Labour Force Survey, table 14-10-0327-01.`;
+    [
+      ['Hardest year for pay', `${I.low.year}`, `The median young income bottomed out at ${money(I.low.value)}, lower than any year before or since. People born around ${I.low.year - 25} started out in the weakest pay of the half century.`],
+      ['Hardest year to buy', `${H.payment_peak.year}`, `Mortgage payments against income peaked at ${Math.round(H.payment_peak.value)}, nearly double 1976. In ${H.rate_peak.year} the mortgage rate was ${H.rate_peak.value.toFixed(1)}%, but houses were far cheaper, so the payment was lower than today’s.`],
+      ['Hardest year to find work', `${J.peak.year}`, `Unemployment for 25 to 29 year olds reached ${J.peak.value.toFixed(1)}%. The best year was ${J.low.year}, at ${J.low.value.toFixed(1)}%. On jobs alone, most recent years have been easier than the 1980s and 1990s.`],
+    ].forEach(([kk, big, text]) => { const p = el('div', 'panel rv'); p.append(el('span', 'k', kk), el('h3', null, big), el('p', 'sub', text)); p.querySelector('h3').style.cssText = 'font-size:34px;letter-spacing:-.03em;margin:8px 0 6px'; $('takeaways').append(p); });
+
+    me.value = 2000; pa.value = 1970; city.value = 'Toronto'; update();
+
+    if (!reduced && 'IntersectionObserver' in window) {
+      document.documentElement.classList.add('js-reveal');
+      const io = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } }), { threshold: .08, rootMargin: '0px 0px -5% 0px' });
+      document.querySelectorAll('.rv').forEach(n => io.observe(n));
+    }
+  }
+})();
+</script>
+</body>
+</html>
