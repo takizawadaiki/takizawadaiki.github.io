@@ -1048,6 +1048,11 @@ h1 {
 @media(max-width:760px){.wealth-feature{grid-template-columns:1fr;gap:24px;padding:26px 23px;margin-top:22px}.wealth-feature .wealth-detail{border-left:0;border-top:1px solid #37554e;padding:20px 0 0}.wealth-feature h2{letter-spacing:-1px}}
 
 
+.bunt-feature{border-color:#4d5a3a;background:linear-gradient(115deg,#1c2414,#151a12)}
+.bunt-feature .wealth-label,.bunt-feature h2 em{color:#c8e08f}
+.bunt-feature .wealth-cta{background:#c8e08f;color:#182008}
+.bunt-feature .wealth-cta:hover{background:#dbeeae}
+.bunt-feature .wealth-detail{border-color:#4d5a3a}
 .gen-feature{border-color:#5e5230;background:linear-gradient(115deg,#27210f,#1a1810)}
 .gen-feature .wealth-label,.gen-feature h2 em{color:#f0d58a}
 .gen-feature .wealth-cta{background:#f0d58a;color:#231d08}
@@ -1067,17 +1072,18 @@ h1 {
 .case-study:has(.mini) .case-hook{max-width:47%}
 .case-study:has(.mini) .visual-note{max-width:48%;line-height:1.5}
 @media(max-width:760px){.case-study .mini{left:52%;right:18px;gap:6px}.mini b{font-size:11px}.mini span{font-size:7.5px;letter-spacing:0}.case-study:has(.mini) .case-hook{font-size:22px;max-width:46%}}
-.feature-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:14px 0 12px}
+.feature-row{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:14px;margin:14px 0 12px}
+.feature-row .wealth-feature{grid-column:span 2}.feature-row .wealth-feature:nth-child(-n+2){grid-column:span 3}
 .feature-row .wealth-feature{display:flex;flex-direction:column;gap:0;margin:0;padding:26px 26px 24px;align-items:stretch}
 .feature-row .wealth-feature>div:first-child{flex:1}
 .feature-row .wealth-feature h2{font-size:clamp(25px,2.3vw,32px);letter-spacing:-1px;margin:12px 0 10px}
 .feature-row .wealth-feature p{font-size:13px;line-height:1.7}
 .feature-row .wealth-feature .wealth-cta{margin-top:18px;padding:9px 14px;font-size:13px;gap:18px}
 .feature-row .wealth-feature .wealth-detail{border-left:0;border-top:1px solid #37554e;padding:18px 0 0;margin-top:22px}
-.feature-row .pitch-feature .wealth-detail{border-color:#6b4a3a}.feature-row .cap-feature .wealth-detail{border-color:#2f4a6b}.feature-row .bullpen-feature .wealth-detail{border-color:#344f68}
+.feature-row .pitch-feature .wealth-detail{border-color:#6b4a3a}.feature-row .gen-feature .wealth-detail{border-color:#5e5230}.feature-row .cap-feature .wealth-detail{border-color:#2f4a6b}.feature-row .bullpen-feature .wealth-detail{border-color:#344f68}
 .feature-row .wealth-detail strong{font-size:17px;line-height:1.35;margin:8px 0 0}
 .feature-row .wealth-detail p{display:none}
-@media(max-width:1000px){.feature-row{grid-template-columns:1fr}}
+@media(max-width:1000px){.feature-row{grid-template-columns:1fr}.feature-row .wealth-feature,.feature-row .wealth-feature:nth-child(-n+2){grid-column:auto}}
 .pitch-feature{border-color:#6b4a3a;background:linear-gradient(115deg,#2a1c14,#1b1612)}
 .pitch-feature .wealth-label,.pitch-feature h2 em{color:#ffb08a}
 .pitch-feature .wealth-cta{background:var(--orange);color:#171b13}
@@ -1362,10 +1368,29 @@ kbd{font:500 10px/1 var(--heading);border:1px solid var(--border);border-radius:
     <div class="hero-bottom"><span>DATA ANALYTICS · UNIVERSITY OF TORONTO</span><div><span>Business intelligence</span><i>/</i><span>Sports economics</span><i>/</i><span>Predictive modeling</span></div><a href="#latest" aria-label="Scroll to latest projects">↓</a></div>
   </section>
 
-  <section class="wealth-feature gen-feature" id="latest" aria-labelledby="gen-heading">
+  <section class="wealth-feature bunt-feature" id="latest" aria-labelledby="bunt-heading">
     <div>
-      <span class="wealth-label">Latest project / Economics</span>
-      <h2 id="gen-heading">Are You Worse Off<br><em>Than Your Parents?</em></h2>
+      <span class="wealth-label">Latest project / Baseball research</span>
+      <h2 id="bunt-heading">What Is a Sacrifice Bunt<br><em>Really Worth?</em></h2>
+      <p>Japanese teams bunt a runner over 3.6 times as often as MLB teams. Two million MLB plate appearances and a run-scoring model built for both leagues test whether they are right, with a bunt-or-swing tool for any inning and score.</p>
+      <a class="wealth-cta" href="/bunt/">Bunt or swing? <span aria-hidden="true">↗</span></a>
+    </div>
+    <div class="wealth-detail">
+      <span class="wealth-label">MLB · NPB / 2005–2026</span>
+      <strong><span data-count="2088742">2,088,742</span> plate appearances.<br>The bunt costs little and gains little.</strong>
+      <p>It pays late in tie games and for weak hitters. Japan’s heavy bunting costs each team about four runs a season.</p>
+    </div>
+  </section>
+
+
+
+
+
+  <div class="feature-row">
+  <section class="wealth-feature gen-feature" aria-labelledby="gen-heading">
+    <div>
+      <span class="wealth-label">Economics</span>
+      <h2 id="gen-heading">Are You Worse Off <em>Than Your Parents?</em></h2>
       <p>Enter two birth years and compare what each person faced at 25 in Canada: pay, house prices, mortgage payments, rent, tuition and the job market, adjusted for inflation.</p>
       <a class="wealth-cta" href="/generations/">Try your own years <span aria-hidden="true">↗</span></a>
     </div>
@@ -1375,10 +1400,6 @@ kbd{font:500 10px/1 var(--heading);border:1px solid var(--border);border-radius:
       <p>Young men’s income fell 24% while young women’s rose 43%. Tuition is up 161%. Unemployment is about where it was.</p>
     </div>
   </section>
-
-
-
-  <div class="feature-row">
   <section class="wealth-feature cap-feature" aria-labelledby="cap-heading">
     <div>
       <span class="wealth-label">Sports business</span>

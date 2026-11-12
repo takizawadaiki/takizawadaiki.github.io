@@ -181,7 +181,17 @@ def league_model(tot, mix):
         swing = [[round(v, 4) for v in M.batter_then_league(outs, bases, M.scale_batter(cal['rates'], f), cal)] for f in BATTER_FACTORS]
         kinds = {k: [round(v, 4) for v in M.bunt_value(outs, bases, {k: 1.0}, cal)] for k in KINDS}
         states[f'{outs}|{bases}'] = dict(swing=swing, bunt=kinds)
-    return dict(rates={k: round(v, 4) for k, v in cal['rates'].items()}, dp=round(cal['dp'], 4), sf=round(cal['sf'], 4),
+    # win probability: the run distribution of the rest of the half-inning after each choice
+    dists = M.run_distributions(cal['rates'], cal['dp'], cal['sf'])
+    W, after_half = M.win_table(dists[(0, '000')])
+    r5 = lambda d: [round(x, 5) for x in d]
+    for outs, bases in SAC_STATES:
+        st = states[f'{outs}|{bases}']
+        st['swing_dist'] = [r5(M.swing_distribution(outs, bases, M.scale_batter(cal['rates'], f), cal, dists)) for f in BATTER_FACTORS]
+        st['bunt_dist'] = {k: r5(M.bunt_distribution(outs, bases, k, dists)) for k in KINDS}
+    win_start = [[[round(W[(i, h, lead)], 5) for lead in range(-M.MAX_LEAD, M.MAX_LEAD + 1)] for h in (0, 1)] for i in range(1, 10)]
+    return dict(win_start=win_start, _dists=dists, _after=after_half,
+                rates={k: round(v, 4) for k, v in cal['rates'].items()}, dp=round(cal['dp'], 4), sf=round(cal['sf'], 4),
                 model_runs_per_inning=round(cal['model_runs_per_inning'], 4), actual_runs_per_inning=round(cal['actual_runs_per_inning'], 4),
                 matrix={f'{o}|{b}': [round(cal['runs'][(o, b)], 3), round(cal['p_score'][(o, b)], 3)] for o, b in M.STATES},
                 states=states, _cal=cal)
@@ -197,6 +207,43 @@ def decide(league, mix, outs, bases, who, factor):
     sr, sp = M.batter_then_league(outs, bases, M.scale_batter(cal['rates'], factor), cal)
     return dict(bunt_runs=round(br, 3), swing_runs=round(sr, 3), bunt_score=round(bp, 4), swing_score=round(sp, 4),
                 runs_diff=round(br - sr, 3), score_diff=round(bp - sp, 4))
+
+
+def decide_win(league, mix, outs, bases, who, factor, inning, half, lead):
+    """Bunt against swing on the chance of winning the game."""
+    cal, dists, after = league['_cal'], league['_dists'], league['_after']
+    key = f"{'pitcher' if who == 'pitcher' else 'hitter'}|{outs}|{bases}"
+    m = mix.get(key) or mix[f"{'pitcher' if who == 'pitcher' else 'hitter'}|all|all"]
+    bunt = sum(m[k] * M.win_probability(M.bunt_distribution(outs, bases, k, dists), after, inning, half, lead) for k in KINDS)
+    swing = M.win_probability(M.swing_distribution(outs, bases, M.scale_batter(cal['rates'], factor), cal, dists), after, inning, half, lead)
+    return dict(bunt_win=round(bunt, 4), swing_win=round(swing, 4), win_diff=round(bunt - swing, 4))
+
+
+LATE_SCENARIOS = [('1st inning, visitors, tied', 1, 0, 0), ('7th inning, home, tied', 7, 1, 0), ('9th inning, visitors, tied', 9, 0, 0),
+                  ('9th inning, home, tied', 9, 1, 0), ('9th inning, home, down by one', 9, 1, -1), ('9th inning, visitors, up by one', 9, 0, 1)]
+
+
+def late_game_evidence(bunts, baseline):
+    """Real MLB results from the 7th inning on, in games within one run, nobody out, position players only."""
+    out = []
+    names = {'-1': 'Trailing by one', '0': 'Tied', '+1': 'Leading by one'}
+    for bases in ('100', '010'):
+        for diff in ('-1', '0', '+1'):
+            b = [x for x in bunts if x['ghost'] != 'True' and int(x['inning']) >= 7 and int(x['outs']) == 0 and x['bases'].zfill(3) == bases
+                 and x['batter_class'] != 'pitcher' and {-1: '-1', 0: '0', 1: '+1'}.get(int(x['score_diff'])) == diff]
+            sw = defaultdict(float)
+            for r in baseline:
+                if (r['ghost'] != 'True' and r['inning_bucket'] in ('7-8', '9', '10+') and int(r['outs']) == 0 and r['bases'].zfill(3) == bases
+                        and r['batter_class'] != 'pitcher' and r['diff_bucket'] == diff):
+                    for c in ('n', 'won', 'scored'):
+                        sw[c] += float(r[c])
+            if len(b) < 40 or sw['n'] < 200:
+                continue
+            won, scored = sum(x['bat_won'] == 'True' for x in b), sum(int(x['runs_rest']) > 0 for x in b)
+            out.append(dict(bases=bases, score=names[diff], bunts=len(b), swings=int(sw['n']), bunt_win=round(won / len(b), 4),
+                            bunt_win_ci=wilson(won, len(b)), swing_win=round(sw['won'] / sw['n'], 4),
+                            bunt_score=round(scored / len(b), 4), swing_score=round(sw['scored'] / sw['n'], 4)))
+    return out
 
 
 def breakeven_factor(league, mix, outs, bases, goal):
@@ -240,6 +287,10 @@ def main():
             cases=[dict(outs=o, bases=b, who=who, **decide(lg, mix, o, b, who, f)) for o, b in key_states for who, f in BATTER_TYPES.items()],
             breakeven={f'{o}|{b}': dict(runs=breakeven_factor(lg, mix, o, b, 'runs'), score=breakeven_factor(lg, mix, o, b, 'score')) for o, b in key_states})
 
+    late = {name: [dict(scenario=label, bases=b, who=who, **decide_win(leagues[name], mix, 0, b, who, f, i, h, lead))
+                   for label, i, h, lead in LATE_SCENARIOS for b in ('100', '010') for who, f in (('middle', 1.0), ('weak', BATTER_TYPES['weak']))]
+            for name in ('MLB', 'NPB')}
+
     # a rough price for Japan's extra bunting: sacrifices by non-pitchers, valued at the average hitter's cost with a runner on first
     npb_recent = totals(npb, set(RECENT))
     cost = -decide(leagues['NPB'], mix, 0, '100', 'middle', 1.0)['runs_diff']
@@ -248,14 +299,19 @@ def main():
     tr = trend(mlb, npb)
     last = tr[-1]
     for lg in leagues.values():
-        del lg['_cal']
+        for k in ('_cal', '_dists', '_after'):
+            del lg[k]
+    for k in ('win_start',):          # the older comparison league does not need the win tables on the page
+        del leagues['NPB_2011'][k]
+    for st in leagues['NPB_2011']['states'].values():
+        st.pop('swing_dist'); st.pop('bunt_dist')
     results = dict(
         trend=tr, seasons=[{k: int(v) for k, v in s.items()} for s in seasons],
         headline=dict(year=last['year'], mlb_per_game=last['mlb'], npb_per_game=last['npb'], ratio=round(last['npb'] / last['mlb'], 1),
                       npb_peak=max(tr, key=lambda t: t['npb']), mlb_low=min(tr, key=lambda t: t['mlb']),
                       plate_appearances=sum(int(s['pa']) for s in seasons), bunts=len(bunts)),
         fit=fit, fit_summary=fit_summary, outcome_mix=mix, evidence=bunt_evidence(bunts, baseline), ghost=ghost_runner(bunts, baseline),
-        leagues=leagues, verdicts=verdicts, batter_factors=BATTER_FACTORS, batter_types=BATTER_TYPES, kinds=KINDS,
+        leagues=leagues, verdicts=verdicts, late=late, late_evidence=late_game_evidence(bunts, baseline), max_lead=M.MAX_LEAD, batter_factors=BATTER_FACTORS, batter_types=BATTER_TYPES, kinds=KINDS,
         state_names=STATE_NAMES, recent=list(RECENT),
         npb_cost=dict(sacrifices_per_team=round(per_team, 1), runs_per_sacrifice=round(cost, 3), runs_per_team=round(per_team * cost, 1)))
     (HERE / 'results').mkdir(exist_ok=True)
@@ -282,3 +338,9 @@ if __name__ == '__main__':
                 print('   ', c['bases'], c['who'], 'runs', c['bunt_runs'], c['swing_runs'], 'score', c['bunt_score'], c['swing_score'])
         print('    breakeven', r['verdicts'][lg]['breakeven'])
     print('cost', r['npb_cost'])
+    for lg in ('MLB', 'NPB'):
+        for c in r['late'][lg]:
+            if c['who'] == 'middle':
+                print(lg, c['scenario'], c['bases'], c['bunt_win'], c['swing_win'], c['win_diff'])
+    for e in r['late_evidence']:
+        print('late', e)

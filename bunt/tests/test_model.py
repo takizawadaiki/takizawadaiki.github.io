@@ -58,6 +58,39 @@ class Model(unittest.TestCase):
         self.assertAlmostEqual(avg, self.cal['runs'][(0, '100')])
 
 
+class WinProbability(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.cal = M.calibrate(TOTALS)
+        cls.dists = M.run_distributions(cls.cal['rates'], cls.cal['dp'], cls.cal['sf'])
+        cls.W, cls.after = M.win_table(cls.dists[(0, '000')])
+
+    def test_distributions_sum_to_one_and_match_expected_runs(self):
+        for s in M.STATES:
+            self.assertAlmostEqual(sum(self.dists[s]), 1.0, places=9)
+            self.assertAlmostEqual(sum(k * p for k, p in enumerate(self.dists[s])), self.cal['runs'][s], places=2)   # runs above ten are capped
+            self.assertAlmostEqual(1 - self.dists[s][0], self.cal['p_score'][s], places=6)
+
+    def test_an_even_game_starts_at_fifty_fifty(self):
+        self.assertAlmostEqual(self.W[(1, 0, 0)], 0.5, places=6)
+
+    def test_a_lead_helps_and_the_home_team_ahead_in_the_ninth_has_won(self):
+        self.assertGreater(self.W[(5, 0, 1)], self.W[(5, 0, 0)])
+        self.assertGreater(self.W[(5, 0, 0)], self.W[(5, 0, -1)])
+        self.assertEqual(self.W[(9, 1, 2)], 1.0)
+
+    def test_home_team_tied_in_the_ninth(self):
+        # it wins if it scores, and otherwise the game is a coin flip
+        p = self.cal['p_score'][(0, '000')]
+        self.assertAlmostEqual(self.W[(9, 1, 0)], p + 0.5 * (1 - p), places=6)
+
+    def test_bunt_results_keep_the_runner_count(self):
+        for outs, bases in A.SAC_STATES:
+            for kind in A.KINDS:
+                r, o, nb = M.bunt_after(outs, bases, kind)
+                self.assertEqual(bases.count('1') + 1, nb.count('1') + r + (o - outs), msg=f'{outs} {bases} {kind}')
+
+
 class Helpers(unittest.TestCase):
     def test_classify(self):
         self.assertEqual(A.classify('sac_bunt', 0, 1), 'sacrifice')

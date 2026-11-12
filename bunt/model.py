@@ -172,30 +172,119 @@ def bunt_value(outs: int, bases: str, outcome: dict, league: dict):
         safe       batter safe at first and every runner moves up (bunt hit or error)
         double     two outs: the batter and the lead runner
     """
-    b1, b2, b3 = (c == '1' for c in bases)
-    lead = 3 if b3 else 2 if b2 else 1
-
-    def after(kind):
-        if kind == 'sacrifice':
-            return int(b3), outs + 1, (False, b1, b2)
-        if kind == 'fail':
-            return 0, outs + 1, (b1, b2, b3)
-        if kind == 'safe':
-            return int(b3), outs, (True, b1, b2)
-        if kind == 'lead_out':   # the lead runner is erased, the batter takes first, trailing runners move up
-            nb = [True, b1 and lead != 1, b2 and lead != 2]
-            return 0, outs + 1, tuple(nb)
-        if kind == 'double':
-            nb = [False, b1 and lead != 1, b2 and lead != 2]
-            return 0, outs + 2, tuple(nb)
-        raise KeyError(kind)
-
     er, pz = 0.0, 0.0
     for kind, p in outcome.items():
         if p <= 0:
             continue
-        r, o, nb = after(kind)
-        key = (o, ''.join('1' if x else '0' for x in nb))
+        r, o, nb = bunt_after(outs, bases, kind)
+        key = (o, nb)
         er += p * (r + (league['runs'][key] if o < 3 else 0.0))
         pz += p * (0.0 if r > 0 else ((1 - league['p_score'][key]) if o < 3 else 1.0))
     return er, 1 - pz
+
+
+def bunt_after(outs: int, bases: str, kind: str):
+    """Where one bunt result leaves the inning: (runs scored, outs, bases)."""
+    b1, b2, b3 = (c == '1' for c in bases)
+    lead = 3 if b3 else 2 if b2 else 1
+    if kind == 'sacrifice':
+        r, o, nb = int(b3), outs + 1, (False, b1, b2)
+    elif kind == 'fail':
+        r, o, nb = 0, outs + 1, (b1, b2, b3)
+    elif kind == 'safe':
+        r, o, nb = int(b3), outs, (True, b1, b2)
+    elif kind == 'lead_out':     # the lead runner is erased, the batter takes first, trailing runners move up
+        r, o, nb = 0, outs + 1, (True, b1 and lead != 1, b2 and lead != 2)
+    elif kind == 'double':
+        r, o, nb = 0, outs + 2, (False, b1 and lead != 1, b2 and lead != 2)
+    else:
+        raise KeyError(kind)
+    return r, o, ''.join('1' if x else '0' for x in nb)
+
+
+# ---------- win probability ----------
+
+MAX_RUNS = 10     # runs in one half-inning; anything above is counted as 10
+MAX_LEAD = 12     # leads beyond this are treated as decided
+
+
+def shift(dist, runs):
+    """The same distribution with `runs` already scored."""
+    out = [0.0] * (MAX_RUNS + 1)
+    for k, p in enumerate(dist):
+        out[min(MAX_RUNS, k + runs)] += p
+    return out
+
+
+def run_distributions(rates: dict, dp: float, sf: float, adv: dict = ADVANCE):
+    """For each state, the chance of scoring exactly 0, 1, 2 ... more runs before the inning ends."""
+    zero = [1.0] + [0.0] * MAX_RUNS
+    dist = {s: list(zero) for s in STATES}
+    trans = {s: transitions(s[0], s[1], rates, dp, sf, adv) for s in STATES}
+    for _ in range(400):
+        new = {}
+        for s in STATES:
+            acc = [0.0] * (MAX_RUNS + 1)
+            for p, r, o, b in trans[s]:
+                d = shift(dist[(o, b)] if o < 3 else zero, r)
+                for k in range(MAX_RUNS + 1):
+                    acc[k] += p * d[k]
+            new[s] = acc
+        done = max(abs(a - b) for s in STATES for a, b in zip(new[s], dist[s])) < 1e-12
+        dist = new
+        if done:
+            break
+    return dist
+
+
+def win_table(inning_dist, innings: int = 9, tie_value: float = 0.5):
+    """W[(inning, half, lead)]: the chance that the team about to bat wins, at the start of that half-inning.
+    half 0 is the top (visitors bat), half 1 the bottom. A game tied after nine innings is a coin flip."""
+    W = {}
+
+    def after_half(i, half, lead):
+        """Chance the team that just batted wins, given its lead once the half-inning is over."""
+        if half == 0:
+            return 1 - at_start(i, 1, -lead)
+        if i >= innings:
+            return 1.0 if lead > 0 else tie_value if lead == 0 else 0.0
+        return 1 - at_start(i + 1, 0, -lead)
+
+    def at_start(i, half, lead):
+        if lead > MAX_LEAD:
+            return 1.0
+        if lead < -MAX_LEAD:
+            return 0.0
+        key = (i, half, lead)
+        if key not in W:
+            if half == 1 and i >= innings and lead > 0:
+                W[key] = 1.0          # the home team is ahead and does not bat
+            else:
+                W[key] = sum(p * after_half(i, half, lead + k) for k, p in enumerate(inning_dist))
+        return W[key]
+
+    for i in range(innings, 0, -1):
+        for half in (1, 0):
+            for lead in range(-MAX_LEAD, MAX_LEAD + 1):
+                at_start(i, half, lead)
+    return W, after_half
+
+
+def win_probability(dist, after_half, inning: int, half: int, lead: int):
+    """Chance of winning for the batting team, given the distribution of runs it will add in this half-inning."""
+    return sum(p * after_half(inning, half, lead + k) for k, p in enumerate(dist))
+
+
+def swing_distribution(outs, bases, batter_rates, league, dists, adv: dict = ADVANCE):
+    zero = [1.0] + [0.0] * MAX_RUNS
+    acc = [0.0] * (MAX_RUNS + 1)
+    for p, r, o, b in transitions(outs, bases, batter_rates, league['dp'], league['sf'], adv):
+        d = shift(dists[(o, b)] if o < 3 else zero, r)
+        for k in range(MAX_RUNS + 1):
+            acc[k] += p * d[k]
+    return acc
+
+
+def bunt_distribution(outs, bases, kind, dists):
+    r, o, nb = bunt_after(outs, bases, kind)
+    return shift(dists[(o, nb)] if o < 3 else [1.0] + [0.0] * MAX_RUNS, r)

@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="theme-color" content="#10120f"/>
+<meta name="description" content="What is a sacrifice bunt worth? Two million MLB plate appearances and a run-scoring model for MLB and Japan's NPB, with a bunt-or-swing tool."/>
+<link rel="icon" href="/favicon.ico" sizes="48x48"/>
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"/>
+<link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
+<title>What Is a Sacrifice Bunt Worth? · Daiki Takizawa</title>
+<link rel="canonical" href="https://takizawadaiki.github.io/bunt/"/>
+<meta property="og:type" content="website"/>
+<meta property="og:site_name" content="Daiki Takizawa"/>
+<meta property="og:title" content="What Is a Sacrifice Bunt Worth? MLB and Japan Compared · Daiki Takizawa"/>
+<meta property="og:description" content="Japanese teams bunt several times as often as MLB teams. Two million plate appearances and a run-scoring model test whether they are right."/>
+<meta property="og:url" content="https://takizawadaiki.github.io/bunt/"/>
+<meta property="og:image" content="https://takizawadaiki.github.io/og-image.png"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  color-scheme:dark;
+  --bg:#10120f;--card:#151a13;--ink:#f0f0e7;--muted:#a5ab9e;--border:#30372d;--orange:#ff8050;
+  --blue:#3987e5;--heading:'Space Grotesk',sans-serif;
+}
+html{scroll-behavior:smooth;scroll-padding-top:24px}
+body{background:var(--bg);color:var(--ink);font:15px/1.65 'DM Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button{font:inherit}
+.wrap{width:min(1240px,calc(100% - 64px));margin:0 auto}
+.progress{position:fixed;top:0;left:0;right:0;height:3px;z-index:60;background:linear-gradient(90deg,#ff8050,#ffb08a);transform:scaleX(var(--p,0));transform-origin:0 50%;pointer-events:none}
+.skip{position:fixed;left:16px;top:-80px;z-index:70;background:var(--orange);color:#171b13;padding:10px 14px;border-radius:6px}
+.skip:focus{top:12px}
+:focus-visible{outline:3px solid var(--orange);outline-offset:3px}
+header.top{display:flex;justify-content:space-between;align-items:center;gap:16px;height:92px;border-bottom:1px solid var(--border)}
+.brand{display:flex;align-items:center;font:600 18px var(--heading);letter-spacing:-.6px}
+.brand i{font-style:normal;background:#dbe4cd;color:#151a12;font-size:21px;padding:4px 9px;margin-right:13px;letter-spacing:-3px}
+.brand b{color:var(--orange)}
+.top nav{display:flex;gap:26px;font-size:12px;color:var(--muted)}
+.top nav a:hover{color:var(--orange)}
+.eyebrow,.k{font:500 10.5px/1.5 var(--heading);letter-spacing:1.3px;text-transform:uppercase;color:var(--muted)}
+.eyebrow{display:flex;align-items:center;gap:9px}
+.eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--orange)}
+.hero{padding:56px 0 30px;display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:48px;align-items:end}
+h1{font:500 clamp(40px,5.6vw,82px)/.98 var(--heading);letter-spacing:-.055em;margin-top:18px}
+h1 em{font-family:Georgia,'Times New Roman',serif;font-weight:400;font-style:italic;color:var(--orange);letter-spacing:-.04em}
+.lede{color:var(--muted);font-size:15.5px;line-height:1.8;max-width:54ch}
+.verdict{display:grid;grid-template-columns:auto 1fr auto;gap:22px;align-items:center;border:1px solid #5b4435;border-left:3px solid var(--orange);background:#1b1612;border-radius:0 12px 12px 0;padding:18px 22px;margin-top:8px}
+.verdict .k{color:var(--orange);white-space:nowrap}
+.verdict p{font-size:15px;line-height:1.6}
+.verdict p strong{font-weight:600}
+.verdict a{font:500 12.5px var(--heading);white-space:nowrap;border-bottom:1px solid var(--border);padding-bottom:3px}
+.verdict a:hover{color:var(--orange)}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:26px 0 8px}
+.kpi{position:relative;display:flex;flex-direction:column;gap:6px;min-height:170px;padding:20px 18px 16px;border:1px solid var(--border);border-radius:14px;background:linear-gradient(180deg,#151a13,#10120f);overflow:hidden;isolation:isolate;transition:border-color .3s,translate .3s}
+.kpi::before{content:"";position:absolute;inset:0;z-index:-1;opacity:0;transition:opacity .35s;background:radial-gradient(240px circle at var(--mx,50%) var(--my,50%),rgba(255,128,80,.2),transparent 62%)}
+.kpi:hover{border-color:#6b4a3a;translate:0 -3px}.kpi:hover::before{opacity:1}
+.kpi .v{font:600 clamp(30px,3.2vw,44px)/1 var(--heading);letter-spacing:-.03em;margin-top:6px;font-variant-numeric:tabular-nums}
+.kpi .n{font-size:12.5px;line-height:1.5;color:var(--muted)}
+.kpi .src{margin-top:auto;border-top:1px solid var(--border);padding-top:9px;font:500 10.5px/1.4 var(--heading);letter-spacing:.03em;color:#8d9486}
+section{padding:54px 0 0}
+.sec-top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:6px 20px;border-bottom:1px solid var(--border);padding-bottom:14px;margin-bottom:22px}
+.sec-top .k b{color:var(--orange);font-weight:500;margin-right:14px}
+h2{font:400 clamp(26px,3.1vw,42px)/1.1 var(--heading);letter-spacing:-.035em;max-width:22ch}
+h2 em{font-family:Georgia,serif;font-style:italic;color:#a6b693}
+.sec-head{display:flex;justify-content:space-between;align-items:end;gap:40px;margin-bottom:24px}
+.sec-head p{color:var(--muted);font-size:14px;line-height:1.75;max-width:52ch}
+.panel{border:1px solid var(--border);border-radius:16px;background:var(--card);padding:24px 24px 20px}
+.panel h3{font:600 18px/1.25 var(--heading);letter-spacing:-.02em}
+.panel .sub{color:var(--muted);font-size:13.5px;line-height:1.65;margin:6px 0 16px;max-width:66ch}
+.grid2{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:18px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.chips button{font:500 12.5px/1 var(--heading);color:var(--ink);background:transparent;border:1px solid var(--border);border-radius:999px;padding:10px 14px;cursor:pointer;transition:border-color .2s,background .2s}
+.chips button:hover{border-color:#6b4a3a}
+.chips button[aria-pressed="true"]{background:#e0e7d7;color:#1a2115;border-color:#e0e7d7}
+.chart-box{position:relative;height:400px}
+.src{font:500 10.5px/1.5 var(--heading);letter-spacing:.03em;color:#8d9486}
+.panel>.src{margin-top:14px;padding-top:10px;border-top:1px solid var(--border)}
+/* timeline */
+.timeline{display:grid;grid-template-columns:3fr 1fr 1fr 1fr;gap:8px}
+.tl{border:1px solid var(--border);border-radius:12px;padding:16px;background:var(--card)}
+.tl .yrs{font:600 22px/1 var(--heading);letter-spacing:-.02em;margin:8px 0 6px;font-variant-numeric:tabular-nums}
+.tl p{font-size:12.5px;line-height:1.55;color:var(--muted)}
+.tl.judge{border-color:#6b4a3a;background:#1b1612}.tl.judge .k{color:var(--orange)}
+/* interval plots */
+.forest{display:grid;gap:2px}
+.frow{display:grid;grid-template-columns:minmax(120px,190px) 1fr;gap:4px 14px;align-items:center;padding:9px 0;border-top:1px solid #232a20}
+.frow:first-child{border-top:0}
+.fname{font:500 12.5px/1.3 var(--heading)}
+.frow.me .fname{color:var(--orange)}
+.ftrack{position:relative;height:24px}
+.ftrack .zero{position:absolute;top:0;bottom:0;width:1px;background:#4a5445}
+.fci{position:absolute;top:50%;height:3px;border-radius:2px;translate:0 -50%;background:#7f8678}
+.fdot{position:absolute;top:50%;width:12px;height:12px;border-radius:50%;translate:-50% -50%;background:var(--ink);box-shadow:0 0 0 2px var(--card)}
+.frow.me .fdot{background:var(--orange)}.frow.me .fci{background:#b0603f}
+.fval{grid-column:2;font:500 12px/1.3 var(--heading);color:var(--muted);font-variant-numeric:tabular-nums}
+.faxis{position:relative;height:18px;margin-top:4px;font:500 10.5px/1 var(--heading);color:#8d9486;font-variant-numeric:tabular-nums}
+.faxis span{position:absolute;translate:-50% 0}
+.faxis.pad{margin-left:calc(min(190px,max(120px,30%)) + 14px)}
+/* signal vs luck */
+.bars{display:grid;gap:14px;margin-top:8px}
+.bar .lab{display:flex;justify-content:space-between;font:500 13px var(--heading);margin-bottom:6px}
+.bar .lab span:last-child{font-variant-numeric:tabular-nums}
+.bar .t{height:16px;border-radius:4px;background:#1a2117;overflow:hidden}
+.bar .t i{display:block;height:100%;width:var(--w);border-radius:0 4px 4px 0;background:var(--c);transform-origin:left;transition:transform 1s cubic-bezier(.2,.8,.2,1)}
+.js-reveal .rv:not(.in) .bar .t i{transform:scaleX(0)}
+/* tables */
+.toolbar{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;justify-content:space-between;margin-bottom:14px}
+.toolbar .chips{margin:0}
+.search{flex:1;min-width:200px;max-width:320px;background:#10120f;border:1px solid var(--border);border-radius:999px;color:var(--ink);font:500 14px var(--heading);padding:10px 16px}
+.search::placeholder{color:#8a917f}
+.tablewrap{max-height:520px;overflow:auto;border:1px solid var(--border);border-radius:12px}
+table{width:100%;border-collapse:collapse;font-size:13.5px;font-variant-numeric:tabular-nums}
+th,td{text-align:left;padding:10px 16px;border-bottom:1px solid #232a20;white-space:nowrap}
+th{position:sticky;top:0;background:#10140e;font:500 10.5px/1.2 var(--heading);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);z-index:1}
+td.num,th.num{text-align:right}
+td.rank{color:#8d9486;width:1%}
+td .rb{display:inline-block;vertical-align:middle;height:8px;border-radius:2px;background:var(--blue);margin-right:10px}
+tbody tr:hover{background:#171d14}
+.empty{padding:22px 16px;color:var(--muted)}
+/* notes */
+.cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.list{list-style:none;display:grid;gap:10px;margin-top:12px}
+.list li{position:relative;padding-left:18px;font-size:13.5px;line-height:1.65;color:#c9cfc0}
+.list li::before{content:"";position:absolute;left:0;top:.62em;width:6px;height:6px;border-radius:50%;background:var(--orange)}
+.list li b{color:var(--ink);font-weight:600}
+dl.terms{display:grid;grid-template-columns:auto 1fr;gap:8px 18px;margin-top:12px;font-size:13.5px}
+dl.terms dt{font:600 12.5px/1.6 var(--heading);white-space:nowrap}
+dl.terms dd{color:#c9cfc0;line-height:1.6}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+.btn{display:inline-flex;align-items:center;gap:14px;padding:13px 20px;border-radius:999px;font:600 13px/1 var(--heading);border:1px solid var(--border);transition:background .2s,border-color .2s}
+.btn:hover{border-color:#6b4a3a}
+.btn.primary{background:var(--orange);color:#171b13;border-color:var(--orange)}.btn.primary:hover{background:#ff9b76}
+footer{margin:64px 0 60px;padding-top:20px;border-top:1px solid var(--border);display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 30px;font-size:12.5px;color:var(--muted)}
+footer a{text-decoration:underline;text-underline-offset:3px}footer a:hover{color:var(--orange)}
+.err{padding:18px 20px;border:1px solid #6b3a2a;border-radius:12px;background:#1d1411;color:#f0c1ad;margin:26px 0}
+[hidden]{display:none!important}
+.js-reveal .rv:not(.in){opacity:0}
+.js-reveal .rv.in{animation:rv-in .75s cubic-bezier(.2,.7,.2,1) backwards}
+@keyframes rv-in{from{opacity:0;translate:0 24px}}
+@media(max-width:980px){.hero{grid-template-columns:1fr;gap:22px;padding-top:40px}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.grid2,.cols{grid-template-columns:1fr}.sec-head{display:block}.sec-head p{margin-top:14px}.timeline{grid-template-columns:repeat(2,minmax(0,1fr))}.verdict{grid-template-columns:1fr;gap:8px}}
+@media(max-width:560px){.wrap{width:calc(100% - 32px)}header.top{height:76px}.top nav a.hide-s{display:none}.kpis{grid-template-columns:1fr}.kpi{min-height:0}.panel{padding:18px 14px 16px}.chart-box{height:330px}.frow{grid-template-columns:1fr}.fval{grid-column:1}.faxis.pad{margin-left:0}.timeline{grid-template-columns:1fr}th,td{padding:9px 10px}dl.terms{grid-template-columns:1fr;gap:2px 0}dl.terms dd{margin-bottom:8px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
+/* bunt page */
+.cols>.panel,.grid2>.panel{min-width:0}
+.ctl{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px 24px;margin-bottom:14px}
+.ctl.two{grid-template-columns:1.6fr 1fr}
+.ctl .k{display:block;margin-bottom:8px}
+.ctl .chips{margin:0}
+.sliders{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 28px;margin:10px 0 18px}
+.slider{display:block}
+.slider .lab{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font:500 13px var(--heading);margin-bottom:8px}
+.slider output{font:600 20px/1 var(--heading);letter-spacing:-.02em;font-variant-numeric:tabular-nums;white-space:nowrap}
+input[type=range]{width:100%;height:28px;accent-color:var(--orange);cursor:pointer;background:transparent}
+.duel{display:grid;grid-template-columns:1fr 1fr 1.25fr;gap:12px}
+.duel .side,.duel .call{border:1px solid var(--border);border-radius:14px;padding:18px;background:#10120f;display:flex;flex-direction:column;gap:6px}
+.duel b{font:600 38px/1.05 var(--heading);letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.duel .s{font-size:12.5px;color:var(--muted);line-height:1.5}
+.duel .side.win{border-color:#199e70;box-shadow:inset 0 3px 0 #199e70}
+.duel .side.win b{color:#7fe0bb}
+.duel .call{background:#1d1712;border-color:#6b4a3a}
+.duel .call b{font-size:26px;line-height:1.15;color:#ffb08f}
+.duel .call p{font-size:13px;line-height:1.55;color:#c9cfc0;margin:0}
+.table-wrap{overflow-x:auto}
+.cmp{width:100%;border-collapse:collapse;font-size:13px}
+.cmp th,.cmp td{padding:9px 6px;border-bottom:1px solid var(--border);text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.cmp th:first-child,.cmp td:first-child{text-align:left;white-space:normal}
+.cmp td:first-child{color:var(--muted)}
+.cmp thead th{font:600 11.5px/1.35 var(--heading);color:var(--ink);vertical-align:bottom;text-transform:none;letter-spacing:0;white-space:normal}
+.cmp td.up{color:#7fe0bb;font-weight:600}.cmp td.down{color:#ffb08f;font-weight:600}
+.cmp tr.grp td{color:var(--ink);font:600 12px var(--heading);letter-spacing:.04em;text-transform:uppercase;padding-top:16px;border-bottom-color:#4a5344}
+.cmp small{color:#8d9486;font-weight:400;margin-left:4px}
+.bar .lab small{color:var(--muted);font-weight:400;margin-left:8px}
+.bar .t.pair{height:22px;display:grid;grid-template-rows:1fr 1fr;gap:3px;background:transparent}
+.bar .t.pair i{position:static;display:block;height:100%;border-radius:3px}
+.beforeafter{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.beforeafter.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.ba{border:1px solid var(--border);border-radius:12px;padding:16px;background:#10120f}
+.ba h4{font:600 14px var(--heading);margin-bottom:4px}
+.ba .who{font-size:12px;color:var(--muted);margin-bottom:10px;line-height:1.45}
+.ba dl{display:grid;grid-template-columns:1fr auto auto;gap:6px 14px;font-size:13px}
+.ba dt{color:var(--muted)}.ba dd{font:600 13.5px var(--heading);font-variant-numeric:tabular-nums;text-align:right}
+.ba dd.h{font:500 10.5px var(--heading);letter-spacing:.06em;text-transform:uppercase;color:#8d9486}
+.chart-box.short{height:300px}
+@media(max-width:980px){.ctl,.ctl.two{grid-template-columns:1fr}.duel{grid-template-columns:1fr 1fr}.duel .call{grid-column:1/-1}.beforeafter.three{grid-template-columns:1fr}}
+@media(max-width:560px){.sliders{grid-template-columns:1fr}.duel b{font-size:30px}.cmp{font-size:12px}.cmp th,.cmp td{padding:8px 4px}.slider .lab{flex-direction:column;gap:4px}}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<div class="progress" aria-hidden="true"></div>
+<a class="skip" href="#main">Skip to content</a>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="https://takizawadaiki.github.io/" aria-label="Daiki Takizawa home"><i>dt</i>Daiki Takizawa<b>.</b></a>
+    <nav aria-label="Page">
+      <a class="hide-s" href="#trend">Two leagues</a>
+      <a class="hide-s" href="#tool">Bunt or swing</a>
+      <a class="hide-s" href="#evidence">Evidence</a>
+      <a class="hide-s" href="#late">Late innings</a>
+      <a class="hide-s" href="#japan">Japan</a>
+      <a class="hide-s" href="https://github.com/takizawadaiki/takizawadaiki.github.io/tree/main/bunt">Code ↗</a>
+      <a href="https://takizawadaiki.github.io/#projects">← All projects</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <div class="hero">
+      <div>
+        <div class="eyebrow">Baseball research · MLB and Japan’s NPB</div>
+        <h1>What is a sacrifice bunt <em>really worth?</em></h1>
+      </div>
+      <p class="lede" id="lede">Japanese teams bunt a runner over several times as often as MLB teams. This page measures what the play is worth, using every MLB plate appearance since 2015 and a run-scoring model built for both leagues, and asks whether Japan’s lower-scoring game justifies the difference.</p>
+    </div>
+
+    <noscript><div class="err">This page draws its numbers and charts with JavaScript. The data is in the repository linked at the bottom of the page.</div></noscript>
+    <div id="error" class="err" hidden></div>
+
+    <div class="verdict rv">
+      <span class="k">Short answer</span>
+      <p id="verdict">Loading the results…</p>
+      <a href="#japan">The Japan question ↓</a>
+    </div>
+
+    <div class="kpis" id="kpis"></div>
+
+    <section id="trend" aria-labelledby="trend-h">
+      <div class="sec-top"><span class="k"><b>01</b>Two leagues</span><span class="k">2005–2026</span></div>
+      <div class="sec-head">
+        <h2 id="trend-h">Japan bunts <em id="ratio-word"></em> as often.</h2>
+        <p id="trend-lede"></p>
+      </div>
+      <div class="panel rv">
+        <h3>Sacrifice bunts per team per game</h3>
+        <p class="sub">Successful sacrifices only, as both leagues record them.</p>
+        <div class="chart-box"><canvas id="c-trend" role="img" aria-label="Line chart of sacrifice bunts per game in MLB and NPB"></canvas></div>
+        <p class="src" id="trend-note"></p>
+      </div>
+    </section>
+
+    <section id="tool" aria-labelledby="tool-h">
+      <div class="sec-top"><span class="k"><b>02</b>Bunt or swing</span><span class="k">Set the situation</span></div>
+      <div class="sec-head">
+        <h2 id="tool-h">The answer depends on <em>who is batting and what you need.</em></h2>
+        <p>Pick a league, a situation and a hitter. The model compares bunting with swinging away on three goals: scoring the most runs, scoring at least one, and winning the game from a given inning and score. Bunt results use what happened on real MLB bunts in that situation, and you can change how often the sacrifice works.</p>
+      </div>
+      <div class="panel rv">
+        <div class="ctl">
+          <div><span class="k">League</span><div class="chips" id="t-league" role="group" aria-label="League"></div></div>
+          <div><span class="k">Outs</span><div class="chips" id="t-outs" role="group" aria-label="Outs"></div></div>
+          <div><span class="k">Goal</span><div class="chips" id="t-goal" role="group" aria-label="Goal"></div></div>
+        </div>
+        <div class="ctl two">
+          <div><span class="k">Runners</span><div class="chips" id="t-bases" role="group" aria-label="Runners on base"></div></div>
+          <div><span class="k">Hitter</span><div class="chips" id="t-who" role="group" aria-label="Hitter"></div></div>
+        </div>
+        <div class="ctl" id="t-win" hidden>
+          <div><span class="k">Inning</span><div class="chips" id="t-inning" role="group" aria-label="Inning"></div></div>
+          <div><span class="k">Batting team</span><div class="chips" id="t-half" role="group" aria-label="Batting team"></div></div>
+          <div><span class="k">Score</span><div class="chips" id="t-lead" role="group" aria-label="Score"></div></div>
+        </div>
+        <div class="sliders">
+          <label class="slider"><span class="lab"><span>Hitter’s ability to reach base, against the league average</span><output id="t-f-out"></output></span>
+            <input type="range" id="t-f" min="40" max="130" step="1" aria-label="Hitter strength as a percentage of league average"/></label>
+          <label class="slider"><span class="lab"><span>Sacrifice works (batter out, runners move up)</span><output id="t-s-out"></output></span>
+            <input type="range" id="t-s" min="30" max="95" step="1" aria-label="Share of bunts that are clean sacrifices"/></label>
+        </div>
+        <div class="duel" aria-live="polite">
+          <div class="side" id="d-bunt"><span class="k">Bunt</span><b></b><span class="s"></span></div>
+          <div class="side" id="d-swing"><span class="k">Swing away</span><b></b><span class="s"></span></div>
+          <div class="call" id="d-call"><span class="k">Call</span><b></b><p></p></div>
+        </div>
+        <p class="src" id="t-note"></p>
+      </div>
+    </section>
+
+    <section id="evidence" aria-labelledby="ev-h">
+      <div class="sec-top"><span class="k"><b>03</b>Evidence</span><span class="k" id="ev-count"></span></div>
+      <div class="sec-head">
+        <h2 id="ev-h">What happened after <em>real bunts.</em></h2>
+        <p id="ev-lede"></p>
+      </div>
+      <div class="grid2">
+        <div class="panel rv">
+          <h3>Bunts against swings, same situation, same kind of hitter</h3>
+          <p class="sub">MLB, 2015 to 2026, nobody out. Runs are the average scored in the rest of the inning. A range that does not include zero is marked.</p>
+          <div class="table-wrap"><table class="cmp" id="ev-table"></table></div>
+          <p class="src">Hitters are split into thirds by that season’s results. Teams choose when to bunt, so these bunts happened in conditions the team liked. Ranges are 95% intervals.</p>
+        </div>
+        <div class="panel rv">
+          <h3>A bunt is not a guaranteed out</h3>
+          <p class="sub">How bunts with a runner on and fewer than two outs turned out, for position players and for pitchers.</p>
+          <div class="bars" id="mix-bars"></div>
+          <p class="src" id="mix-note"></p>
+        </div>
+      </div>
+      <div class="panel rv" style="margin-top:18px">
+        <h3>The automatic runner in extra innings</h3>
+        <p class="sub" id="ghost-text"></p>
+        <div class="beforeafter three" id="ghost"></div>
+        <p class="src">Extra innings since 2020 start with a runner on second and nobody out. These are the first batters of each half-inning. Win rates are shown for context only: teams that bunt and teams that swing are in different game situations.</p>
+      </div>
+    </section>
+
+    <section id="late" aria-labelledby="late-h">
+      <div class="sec-top"><span class="k"><b>04</b>Late in the game</span><span class="k">Chance of winning</span></div>
+      <div class="sec-head">
+        <h2 id="late-h">Late and tied, <em>the bunt earns its place.</em></h2>
+        <p id="late-lede"></p>
+      </div>
+      <div class="cols">
+        <div class="panel rv">
+          <h3>How much a bunt changes the chance of winning</h3>
+          <p class="sub">Average hitter, nobody out. Percentage points of win probability gained or lost by bunting.</p>
+          <div class="table-wrap"><table class="cmp" id="late-table"></table></div>
+          <p class="src">From the run-scoring model, using each league’s scoring in 2024 to 2026 and real MLB bunt results. A game tied after nine innings is treated as a coin flip.</p>
+        </div>
+        <div class="panel rv">
+          <h3>What real teams got</h3>
+          <p class="sub">MLB, 2015 to 2026, seventh inning or later, nobody out, position players. Share of games the batting team went on to win.</p>
+          <div class="table-wrap"><table class="cmp" id="late-ev"></table></div>
+          <p class="src" id="late-ev-note"></p>
+        </div>
+      </div>
+    </section>
+
+    <section id="japan" aria-labelledby="jp-h">
+      <div class="sec-top"><span class="k"><b>05</b>The Japan question</span><span class="k">Does a lower-scoring league change the answer?</span></div>
+      <div class="sec-head">
+        <h2 id="jp-h"></h2>
+        <p id="jp-lede"></p>
+      </div>
+      <div class="cols">
+        <div class="panel rv">
+          <h3>The same bunt in each league</h3>
+          <p class="sub">Runner on first, nobody out, using each league’s scoring in 2024 to 2026 and the same bunt results.</p>
+          <div class="table-wrap"><table class="cmp" id="jp-table"></table></div>
+          <p class="src">NPB publishes no play-by-play data, so its values come from the run-scoring model. The model assumes Japanese bunters get the same results as MLB bunters; the tool above lets you change that.</p>
+        </div>
+        <div class="panel rv">
+          <h3>What this means</h3>
+          <ul class="list" id="jp-read"></ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="method" aria-labelledby="method-h">
+      <div class="sec-top"><span class="k"><b>06</b>Method</span><span class="k">Sources, checks and limits</span></div>
+      <div class="cols">
+        <div class="panel rv">
+          <h3 id="method-h">How it was done</h3>
+          <ul class="list" id="method-list"></ul>
+          <div class="cta">
+            <a class="btn primary" href="https://github.com/takizawadaiki/takizawadaiki.github.io/tree/main/bunt">View the code and data <span aria-hidden="true">↗</span></a>
+          </div>
+        </div>
+        <div class="panel rv">
+          <h3>Does the model match real innings?</h3>
+          <p class="sub">Each dot is one of the 24 base and out situations. Across is what MLB teams scored from it in 2015 to 2026. Up is what the model predicts from league totals alone.</p>
+          <div class="chart-box short"><canvas id="c-fit" role="img" aria-label="Scatter chart of model run values against actual run values"></canvas></div>
+          <p class="src" id="fit-note"></p>
+        </div>
+      </div>
+      <div class="panel rv" style="margin-top:18px">
+        <h3>What to keep in mind</h3>
+        <ul class="list">
+          <li><b>Teams choose when to bunt.</b> Real bunts happen when the defence is back, the runner is fast or the hitter is good at it. The comparison with swings matches the situation and the class of hitter, but it cannot match everything a manager sees.</li>
+          <li><b>Japan’s results are modelled.</b> There is no public play-by-play for NPB. The model reproduces each league’s scoring from its totals, and it assumes runners advance on hits at MLB rates in both leagues.</li>
+          <li><b>Bunt skill may differ.</b> Japanese hitters practise the sacrifice far more, so their success rate is probably higher, and they bunt for hits less. Use the success slider in the tool to see how much that matters.</li>
+          <li><b>The win-probability figures are simple.</b> They assume both teams score at the league-average rate in every later inning and treat a tie after nine as a coin flip. They ignore the bullpen, the next hitters in the order and the extra-inning runner rule.</li>
+          <li><b>The hitter is described by one number.</b> Speed, bunting skill, the pitcher and the defence all matter and are not modelled.</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>Daiki Takizawa · University of Toronto · Built November 2026</span>
+    <span><a href="https://takizawadaiki.github.io/">Portfolio</a> · <a href="https://github.com/takizawadaiki/takizawadaiki.github.io/tree/main/bunt">Code and data</a></span>
+  </footer>
+</div>
+<script src="../chart.umd.min.js"></script>
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const el = (tag, cls, html) => { const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; };
+  const C = { mlb: '#3987e5', npb: '#d95926', npb2: '#e0a84a', green: '#199e70', grid: '#262d22', ink: '#f0f0e7', muted: '#a5ab9e', line: '#c9cfc0' };
+  const sgn = (v, d = 2) => (v > 0 ? '+' : v < 0 ? '−' : '') + Math.abs(v).toFixed(d);
+  const pc = (v, d = 0) => (v * 100).toFixed(d) + '%';
+  const pts = (v, d = 1) => sgn(v * 100, d) + ' pts';
+  const big = n => n.toLocaleString('en-CA');
+
+  const progress = document.querySelector('.progress');
+  const onScroll = () => { const h = document.documentElement; progress.style.setProperty('--p', h.scrollTop / Math.max(1, h.scrollHeight - h.clientHeight)); };
+  addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+  fetch('results/results.json').then(r => { if (!r.ok) throw new Error(r.status); return r.json(); }).then(render).catch(e => {
+    $('error').hidden = false; $('error').textContent = 'The results file could not be loaded (' + e.message + '). The data is in the repository linked at the bottom of the page.';
+    $('verdict').textContent = 'Results unavailable.';
+  });
+
+  function render(R) {
+    const H = R.headline, L = R.leagues, V = R.verdicts, F = R.batter_factors, KINDS = R.kinds;
+    const kase = (lg, outs, bases, who) => V[lg].cases.find(c => c.outs === outs && c.bases === bases && c.who === who);
+    const mA = kase('MLB', 0, '100', 'middle'), nA = kase('NPB', 0, '100', 'middle'), mW = kase('MLB', 0, '100', 'weak'), nW = kase('NPB', 0, '100', 'weak');
+    const tr = R.trend, last = tr[tr.length - 1], prev = tr[tr.length - 2];
+
+    $('verdict').innerHTML = `With a runner on first and nobody out, a bunt by an average hitter costs about <strong>${Math.abs(mA.runs_diff).toFixed(2)} runs</strong> in MLB and <strong>${Math.abs(nA.runs_diff).toFixed(2)}</strong> in Japan, and nudges up the chance of scoring at least once. It pays for weak hitters and late in tie games, where it adds up to about <strong>${(R.late.MLB.find(c => c.who === 'middle' && c.scenario === '9th inning, home, tied' && c.bases === '010').win_diff * 100).toFixed(0)} points</strong> of win probability. Japan’s lower scoring makes the bunt a little better, and the heavy bunting costs each team only about <strong>${R.npb_cost.runs_per_team.toFixed(0)} runs a season</strong>.`;
+
+    [
+      { k: 'Japan against MLB', v: H.ratio.toFixed(1) + '×', n: `NPB teams laid down ${H.npb_per_game.toFixed(2)} sacrifice bunts a game in ${H.year}. MLB teams laid down ${H.mlb_per_game.toFixed(2)}.`, s: 'Sacrifice bunts per team per game' },
+      { k: 'Plate appearances studied', v: (H.plate_appearances / 1e6).toFixed(2) + 'M', n: `Every MLB plate appearance from 2015 to 2026, including ${big(H.bunts)} bunts with a runner on and fewer than two outs.`, s: 'Statcast, regular season' },
+      { k: 'Cost for an average hitter', v: sgn(mA.runs_diff) + ' runs', n: `MLB, runner on first, nobody out. The chance of scoring at least once moves by ${pts(mA.score_diff)}.`, s: 'Run-scoring model, 2024–2026' },
+      { k: 'Price of Japan’s bunting', v: R.npb_cost.runs_per_team.toFixed(0) + ' runs', n: `Per team per season, if its ${R.npb_cost.sacrifices_per_team.toFixed(0)} sacrifices were all by average hitters. About ten runs equal one win.`, s: 'A rough upper estimate' },
+    ].forEach(k => { const d = el('div', 'kpi rv'); d.append(el('span', 'k', k.k), el('div', 'v', k.v), el('p', 'n', k.n), el('span', 'src', k.s)); $('kpis').append(d); });
+
+    // ---------- 01 trend ----------
+    Chart.defaults.color = C.muted; Chart.defaults.font.family = "'DM Sans', system-ui, sans-serif"; Chart.defaults.font.size = 12;
+    if (reduced) Chart.defaults.animation = false;
+    $('ratio-word').textContent = H.ratio.toFixed(1) + ' times';
+    const peak = H.npb_peak, low = H.mlb_low, first = tr[0];
+    const dh = tr.find(t => t.year === 2022);
+    $('trend-lede').textContent = `In ${first.year} MLB teams bunted a runner over ${first.mlb.toFixed(2)} times a game. In 2022, when pitchers stopped batting for good in both MLB leagues, that fell to ${dh.mlb.toFixed(2)}. It has since risen to ${last.mlb.toFixed(2)}. Japanese teams peaked at ${peak.npb.toFixed(2)} a game in ${peak.year} and were at ${last.npb.toFixed(2)} in ${last.year}.`;
+    const ds = (label, key, color, dash) => ({ label, data: tr.map(t => t[key]), borderColor: color, backgroundColor: color, borderWidth: 2.5, borderDash: dash || [], pointRadius: 2, pointHoverRadius: 6, tension: .25 });
+    new Chart($('c-trend'), { type: 'line', data: { labels: tr.map(t => t.year), datasets: [ds('NPB Central League (pitchers bat)', 'npb_central', C.npb), ds('NPB Pacific League (designated hitter)', 'npb_pacific', C.npb2, [6, 4]), ds('MLB', 'mlb', C.mlb)] },
+      options: { maintainAspectRatio: false, interaction: { mode: 'index', intersect: false }, plugins: { legend: { position: 'bottom', labels: { usePointStyle: true, pointStyle: 'line', boxWidth: 30 } }, tooltip: { callbacks: { label: c => `${c.dataset.label}: ${c.parsed.y.toFixed(2)} a game` } } },
+        scales: { x: { grid: { display: false }, ticks: { maxRotation: 0, autoSkipPadding: 16 } }, y: { min: 0, grid: { color: C.grid }, title: { display: true, text: 'Sacrifice bunts per team per game' } } } } });
+    $('trend-note').textContent = `MLB: ${big(first.mlb_total)} sacrifice bunts in ${first.year}, ${big(dh.mlb_total)} in 2022 and ${big(last.mlb_total)} in ${last.year}. The 2020 season was 60 games. NPB: ${big(prev.npb_total)} in ${prev.year} and ${big(last.npb_total)} in ${last.year}, a change of ${sgn((last.npb_total / prev.npb_total - 1) * 100, 0)}%. Runs per game in ${last.year}: ${last.mlb_runs.toFixed(2)} in MLB and ${last.npb_runs.toFixed(2)} in NPB. Sources: MLB Stats API, npb.jp.`;
+
+    tool(R); evidence(R);
+
+    // ---------- 04 late in the game ----------
+    const late = lg => R.late[lg].filter(c => c.who === 'middle');
+    const cell = v => `<td class="${v > .002 ? 'up' : v < -.002 ? 'down' : ''}">${pts(v)}</td>`;
+    const scen = [...new Set(R.late.MLB.map(c => c.scenario))];
+    $('late-table').innerHTML = '<thead><tr><th></th><th>MLB<br>runner on 1st</th><th>MLB<br>runner on 2nd</th><th>NPB<br>runner on 1st</th><th>NPB<br>runner on 2nd</th></tr></thead><tbody>' + scen.map(sc => { const g = (lg, b) => late(lg).find(c => c.scenario === sc && c.bases === b).win_diff; return `<tr><td>${sc}</td>${cell(g('MLB', '100'))}${cell(g('MLB', '010'))}${cell(g('NPB', '100'))}${cell(g('NPB', '010'))}</tr>`; }).join('') + '</tbody>';
+    const lw = (lg, sc, b) => late(lg).find(c => c.scenario === sc && c.bases === b);
+    const e1 = lw('MLB', '1st inning, visitors, tied', '100'), h9a = lw('MLB', '9th inning, home, tied', '100'), h9b = lw('MLB', '9th inning, home, tied', '010'), dn = lw('MLB', '9th inning, home, down by one', '100'), n9 = lw('NPB', '9th inning, home, tied', '100');
+    $('late-lede').textContent = `Early in a game a bunt lowers the chance of winning, by ${Math.abs(e1.win_diff * 100).toFixed(1)} points in the first inning. In the bottom of the ninth of a tie game it raises it, by ${(h9a.win_diff * 100).toFixed(1)} points with a runner on first and ${(h9b.win_diff * 100).toFixed(1)} with a runner on second, because one run ends the game. Trailing by a run, it hurts (${pts(dn.win_diff)}), since a team that is behind needs a bigger inning. In Japan the ninth-inning gain with a runner on first is ${(n9.win_diff * 100).toFixed(1)} points.`;
+    const LE = R.late_evidence;
+    $('late-ev').innerHTML = '<thead><tr><th></th><th>Bunts</th><th>Won after a bunt</th><th>Won after a swing</th><th>Scored after a bunt</th><th>Scored after a swing</th></tr></thead><tbody>' + ['100', '010'].map(b => `<tr class="grp"><td colspan="6">${R.state_names[b]}</td></tr>` + LE.filter(e => e.bases === b).map(e => { const sig = e.bunt_win_ci[0] > e.swing_win ? 'up' : e.bunt_win_ci[1] < e.swing_win ? 'down' : ''; return `<tr><td>${e.score}</td><td>${e.bunts}</td><td class="${sig}">${pc(e.bunt_win)}<small>${pc(e.bunt_win_ci[0])} to ${pc(e.bunt_win_ci[1])}</small></td><td>${pc(e.swing_win)}</td><td>${pc(e.bunt_score)}</td><td>${pc(e.swing_score)}</td></tr>`; }).join('')).join('') + '</tbody>';
+    const t1 = LE.find(e => e.bases === '010' && e.score === 'Tied'), t2 = LE.find(e => e.bases === '100' && e.score === 'Trailing by one');
+    $('late-ev-note').textContent = `The real results point the same way as the model. In tie games with a runner on second, teams that bunted won ${pc(t1.bunt_win)} of the time against ${pc(t1.swing_win)} for teams that swung. Trailing by one with a runner on first, teams that bunted won ${pc(t2.bunt_win)} against ${pc(t2.swing_win)}. The ranges are wide, so treat these as support for the model and not as proof.`;
+
+    // ---------- 04 Japan ----------
+    const mP = kase('MLB', 0, '100', 'pitcher'), nP = kase('NPB', 0, '100', 'pitcher');
+    const be = lg => V[lg].breakeven['0|100'];
+    const row = (label, a, b, cls) => `<tr><td>${label}</td><td class="${cls ? cls(a) : ''}">${a}</td><td class="${cls ? cls(b) : ''}">${b}</td></tr>`;
+    $('jp-table').innerHTML = `<thead><tr><th></th><th>MLB</th><th>NPB</th></tr></thead><tbody>` +
+      row('Runs scored per inning', L.MLB.actual_runs_per_inning.toFixed(2), L.NPB.actual_runs_per_inning.toFixed(2)) +
+      `<tr class="grp"><td colspan="3">Average hitter</td></tr>` +
+      row('Expected runs if he swings', mA.swing_runs.toFixed(2), nA.swing_runs.toFixed(2)) + row('Expected runs if he bunts', mA.bunt_runs.toFixed(2), nA.bunt_runs.toFixed(2)) +
+      row('Runs gained or lost by bunting', sgn(mA.runs_diff), sgn(nA.runs_diff)) + row('Change in chance of scoring at least once', pts(mA.score_diff), pts(nA.score_diff)) +
+      `<tr class="grp"><td colspan="3">Weak hitter</td></tr>` + row('Runs gained or lost by bunting', sgn(mW.runs_diff), sgn(nW.runs_diff)) + row('Change in chance of scoring at least once', pts(mW.score_diff), pts(nW.score_diff)) +
+      `<tr class="grp"><td colspan="3">Pitcher batting</td></tr>` + row('Runs gained or lost by bunting', sgn(mP.runs_diff), sgn(nP.runs_diff)) + row('Change in chance of scoring at least once', pts(mP.score_diff), pts(nP.score_diff)) +
+      `<tr class="grp"><td colspan="3">Who should bunt</td></tr>` + row('To score the most runs: hitters below', pc(be('MLB').runs) + ' of average', pc(be('NPB').runs) + ' of average') + row('To score at least once: hitters below', pc(be('MLB').score) + ' of average', pc(be('NPB').score) + ' of average') + '</tbody>';
+    const closer = Math.abs(nA.runs_diff) < Math.abs(mA.runs_diff);
+    $('jp-h').innerHTML = closer ? 'Lower scoring makes the bunt better, <em>but only a little.</em>' : 'Lower scoring does not <em>rescue the bunt.</em>';
+    $('jp-lede').textContent = `Japanese teams score ${L.NPB.actual_runs_per_inning.toFixed(2)} runs an inning against ${L.MLB.actual_runs_per_inning.toFixed(2)} in MLB. When runs are scarce, giving up an out to move a runner costs less, because the big inning the bunt gives away was less likely anyway.`;
+    [
+      `<b>The cost falls by about ${Math.round((1 - Math.abs(nA.runs_diff) / Math.abs(mA.runs_diff)) * 10) * 10}%.</b> For an average hitter, the bunt gives up ${Math.abs(mA.runs_diff).toFixed(2)} runs in MLB and ${Math.abs(nA.runs_diff).toFixed(2)} in Japan. The gain in the chance of scoring once goes from ${pts(mA.score_diff)} to ${pts(nA.score_diff)}.`,
+      `<b>More hitters fall on the bunting side of the line.</b> To score the most runs, the model favours the bunt for hitters who reach base less than ${pc(be('MLB').runs)} as often as the league average in MLB, and ${pc(be('NPB').runs)} in Japan. If one run is the goal, the line moves above average in both leagues.`,
+      `<b>So Japan’s bunting is cheap, and MLB’s caution is cheap too.</b> ${R.npb_cost.sacrifices_per_team.toFixed(0)} sacrifices a team a season, at ${R.npb_cost.runs_per_sacrifice.toFixed(2)} runs each, come to about ${R.npb_cost.runs_per_team.toFixed(0)} runs. That is under half a win, and it assumes the worst case of average hitters bunting every time.`,
+      `<b>The league gap is bigger than the numbers explain.</b> The run environment moves the break-even hitter by a few percentage points. It does not make a bunt ${H.ratio.toFixed(1)} times more useful. Most of the difference between the leagues looks like habit and style, in both directions.`,
+      `<b>What would change this.</b> If Japanese hitters get the sacrifice down more reliably than MLB hitters, their bunts are worth more than shown here. Move the success slider in the tool to see how far.`,
+    ].forEach(t => $('jp-read').append(el('li', null, t)));
+
+    // ---------- 05 method ----------
+    const fs = R.fit_summary;
+    [
+      `<b>MLB play by play:</b> ${big(H.plate_appearances)} regular-season plate appearances from 2015 to 2026, from Baseball Savant’s Statcast data. Each is tagged with the bases and outs when it began and the runs scored in the rest of the inning.`,
+      `<b>Bunts:</b> a plate appearance counts as a bunt if the ball was bunted into play or the batter struck out bunting. ${big(H.bunts)} happened with a runner on and fewer than two outs.`,
+      `<b>League totals:</b> MLB Stats API and npb.jp team batting tables, 2005 to 2026.`,
+      `<b>Run-scoring model:</b> an inning is simulated as a chain of plate appearances using each league’s rates of walks, hits, strikeouts and outs. Double-play and sacrifice-fly rates are set to match each league’s totals.`,
+      `<b>Swing away:</b> the hitter bats with his own strength, and everyone after him is league average. <b>Bunt:</b> the five possible results are weighted by how often each happened on real MLB bunts in that situation.`,
+    ].forEach(t => $('method-list').append(el('li', null, t)));
+    new Chart($('c-fit'), { type: 'scatter', data: { datasets: [
+      { label: 'Situations', data: R.fit.map(f => ({ x: f.actual_runs, y: f.model_runs, o: f.outs, b: f.bases })), backgroundColor: C.npb, pointRadius: 5, pointHoverRadius: 7 },
+      { label: 'Perfect match', type: 'line', data: [{ x: 0, y: 0 }, { x: 2.5, y: 2.5 }], borderColor: C.line, borderDash: [6, 5], borderWidth: 1.5, pointRadius: 0, pointHitRadius: 0 }] },
+      options: { maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => c.raw.b ? `${c.raw.o} out, ${c.raw.b === '000' ? 'bases empty' : R.state_names[c.raw.b].toLowerCase()}: actual ${c.raw.x.toFixed(2)}, model ${c.raw.y.toFixed(2)}` : '' } } },
+        scales: { x: { min: 0, max: 2.5, grid: { color: C.grid }, title: { display: true, text: 'Actual runs, MLB 2015–2026' } }, y: { min: 0, max: 2.5, grid: { color: C.grid }, title: { display: true, text: 'Model' } } } } });
+    $('fit-note').textContent = `Weighted by how often each situation occurs, the model is off by ${fs.mean_abs_runs.toFixed(3)} runs and ${(fs.mean_abs_score * 100).toFixed(1)} percentage points on the chance of scoring. Its largest miss is ${fs.max_abs_runs.toFixed(2)} runs, in a rare situation. For 2024 to 2026 it gives ${L.MLB.model_runs_per_inning.toFixed(3)} runs an inning for MLB (actual ${L.MLB.actual_runs_per_inning.toFixed(3)}) and ${L.NPB.model_runs_per_inning.toFixed(3)} for NPB (actual ${L.NPB.actual_runs_per_inning.toFixed(3)}).`;
+
+    if (!reduced && 'IntersectionObserver' in window) {
+      document.documentElement.classList.add('js-reveal');
+      const io = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } }), { threshold: .08, rootMargin: '0px 0px -5% 0px' });
+      document.querySelectorAll('.rv').forEach(n => io.observe(n));
+    }
+  }
+
+  // ---------- 02 the tool ----------
+  function tool(R) {
+    const F = R.batter_factors, KINDS = R.kinds, ML = R.max_lead, st = { league: 'MLB', outs: 0, bases: '100', goal: 'runs', f: 100, s: null, inning: 9, half: 1, lead: 0 };
+    const chips = (id, opts, key, after) => opts.forEach(([val, label]) => { const b = el('button', null, label); b.type = 'button'; b.dataset.v = val; b.addEventListener('click', () => { st[key] = typeof st[key] === 'number' ? +val : val; if (after) after(val); st.s = null; update(); }); $(id).append(b); });
+    chips('t-league', [['MLB', 'MLB'], ['NPB', 'NPB (Japan)']], 'league');
+    chips('t-outs', [[0, 'Nobody out'], [1, 'One out']], 'outs');
+    chips('t-goal', [['runs', 'Most runs'], ['score', 'At least one run'], ['win', 'Win the game']], 'goal');
+    chips('t-inning', [[1, '1st'], [3, '3rd'], [5, '5th'], [7, '7th'], [8, '8th'], [9, '9th']], 'inning');
+    chips('t-half', [[0, 'Visitors'], [1, 'Home']], 'half');
+    chips('t-lead', [[-2, 'Down 2'], [-1, 'Down 1'], [0, 'Tied'], [1, 'Up 1'], [2, 'Up 2']], 'lead');
+    chips('t-bases', [['100', '1st'], ['010', '2nd'], ['110', '1st and 2nd'], ['001', '3rd'], ['101', '1st and 3rd'], ['011', '2nd and 3rd'], ['111', 'Loaded']], 'bases');
+    const types = Object.entries(R.batter_types).map(([k, v]) => [Math.round(v * 100), { pitcher: 'Pitcher', weak: 'Weak', middle: 'Average', strong: 'Strong' }[k]]);
+    chips('t-who', types, 'f');
+    const fI = $('t-f'), sI = $('t-s');
+    fI.addEventListener('input', () => { st.f = +fI.value; st.s = null; update(); });
+    sI.addEventListener('input', () => { st.s = +sI.value / 100; update(true); });
+    const interp = (arr, f) => { const x = Math.min(Math.max(f, F[0]), F[F.length - 1]); let i = F.findIndex(v => v >= x); if (i <= 0) return arr[0]; const a = F[i - 1], b = F[i], w = (x - a) / (b - a); return [arr[i - 1][0] * (1 - w) + arr[i][0] * w, arr[i - 1][1] * (1 - w) + arr[i][1] * w]; };
+    function values(f, s) {
+      const key = `${st.outs}|${st.bases}`, S = R.leagues[st.league].states[key], who = f < .6 ? 'pitcher' : 'hitter';
+      const base = R.outcome_mix[`${who}|${key}`] && R.outcome_mix[`${who}|${key}`].n >= 60 ? R.outcome_mix[`${who}|${key}`] : R.outcome_mix[`${who}|all|all`];
+      const sac = s == null ? base.sacrifice : s, scale = (1 - sac) / (1 - base.sacrifice);
+      let br = 0, bp = 0;
+      KINDS.forEach(k => { const p = k === 'sacrifice' ? sac : base[k] * scale; br += p * S.bunt[k][0]; bp += p * S.bunt[k][1]; });
+      const sw = interp(S.swing, f);
+      // chance of winning: weigh every possible number of runs in the rest of this half-inning
+      const W = R.leagues[st.league].win_start;
+      const start = (i, h, lead) => lead > ML ? 1 : lead < -ML ? 0 : W[i - 1][h][lead + ML];
+      const after = (lead) => st.half === 0 ? 1 - start(st.inning, 1, -lead) : st.inning >= 9 ? (lead > 0 ? 1 : lead === 0 ? .5 : 0) : 1 - start(st.inning + 1, 0, -lead);
+      const wp = dist => dist.reduce((a, p, k) => a + p * after(st.lead + k), 0);
+      let bw = 0; KINDS.forEach(k => { bw += (k === 'sacrifice' ? sac : base[k] * scale) * wp(S.bunt_dist[k]); });
+      const x = Math.min(Math.max(f, F[0]), F[F.length - 1]); let i = Math.max(1, F.findIndex(v => v >= x)); const w = (x - F[i - 1]) / (F[i] - F[i - 1]);
+      const swDist = S.swing_dist[i - 1].map((p, k) => p * (1 - w) + S.swing_dist[i][k] * w);
+      return { br, bp, sr: sw[0], sp: sw[1], bw, sw: wp(swDist), base, who };
+    }
+    function update(fromS) {
+      if (st.half === 1 && st.inning === 9 && st.lead > 0) st.lead = 0;      // the home team does not bat in the 9th when ahead
+      const f = st.f / 100, v = values(f, st.s), goalRuns = st.goal === 'runs', goalWin = st.goal === 'win';
+      $('t-win').hidden = !goalWin;
+      fI.value = st.f; $('t-f-out').textContent = st.f + '%';
+      const sac = st.s == null ? v.base.sacrifice : st.s;
+      if (!fromS) sI.value = Math.round(sac * 100);
+      $('t-s-out').textContent = Math.round(sac * 100) + '%' + (st.s == null ? ' · MLB actual' : '');
+      [['t-league', st.league], ['t-outs', st.outs], ['t-goal', st.goal], ['t-bases', st.bases], ['t-who', st.f], ['t-inning', st.inning], ['t-half', st.half], ['t-lead', st.lead]].forEach(([id, val]) => $(id).querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.v === String(val)))));
+      const dRuns = v.br - v.sr, dScore = v.bp - v.sp, dWin = v.bw - v.sw, d = goalWin ? dWin : goalRuns ? dRuns : dScore, close = goalWin ? Math.abs(d) < .002 : goalRuns ? Math.abs(d) < .01 : Math.abs(d) < .005;
+      const fill = (id, runs, p, wpv, win) => { const n = $(id); n.classList.toggle('win', win); n.querySelector('b').textContent = goalWin ? pc(wpv, 1) : goalRuns ? runs.toFixed(2) : pc(p, 1); n.querySelector('.s').textContent = goalWin ? `chance of winning · ${runs.toFixed(2)} expected runs this inning` : goalRuns ? `expected runs · ${pc(p, 1)} chance of at least one` : `chance of at least one run · ${runs.toFixed(2)} expected runs`; };
+      fill('d-bunt', v.br, v.bp, v.bw, !close && d > 0); fill('d-swing', v.sr, v.sp, v.sw, !close && d < 0);
+      // the hitter strength at which the two are equal, for this goal
+      let be = null; for (let x = 40; x <= 130; x++) { const t = values(x / 100, st.s); const dd = goalWin ? t.bw - t.sw : goalRuns ? t.br - t.sr : t.bp - t.sp; if (dd <= 0) { be = x; break; } }
+      const beText = be === 40 ? 'On this goal the model prefers swinging for every hitter in the range.' : be == null ? 'On this goal the model prefers the bunt for every hitter in the range.' : `On this goal the bunt is the better play for hitters below ${be}% of league average.`;
+      $('d-call').querySelector('b').textContent = close ? 'Too close to call' : d > 0 ? 'Bunt' : 'Swing away';
+      $('d-call').querySelector('p').textContent = (goalWin ? `Bunting ${dWin >= 0 ? 'raises' : 'lowers'} the chance of winning by ${Math.abs(dWin * 100).toFixed(1)} points. ` : '') + `Bunting ${dRuns >= 0 ? 'adds' : 'costs'} ${Math.abs(dRuns).toFixed(2)} runs on average and ${dScore >= 0 ? 'raises' : 'lowers'} the chance of scoring at least once by ${Math.abs(dScore * 100).toFixed(1)} points. ${beText}`;
+      $('t-note').textContent = `${R.state_names[st.bases]}, ${st.outs === 0 ? 'nobody out' : 'one out'}, ${st.league}, run environment of ${R.recent[0]} to ${R.recent[R.recent.length - 1]}. Bunt results are taken from ${v.base.n.toLocaleString('en-CA')} real MLB bunts by ${v.who === 'pitcher' ? 'pitchers' : 'position players'}: ${pc(v.base.sacrifice)} clean sacrifices, ${pc(v.base.safe)} everyone safe, ${pc(v.base.fail)} batter out with no advance, ${pc(v.base.lead_out)} lead runner out, ${pc(v.base.double)} double plays. Hitters below 60% of average use the pitchers’ results.`;
+    }
+    update();
+  }
+
+  // ---------- 03 evidence ----------
+  function evidence(R) {
+    const E = R.evidence, names = R.state_names, who = { pitcher: 'Pitchers', weak: 'Weak hitters', middle: 'Middle hitters', strong: 'Strong hitters' };
+    $('ev-count').textContent = `${R.headline.bunts.toLocaleString('en-CA')} MLB bunts · 2015–2026`;
+    let h = '<thead><tr><th></th><th>Bunts</th><th>Runs after a bunt</th><th>Runs after a swing</th><th>Difference</th><th>Scored after a bunt</th><th>Scored after a swing</th></tr></thead><tbody>';
+    ['100', '010', '110'].forEach(b => {
+      h += `<tr class="grp"><td colspan="7">${names[b]}, nobody out</td></tr>`;
+      ['pitcher', 'weak', 'middle', 'strong'].forEach(c => {
+        const e = E.find(x => x.outs === 0 && x.bases === b && x.batter === c); if (!e) return;
+        const sig = e.runs_diff_ci[0] > 0 ? 'up' : e.runs_diff_ci[1] < 0 ? 'down' : '';
+        const ssig = e.bunt_score_ci[0] > e.swing_score ? 'up' : e.bunt_score_ci[1] < e.swing_score ? 'down' : '';
+        h += `<tr><td>${who[c]}</td><td>${e.bunts.toLocaleString('en-CA')}</td><td>${e.bunt_runs.toFixed(2)}</td><td>${e.swing_runs.toFixed(2)}</td><td class="${sig}">${sgn(e.runs_diff)}<small>${sgn(e.runs_diff_ci[0])} to ${sgn(e.runs_diff_ci[1])}</small></td><td class="${ssig}">${pc(e.bunt_score)}</td><td>${pc(e.swing_score)}</td></tr>`;
+      });
+    });
+    $('ev-table').innerHTML = h + '</tbody>';
+    const w1 = E.find(x => x.outs === 0 && x.bases === '100' && x.batter === 'weak'), m1 = E.find(x => x.outs === 0 && x.bases === '100' && x.batter === 'middle'), w2 = E.find(x => x.outs === 0 && x.bases === '010' && x.batter === 'weak');
+    $('ev-lede').textContent = `The model can be checked against what MLB teams did. With a runner on first and nobody out, weak hitters who bunted scored ${w1.bunt_runs.toFixed(2)} runs in the rest of the inning against ${w1.swing_runs.toFixed(2)} for weak hitters who swung, which is no real difference, and scored at least once more often (${pc(w1.bunt_score)} against ${pc(w1.swing_score)}). For middle hitters the bunt cost ${Math.abs(m1.runs_diff).toFixed(2)} runs. With a runner on second, bunting raised the chance of scoring from ${pc(w2.swing_score)} to ${pc(w2.bunt_score)} for weak hitters without changing total runs.`;
+
+    const mix = R.outcome_mix, hm = mix['hitter|all|all'], pm = mix['pitcher|all|all'];
+    [['sacrifice', 'Sacrifice: batter out, runners move up'], ['safe', 'Everyone safe: bunt hit or error'], ['fail', 'Batter out, runners stay'], ['lead_out', 'Lead runner thrown out'], ['double', 'Double play']].forEach(([k, label]) => {
+      const d = el('div', 'bar');
+      d.innerHTML = `<div class="lab"><span>${label}</span><span>${pc(hm[k])} <small>pitchers ${pc(pm[k])}</small></span></div><div class="t pair"><i style="width:${(hm[k] * 100 / .7).toFixed(1)}%;background:${C.npb}"></i><i style="width:${(pm[k] * 100 / .7).toFixed(1)}%;background:#6f7a66"></i></div>`;
+      $('mix-bars').append(d);
+    });
+    $('mix-note').textContent = `Orange bars are position players (${hm.n.toLocaleString('en-CA')} bunts) and grey bars are pitchers (${pm.n.toLocaleString('en-CA')}). One bunt in five by a position player ends with everyone safe, which is why the bunt costs less than the textbook says. Pitchers almost never reach.`;
+
+    const G = R.ghost, titles = { visitors: ['Visiting team, top of the inning', 'Batting first, so they do not know how many runs they need.'], home_tied: ['Home team, game tied', 'One run wins the game, so only the chance of scoring matters.'], home_behind: ['Home team, trailing', 'They need at least one run to stay alive.'] };
+    Object.entries(titles).forEach(([k, [t, sub]]) => {
+      const g = G[k]; if (!g) return;
+      const d = el('div', 'ba');
+      d.innerHTML = `<h4>${t}</h4><p class="who">${sub} Bunted ${pc(g.bunt_share)} of the time (${g.bunts} bunts, ${g.swings.toLocaleString('en-CA')} swings).</p><dl><dt></dt><dd class="h">Bunt</dd><dd class="h">Swing</dd><dt>Scored at least once</dt><dd>${pc(g.bunt_score)}</dd><dd>${pc(g.swing_score)}</dd><dt>Runs in the inning</dt><dd>${g.bunt_runs.toFixed(2)}</dd><dd>${g.swing_runs.toFixed(2)}</dd><dt>Won the game</dt><dd>${pc(g.bunt_win)}</dd><dd>${pc(g.swing_win)}</dd></dl>`;
+      $('ghost').append(d);
+    });
+    const a = G.all, ht = G.home_tied;
+    const vs = G.visitors;
+    $('ghost-text').textContent = `This is the cleanest test, because every team starts from the same spot. Across ${(a.bunts + a.swings).toLocaleString('en-CA')} extra half-innings, the first batter bunted ${pc(a.bunt_share)} of the time${ht ? `, and home teams in a tie game, who need only one run, bunted ${pc(ht.bunt_share)} of the time` : ''}. In each group the teams that bunted scored at least once a little more often${vs ? ` (${pc(vs.bunt_score)} against ${pc(vs.swing_score)} for visiting teams${ht ? `, ${pc(ht.bunt_score)} against ${pc(ht.swing_score)} for home teams in a tie` : ''})` : ''}. The samples are small enough that none of these gaps is clearly beyond chance, and total runs were about the same.`;
+  }
+})();
+</script>
+</body>
+</html>
