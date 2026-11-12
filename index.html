@@ -1053,6 +1053,15 @@ h1 {
 .cap-feature .wealth-cta{background:#9cc6ff;color:#0f1b2a}
 .cap-feature .wealth-cta:hover{background:#c0dbff}
 .cap-feature .wealth-detail{border-color:#2f4a6b}
+.case-study .mini{position:absolute;left:55%;right:28px;top:46px;bottom:76px;display:flex;align-items:flex-end;gap:10px;z-index:1}
+.mini>div{flex:1;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:6px;min-width:0}
+.mini b{font:600 12.5px var(--heading);color:var(--ink);font-variant-numeric:tabular-nums}
+.mini i{display:block;width:100%;max-width:64px;height:calc(var(--v) / var(--max) * (100% - 46px));background:color-mix(in srgb,var(--accent) 34%,transparent);border-radius:2px 2px 0 0;transform-origin:bottom;transition:transform .7s cubic-bezier(.2,.7,.2,1)}
+.mini .hi i{background:var(--accent)}
+.mini span{font:500 9px var(--heading);letter-spacing:.7px;text-transform:uppercase;color:#c9cfc0;white-space:nowrap}
+.case-study:has(.mini) .case-hook{max-width:47%}
+.case-study:has(.mini) .visual-note{max-width:48%;line-height:1.5}
+@media(max-width:760px){.case-study .mini{left:52%;right:18px;gap:6px}.mini b{font-size:11px}.mini span{font-size:7.5px;letter-spacing:0}.case-study:has(.mini) .case-hook{font-size:22px;max-width:46%}}
 .feature-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:14px 0 12px}
 .feature-row .wealth-feature{display:flex;flex-direction:column;gap:0;margin:0;padding:26px 26px 24px;align-items:stretch}
 .feature-row .wealth-feature>div:first-child{flex:1}
@@ -1451,7 +1460,7 @@ kbd{font:500 10px/1 var(--heading);border:1px solid var(--border);border-radius:
     <div class="case-grid">
 <a class="case-study retail" data-category="business" id="case-retail" href="/retail-profitability-analysis/">
     <div class="case-visual project-visual" aria-hidden="true">
-      <div class="bar-art"><i style="--h:34%;--n:0"></i><i style="--h:51%;--n:1"></i><i style="--h:39%;--n:2"></i><i style="--h:70%;--n:3"></i><i style="--h:56%;--n:4"></i><i style="--h:84%;--n:5"></i><i style="--h:67%;--n:6"></i><i style="--h:94%;--n:7"></i><i style="--h:77%;--n:8"></i><i style="--h:60%;--n:9"></i><i style="--h:42%;--n:10"></i><i style="--h:26%;--n:11"></i></div><span class="visual-note">9,994 RETAIL RECORDS</span>
+      <div class="mini" style="--max:16"><div><b>14.9%</b><i style="--v:14.9"></i><span>West</span></div><div><b>13.5%</b><i style="--v:13.5"></i><span>East</span></div><div><b>11.9%</b><i style="--v:11.9"></i><span>South</span></div><div class="hi"><b>7.9%</b><i style="--v:7.9"></i><span>Central</span></div></div><span class="visual-note">PROFIT MARGIN BY REGION</span>
       <span class="case-figure">PROJECT / 01</span>
       <div class="case-hook">Which products and regions<br><em>lose money?</em></div>
       <span class="case-seal">↗</span>
@@ -1466,7 +1475,7 @@ kbd{font:500 10px/1 var(--heading);border:1px solid var(--border);border-radius:
   </a>
 <a class="case-study hotel" data-category="business" id="case-hotel" href="/hotel-booking-analysis/">
     <div class="case-visual project-visual" aria-hidden="true">
-      <div class="ledger-art"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><span class="visual-note">HOTEL BOOKING RECORDS</span>
+      <div class="mini" style="--max:55"><div><b>9.6%</b><i style="--v:9.6"></i><span>0–7 days</span></div><div><b>27.9%</b><i style="--v:27.9"></i><span>8–30</span></div><div><b>38.5%</b><i style="--v:38.5"></i><span>31–100</span></div><div class="hi"><b>51.1%</b><i style="--v:51.1"></i><span>100+</span></div></div><span class="visual-note">CANCELLATION RATE BY DAYS BOOKED AHEAD</span>
       <span class="case-figure">PROJECT / 02</span>
       <div class="case-hook">Which hotel bookings<br><em>get cancelled?</em></div>
       <span class="case-seal">↗</span>
@@ -1481,7 +1490,7 @@ kbd{font:500 10px/1 var(--heading);border:1px solid var(--border);border-radius:
   </a>
 <a class="case-study business" data-category="sports" id="case-business" href="/Sports-Business/">
     <div class="case-visual project-visual" aria-hidden="true">
-      <div class="league-art"><span>NBA</span><span>NFL</span><span>MLB</span><span>NHL</span></div><span class="visual-note">SALARY CAPS COMPARED</span>
+      <div class="mini" style="--max:42"><div class="hi"><b>38.6%</b><i style="--v:38.6"></i><span>NBA</span></div><div><b>21.5%</b><i style="--v:21.5"></i><span>NFL</span></div><div><b>14.7%</b><i style="--v:14.7"></i><span>NHL</span></div></div><span class="visual-note">TOP CONTRACT AS A SHARE OF THE CAP</span>
       <span class="case-figure">PROJECT / 03</span>
       <div class="case-hook">How four leagues<br><em>pay their players.</em></div>
       <span class="case-seal">↗</span>
@@ -1496,7 +1505,7 @@ kbd{font:500 10px/1 var(--heading);border:1px solid var(--border);border-radius:
   </a>
 <a class="case-study dodgers" data-category="sports" id="case-dodgers" href="/LADODGERS/">
     <div class="case-visual project-visual" aria-hidden="true">
-      <div class="orbit-art"><i></i><i></i><i></i><b>LA</b><span>JP</span></div><span class="visual-note">MLB BUSINESS</span>
+      <div class="mini" style="--max:8.4"><div><b>$4.8B</b><i style="--v:4.8"></i><span>2023</span></div><div><b>$6.2B</b><i style="--v:6.2"></i><span>2024</span></div><div class="hi"><b>$7.8B</b><i style="--v:7.8"></i><span>2026</span></div></div><span class="visual-note">DODGERS FRANCHISE VALUE, ESTIMATED</span>
       <span class="case-figure">PROJECT / 04</span>
       <div class="case-hook">What Japanese stars are worth<br><em>to the Dodgers.</em></div>
       <span class="case-seal">↗</span>
@@ -1525,9 +1534,9 @@ kbd{font:500 10px/1 var(--heading);border:1px solid var(--border);border-radius:
   </a>
 <a class="case-study tennis" data-category="sports" id="case-tennis" href="/grand-slam-economics/">
     <div class="case-visual project-visual" aria-hidden="true">
-      <div class="tennis-art"><i></i><b></b></div><span class="visual-note">GRAND SLAM ECONOMICS</span>
+      <div class="mini" style="--max:440"><div class="hi"><b>+412%</b><i style="--v:412"></i><span>Revenue</span></div><div><b>+94%</b><i style="--v:94"></i><span>Prize money</span></div></div><span class="visual-note">GROWTH SINCE 2000, PRIZE MONEY AFTER INFLATION</span>
       <span class="case-figure">PROJECT / 06</span>
-      <div class="case-hook">Where the money goes<br><em>in pro tennis.</em></div>
+      <div class="case-hook">Where tennis<br>money goes,<br><em>and to whom.</em></div>
       <span class="case-seal">↗</span>
     </div>
     <div class="case-summary">
