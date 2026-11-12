@@ -8,7 +8,10 @@ All files were retrieved on 11 November 2026. The raw files in `raw/` are kept e
 | `raw/mlb_standings.txt` | MLB Stats API (`/api/v1/standings`, `/api/v1/schedule/postseason`) | Wins, losses, playoff appearance and World Series winner, 2000 to 2026. |
 | `raw/nba_standings.txt` | NBA Stats (`leaguestandingsv3`) | Wins and losses, 1999-00 to 2025-26. Seasons are labelled by the year they start. |
 | `raw/nhl_standings.txt` | NHL Stats API (`/stats/rest/en/team/summary`) | Wins, games and points, 1995-96 to 2025-26. There is no 2004-05 season. |
+| `raw/forbes_revenue_2025.csv` | Forbes, "Baseball's Most Valuable Teams 2026" (20 March 2026) | Estimated revenue and operating income for the 2025 season, in $ millions. Net of revenue sharing and luxury tax, excluding playoff revenue. |
 | `raw/nfl_games.csv` | nflverse `nfldata` (`games.csv`) | Regular-season scores, 1999 to 2025. |
+
+The Premier League's squad cost ratio (85% of revenue, from 2026-27, with the anchoring proposal voted down) comes from the Premier League's statement of 21 November 2025.
 
 The league's offer (cap of $258.2 million, floor of $180.2 million, the teams affected and the totals) comes from the Associated Press report of 4 November 2026.
 

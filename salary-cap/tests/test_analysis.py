@@ -48,6 +48,24 @@ class Simulator(unittest.TestCase):
         self.assertAlmostEqual(a.top_bottom_ratio([10, 10, 5, 5], k=2), 2.0)
 
 
+class RevenueRule(unittest.TestCase):
+    def test_band_by_hand(self):
+        r = a.apply_revenue_band(dict(A=90, B=50, C=20), dict(A=100, B=100, C=100), .4, .6)
+        self.assertEqual(r['new'], dict(A=60, B=50, C=40))
+        self.assertEqual((r['cut'], r['add'], r['net']), (30, 20, -10))
+
+    def test_revenue_file_covers_every_team(self):
+        rev = a.load_revenue()
+        self.assertEqual(sorted(rev), sorted(a.SLUG_TO_ABBR.values()))
+        self.assertEqual(rev['LAD'], 850)
+
+    def test_premier_league_limit_binds_no_mlb_team(self):
+        pay = a.load_payrolls()
+        out = a.revenue_rule(pay, sorted(a.SLUG_TO_ABBR.values()))
+        self.assertEqual(out['premier_league_85']['over'], [])
+        self.assertAlmostEqual(out['league_share'], .501, places=3)
+
+
 class Data(unittest.TestCase):
     @classmethod
     def setUpClass(cls):

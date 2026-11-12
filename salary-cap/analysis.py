@@ -114,6 +114,16 @@ def apply_cap_floor(payrolls, cap, floor):
                 net=sum(under.values()) - sum(over.values()))
 
 
+def apply_revenue_band(payrolls, revenues, min_share, max_share):
+    """A Premier League style rule: each team's payroll must sit between two shares of its own revenue."""
+    new = {t: min(max(p, min_share * revenues[t]), max_share * revenues[t]) for t, p in payrolls.items()}
+    # changes under $0.5 million are rounding, not a team the rule moves
+    over = {t: p - new[t] for t, p in payrolls.items() if p - new[t] > .5}
+    under = {t: new[t] - p for t, p in payrolls.items() if new[t] - p > .5}
+    return dict(new=new, over=over, under=under, cut=sum(over.values()), add=sum(under.values()),
+                net=sum(under.values()) - sum(over.values()))
+
+
 def top_bottom_ratio(values, k=5):
     v = sorted(values, reverse=True)
     return mean(v[:k]) / mean(v[-k:])
@@ -130,6 +140,29 @@ def load_payrolls():
             y, od, ye, cbt = cell.split(',')
             out[(team, int(y))] = dict(opening_day=float(od), year_end=float(ye), cbt=float(cbt) if cbt else None)
     return out
+
+
+def load_revenue():
+    with open(RAW / 'forbes_revenue_2025.csv') as f:
+        return {r['team']: float(r['revenue_m']) for r in csv.DictReader(f)}
+
+
+def revenue_rule(pay, teams):
+    rev = load_revenue()
+    base = {t: pay[(t, 2026)]['cbt'] for t in teams}
+    shares = {t: base[t] / rev[t] for t in teams}
+
+    def summary(lo, hi):
+        r = apply_revenue_band(base, rev, lo, hi)
+        return dict(min_share=lo, max_share=hi, over=sorted(r['over']), under=sorted(r['under']), cut=round(r['cut'], 1),
+                    add=round(r['add'], 1), net=round(r['net'], 1), ratio_after=round(top_bottom_ratio(r['new'].values()), 2))
+
+    top = max(shares, key=shares.get)
+    return dict(revenue={t: rev[t] for t in teams}, league_share=round(sum(base.values()) / sum(rev.values()), 4),
+                highest=dict(team=top, share=round(shares[top], 4)),
+                rank_of=dict(LAD=sorted(shares, key=shares.get, reverse=True).index('LAD') + 1,
+                             NYY=sorted(shares, key=shares.get, reverse=True).index('NYY') + 1),
+                premier_league_85=summary(0, .85), default_band=summary(.45, .60))
 
 
 def load_mlb():
@@ -315,6 +348,7 @@ def main():
         scatter=[dict(t=r['team'], s=r['season'], x=round(r['rel'], 3), y=round(r['win_pct'], 3), p=r['playoffs'], c=r['champion'])
                  for r in rows],
         balance=balance, simulator=simulator_baseline(pay, mlb, cbt_slope))
+    results['revenue_rule'] = revenue_rule(pay, sorted({t for t, _ in mlb}))
     # Tampa Bay lost the 2026 World Series to Milwaukee (NBC Sports, 28 October 2026)
     results['simulator']['finalist_rank'] = int(next(r['rank'] for r in rows if r['team'] == 'TB' and r['season'] == 2026))
     write_csvs(pay, mlb, rows)

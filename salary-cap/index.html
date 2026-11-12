@@ -182,6 +182,17 @@ input[type=range]{width:100%;height:28px;accent-color:var(--orange);cursor:point
 @media(max-width:980px){.simstats{grid-template-columns:repeat(2,minmax(0,1fr))}.cols.three{grid-template-columns:1fr}}
 @media(max-width:560px){.sliders{grid-template-columns:1fr}.tb{grid-template-columns:36px minmax(0,1fr) 78px;gap:8px}.tb .chg small{display:none}.vline{left:calc(44px + (100% - 130px) * var(--x))}.beforeafter{grid-template-columns:1fr}.chart-box.short{height:250px}.ss b{font-size:22px}}
 .vline.fl::after{left:auto;right:6px}
+.table-wrap{overflow-x:auto}
+.cmp{width:100%;border-collapse:collapse;font-size:13.5px;min-width:0}
+.cmp th,.cmp td{padding:10px 6px;border-bottom:1px solid var(--border);text-align:right;font-variant-numeric:tabular-nums}
+.cmp th:first-child,.cmp td:first-child{text-align:left;color:var(--muted);font-weight:400}
+.cmp thead th{font:600 12px/1.35 var(--heading);color:var(--ink);vertical-align:bottom;text-transform:none;letter-spacing:0}
+.cmp td.hl,.cmp th.hl{color:#ffb08f}
+.cols>.panel,.grid2>.panel{min-width:0}
+.slider output{white-space:nowrap}
+.cmp th,.cmp td{white-space:normal}
+.cmp td:not(:first-child){white-space:nowrap}
+@media(max-width:560px){.cmp{font-size:12.5px}.cmp th,.cmp td{padding:9px 4px}.cmp thead th{font-size:11px}}
 </style>
 </head>
 <body>
@@ -194,6 +205,7 @@ input[type=range]{width:100%;height:28px;accent-color:var(--orange);cursor:point
       <a class="hide-s" href="#simulator">Simulator</a>
       <a class="hide-s" href="#money">Money and wins</a>
       <a class="hide-s" href="#leagues">Other leagues</a>
+      <a class="hide-s" href="#revenue">Revenue rule</a>
       <a class="hide-s" href="https://github.com/takizawadaiki/takizawadaiki.github.io/tree/main/salary-cap">Code ↗</a>
       <a href="https://takizawadaiki.github.io/#projects">← All projects</a>
     </nav>
@@ -311,8 +323,46 @@ input[type=range]{width:100%;height:28px;accent-color:var(--orange);cursor:point
       </div>
     </section>
 
+    <section id="revenue" aria-labelledby="rev-h">
+      <div class="sec-top"><span class="k"><b>04</b>A different design</span><span class="k">The Premier League model</span></div>
+      <div class="sec-head">
+        <h2 id="rev-h">What if the limit followed <em>each team’s revenue?</em></h2>
+        <p>English football does not use one cap for every club. From 2026–27 the Premier League limits each club’s squad costs to 85% of its own revenue. Applied to baseball, every team would have to keep its payroll between a minimum and a maximum share of what it earns. Set both shares below.</p>
+      </div>
+      <div class="panel rv">
+        <div class="chips" id="rv-presets" role="group" aria-label="Presets"></div>
+        <div class="sliders">
+          <label class="slider"><span class="lab"><span>Most a team may spend</span><output id="rv-max-out"></output></span>
+            <input type="range" id="rv-max" min="40" max="90" step="1" aria-label="Maximum payroll as a percentage of revenue"/></label>
+          <label class="slider"><span class="lab"><span>Least a team must spend</span><output id="rv-min-out"></output></span>
+            <input type="range" id="rv-min" min="20" max="60" step="1" aria-label="Minimum payroll as a percentage of revenue"/></label>
+        </div>
+        <div class="simstats" aria-live="polite">
+          <div class="ss over"><span class="k">Teams over the limit</span><b id="rv-over"></b><span id="rv-cut"></span></div>
+          <div class="ss under"><span class="k">Teams under the minimum</span><b id="rv-under"></b><span id="rv-add"></span></div>
+          <div class="ss"><span class="k">Total player pay</span><b id="rv-net"></b><span id="rv-net-n"></span></div>
+          <div class="ss"><span class="k">Top five vs bottom five</span><b id="rv-ratio"></b><span id="rv-ratio-n"></span></div>
+        </div>
+        <p class="sub" style="margin-bottom:6px">Each bar is the share of its revenue a team spent on payroll in 2026, from the highest share to the lowest.</p>
+        <div class="legend"><span><i class="sw over"></i>Has to cut</span><span><i class="sw under"></i>Has to spend more</span><span><i class="sw none"></i>Unaffected</span><span><i class="sw line"></i>Minimum and maximum</span></div>
+        <div class="teambars" id="rv-bars"></div>
+        <p class="src" id="rv-note"></p>
+      </div>
+      <div class="cols" style="margin-top:18px">
+        <div class="panel rv">
+          <h3>The three systems side by side</h3>
+          <p class="sub">Same 2026 payrolls, three sets of rules. The revenue column follows the sliders above.</p>
+          <div class="table-wrap"><table class="cmp" id="rv-table"></table></div>
+        </div>
+        <div class="panel rv">
+          <h3>What this design does, and what it does not</h3>
+          <ul class="list" id="rv-read"></ul>
+        </div>
+      </div>
+    </section>
+
     <section id="verdict-sec" aria-labelledby="verdict-h">
-      <div class="sec-top"><span class="k"><b>04</b>Verdict</span><span class="k">What the evidence supports</span></div>
+      <div class="sec-top"><span class="k"><b>05</b>Verdict</span><span class="k">What the evidence supports</span></div>
       <div class="sec-head">
         <h2 id="verdict-h">A cap alone is unproven. <em>The floor does more of the work.</em></h2>
         <p>Money matters in baseball, so the owners have a real problem to point to. The evidence that a cap would fix it is weaker: capped leagues are not reliably more even, and under the league’s own offer the floor moves more teams and more money than the cap. This reading does not cover the share of revenue players receive, which is the part of the offer that matters most to them.</p>
@@ -325,7 +375,7 @@ input[type=range]{width:100%;height:28px;accent-color:var(--orange);cursor:point
     </section>
 
     <section id="method" aria-labelledby="method-h">
-      <div class="sec-top"><span class="k"><b>05</b>Method</span><span class="k">Sources and limits</span></div>
+      <div class="sec-top"><span class="k"><b>06</b>Method</span><span class="k">Sources and limits</span></div>
       <div class="cols">
         <div class="panel rv">
           <h3 id="method-h">Where the numbers come from</h3>
@@ -334,6 +384,7 @@ input[type=range]{width:100%;height:28px;accent-color:var(--orange);cursor:point
             <li><b>MLB records, playoff teams and champions:</b> MLB Stats API, 2000 to 2026.</li>
             <li><b>NBA:</b> NBA Stats standings, 1999–00 to 2025–26. <b>NHL:</b> NHL Stats API, 1995–96 to 2025–26. <b>NFL:</b> nflverse game results, 1999 to 2025.</li>
             <li><b>The league’s offer:</b> Associated Press report of 4 November 2026.</li>
+            <li><b>Team revenues:</b> Forbes estimates for the 2025 season, published 20 March 2026. They are net of revenue sharing and exclude playoff revenue. <b>Premier League rule:</b> Premier League statement of 21 November 2025.</li>
           </ul>
           <div class="cta">
             <a class="btn primary" href="https://github.com/takizawadaiki/takizawadaiki.github.io/tree/main/salary-cap">View the code and data <span aria-hidden="true">↗</span></a>
@@ -347,6 +398,7 @@ input[type=range]{width:100%;height:28px;accent-color:var(--orange);cursor:point
             <li><b>Correlation is not cause.</b> Payroll and wins move together, but winning teams also earn more and then spend more. The estimated win changes are what the past link implies, and they are not forecasts.</li>
             <li><b>Leagues differ in more than their cap.</b> Roster size, the draft, season length and the role of single stars all affect balance. The NBA comparison shows that a cap does not guarantee balance, and it does not show that a cap has no effect.</li>
             <li><b>Payroll figures are unofficial.</b> They are compiled from published reports, and the 2026 values are projections.</li>
+            <li><b>Revenues are estimates from a year earlier.</b> Teams do not publish their accounts, so the revenue section sets 2026 payrolls against Forbes’s 2025 revenue estimates. The shares are approximate.</li>
           </ul>
         </div>
       </div>
@@ -399,6 +451,7 @@ input[type=range]{width:100%;height:28px;accent-color:var(--orange);cursor:point
     simulator(S);
     money(R);
     leagues(B);
+    revenueRule(R);
 
     // Verdict lists
     const era = M.eras, by = R.by_year, y26 = by[by.length - 1], y18 = by.find(y => y.season === 2018), y00 = by[0];
@@ -553,6 +606,70 @@ input[type=range]{width:100%;height:28px;accent-color:var(--orange);cursor:point
     $('gap-note').textContent = `Lowest ${lo.top5_bottom5.toFixed(1)}× in ${lo.season}, highest ${hi.top5_bottom5.toFixed(1)}× in ${hi.season}, and ${last.top5_bottom5.toFixed(1)}× in ${last.season}. The gap has grown since 2018 but is close to where it stood in the early 2000s.`;
     const e = M.eras;
     $('r-note').textContent = `Average link by period: ${e[0].r.toFixed(2)} in 2000–11, ${e[1].r.toFixed(2)} in 2012–21 and ${e[2].r.toFixed(2)} in 2022–26. The intervals overlap, so there is no clear sign that money matters more now.`;
+  }
+
+  // ---------- 04 revenue rule ----------
+  function revenueRule(R) {
+    const S = R.simulator, V = R.revenue_rule, P = S.proposal, MAXS = .9;
+    const teams = S.teams.map(t => ({ ...t, rev: V.revenue[t.team], share: t.payroll / V.revenue[t.team] })).sort((a, b) => b.share - a.share);
+    const maxI = $('rv-max'), minI = $('rv-min'), box = $('rv-bars');
+    const ratio = v => { const s = v.slice().sort((a, b) => b - a); return mean(s.slice(0, 5)) / mean(s.slice(-5)); };
+    const total = teams.reduce((s, t) => s + t.payroll, 0), ratio0 = ratio(teams.map(t => t.payroll));
+    const pct = v => Math.round(v * 100) + '%';
+    const maxLine = el('div', 'vline'), minLine = el('div', 'vline fl');
+    maxLine.dataset.l = 'Max'; minLine.dataset.l = 'Min'; box.append(maxLine, minLine);
+    const rows = teams.map(t => {
+      const r = el('div', 'tb');
+      r.innerHTML = `<span class="ab" title="${t.name}: ${fmtM(t.payroll)} payroll on ${fmtM(t.rev)} revenue">${t.team}</span><div class="track"><div class="bar-now"></div><div class="bar-keep"></div><div class="bar-add"></div></div><span class="chg"></span>`;
+      r.style.setProperty('--w', (t.share / MAXS * 100) + '%'); box.append(r); return r;
+    });
+    const presets = [{ label: 'Band of 45% to 60%', lo: 45, hi: 60 }, { label: 'Premier League limit, 85%', lo: 20, hi: 85 }, { label: 'Minimum only, 45%', lo: 45, hi: 90 }, { label: 'Everyone at the league average', lo: 50, hi: 50 }];
+    presets.forEach(p => { const b = el('button', null, p.label); b.type = 'button'; b.addEventListener('click', () => { maxI.value = p.hi; minI.value = p.lo; update(); }); $('rv-presets').append(b); p.b = b; });
+    const lg = (() => { const next = teams.map(t => Math.min(Math.max(t.payroll, P.floor), P.cap)); return { next, over: next.filter((n, i) => n < teams[i].payroll).length, under: next.filter((n, i) => n > teams[i].payroll).length, net: next.reduce((s, n) => s + n, 0) - total, ratio: ratio(next) }; })();
+    const lad = teams.findIndex(t => t.team === 'LAD');
+    const money = v => Math.abs(v) < .5 ? 'No change' : (v > 0 ? '+' : '−') + fmtM(Math.abs(v));
+
+    function update(src) {
+      let hi = +maxI.value, lo = +minI.value;
+      if (lo > hi) { if (src === 'min') { hi = lo; maxI.value = hi; } else { lo = hi; minI.value = lo; } }
+      const noMax = hi >= 90, noMin = lo <= 20, H = noMax ? Infinity : hi / 100, L = noMin ? 0 : lo / 100;
+      $('rv-max-out').textContent = noMax ? 'No limit' : hi + '% of revenue'; $('rv-min-out').textContent = noMin ? 'No minimum' : lo + '% of revenue';
+      const next = teams.map(t => Math.min(Math.max(t.payroll, L * t.rev), H * t.rev));
+      let cut = 0, add = 0, nO = 0, nU = 0;
+      teams.forEach((t, i) => {
+        const d = next[i] - t.payroll, r = rows[i];
+        r.classList.toggle('over', d < -.5); r.classList.toggle('under', d > .5);
+        r.style.setProperty('--k', d < -.5 ? (next[i] / t.rev / MAXS * 100) + '%' : '0%');
+        r.style.setProperty('--a', d > .5 ? (d / t.rev / MAXS * 100) + '%' : '0%');
+        r.lastElementChild.innerHTML = Math.abs(d) > .5 ? `${d > 0 ? '+' : '−'}${fmtM(Math.abs(d))}<small>${pct(t.share)} now</small>` : `${pct(t.share)}<small>${fmtM(t.payroll)}</small>`;
+        if (d < -.5) { cut -= d; nO++; } if (d > .5) { add += d; nU++; }
+      });
+      maxLine.hidden = noMax; minLine.hidden = noMin;
+      maxLine.style.setProperty('--x', Math.min(hi / 100, MAXS) / MAXS); minLine.style.setProperty('--x', lo / 100 / MAXS);
+      const net = add - cut, r1 = ratio(next);
+      $('rv-over').textContent = nO; $('rv-cut').textContent = nO ? `must cut ${fmtM(cut)} in total` : 'no team has to cut';
+      $('rv-under').textContent = nU; $('rv-add').textContent = nU ? `must add ${fmtM(add)} in total` : 'no team has to add';
+      $('rv-net').textContent = money(net); $('rv-net-n').textContent = Math.abs(net) >= .5 ? `${(Math.abs(net) / total * 100).toFixed(1)}% ${net > 0 ? 'more' : 'less'} than in 2026` : 'same total as 2026';
+      $('rv-ratio').textContent = r1.toFixed(1) + '×'; $('rv-ratio-n').textContent = `was ${ratio0.toFixed(1)}× in 2026`;
+      presets.forEach(p => p.b.setAttribute('aria-pressed', String(p.hi === hi && p.lo === lo)));
+      $('rv-table').innerHTML = `<thead><tr><th></th><th>No rule</th><th>League offer<br>one cap, one floor</th><th class="hl">Revenue rule<br>${noMin ? 'no min' : lo + '%'} to ${noMax ? 'no max' : hi + '%'}</th></tr></thead><tbody>
+        <tr><td>Teams that must cut</td><td>0</td><td>${lg.over}</td><td class="hl">${nO}</td></tr>
+        <tr><td>Teams that must spend more</td><td>0</td><td>${lg.under}</td><td class="hl">${nU}</td></tr>
+        <tr><td>Total player pay</td><td>${fmtM(total)}</td><td>${money(lg.net)}</td><td class="hl">${money(net)}</td></tr>
+        <tr><td>Top five vs bottom five</td><td>${ratio0.toFixed(1)}×</td><td>${lg.ratio.toFixed(1)}×</td><td class="hl">${r1.toFixed(1)}×</td></tr>
+        <tr><td>Dodgers payroll</td><td>${fmtM(teams[lad].payroll)}</td><td>${fmtM(lg.next[lad])}</td><td class="hl">${fmtM(next[lad])}</td></tr></tbody>`;
+    }
+    maxI.addEventListener('input', () => update('max')); minI.addEventListener('input', () => update('min'));
+    maxI.value = presets[0].hi; minI.value = presets[0].lo; update();
+
+    const hiT = teams[0], loT = teams[teams.length - 1], d = V.default_band, nick = n => { const w = n.split(' '); return /^(Blue Jays|Red Sox|White Sox)$/.test(w.slice(-2).join(' ')) ? w.slice(-2).join(' ') : w[w.length - 1]; }, name = a => nick(teams.find(t => t.team === a).name);
+    $('rv-note').innerHTML = `Payroll is the 2026 luxury-tax payroll and revenue is Forbes’s estimate for the 2025 season, so the shares are approximate. Across the league, payroll comes to ${pct(V.league_share)} of revenue. Sources: Cot’s Baseball Contracts, Forbes.`;
+    [
+      `<b>The Premier League’s own number would change nothing.</b> No MLB team spends close to 85% of its revenue on players. The highest is the ${nick(hiT.name)} at ${pct(hiT.share)}, so baseball would need a much lower limit.`,
+      `<b>It makes low spenders spend.</b> The ${nick(loT.name)} put ${pct(loT.share)} of revenue into payroll. A 45% minimum would move ${d.under.length} teams up by ${fmtM(d.add)} in total, and it asks each owner for a share of what that team earns, which a single league-wide floor does not.`,
+      `<b>It does not touch the Dodgers.</b> They spend ${pct(teams[lad].share)} of revenue, which ranks ${ordinal(V.rank_of.LAD)}. The Yankees rank ${ordinal(V.rank_of.NYY)}. The teams over a 60% limit are the ${d.over.map(name).join(', ').replace(/, ([^,]*)$/, ' and $1')}, which are mostly mid-market clubs spending hard to compete.`,
+      `<b>So it is a fairness rule more than a balance rule.</b> A band of 45% to 60% narrows the gap between the top five and bottom five payrolls from ${ratio0.toFixed(1)} to ${d.ratio_after.toFixed(1)} times, against ${lg.ratio.toFixed(1)} under the league’s offer. Premier League clubs voted down a second rule, tying every club’s limit to the lowest earner’s income, that was meant to close this gap.`,
+    ].forEach(t => $('rv-read').append(el('li', null, t)));
   }
 
   // ---------- 03 leagues ----------
