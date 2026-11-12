@@ -1,0 +1,51 @@
+name: Bunt data
+# Started by hand: Actions tab -> Bunt data -> Run workflow.
+# Downloads Statcast season by season, reduces it to plate appearances, and commits the small tables in bunt/data.
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  season:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix:
+        season: [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install "pandas>=2.1" "numpy>=1.26" "pyarrow>=14" "pybaseball>=2.2.7"
+      - run: python bunt/pipeline/season.py ${{ matrix.season }} out
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pa-${{ matrix.season }}
+          path: out/*.parquet
+          retention-days: 14
+  combine:
+    needs: season
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install "pandas>=2.1" "numpy>=1.26" "pyarrow>=14"
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: pa-*
+          path: out
+          merge-multiple: true
+      - run: python bunt/pipeline/aggregate.py out bunt/data
+      - name: Commit data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git pull --rebase
+          git add bunt/data
+          git diff --cached --quiet && echo "No change." || git commit -m "Update bunt data from Statcast"
+          git push
