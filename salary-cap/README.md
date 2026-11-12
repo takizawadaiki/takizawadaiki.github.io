@@ -16,8 +16,8 @@ The league offered a hard cap of $258.2 million and a floor of $180.2 million fr
 - **Simulator.** Set any cap and floor and see which teams must cut, which must spend more, and what happens to total player pay. At the league's own numbers it flags the same 8 and 12 teams the Associated Press reported.
 - **Money and wins.** Payroll against wins for every team season since 2000 (810 in total).
 - **Other leagues.** Two balance measures for MLB next to the NBA, NFL and NHL, which all limit payrolls, plus a before-and-after look at the NHL's 2005 cap.
-- **A different design.** A Premier League style rule that ties each team's payroll to a share of its own revenue, with its own sliders and a side-by-side comparison against the league's offer.
-- **Verdict.** What the evidence supports for each side, and what it cannot settle.
+- **A different design.** A Premier League style rule that ties each team's payroll to a share of its own revenue, with an optional anchor to the lowest-earning team, its own sliders and a side-by-side comparison against the league's offer.
+- **Verdict.** What the evidence supports for each side, what it cannot settle, and the design the page proposes.
 
 ## Findings
 
@@ -29,6 +29,7 @@ The league offered a hard cap of $258.2 million and a floor of $180.2 million fr
 - On 2026 payrolls, the November offer would force 12 teams up to the floor ($661 million) and 8 down to the cap ($511 million), a net gain for players of $150 million if nothing else changed. The May offer would have been a net cut of $73 million.
 
 - A revenue rule works differently from a single cap. The Premier League's 85% limit would bind no MLB team, since the highest share is Toronto's 71%. A band of 45% to 60% would move 10 teams up and 5 down, but it would leave the Dodgers alone: they spend 51% of revenue, which ranks 12th. It narrows the gap between the top and bottom five payrolls to 2.5 times, against 1.4 under the league's offer.
+- The proposal on the page adds an anchor to fix that: every team spends at least 50% of its own revenue, and no team spends more than 1.2 times the lowest team revenue ($287 million). On 2026 payrolls, 16 teams would spend more and 5 would cut, total player pay would rise by $116 million, the Dodgers would come down from $432 million to $287 million, and the gap would narrow to 2.0 times. The league's flat floor of $180.2 million would be 75% of the lowest-revenue team's income.
 
 ## Limits
 
@@ -43,7 +44,7 @@ Python 3.9 or later, standard library only.
 
 ```
 python analysis.py                    # writes data/mlb_team_seasons.csv and results/results.json
-python -m unittest discover tests     # 18 checks
+python -m unittest discover tests     # 19 checks
 ```
 
 Sources are listed in [data/SOURCES.md](data/SOURCES.md).

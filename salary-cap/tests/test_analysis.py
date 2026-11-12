@@ -54,6 +54,11 @@ class RevenueRule(unittest.TestCase):
         self.assertEqual(r['new'], dict(A=60, B=50, C=40))
         self.assertEqual((r['cut'], r['add'], r['net']), (30, 20, -10))
 
+    def test_anchor_caps_at_a_multiple_of_the_lowest_revenue(self):
+        r = a.apply_revenue_band(dict(A=300, B=50), dict(A=500, B=100), .4, 9, anchor=1.5)
+        self.assertEqual(r['new'], dict(A=150, B=50))
+        self.assertEqual(r['cut'], 150)
+
     def test_revenue_file_covers_every_team(self):
         rev = a.load_revenue()
         self.assertEqual(sorted(rev), sorted(a.SLUG_TO_ABBR.values()))

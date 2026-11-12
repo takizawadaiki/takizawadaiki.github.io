@@ -114,9 +114,11 @@ def apply_cap_floor(payrolls, cap, floor):
                 net=sum(under.values()) - sum(over.values()))
 
 
-def apply_revenue_band(payrolls, revenues, min_share, max_share):
-    """A Premier League style rule: each team's payroll must sit between two shares of its own revenue."""
-    new = {t: min(max(p, min_share * revenues[t]), max_share * revenues[t]) for t, p in payrolls.items()}
+def apply_revenue_band(payrolls, revenues, min_share, max_share, anchor=None):
+    """A Premier League style rule: each team's payroll must sit between two shares of its own revenue.
+    anchor, if given, also stops any team spending more than that multiple of the lowest team revenue."""
+    ceiling = anchor * min(revenues.values()) if anchor else float('inf')
+    new = {t: min(max(p, min_share * revenues[t]), max_share * revenues[t], ceiling) for t, p in payrolls.items()}
     # changes under $0.5 million are rounding, not a team the rule moves
     over = {t: p - new[t] for t, p in payrolls.items() if p - new[t] > .5}
     under = {t: new[t] - p for t, p in payrolls.items() if new[t] - p > .5}
@@ -152,9 +154,10 @@ def revenue_rule(pay, teams):
     base = {t: pay[(t, 2026)]['cbt'] for t in teams}
     shares = {t: base[t] / rev[t] for t in teams}
 
-    def summary(lo, hi):
-        r = apply_revenue_band(base, rev, lo, hi)
-        return dict(min_share=lo, max_share=hi, over=sorted(r['over']), under=sorted(r['under']), cut=round(r['cut'], 1),
+    def summary(lo, hi, anchor=None):
+        r = apply_revenue_band(base, rev, lo, hi, anchor)
+        return dict(min_share=lo, max_share=hi, anchor=anchor, ceiling=round(anchor * min(rev.values()), 1) if anchor else None,
+                    dodgers=round(r['new']['LAD'], 1), over=sorted(r['over']), under=sorted(r['under']), cut=round(r['cut'], 1),
                     add=round(r['add'], 1), net=round(r['net'], 1), ratio_after=round(top_bottom_ratio(r['new'].values()), 2))
 
     top = max(shares, key=shares.get)
@@ -162,7 +165,11 @@ def revenue_rule(pay, teams):
                 highest=dict(team=top, share=round(shares[top], 4)),
                 rank_of=dict(LAD=sorted(shares, key=shares.get, reverse=True).index('LAD') + 1,
                              NYY=sorted(shares, key=shares.get, reverse=True).index('NYY') + 1),
-                premier_league_85=summary(0, .85), default_band=summary(.45, .60))
+                premier_league_85=summary(0, .85), default_band=summary(.45, .60),
+                proposal=summary(.50, 9, 1.2), lowest=dict(team=min(rev, key=rev.get), revenue=min(rev.values())),
+                # what the league's flat numbers mean as a share of each team's revenue
+                league_floor_share={t: round(PROPOSAL['floor'] / rev[t], 4) for t in teams},
+                league_cap_share={t: round(PROPOSAL['cap'] / rev[t], 4) for t in teams})
 
 
 def load_mlb():

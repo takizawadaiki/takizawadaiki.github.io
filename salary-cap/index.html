@@ -193,6 +193,12 @@ input[type=range]{width:100%;height:28px;accent-color:var(--orange);cursor:point
 .cmp th,.cmp td{white-space:normal}
 .cmp td:not(:first-child){white-space:nowrap}
 @media(max-width:560px){.cmp{font-size:12.5px}.cmp th,.cmp td{padding:9px 4px}.cmp thead th{font-size:11px}}
+.sliders.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.sliders.three .slider output{font-size:18px}
+.rec{border-color:#6b4a3a;background:linear-gradient(115deg,#221812,#161a14)}
+.rec h3{font-size:22px;line-height:1.25;margin:8px 0 8px;letter-spacing:-.02em}
+.rec .sub{max-width:900px}
+@media(max-width:980px){.sliders.three{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -327,16 +333,19 @@ input[type=range]{width:100%;height:28px;accent-color:var(--orange);cursor:point
       <div class="sec-top"><span class="k"><b>04</b>A different design</span><span class="k">The Premier League model</span></div>
       <div class="sec-head">
         <h2 id="rev-h">What if the limit followed <em>each team’s revenue?</em></h2>
-        <p>English football does not use one cap for every club. From 2026–27 the Premier League limits each club’s squad costs to 85% of its own revenue. Applied to baseball, every team would have to keep its payroll between a minimum and a maximum share of what it earns. Set both shares below.</p>
+        <p>English football does not use one cap for every club. From 2026–27 the Premier League limits each club’s squad costs to 85% of its own revenue. Applied to baseball, every team would have to keep its payroll between a minimum and a maximum share of what it earns. The Premier League also debated an anchor, which stops any club spending more than a set multiple of what the lowest-earning club takes in. All three settings are below.</p>
       </div>
       <div class="panel rv">
         <div class="chips" id="rv-presets" role="group" aria-label="Presets"></div>
-        <div class="sliders">
-          <label class="slider"><span class="lab"><span>Most a team may spend</span><output id="rv-max-out"></output></span>
-            <input type="range" id="rv-max" min="40" max="90" step="1" aria-label="Maximum payroll as a percentage of revenue"/></label>
+        <div class="sliders three">
           <label class="slider"><span class="lab"><span>Least a team must spend</span><output id="rv-min-out"></output></span>
             <input type="range" id="rv-min" min="20" max="60" step="1" aria-label="Minimum payroll as a percentage of revenue"/></label>
+          <label class="slider"><span class="lab"><span>Most a team may spend</span><output id="rv-max-out"></output></span>
+            <input type="range" id="rv-max" min="40" max="90" step="1" aria-label="Maximum payroll as a percentage of revenue"/></label>
+          <label class="slider"><span class="lab"><span>Anchor</span><output id="rv-anchor-out"></output></span>
+            <input type="range" id="rv-anchor" min="100" max="200" step="5" aria-label="Anchor: highest payroll allowed as a multiple of the lowest team revenue"/></label>
         </div>
+        <p class="sub" id="rv-anchor-note" style="margin:-6px 0 16px"></p>
         <div class="simstats" aria-live="polite">
           <div class="ss over"><span class="k">Teams over the limit</span><b id="rv-over"></b><span id="rv-cut"></span></div>
           <div class="ss under"><span class="k">Teams under the minimum</span><b id="rv-under"></b><span id="rv-add"></span></div>
@@ -344,7 +353,7 @@ input[type=range]{width:100%;height:28px;accent-color:var(--orange);cursor:point
           <div class="ss"><span class="k">Top five vs bottom five</span><b id="rv-ratio"></b><span id="rv-ratio-n"></span></div>
         </div>
         <p class="sub" style="margin-bottom:6px">Each bar is the share of its revenue a team spent on payroll in 2026, from the highest share to the lowest.</p>
-        <div class="legend"><span><i class="sw over"></i>Has to cut</span><span><i class="sw under"></i>Has to spend more</span><span><i class="sw none"></i>Unaffected</span><span><i class="sw line"></i>Minimum and maximum</span></div>
+        <div class="legend"><span><i class="sw over"></i>Has to cut</span><span><i class="sw under"></i>Has to spend more</span><span><i class="sw none"></i>Unaffected</span><span><i class="sw line"></i>Minimum and maximum share</span></div>
         <div class="teambars" id="rv-bars"></div>
         <p class="src" id="rv-note"></p>
       </div>
@@ -371,6 +380,12 @@ input[type=range]{width:100%;height:28px;accent-color:var(--orange);cursor:point
         <div class="panel rv"><span class="k">For the owners</span><ul class="list" id="v-owners"></ul></div>
         <div class="panel rv"><span class="k">For the players</span><ul class="list" id="v-players"></ul></div>
         <div class="panel rv"><span class="k">What this cannot settle</span><ul class="list" id="v-open"></ul></div>
+      </div>
+      <div class="panel rv rec" style="margin-top:18px">
+        <span class="k">What I would propose</span>
+        <h3 id="rec-h"></h3>
+        <p class="sub" id="rec-p"></p>
+        <ul class="list" id="rec-list"></ul>
       </div>
     </section>
 
@@ -470,6 +485,16 @@ input[type=range]{width:100%;height:28px;accent-color:var(--orange);cursor:point
       `<b>The revenue split.</b> The offer ties the cap to a 50-50 split of revenue. Whether players gain or lose depends on that share and on how revenue is counted, and team revenues are not public.`,
       `<b>How teams would react.</b> On 2026 payrolls the floor adds ${fmtM(S.check.add)} and the cap removes ${fmtM(S.check.cut)}, a net gain for players of ${fmtM(S.check.net)}. The league’s earlier offer in May would have been a net cut of ${fmtM(Math.abs(S.may_offer.net))} on the same payrolls. Whether low-payroll owners would really spend up to a floor is the open question.`,
       `<b>Cause and effect.</b> Winning also raises revenue, which raises payroll. The link between money and wins is real, but its size as a cause is smaller than the raw numbers suggest.`,
+    ]);
+
+    const pr = R.revenue_rule.proposal, fsh = R.revenue_rule.league_floor_share, csh = R.revenue_rule.league_cap_share;
+    $('rec-h').textContent = 'Tie both limits to revenue: a 50% minimum for every team, and a ceiling anchored to the poorest one.';
+    $('rec-p').textContent = `Every team would have to spend at least half of its own revenue on players, and no team could spend more than 1.2 times what the lowest-earning team takes in (${fmtM(pr.ceiling)} on current figures). This borrows the two ideas the Premier League debated in 2025.`;
+    add('rec-list', [
+      `<b>It moves more teams from the bottom than the league’s offer.</b> ${pr.under.length} teams would have to spend more (${fmtM(pr.add)} in total) and ${pr.over.length} would have to cut (${fmtM(pr.cut)}). Total player pay rises by ${fmtM(pr.net)}, compared with ${fmtM(S.check.net)} under the league’s offer.`,
+      `<b>It asks for what each team can afford.</b> The league’s flat floor of ${fmtM(P.floor)} is ${Math.round(fsh.CWS * 100)}% of the White Sox’s revenue, while its cap of ${fmtM(P.cap)} is ${Math.round(csh.LAD * 100)}% of the Dodgers’. A percentage treats both the same.`,
+      `<b>It still limits the top.</b> The Dodgers would come down from ${fmtM(S.teams.find(t => t.team === 'LAD').payroll)} to ${fmtM(pr.dodgers)}, and the ceiling rises whenever the poorest team’s revenue does, which gives rich teams a reason to support revenue sharing.`,
+      `<b>Its weak points.</b> It closes less of the gap than the league’s offer (${pr.ratio_after.toFixed(1)} times against ${S.check.ratio_after.toFixed(1)}). The anchor is a cap in practice, so the union would likely oppose it. And it depends on revenue figures that teams would have to open to audit.`,
     ]);
 
     if (!reduced && 'IntersectionObserver' in window) {
@@ -612,7 +637,8 @@ input[type=range]{width:100%;height:28px;accent-color:var(--orange);cursor:point
   function revenueRule(R) {
     const S = R.simulator, V = R.revenue_rule, P = S.proposal, MAXS = .9;
     const teams = S.teams.map(t => ({ ...t, rev: V.revenue[t.team], share: t.payroll / V.revenue[t.team] })).sort((a, b) => b.share - a.share);
-    const maxI = $('rv-max'), minI = $('rv-min'), box = $('rv-bars');
+    const maxI = $('rv-max'), minI = $('rv-min'), anI = $('rv-anchor'), box = $('rv-bars');
+    const lowRev = V.lowest.revenue;
     const ratio = v => { const s = v.slice().sort((a, b) => b - a); return mean(s.slice(0, 5)) / mean(s.slice(-5)); };
     const total = teams.reduce((s, t) => s + t.payroll, 0), ratio0 = ratio(teams.map(t => t.payroll));
     const pct = v => Math.round(v * 100) + '%';
@@ -623,8 +649,8 @@ input[type=range]{width:100%;height:28px;accent-color:var(--orange);cursor:point
       r.innerHTML = `<span class="ab" title="${t.name}: ${fmtM(t.payroll)} payroll on ${fmtM(t.rev)} revenue">${t.team}</span><div class="track"><div class="bar-now"></div><div class="bar-keep"></div><div class="bar-add"></div></div><span class="chg"></span>`;
       r.style.setProperty('--w', (t.share / MAXS * 100) + '%'); box.append(r); return r;
     });
-    const presets = [{ label: 'Band of 45% to 60%', lo: 45, hi: 60 }, { label: 'Premier League limit, 85%', lo: 20, hi: 85 }, { label: 'Minimum only, 45%', lo: 45, hi: 90 }, { label: 'Everyone at the league average', lo: 50, hi: 50 }];
-    presets.forEach(p => { const b = el('button', null, p.label); b.type = 'button'; b.addEventListener('click', () => { maxI.value = p.hi; minI.value = p.lo; update(); }); $('rv-presets').append(b); p.b = b; });
+    const presets = [{ label: 'My proposal', lo: 50, hi: 90, an: 120 }, { label: 'Band of 45% to 60%', lo: 45, hi: 60, an: 200 }, { label: 'Premier League limit, 85%', lo: 20, hi: 85, an: 200 }, { label: 'Minimum only, 50%', lo: 50, hi: 90, an: 200 }, { label: 'Anchor only, 1.2×', lo: 20, hi: 90, an: 120 }];
+    presets.forEach(p => { const b = el('button', null, p.label); b.type = 'button'; b.addEventListener('click', () => { maxI.value = p.hi; minI.value = p.lo; anI.value = p.an; update(); }); $('rv-presets').append(b); p.b = b; });
     const lg = (() => { const next = teams.map(t => Math.min(Math.max(t.payroll, P.floor), P.cap)); return { next, over: next.filter((n, i) => n < teams[i].payroll).length, under: next.filter((n, i) => n > teams[i].payroll).length, net: next.reduce((s, n) => s + n, 0) - total, ratio: ratio(next) }; })();
     const lad = teams.findIndex(t => t.team === 'LAD');
     const money = v => Math.abs(v) < .5 ? 'No change' : (v > 0 ? '+' : '−') + fmtM(Math.abs(v));
@@ -632,9 +658,12 @@ input[type=range]{width:100%;height:28px;accent-color:var(--orange);cursor:point
     function update(src) {
       let hi = +maxI.value, lo = +minI.value;
       if (lo > hi) { if (src === 'min') { hi = lo; maxI.value = hi; } else { lo = hi; minI.value = lo; } }
+      const an = +anI.value, noAn = an >= 200, ceil = noAn ? Infinity : an / 100 * lowRev;
       const noMax = hi >= 90, noMin = lo <= 20, H = noMax ? Infinity : hi / 100, L = noMin ? 0 : lo / 100;
       $('rv-max-out').textContent = noMax ? 'No limit' : hi + '% of revenue'; $('rv-min-out').textContent = noMin ? 'No minimum' : lo + '% of revenue';
-      const next = teams.map(t => Math.min(Math.max(t.payroll, L * t.rev), H * t.rev));
+      $('rv-anchor-out').textContent = noAn ? 'No anchor' : (an / 100).toFixed(2).replace(/0$/, '') + '× · ' + fmtM(ceil);
+      $('rv-anchor-note').textContent = noAn ? `The anchor is off. Turn it on to stop any team spending more than a multiple of the lowest team revenue, which is the ${V.lowest.team === 'CWS' ? 'White Sox' : V.lowest.team} at ${fmtM(lowRev)}.` : `With the anchor at ${(an / 100).toFixed(2).replace(/0$/, '')}×, no team may spend more than ${fmtM(ceil)}, which is ${(an / 100).toFixed(2).replace(/0$/, '')} times the lowest team revenue (the White Sox at ${fmtM(lowRev)}). It rises whenever the poorest team earns more.`;
+      const next = teams.map(t => Math.min(Math.max(t.payroll, L * t.rev), H * t.rev, ceil));
       let cut = 0, add = 0, nO = 0, nU = 0;
       teams.forEach((t, i) => {
         const d = next[i] - t.payroll, r = rows[i];
@@ -651,24 +680,26 @@ input[type=range]{width:100%;height:28px;accent-color:var(--orange);cursor:point
       $('rv-under').textContent = nU; $('rv-add').textContent = nU ? `must add ${fmtM(add)} in total` : 'no team has to add';
       $('rv-net').textContent = money(net); $('rv-net-n').textContent = Math.abs(net) >= .5 ? `${(Math.abs(net) / total * 100).toFixed(1)}% ${net > 0 ? 'more' : 'less'} than in 2026` : 'same total as 2026';
       $('rv-ratio').textContent = r1.toFixed(1) + '×'; $('rv-ratio-n').textContent = `was ${ratio0.toFixed(1)}× in 2026`;
-      presets.forEach(p => p.b.setAttribute('aria-pressed', String(p.hi === hi && p.lo === lo)));
-      $('rv-table').innerHTML = `<thead><tr><th></th><th>No rule</th><th>League offer<br>one cap, one floor</th><th class="hl">Revenue rule<br>${noMin ? 'no min' : lo + '%'} to ${noMax ? 'no max' : hi + '%'}</th></tr></thead><tbody>
+      presets.forEach(p => p.b.setAttribute('aria-pressed', String(p.hi === hi && p.lo === lo && p.an === an)));
+      $('rv-table').innerHTML = `<thead><tr><th></th><th>No rule</th><th>League offer<br>one cap, one floor</th><th class="hl">Revenue rule<br>${noMin ? 'no min' : 'min ' + lo + '%'}${noMax ? '' : ', max ' + hi + '%'}${noAn ? '' : ', anchor ' + (an / 100).toFixed(2).replace(/0$/, '') + '×'}</th></tr></thead><tbody>
         <tr><td>Teams that must cut</td><td>0</td><td>${lg.over}</td><td class="hl">${nO}</td></tr>
         <tr><td>Teams that must spend more</td><td>0</td><td>${lg.under}</td><td class="hl">${nU}</td></tr>
         <tr><td>Total player pay</td><td>${fmtM(total)}</td><td>${money(lg.net)}</td><td class="hl">${money(net)}</td></tr>
         <tr><td>Top five vs bottom five</td><td>${ratio0.toFixed(1)}×</td><td>${lg.ratio.toFixed(1)}×</td><td class="hl">${r1.toFixed(1)}×</td></tr>
         <tr><td>Dodgers payroll</td><td>${fmtM(teams[lad].payroll)}</td><td>${fmtM(lg.next[lad])}</td><td class="hl">${fmtM(next[lad])}</td></tr></tbody>`;
     }
-    maxI.addEventListener('input', () => update('max')); minI.addEventListener('input', () => update('min'));
-    maxI.value = presets[0].hi; minI.value = presets[0].lo; update();
+    maxI.addEventListener('input', () => update('max')); minI.addEventListener('input', () => update('min')); anI.addEventListener('input', () => update());
+    maxI.value = presets[0].hi; minI.value = presets[0].lo; anI.value = presets[0].an; update();
 
     const hiT = teams[0], loT = teams[teams.length - 1], d = V.default_band, nick = n => { const w = n.split(' '); return /^(Blue Jays|Red Sox|White Sox)$/.test(w.slice(-2).join(' ')) ? w.slice(-2).join(' ') : w[w.length - 1]; }, name = a => nick(teams.find(t => t.team === a).name);
     $('rv-note').innerHTML = `Payroll is the 2026 luxury-tax payroll and revenue is Forbes’s estimate for the 2025 season, so the shares are approximate. Across the league, payroll comes to ${pct(V.league_share)} of revenue. Sources: Cot’s Baseball Contracts, Forbes.`;
+    const pr = V.proposal, fs = V.league_floor_share, big = pr.under.filter(a => ['ATL', 'BOS', 'CHC', 'SF'].includes(a)).map(name);
     [
       `<b>The Premier League’s own number would change nothing.</b> No MLB team spends close to 85% of its revenue on players. The highest is the ${nick(hiT.name)} at ${pct(hiT.share)}, so baseball would need a much lower limit.`,
-      `<b>It makes low spenders spend.</b> The ${nick(loT.name)} put ${pct(loT.share)} of revenue into payroll. A 45% minimum would move ${d.under.length} teams up by ${fmtM(d.add)} in total, and it asks each owner for a share of what that team earns, which a single league-wide floor does not.`,
-      `<b>It does not touch the Dodgers.</b> They spend ${pct(teams[lad].share)} of revenue, which ranks ${ordinal(V.rank_of.LAD)}. The Yankees rank ${ordinal(V.rank_of.NYY)}. The teams over a 60% limit are the ${d.over.map(name).join(', ').replace(/, ([^,]*)$/, ' and $1')}, which are mostly mid-market clubs spending hard to compete.`,
-      `<b>So it is a fairness rule more than a balance rule.</b> A band of 45% to 60% narrows the gap between the top five and bottom five payrolls from ${ratio0.toFixed(1)} to ${d.ratio_after.toFixed(1)} times, against ${lg.ratio.toFixed(1)} under the league’s offer. Premier League clubs voted down a second rule, tying every club’s limit to the lowest earner’s income, that was meant to close this gap.`,
+      `<b>A share of revenue alone does not touch the Dodgers.</b> They spend ${pct(teams[lad].share)} of revenue, which ranks ${ordinal(V.rank_of.LAD)}, and the Yankees rank ${ordinal(V.rank_of.NYY)}. A 60% limit would instead cut the ${d.over.map(name).join(', ').replace(/, ([^,]*)$/, ' and $1')}, which are mostly mid-market clubs spending hard to compete.`,
+      `<b>The anchor is what closes the gap.</b> At 1.2 times the lowest team revenue, the ceiling is ${fmtM(pr.ceiling)} and the Dodgers come down from ${fmtM(teams[lad].payroll)}. It works like a cap, but it is tied to what the poorest team earns and rises with it.`,
+      `<b>A revenue minimum asks every owner for the same effort.</b> The ${nick(loT.name)} put ${pct(loT.share)} of revenue into payroll. A 50% minimum moves ${pr.under.length} teams up, including big-market clubs that spend a small share of what they earn (the ${big.join(', ').replace(/, ([^,]*)$/, ' and $1')}). The league’s flat ${fmtM(P.floor)} floor would take ${pct(fs.CWS)} of the White Sox’s revenue and ${pct(fs.TB)} of the Rays’.`,
+      `<b>The cost is a smaller squeeze.</b> A 50% minimum with a 1.2× anchor narrows the gap between the top five and bottom five payrolls from ${ratio0.toFixed(1)} to ${pr.ratio_after.toFixed(1)} times, against ${lg.ratio.toFixed(1)} under the league’s offer. Premier League clubs adopted the revenue share and voted the anchor down.`,
     ].forEach(t => $('rv-read').append(el('li', null, t)));
   }
 
