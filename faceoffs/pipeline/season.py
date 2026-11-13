@@ -91,7 +91,8 @@ def main(year, out):
             played += 1
         rows += r
         for pid, name, pos, team in roster:
-            players.setdefault(pid, [name, {}])[1][pos] = players[pid][1].get(pos, 0) + 1
+            seen = players.setdefault(pid, [name, {}])[1]
+            seen[pos] = seen.get(pos, 0) + 1
     if played < 800:
         raise SystemExit(f'Only {played} games found for {season}')
     with gzip.open(out / f'faceoffs_{year}.csv.gz', 'wt', newline='') as f:
