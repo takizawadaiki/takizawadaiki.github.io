@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="theme-color" content="#10120f"/>
+<meta name="description" content="Do shots on goal win NHL games, and do great offences or great defences win the Stanley Cup? Sixteen seasons of games and every champion since 1980."/>
+<link rel="icon" href="/favicon.ico" sizes="48x48"/>
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"/>
+<link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
+<title>Shots, Offence and Defence: What Wins in the NHL? · Daiki Takizawa</title>
+<link rel="canonical" href="https://takizawadaiki.github.io/nhl-wins/"/>
+<meta property="og:type" content="website"/>
+<meta property="og:site_name" content="Daiki Takizawa"/>
+<meta property="og:title" content="What Wins in the NHL: Shots, Offence or Defence? · Daiki Takizawa"/>
+<meta property="og:description" content="Does outshooting the other team win games, and do offences or defences win the Stanley Cup? Tested on sixteen seasons of games and every champion since 1980."/>
+<meta property="og:url" content="https://takizawadaiki.github.io/nhl-wins/"/>
+<meta property="og:image" content="https://takizawadaiki.github.io/og-image.png"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  color-scheme:dark;
+  --bg:#10120f;--card:#151a13;--ink:#f0f0e7;--muted:#a5ab9e;--border:#30372d;--orange:#ff8050;
+  --blue:#3987e5;--heading:'Space Grotesk',sans-serif;
+}
+html{scroll-behavior:smooth;scroll-padding-top:24px}
+body{background:var(--bg);color:var(--ink);font:15px/1.65 'DM Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button{font:inherit}
+.wrap{width:min(1240px,calc(100% - 64px));margin:0 auto}
+.progress{position:fixed;top:0;left:0;right:0;height:3px;z-index:60;background:linear-gradient(90deg,#ff8050,#ffb08a);transform:scaleX(var(--p,0));transform-origin:0 50%;pointer-events:none}
+.skip{position:fixed;left:16px;top:-80px;z-index:70;background:var(--orange);color:#171b13;padding:10px 14px;border-radius:6px}
+.skip:focus{top:12px}
+:focus-visible{outline:3px solid var(--orange);outline-offset:3px}
+header.top{display:flex;justify-content:space-between;align-items:center;gap:16px;height:92px;border-bottom:1px solid var(--border)}
+.brand{display:flex;align-items:center;font:600 18px var(--heading);letter-spacing:-.6px}
+.brand i{font-style:normal;background:#dbe4cd;color:#151a12;font-size:21px;padding:4px 9px;margin-right:13px;letter-spacing:-3px}
+.brand b{color:var(--orange)}
+.top nav{display:flex;gap:26px;font-size:12px;color:var(--muted)}
+.top nav a:hover{color:var(--orange)}
+.eyebrow,.k{font:500 10.5px/1.5 var(--heading);letter-spacing:1.3px;text-transform:uppercase;color:var(--muted)}
+.eyebrow{display:flex;align-items:center;gap:9px}
+.eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--orange)}
+.hero{padding:56px 0 30px;display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:48px;align-items:end}
+h1{font:500 clamp(40px,5.6vw,82px)/.98 var(--heading);letter-spacing:-.055em;margin-top:18px}
+h1 em{font-family:Georgia,'Times New Roman',serif;font-weight:400;font-style:italic;color:var(--orange);letter-spacing:-.04em}
+.lede{color:var(--muted);font-size:15.5px;line-height:1.8;max-width:54ch}
+.verdict{display:grid;grid-template-columns:auto 1fr auto;gap:22px;align-items:center;border:1px solid #5b4435;border-left:3px solid var(--orange);background:#1b1612;border-radius:0 12px 12px 0;padding:18px 22px;margin-top:8px}
+.verdict .k{color:var(--orange);white-space:nowrap}
+.verdict p{font-size:15px;line-height:1.6}
+.verdict p strong{font-weight:600}
+.verdict a{font:500 12.5px var(--heading);white-space:nowrap;border-bottom:1px solid var(--border);padding-bottom:3px}
+.verdict a:hover{color:var(--orange)}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:26px 0 8px}
+.kpi{position:relative;display:flex;flex-direction:column;gap:6px;min-height:170px;padding:20px 18px 16px;border:1px solid var(--border);border-radius:14px;background:linear-gradient(180deg,#151a13,#10120f);overflow:hidden;isolation:isolate;transition:border-color .3s,translate .3s}
+.kpi::before{content:"";position:absolute;inset:0;z-index:-1;opacity:0;transition:opacity .35s;background:radial-gradient(240px circle at var(--mx,50%) var(--my,50%),rgba(255,128,80,.2),transparent 62%)}
+.kpi:hover{border-color:#6b4a3a;translate:0 -3px}.kpi:hover::before{opacity:1}
+.kpi .v{font:600 clamp(30px,3.2vw,44px)/1 var(--heading);letter-spacing:-.03em;margin-top:6px;font-variant-numeric:tabular-nums}
+.kpi .n{font-size:12.5px;line-height:1.5;color:var(--muted)}
+.kpi .src{margin-top:auto;border-top:1px solid var(--border);padding-top:9px;font:500 10.5px/1.4 var(--heading);letter-spacing:.03em;color:#8d9486}
+section{padding:54px 0 0}
+.sec-top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:6px 20px;border-bottom:1px solid var(--border);padding-bottom:14px;margin-bottom:22px}
+.sec-top .k b{color:var(--orange);font-weight:500;margin-right:14px}
+h2{font:400 clamp(26px,3.1vw,42px)/1.1 var(--heading);letter-spacing:-.035em;max-width:22ch}
+h2 em{font-family:Georgia,serif;font-style:italic;color:#a6b693}
+.sec-head{display:flex;justify-content:space-between;align-items:end;gap:40px;margin-bottom:24px}
+.sec-head p{color:var(--muted);font-size:14px;line-height:1.75;max-width:52ch}
+.panel{border:1px solid var(--border);border-radius:16px;background:var(--card);padding:24px 24px 20px}
+.panel h3{font:600 18px/1.25 var(--heading);letter-spacing:-.02em}
+.panel .sub{color:var(--muted);font-size:13.5px;line-height:1.65;margin:6px 0 16px;max-width:66ch}
+.grid2{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:18px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.chips button{font:500 12.5px/1 var(--heading);color:var(--ink);background:transparent;border:1px solid var(--border);border-radius:999px;padding:10px 14px;cursor:pointer;transition:border-color .2s,background .2s}
+.chips button:hover{border-color:#6b4a3a}
+.chips button[aria-pressed="true"]{background:#e0e7d7;color:#1a2115;border-color:#e0e7d7}
+.chart-box{position:relative;height:400px}
+.src{font:500 10.5px/1.5 var(--heading);letter-spacing:.03em;color:#8d9486}
+.panel>.src{margin-top:14px;padding-top:10px;border-top:1px solid var(--border)}
+/* timeline */
+.timeline{display:grid;grid-template-columns:3fr 1fr 1fr 1fr;gap:8px}
+.tl{border:1px solid var(--border);border-radius:12px;padding:16px;background:var(--card)}
+.tl .yrs{font:600 22px/1 var(--heading);letter-spacing:-.02em;margin:8px 0 6px;font-variant-numeric:tabular-nums}
+.tl p{font-size:12.5px;line-height:1.55;color:var(--muted)}
+.tl.judge{border-color:#6b4a3a;background:#1b1612}.tl.judge .k{color:var(--orange)}
+/* interval plots */
+.forest{display:grid;gap:2px}
+.frow{display:grid;grid-template-columns:minmax(120px,190px) 1fr;gap:4px 14px;align-items:center;padding:9px 0;border-top:1px solid #232a20}
+.frow:first-child{border-top:0}
+.fname{font:500 12.5px/1.3 var(--heading)}
+.frow.me .fname{color:var(--orange)}
+.ftrack{position:relative;height:24px}
+.ftrack .zero{position:absolute;top:0;bottom:0;width:1px;background:#4a5445}
+.fci{position:absolute;top:50%;height:3px;border-radius:2px;translate:0 -50%;background:#7f8678}
+.fdot{position:absolute;top:50%;width:12px;height:12px;border-radius:50%;translate:-50% -50%;background:var(--ink);box-shadow:0 0 0 2px var(--card)}
+.frow.me .fdot{background:var(--orange)}.frow.me .fci{background:#b0603f}
+.fval{grid-column:2;font:500 12px/1.3 var(--heading);color:var(--muted);font-variant-numeric:tabular-nums}
+.faxis{position:relative;height:18px;margin-top:4px;font:500 10.5px/1 var(--heading);color:#8d9486;font-variant-numeric:tabular-nums}
+.faxis span{position:absolute;translate:-50% 0}
+.faxis.pad{margin-left:calc(min(190px,max(120px,30%)) + 14px)}
+/* signal vs luck */
+.bars{display:grid;gap:14px;margin-top:8px}
+.bar .lab{display:flex;justify-content:space-between;font:500 13px var(--heading);margin-bottom:6px}
+.bar .lab span:last-child{font-variant-numeric:tabular-nums}
+.bar .t{height:16px;border-radius:4px;background:#1a2117;overflow:hidden}
+.bar .t i{display:block;height:100%;width:var(--w);border-radius:0 4px 4px 0;background:var(--c);transform-origin:left;transition:transform 1s cubic-bezier(.2,.8,.2,1)}
+.js-reveal .rv:not(.in) .bar .t i{transform:scaleX(0)}
+/* tables */
+.toolbar{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;justify-content:space-between;margin-bottom:14px}
+.toolbar .chips{margin:0}
+.search{flex:1;min-width:200px;max-width:320px;background:#10120f;border:1px solid var(--border);border-radius:999px;color:var(--ink);font:500 14px var(--heading);padding:10px 16px}
+.search::placeholder{color:#8a917f}
+.tablewrap{max-height:520px;overflow:auto;border:1px solid var(--border);border-radius:12px}
+table{width:100%;border-collapse:collapse;font-size:13.5px;font-variant-numeric:tabular-nums}
+th,td{text-align:left;padding:10px 16px;border-bottom:1px solid #232a20;white-space:nowrap}
+th{position:sticky;top:0;background:#10140e;font:500 10.5px/1.2 var(--heading);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);z-index:1}
+td.num,th.num{text-align:right}
+td.rank{color:#8d9486;width:1%}
+td .rb{display:inline-block;vertical-align:middle;height:8px;border-radius:2px;background:var(--blue);margin-right:10px}
+tbody tr:hover{background:#171d14}
+.empty{padding:22px 16px;color:var(--muted)}
+/* notes */
+.cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.list{list-style:none;display:grid;gap:10px;margin-top:12px}
+.list li{position:relative;padding-left:18px;font-size:13.5px;line-height:1.65;color:#c9cfc0}
+.list li::before{content:"";position:absolute;left:0;top:.62em;width:6px;height:6px;border-radius:50%;background:var(--orange)}
+.list li b{color:var(--ink);font-weight:600}
+dl.terms{display:grid;grid-template-columns:auto 1fr;gap:8px 18px;margin-top:12px;font-size:13.5px}
+dl.terms dt{font:600 12.5px/1.6 var(--heading);white-space:nowrap}
+dl.terms dd{color:#c9cfc0;line-height:1.6}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+.btn{display:inline-flex;align-items:center;gap:14px;padding:13px 20px;border-radius:999px;font:600 13px/1 var(--heading);border:1px solid var(--border);transition:background .2s,border-color .2s}
+.btn:hover{border-color:#6b4a3a}
+.btn.primary{background:var(--orange);color:#171b13;border-color:var(--orange)}.btn.primary:hover{background:#ff9b76}
+footer{margin:64px 0 60px;padding-top:20px;border-top:1px solid var(--border);display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 30px;font-size:12.5px;color:var(--muted)}
+footer a{text-decoration:underline;text-underline-offset:3px}footer a:hover{color:var(--orange)}
+.err{padding:18px 20px;border:1px solid #6b3a2a;border-radius:12px;background:#1d1411;color:#f0c1ad;margin:26px 0}
+[hidden]{display:none!important}
+.js-reveal .rv:not(.in){opacity:0}
+.js-reveal .rv.in{animation:rv-in .75s cubic-bezier(.2,.7,.2,1) backwards}
+@keyframes rv-in{from{opacity:0;translate:0 24px}}
+@media(max-width:980px){.hero{grid-template-columns:1fr;gap:22px;padding-top:40px}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.grid2,.cols{grid-template-columns:1fr}.sec-head{display:block}.sec-head p{margin-top:14px}.timeline{grid-template-columns:repeat(2,minmax(0,1fr))}.verdict{grid-template-columns:1fr;gap:8px}}
+@media(max-width:560px){.wrap{width:calc(100% - 32px)}header.top{height:76px}.top nav a.hide-s{display:none}.kpis{grid-template-columns:1fr}.kpi{min-height:0}.panel{padding:18px 14px 16px}.chart-box{height:330px}.frow{grid-template-columns:1fr}.fval{grid-column:1}.faxis.pad{margin-left:0}.timeline{grid-template-columns:1fr}th,td{padding:9px 10px}dl.terms{grid-template-columns:1fr;gap:2px 0}dl.terms dd{margin-bottom:8px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
+/* faceoff page */
+.cols>.panel,.grid2>.panel{min-width:0}
+.sliders{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 28px;margin:10px 0 18px}
+.slider{display:block}
+.slider .lab{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font:500 13px var(--heading);margin-bottom:8px}
+.slider output{font:600 20px/1 var(--heading);letter-spacing:-.02em;font-variant-numeric:tabular-nums;white-space:nowrap}
+input[type=range]{width:100%;height:28px;accent-color:var(--orange);cursor:pointer;background:transparent}
+.duel{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.duel .side,.duel .call{border:1px solid var(--border);border-radius:14px;padding:18px;background:#10120f;display:flex;flex-direction:column;gap:6px}
+.duel b{font:600 38px/1.05 var(--heading);letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.duel .s{font-size:12.5px;color:var(--muted);line-height:1.5}
+.duel .call{background:#1d1712;border-color:#6b4a3a;grid-column:1/-1}
+.duel .call p{font-size:14px;line-height:1.6;color:#d6dbcd;margin:0}
+.table-wrap{overflow-x:auto}
+.cmp{width:100%;border-collapse:collapse;font-size:13px}
+.cmp th,.cmp td{padding:9px 6px;border-bottom:1px solid var(--border);text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.cmp th:first-child,.cmp td:first-child{text-align:left}
+.cmp thead th{font:600 11.5px/1.35 var(--heading);color:var(--ink);vertical-align:bottom;white-space:normal}
+.cmp td.up{color:#7fe0bb;font-weight:600}.cmp td.down{color:#ffb08f;font-weight:600}
+.cmp td.dim{color:var(--muted)}
+#rt th:nth-child(2),#rt td:nth-child(2){text-align:left;width:34%}
+#rt th:first-child,#rt td:first-child{width:44px}
+.cmp small{color:#8d9486;font-weight:400;margin-left:4px}
+.cmp th button{all:unset;cursor:pointer;font:inherit;color:inherit;border-bottom:1px dotted #6f7768}
+.cmp th button:hover,.cmp th button:focus-visible{color:#ffb08f;border-bottom-color:#ffb08f}
+.cmp th[aria-sort] button{color:#ffb08f}
+.tools{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:6px 0 14px}
+.tools .chips{margin:0}
+.more{margin-top:14px;font:500 13px var(--heading);color:var(--ink);background:transparent;border:1px solid var(--border);border-radius:999px;padding:10px 16px;cursor:pointer}
+.more:hover{border-color:#6b4a3a}
+.rating-bar{display:inline-block;vertical-align:middle;width:64px;height:6px;border-radius:3px;background:#1a2117;margin-right:8px;position:relative;overflow:hidden}
+.rating-bar i{position:absolute;top:0;bottom:0;background:#3987e5;border-radius:3px}
+.rating-bar i.neg{background:#d95926}
+.rating-bar::after{content:"";position:absolute;left:50%;top:0;bottom:0;width:1px;background:#6f7768}
+.chart-box.short{height:300px}
+.fine{font-size:12.5px;color:var(--muted);line-height:1.55;margin-top:10px}
+@media(max-width:980px){.duel{grid-template-columns:1fr 1fr 1fr}}
+@media(max-width:560px){.sliders{grid-template-columns:1fr}.duel{grid-template-columns:1fr}.duel b{font-size:30px}.cmp{font-size:12px}.cmp th,.cmp td{padding:8px 4px}.slider .lab{flex-direction:column;gap:4px}.rating-bar{display:none}.hide-xs{display:none}}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<div class="progress" aria-hidden="true"></div>
+<a class="skip" href="#main">Skip to content</a>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="https://takizawadaiki.github.io/" aria-label="Daiki Takizawa home"><i>dt</i>Daiki Takizawa<b>.</b></a>
+    <nav aria-label="Page">
+      <a class="hide-s" href="#game">One game</a>
+      <a class="hide-s" href="#why">Why</a>
+      <a class="hide-s" href="#season">A season</a>
+      <a class="hide-s" href="#cup">Offence or defence</a>
+      <a class="hide-s" href="https://github.com/takizawadaiki/takizawadaiki.github.io/tree/main/nhl-wins">Code ↗</a>
+      <a href="https://takizawadaiki.github.io/#projects">← All projects</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <div class="hero">
+      <div>
+        <div class="eyebrow">Hockey research · NHL</div>
+        <h1>Shots, offence or defence: <em>what wins in the NHL?</em></h1>
+      </div>
+      <p class="lede">Two questions hockey fans argue about. Does putting more shots on goal than the other team win games? And is it the high-scoring teams or the stingy ones that win the Stanley Cup? This page tests both.</p>
+    </div>
+
+    <noscript><div class="err">This page draws its numbers and charts with JavaScript. The data is in the repository linked at the bottom of the page.</div></noscript>
+    <div id="error" class="err" hidden></div>
+
+    <div class="verdict rv">
+      <span class="k">Short answer</span>
+      <p id="verdict">Loading the results…</p>
+      <a href="#cup">Offence or defence ↓</a>
+    </div>
+
+    <div class="kpis" id="kpis"></div>
+
+    <section id="game" aria-labelledby="game-h">
+      <div class="sec-top"><span class="k"><b>01</b>One game</span><span class="k" id="game-k"></span></div>
+      <div class="sec-head">
+        <h2 id="game-h">Outshooting the other team is <em>close to a coin flip.</em></h2>
+        <p id="game-lede"></p>
+      </div>
+      <div class="cols">
+        <div class="panel rv">
+          <h3>How often the team with more shots won</h3>
+          <p class="sub">By how many more shots on goal it had. The dashed line is how often the home team wins.</p>
+          <div class="chart-box short"><canvas id="c-margin" role="img" aria-label="Bar chart of win rate by shot margin"></canvas></div>
+          <p class="src" id="margin-note"></p>
+        </div>
+        <div class="panel rv">
+          <h3>Season by season</h3>
+          <p class="sub">Share of games won by the team that outshot its opponent.</p>
+          <div class="chart-box short"><canvas id="c-years" role="img" aria-label="Line chart of the outshooting team's win rate by season"></canvas></div>
+          <p class="src" id="years-note"></p>
+        </div>
+      </div>
+    </section>
+
+    <section id="why" aria-labelledby="why-h">
+      <div class="sec-top"><span class="k"><b>02</b>Why</span><span class="k">The score changes how teams play</span></div>
+      <div class="sec-head">
+        <h2 id="why-h">Teams that are losing <em>shoot more.</em></h2>
+        <p id="why-lede"></p>
+      </div>
+      <div class="cols">
+        <div class="panel rv">
+          <h3>Shots on goal per 60 minutes, by the score</h3>
+          <p class="sub">The same teams, split by whether they were behind, level or ahead when they shot.</p>
+          <div class="bars" id="state-bars"></div>
+          <p class="src" id="state-note"></p>
+        </div>
+        <div class="panel rv">
+          <h3>A fair test: scoreless first periods</h3>
+          <p class="sub">Games that were 0–0 after one period. The first-period shots were all taken at a level score, and none of them decided the game.</p>
+          <div class="chart-box short"><canvas id="c-clean" role="img" aria-label="Bar chart of win rate by first-period shot margin in scoreless first periods"></canvas></div>
+          <p class="src" id="clean-note"></p>
+        </div>
+      </div>
+    </section>
+
+    <section id="season" aria-labelledby="season-h">
+      <div class="sec-top"><span class="k"><b>03</b>A season</span><span class="k">Where shots do matter</span></div>
+      <div class="sec-head">
+        <h2 id="season-h">Over 82 games, <em>shots add up.</em></h2>
+        <p id="season-lede"></p>
+      </div>
+      <div class="panel rv">
+        <h3>Share of shots against share of points</h3>
+        <p class="sub">Each dot is one team in one season. Shot share is a team’s shots on goal as a share of all shots in its games. Hover or tap for the team.</p>
+        <div class="tools"><label class="k" for="yr" style="margin:0">Season</label><select class="search" id="yr" style="max-width:190px;flex:0 1 auto"></select></div>
+        <div class="chart-box"><canvas id="c-teams" role="img" aria-label="Scatter chart of team shot share against points percentage"></canvas></div>
+        <p class="src" id="teams-note"></p>
+      </div>
+      <div class="cols" style="margin-top:18px">
+        <div class="panel rv">
+          <h3>What a shot edge is worth</h3>
+          <p class="sub">Set a team’s shots for and against per game.</p>
+          <div class="sliders" style="grid-template-columns:1fr">
+            <label class="slider"><span class="lab"><span>Shots for per game</span><output id="sf-out"></output></span>
+              <input type="range" id="sf" min="24" max="38" step="0.5" value="32" aria-label="Shots for per game"/></label>
+            <label class="slider"><span class="lab"><span>Shots against per game</span><output id="sa-out"></output></span>
+              <input type="range" id="sa" min="24" max="38" step="0.5" value="29" aria-label="Shots against per game"/></label>
+          </div>
+          <div class="duel" style="grid-template-columns:1fr 1fr" aria-live="polite">
+            <div class="side"><span class="k">Shot share</span><b id="o-share"></b><span class="s" id="o-share-s"></span></div>
+            <div class="side"><span class="k">Expected points</span><b id="o-pts"></b><span class="s" id="o-pts-s"></span></div>
+          </div>
+        </div>
+        <div class="panel rv">
+          <h3>Shots are the part that lasts</h3>
+          <p class="sub">How closely a team’s first half of the season matches its second half, on each measure.</p>
+          <div class="bars" id="persist-bars"></div>
+          <p class="src" id="persist-note"></p>
+        </div>
+      </div>
+    </section>
+
+    <section id="cup" aria-labelledby="cup-h">
+      <div class="sec-top"><span class="k"><b>04</b>Offence or defence</span><span class="k" id="cup-k"></span></div>
+      <div class="sec-head">
+        <h2 id="cup-h">Neither wins the Cup alone. <em>Champions have both.</em></h2>
+        <p id="cup-lede"></p>
+      </div>
+      <div class="panel rv">
+        <h3>Every playoff team, by offence and defence</h3>
+        <p class="sub">Scores are how far a team was above the league that season, in standard deviations: 0 is average, +1 is about the top sixth. Offence is goals scored per game and defence is goals allowed. Hover or tap for the team.</p>
+        <div class="tools"><div class="chips" id="era-chips" role="group" aria-label="Era"></div></div>
+        <div class="chart-box"><canvas id="c-cup" role="img" aria-label="Scatter chart of playoff teams by offence and defence, with champions highlighted"></canvas></div>
+        <p class="src" id="cup-note"></p>
+      </div>
+      <div class="cols" style="margin-top:18px">
+        <div class="panel rv">
+          <h3>Which one raises the odds more?</h3>
+          <p class="sub">The effect of one standard deviation of each on a playoff team’s chances, with the margin of error.</p>
+          <div class="table-wrap"><table class="cmp" id="odds-table"></table></div>
+          <p class="src" id="odds-note"></p>
+        </div>
+        <div class="panel rv">
+          <h3>Build a playoff team</h3>
+          <p class="sub">Set how good it is at each end and see its chance of winning the Cup.</p>
+          <div class="sliders" style="grid-template-columns:1fr">
+            <label class="slider"><span class="lab"><span>Offence</span><output id="bo-out"></output></span>
+              <input type="range" id="bo" min="-1.5" max="2.5" step="0.1" value="1" aria-label="Offence score"/></label>
+            <label class="slider"><span class="lab"><span>Defence</span><output id="bd-out"></output></span>
+              <input type="range" id="bd" min="-1.5" max="2.5" step="0.1" value="1" aria-label="Defence score"/></label>
+          </div>
+          <div class="duel" style="grid-template-columns:1fr" aria-live="polite">
+            <div class="side"><span class="k">Chance of winning the Cup</span><b id="o-cup"></b><span class="s" id="o-cup-s"></span></div>
+          </div>
+        </div>
+      </div>
+      <div class="panel rv" style="margin-top:18px">
+        <h3>Every champion since 1980</h3>
+        <p class="sub">League rank in goals scored and goals allowed per game in the regular season. A team is called offence-first or defence-first when one score beats the other by half a standard deviation.</p>
+        <div class="tools"><div class="chips" id="champ-chips" role="group" aria-label="Filter champions"></div></div>
+        <div class="table-wrap"><table class="cmp" id="champ-table"></table></div>
+        <button class="more" id="champ-more" type="button"></button>
+      </div>
+    </section>
+
+    <section id="method" aria-labelledby="method-h">
+      <div class="sec-top"><span class="k"><b>05</b>Method</span><span class="k">Sources, checks and limits</span></div>
+      <div class="cols">
+        <div class="panel rv">
+          <h3 id="method-h">How it was done</h3>
+          <ul class="list" id="method-list"></ul>
+          <div class="cta">
+            <a class="btn primary" href="https://github.com/takizawadaiki/takizawadaiki.github.io/tree/main/nhl-wins">View the code and data <span aria-hidden="true">↗</span></a>
+          </div>
+        </div>
+        <div class="panel rv">
+          <h3>What to keep in mind</h3>
+          <ul class="list">
+            <li><b>A shot on goal is not a scoring chance.</b> The count treats a point shot through traffic and a breakaway the same. Shot quality is not in this data.</li>
+            <li><b>The fair test is narrow.</b> Scoreless first periods are about a fifth of games, and one period is a small sample of shots, so that estimate is noisy.</li>
+            <li><b>There are few champions.</b> One team wins each year. With 46 champions, the gap between offence and defence would have to be large to show up clearly, and it is not.</li>
+            <li><b>Regular-season numbers describe playoff teams.</b> Offence and defence are measured over the regular season. Trades, injuries and a hot goalie in the spring are not captured.</li>
+            <li><b>Goals allowed is not only defence.</b> It mixes the skaters’ defending with goaltending, and a team that has the puck a lot allows fewer goals too.</li>
+            <li><b>Eras differ.</b> Scores are measured against the league in the same season so that the high-scoring 1980s and the low-scoring 2000s can be compared.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>Daiki Takizawa · University of Toronto · Built November 2026</span>
+    <span><a href="https://takizawadaiki.github.io/">Portfolio</a> · <a href="https://github.com/takizawadaiki/takizawadaiki.github.io/tree/main/nhl-wins">Code and data</a></span>
+  </footer>
+</div>
+<script src="../chart.umd.min.js"></script>
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const el = (tag, cls, html) => { const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; };
+  const C = { blue: '#3987e5', orange: '#d95926', gold: '#e0a84a', green: '#199e70', grid: '#262d22', ink: '#f0f0e7', muted: '#a5ab9e', line: '#c9cfc0', dim: 'rgba(165,171,158,.38)' };
+  const sgn = (v, d = 1) => (v > 0 ? '+' : v < 0 ? '−' : '') + Math.abs(v).toFixed(d);
+  const big = n => Math.round(n).toLocaleString('en-CA');
+  const pc = (v, d = 1) => (v * 100).toFixed(d) + '%';
+  const season = y => `${y}–${String((y + 1) % 100).padStart(2, '0')}`;
+  const esc = s => s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const ord = n => n + (n % 100 >= 11 && n % 100 <= 13 ? 'th' : ['th', 'st', 'nd', 'rd'][n % 10] || 'th');
+
+  const progress = document.querySelector('.progress');
+  const onScroll = () => { const h = document.documentElement; progress.style.setProperty('--p', h.scrollTop / Math.max(1, h.scrollHeight - h.clientHeight)); };
+  addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+  fetch('results/results.json').then(r => { if (!r.ok) throw new Error(r.status); return r.json(); }).then(render).catch(e => {
+    $('error').hidden = false; $('error').textContent = 'The results file could not be loaded (' + e.message + '). The data is in the repository linked at the bottom of the page.';
+    $('verdict').textContent = 'Results unavailable.';
+  });
+
+  function render(R) {
+    const S = R.shots, K = R.cup, A = S.all_shots, SE = S.score_effects, SL = S.season_level, E = K.eras, all = E.all;
+    const home = S.curve_all.home_win_pct, yrs = `${season(S.seasons[0])} to ${season(S.seasons[1])}`;
+    const trailMore = SE.trail.per60 / SE.lead.per60 - 1;
+    const lost = S.outshot_and_won;
+    const cupYears = `${K.seasons[0] + 1} to ${K.seasons[1] + 1}`;
+
+    $('verdict').innerHTML = `In a single game, more shots tells you little. The team that outshot its opponent won <strong>${pc(A.win_pct)}</strong> of ${big(A.games)} games, less often than the home team wins (${pc(home)}), mostly because teams that fall behind shoot more. Over a full season shots do matter: each extra point of shot share is worth about <strong>${SL.points_per_shot_share_point.toFixed(1)} points</strong> in the standings. For the Stanley Cup, neither side wins out. The ${all.champions} champions since 1980 ranked about <strong>${ord(Math.round(all.champion_offence_rank))}</strong> in both goals scored and goals allowed on average, and offence and defence raise a playoff team’s odds by the same amount.`;
+
+    [
+      { k: 'Games studied', v: (S.games / 1000).toFixed(1) + 'K', n: `Every regular-season game from ${yrs}, with each shot on goal tagged by period and by the score when it was taken.`, s: 'NHL play-by-play' },
+      { k: 'Outshooting team won', v: pc(A.win_pct), n: `The winner was outshot in ${pc(lost.wins / lost.games, 0)} of games. The home team won ${pc(home)}.`, s: `${big(A.games)} games with unequal shots` },
+      { k: 'More shots when behind', v: sgn(trailMore * 100, 0) + '%', n: `Teams take ${SE.trail.per60.toFixed(1)} shots per 60 minutes when trailing and ${SE.lead.per60.toFixed(1)} when leading.`, s: 'Shots on goal by score' },
+      { k: 'Champions’ average rank', v: `${all.champion_offence_rank.toFixed(1)} / ${all.champion_defence_rank.toFixed(1)}`, n: `In goals scored and goals allowed per game. ${all.top5_offence} of ${all.champions} had a top-five offence and ${all.top5_defence} a top-five defence.`, s: `Stanley Cup winners, ${cupYears}` },
+    ].forEach(k => { const d = el('div', 'kpi rv'); d.append(el('span', 'k', k.k), el('div', 'v', k.v), el('p', 'n', k.n), el('span', 'src', k.s)); $('kpis').append(d); });
+
+    Chart.defaults.color = C.muted; Chart.defaults.font.family = "'DM Sans', system-ui, sans-serif"; Chart.defaults.font.size = 12;
+    if (reduced) Chart.defaults.animation = false;
+    const refLine = (value, label) => ({ id: 'ref', afterDatasetsDraw(ch) { const { ctx, chartArea: a, scales: { y } } = ch; const py = y.getPixelForValue(value); ctx.save(); ctx.strokeStyle = C.line; ctx.setLineDash([6, 4]); ctx.lineWidth = 1.5; ctx.beginPath(); ctx.moveTo(a.left, py); ctx.lineTo(a.right, py); ctx.stroke(); ctx.fillStyle = C.line; ctx.font = "500 11px 'DM Sans', sans-serif"; ctx.textAlign = 'right'; ctx.fillText(label, a.right - 4, py - 6); ctx.restore(); } });
+    const label = b => (b.high >= 99 ? `${b.low}+` : `${b.low}–${b.high}`);
+    const marginChart = (id, rows, color, ref) => new Chart($(id), { type: 'bar', data: { labels: rows.map(label), datasets: [{ data: rows.map(b => b.win_pct * 100), backgroundColor: color, borderRadius: 4, maxBarThickness: 56 }] },
+      options: { maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { callbacks: { title: c => `${c[0].label} more shots`, label: c => `Won ${c.parsed.y.toFixed(1)}% of ${big(rows[c.dataIndex].games)} games` } } },
+        scales: { x: { grid: { display: false }, title: { display: true, text: 'Extra shots on goal' } }, y: { min: 40, max: 65, grid: { color: C.grid }, ticks: { callback: v => v + '%' }, title: { display: true, text: 'Games won' } } } }, plugins: ref ? [refLine(ref[0], ref[1])] : [] });
+
+    // ---------- 01 one game ----------
+    const M = A.by_margin.filter(b => b.games >= 50), top = M[M.length - 1];
+    $('game-k').textContent = `${big(S.games)} games`;
+    $('game-lede').textContent = `Across ${yrs}, the team with more shots on goal won ${pc(A.win_pct)} of the time. Home ice is a better guide, at ${pc(home)}. Even a team that outshot its opponent by ${top.low} or more won only ${pc(top.win_pct)}. Scoring first is worth far more: the team that scored first won ${pc(S.first_goal_win_pct)}, and the team ahead after two periods won ${pc(S.lead_after_two_win_pct)}.`;
+    marginChart('c-margin', M, C.blue, [home * 100, `Home team wins ${pc(home)}`]);
+    $('margin-note').textContent = `Shots on goal in regulation and overtime; shootout attempts are left out. ${big(A.even)} games with equal shots are not counted. In games decided in regulation the outshooting team won ${pc(S.regulation_only.win_pct)}.`;
+    const BY = S.by_season, lo = BY.reduce((a, b) => (b.win_pct < a.win_pct ? b : a)), hi = BY.reduce((a, b) => (b.win_pct > a.win_pct ? b : a));
+    new Chart($('c-years'), { type: 'line', data: { labels: BY.map(b => season(b.season)), datasets: [{ data: BY.map(b => b.win_pct * 100), borderColor: C.blue, backgroundColor: C.blue, borderWidth: 2.5, pointRadius: 3, pointHoverRadius: 6, tension: .25 }] },
+      options: { maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => `Won ${c.parsed.y.toFixed(1)}% of ${big(BY[c.dataIndex].games)} games` } } },
+        scales: { x: { grid: { display: false }, ticks: { maxRotation: 50, autoSkipPadding: 10 } }, y: { min: 40, max: 65, grid: { color: C.grid }, ticks: { callback: v => v + '%' } } } }, plugins: [refLine(50, 'Coin flip')] });
+    $('years-note').textContent = `The low was ${pc(lo.win_pct)} in ${season(lo.season)}, when the outshooting team lost more often than it won, and the high was ${pc(hi.win_pct)} in ${season(hi.season)}. A single season is about 1,200 games, so swings of two or three points are within chance.`;
+
+    // ---------- 02 why ----------
+    $('why-lede').textContent = `A team that is behind pushes for a goal and a team that is ahead sits back. So the losing side piles up shots late in games it is already losing, and the final shot count flatters it. Trailing teams take ${(trailMore * 100).toFixed(0)}% more shots than leading teams. To see what shots are worth without this effect, look at shots taken before anyone has scored.`;
+    const states = [['When trailing', SE.trail, C.orange], ['When tied', SE.tied, C.gold], ['When leading', SE.lead, C.blue]];
+    const sMax = Math.max(...states.map(s => s[1].per60));
+    states.forEach(([lab, v, color]) => { const b = el('div', 'bar'); b.innerHTML = `<div class="lab"><span>${lab}</span><span>${v.per60.toFixed(1)}</span></div><div class="t"><i style="--w:${v.per60 / sMax * 100}%;--c:${color}"></i></div>`; $('state-bars').append(b); });
+    $('state-note').textContent = `From ${big(SE.tied.shots + SE.lead.shots + SE.trail.shots)} shots on goal. Each team spends the same time tied; time leading for one team is time trailing for the other.`;
+    const CL = S.scoreless_first, CM = CL.by_margin.filter(b => b.games >= 200), cTop = CM[CM.length - 1], slope = S.curve_scoreless.slope;
+    marginChart('c-clean', CM, C.green, [50, 'Coin flip']);
+    $('clean-note').textContent = `${big(S.scoreless_games)} games were scoreless after one period. The team that outshot its opponent in that period went on to win ${pc(CL.win_pct)} of ${big(CL.games)} games, and ${pc(cTop.win_pct)} when it had ${cTop.low} or more extra shots. Each extra shot adds about ${(slope / 4 * 100).toFixed(1)} points of win probability. So shots do help, but one period’s worth helps only a little.`;
+
+    // ---------- 03 a season ----------
+    const PL = SL.points_line, P = S.persistence;
+    $('season-lede').textContent = `One game has about ${Math.round(S.shots_per_team_game)} shots a side and a lot of luck. A season has about ${big(Math.round(S.shots_per_team_game * 82 / 100) * 100)}, and the luck evens out. Across ${S.team_seasons} team seasons, shot share and points move together (correlation ${SL.shot_share_vs_points.toFixed(2)}). Shot share explains ${pc(SL.r2_shot_share, 0)} of the differences in the standings. Add how well a team finishes its shots and how well its goalies stop them, and the three together explain ${pc(SL.r2_all_three, 0)}.`;
+    const T = S.teams, yearSel = $('yr');
+    yearSel.append(new Option('All seasons', 'all')); [...new Set(T.map(t => t.season))].sort((a, b) => b - a).forEach(y => yearSel.append(new Option(season(y), y)));
+    const pts = sel => T.filter(t => sel === 'all' || t.season === +sel).map(t => ({ x: t.shot_share * 100, y: t.point_pct * 100, t }));
+    const xr = [42, 59], line = xr.map(x => ({ x, y: (PL.intercept + PL.slope * x / 100) * 100 }));
+    const teamChart = new Chart($('c-teams'), { type: 'scatter', data: { datasets: [
+        { label: 'Teams', data: pts('all'), backgroundColor: 'rgba(57,135,229,.55)', borderColor: C.blue, pointRadius: 3.5, pointHoverRadius: 7 },
+        { label: 'Trend', type: 'line', pointStyle: 'line', data: line, borderColor: C.line, borderWidth: 2, borderDash: [6, 4], pointRadius: 0, pointHitRadius: 0 }] },
+      options: { maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { filter: c => !!c.raw.t, callbacks: { label: c => { const t = c.raw.t; return `${t.team} ${season(t.season)}: ${pc(t.shot_share)} of shots, ${pc(t.point_pct)} of points`; } } } },
+        scales: { x: { min: xr[0], max: xr[1], grid: { color: C.grid }, title: { display: true, text: 'Share of shots on goal' }, ticks: { callback: v => v + '%' } }, y: { min: 25, max: 85, grid: { color: C.grid }, title: { display: true, text: 'Share of possible points' }, ticks: { callback: v => v + '%' } } } } });
+    const best = T.reduce((a, b) => (b.shot_share > a.shot_share ? b : a));
+    function drawTeams() { const d = pts(yearSel.value); teamChart.data.datasets[0].data = d; teamChart.data.datasets[0].pointRadius = yearSel.value === 'all' ? 3.5 : 6; teamChart.update();
+      $('teams-note').textContent = `${d.length} teams shown. The trend line is fitted to all ${S.team_seasons} team seasons: one more point of shot share goes with ${SL.points_per_shot_share_point.toFixed(1)} more points over 82 games. The highest shot share was ${best.team} in ${season(best.season)} at ${pc(best.shot_share)}.`; }
+    yearSel.addEventListener('change', drawTeams); drawTeams();
+    function calc() {
+      const f = +$('sf').value, a = +$('sa').value, share = f / (f + a), pct = Math.min(.9, Math.max(.2, PL.intercept + PL.slope * share)), p = pct * 164, band = PL.residual_sd * 164;
+      $('sf-out').textContent = f.toFixed(1); $('sa-out').textContent = a.toFixed(1);
+      $('o-share').textContent = pc(share);
+      $('o-share-s').textContent = `${sgn(f - a)} shots a game. ${T.filter(t => t.shot_share < share).length} of ${T.length} team seasons had a lower share.`;
+      $('o-pts').textContent = Math.round(p);
+      $('o-pts-s').textContent = `Over 82 games. Two teams in three with this shot share finish between ${Math.round(p - band)} and ${Math.round(p + band)}; shooting and goaltending decide where.`;
+    }
+    ['sf', 'sa'].forEach(id => $(id).addEventListener('input', calc)); calc();
+    [['Shot share', P.shot_share, C.blue], ['Goal share', P.goal_share, C.gold], ['Points', P.point_pct, C.gold], ['Save percentage', P.save_pct, C.orange], ['Shooting percentage', P.shooting_pct, C.orange]]
+      .forEach(([lab, v, color]) => { const b = el('div', 'bar'); b.innerHTML = `<div class="lab"><span>${lab}</span><span>${v.repeats_itself.toFixed(2)}</span></div><div class="t"><i style="--w:${v.repeats_itself * 100}%;--c:${color}"></i></div>`; $('persist-bars').append(b); });
+    $('persist-note').textContent = `Correlation between the two halves of a season: 1 would mean no change and 0 no link. A team’s shot share carries over far better than its results do. As a forecast of second-half points, first-half shot share (${P.shot_share.predicts_second_half_points.toFixed(2)}) does about as well as first-half points (${P.point_pct.predicts_second_half_points.toFixed(2)}) and goal share (${P.goal_share.predicts_second_half_points.toFixed(2)}).`;
+
+    // ---------- 04 offence or defence ----------
+    const eraNames = { all: `All, ${cupYears}`, before_cap: 'Before the salary cap, 1980 to 2004', cap: `Salary cap era, 2006 to ${K.seasons[1] + 1}` };
+    const eraRange = { all: [0, 9999], before_cap: [0, 2004], cap: [2005, 9999] };
+    $('cup-k').textContent = `${all.champions} champions, ${all.playoff_teams} playoff teams`;
+    $('cup-lede').textContent = `Since 1980 the average champion has been about one standard deviation better than the league at both ends: ${sgn(all.champion_offence, 2)} on offence and ${sgn(all.champion_defence, 2)} on defence. ${all.better_offence} champions were better at scoring and ${all.better_defence} at preventing goals. ${all.top5_both} were top five in both and only ${all.top5_neither} were top five in neither. The saying that defence wins championships does not hold up, and neither does the opposite.`;
+    const PT = K.playoff_teams, st = { era: 'all' };
+    const cpt = t => ({ x: t.offence, y: t.defence, t });
+    const cupChart = new Chart($('c-cup'), { type: 'scatter', data: { datasets: [
+        { label: 'Stanley Cup champions', data: [], backgroundColor: C.orange, borderColor: '#ffd9c7', borderWidth: 1, pointRadius: 6, pointHoverRadius: 9, order: 1 },
+        { label: 'Other playoff teams', data: [], backgroundColor: C.dim, borderColor: C.dim, pointRadius: 3, pointHoverRadius: 6, order: 2 },
+        { label: 'Equal at both ends', type: 'line', pointStyle: 'line', data: [{ x: -2.6, y: -2.6 }, { x: 3.2, y: 3.2 }], borderColor: C.line, borderWidth: 1.5, borderDash: [6, 4], pointRadius: 0, pointHitRadius: 0, order: 3 }] },
+      options: { maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { usePointStyle: true } }, tooltip: { filter: c => !!c.raw.t, callbacks: { label: c => { const t = c.raw.t; return `${t.team} ${season(t.season)}: offence ${sgn(t.offence, 2)}, defence ${sgn(t.defence, 2)}, ${t.champion ? 'won the Cup' : t.wins + ' playoff wins'}`; } } } },
+        scales: { x: { min: -2.6, max: 3.2, grid: { color: C.grid }, ticks: { stepSize: 1, includeBounds: false, callback: v => sgn(v, 0) }, title: { display: true, text: 'Offence (goals scored, against the league)' } }, y: { min: -2.6, max: 3.2, grid: { color: C.grid }, ticks: { stepSize: 1, includeBounds: false, callback: v => sgn(v, 0) }, title: { display: true, text: 'Defence (goals allowed, against the league)' } } } } });
+    Object.entries({ all: 'All seasons', before_cap: '1980–2004', cap: 'Salary cap era' }).forEach(([v, lab]) => { const b = el('button', null, lab); b.type = 'button'; b.dataset.v = v; b.addEventListener('click', () => { st.era = v; drawCup(); }); $('era-chips').append(b); });
+    function drawCup() {
+      [...$('era-chips').children].forEach(b => b.setAttribute('aria-pressed', b.dataset.v === st.era));
+      const [a, b] = eraRange[st.era], sel = PT.filter(t => t.season >= a && t.season <= b), e = E[st.era];
+      cupChart.data.datasets[0].data = sel.filter(t => t.champion).map(cpt); cupChart.data.datasets[1].data = sel.filter(t => !t.champion).map(cpt); cupChart.update();
+      $('cup-note').textContent = `${eraNames[st.era]}: ${e.champions} champions among ${e.playoff_teams} playoff teams. Champions averaged ${sgn(e.champion_offence, 2)} on offence (rank ${e.champion_offence_rank.toFixed(1)}) and ${sgn(e.champion_defence, 2)} on defence (rank ${e.champion_defence_rank.toFixed(1)}). Teams above the dashed line were better at defence than offence.`;
+    }
+    drawCup();
+    const odds = (b, se) => `×${Math.exp(b).toFixed(1)} <small>${Math.exp(b - 2 * se).toFixed(1)} to ${Math.exp(b + 2 * se).toFixed(1)}</small>`;
+    const wins = (b, se) => `${sgn(b)} <small>± ${(2 * se).toFixed(1)}</small>`;
+    $('odds-table').innerHTML = `<thead><tr><th scope="col">Seasons</th><th scope="col">Cup odds: offence</th><th scope="col">Cup odds: defence</th><th scope="col">Playoff wins: offence</th><th scope="col">Playoff wins: defence</th></tr></thead><tbody>${[['all', 'All'], ['before_cap', '1980–2004'], ['cap', 'Cap era']].map(([k, lab]) => { const e = E[k]; return `<tr><td>${lab}</td><td>${odds(e.cup_odds.offence, e.cup_odds.offence_se)}</td><td>${odds(e.cup_odds.defence, e.cup_odds.defence_se)}</td><td>${wins(e.playoff_wins.offence, e.playoff_wins.offence_se)}</td><td>${wins(e.playoff_wins.defence, e.playoff_wins.defence_se)}</td></tr>`; }).join('')}</tbody>`;
+    const cap = E.cap, pre = E.before_cap, RS = K.regular_season;
+    $('odds-note').textContent = `Over all seasons a standard deviation of offence multiplies a playoff team’s Cup odds by ${Math.exp(all.cup_odds.offence).toFixed(1)} and a standard deviation of defence by ${Math.exp(all.cup_odds.defence).toFixed(1)}. Defence shows a small edge in playoff wins (${sgn(all.playoff_wins.defence)} against ${sgn(all.playoff_wins.offence)}) and in the cap era, and offence in the years before it, but every one of those gaps is inside the margin of error. In the regular season the two are worth about the same too: ${(RS.offence * 164).toFixed(0)} and ${(RS.defence * 164).toFixed(0)} standings points.`;
+    const CM2 = K.cup_model, chance = (o, d) => 1 / (1 + Math.exp(-(CM2.intercept + CM2.offence * o + CM2.defence * d)));
+    const word = v => (v >= 1.5 ? 'among the best in the league' : v >= .75 ? 'well above average' : v >= .25 ? 'above average' : v > -.25 ? 'average' : v > -.75 ? 'below average' : 'well below average');
+    function build() {
+      const o = +$('bo').value, d = +$('bd').value, p = chance(o, d);
+      $('bo-out').textContent = sgn(o); $('bd-out').textContent = sgn(d);
+      $('o-cup').textContent = p >= .1 ? pc(p, 0) : pc(p, 1);
+      const sw = chance(d, o);
+      $('o-cup-s').textContent = `Offence ${word(o)}, defence ${word(d)}. The average playoff team has a ${pc(1 / 16, 1)} chance. Swap the two scores and the chance is ${sw >= .1 ? pc(sw, 0) : pc(sw, 1)}.`;
+    }
+    ['bo', 'bd'].forEach(id => $(id).addEventListener('input', build)); build();
+
+    const CH = K.champions.slice().sort((a, b) => b.season - a.season), cs = { f: 'all', all: false };
+    const styleName = { offence: 'Offence-first', defence: 'Defence-first', balanced: 'Balanced' };
+    const count = s => CH.filter(c => c.style === s).length;
+    [['all', `All ${CH.length}`], ['offence', `Offence-first (${count('offence')})`], ['balanced', `Balanced (${count('balanced')})`], ['defence', `Defence-first (${count('defence')})`]].forEach(([v, lab]) => { const b = el('button', null, lab); b.type = 'button'; b.dataset.v = v; b.addEventListener('click', () => { cs.f = v; drawChamps(); }); $('champ-chips').append(b); });
+    $('champ-more').addEventListener('click', () => { cs.all = !cs.all; drawChamps(); });
+    function drawChamps() {
+      [...$('champ-chips').children].forEach(b => b.setAttribute('aria-pressed', b.dataset.v === cs.f));
+      const rows = CH.filter(c => cs.f === 'all' || c.style === cs.f), lim = cs.all ? rows.length : 10;
+      const rk = (r, n) => `<td class="${r <= 5 ? 'up' : r > n / 2 ? 'down' : ''}">${ord(r)}<small>of ${n}</small></td>`;
+      $('champ-table').innerHTML = `<thead><tr><th scope="col">Season</th><th scope="col" style="text-align:left">Champion</th><th scope="col">Goals scored</th><th scope="col">Goals allowed</th><th scope="col" class="hide-xs">Type</th></tr></thead><tbody>${rows.slice(0, lim).map(c => `<tr><td>${season(c.season)}</td><td style="text-align:left">${esc(c.team)}</td>${rk(c.offence_rank, c.teams)}${rk(c.defence_rank, c.teams)}<td class="hide-xs dim">${styleName[c.style]}</td></tr>`).join('')}</tbody>`;
+      $('champ-more').hidden = rows.length <= 10; $('champ-more').textContent = cs.all ? 'Show the latest 10' : `Show all ${rows.length}`;
+    }
+    drawChamps();
+
+    // ---------- 05 method ----------
+    [
+      `<b>Games.</b> ${big(S.games)} regular-season games from ${yrs}, from the NHL’s public play-by-play feed. Each shot on goal is tagged with its period and with whether the shooting team was tied, ahead or behind. Shootouts are left out.`,
+      `<b>Score effects.</b> Shots per 60 minutes are shots taken in each score state divided by the time teams spent in it.`,
+      `<b>The fair test.</b> Shots taken while tied cannot simply be counted in every game, because the goal that breaks a tie is itself a shot. Games with a scoreless first period avoid this: no shot in that period decided anything.`,
+      `<b>Seasons.</b> ${S.team_seasons} team seasons are built from the game rows. Each is also split into a first and second half by date to see which numbers carry over.`,
+      `<b>Champions.</b> Every team season since 1979–80, the first with 16 playoff teams, from the NHL’s statistics service. Offence and defence are goals for and against per game, scored against the league in that season. The champion is the team with the most playoff wins.`,
+      `<b>Odds.</b> A logistic regression of winning the Cup on the two scores among playoff teams, and a linear regression of playoff wins on the same two scores.`,
+      `<b>Checks.</b> Nine automated tests cover the shot counting, the score-state rates, the regressions and the champion logic.`,
+    ].forEach(t => $('method-list').append(el('li', null, t)));
+
+    if (!reduced && 'IntersectionObserver' in window) {
+      document.documentElement.classList.add('js-reveal');
+      const io = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } }), { threshold: .08, rootMargin: '0px 0px -5% 0px' });
+      document.querySelectorAll('.rv').forEach(n => io.observe(n));
+    }
+  }
+})();
+</script>
+</body>
+</html>
