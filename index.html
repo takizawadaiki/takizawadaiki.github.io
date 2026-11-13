@@ -1048,6 +1048,11 @@ h1 {
 @media(max-width:760px){.wealth-feature{grid-template-columns:1fr;gap:24px;padding:26px 23px;margin-top:22px}.wealth-feature .wealth-detail{border-left:0;border-top:1px solid #37554e;padding:20px 0 0}.wealth-feature h2{letter-spacing:-1px}}
 
 
+.faceoff-feature{border-color:#35566a;background:linear-gradient(115deg,#13212a,#121820)}
+.faceoff-feature .wealth-label,.faceoff-feature h2 em{color:#a8dcf0}
+.faceoff-feature .wealth-cta{background:#a8dcf0;color:#0c1c26}
+.faceoff-feature .wealth-cta:hover{background:#c6eaf7}
+.faceoff-feature .wealth-detail{border-color:#35566a}
 .bunt-feature{border-color:#4d5a3a;background:linear-gradient(115deg,#1c2414,#151a12)}
 .bunt-feature .wealth-label,.bunt-feature h2 em{color:#c8e08f}
 .bunt-feature .wealth-cta{background:#c8e08f;color:#182008}
@@ -1073,7 +1078,7 @@ h1 {
 .case-study:has(.mini) .visual-note{max-width:48%;line-height:1.5}
 @media(max-width:760px){.case-study .mini{left:52%;right:18px;gap:6px}.mini b{font-size:11px}.mini span{font-size:7.5px;letter-spacing:0}.case-study:has(.mini) .case-hook{font-size:22px;max-width:46%}}
 .feature-row{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:14px;margin:14px 0 12px}
-.feature-row .wealth-feature{grid-column:span 2}.feature-row .wealth-feature:nth-child(-n+2){grid-column:span 3}
+.feature-row .wealth-feature{grid-column:span 2}
 .feature-row .wealth-feature{display:flex;flex-direction:column;gap:0;margin:0;padding:26px 26px 24px;align-items:stretch}
 .feature-row .wealth-feature>div:first-child{flex:1}
 .feature-row .wealth-feature h2{font-size:clamp(25px,2.3vw,32px);letter-spacing:-1px;margin:12px 0 10px}
@@ -1368,17 +1373,17 @@ kbd{font:500 10px/1 var(--heading);border:1px solid var(--border);border-radius:
     <div class="hero-bottom"><span>DATA ANALYTICS · UNIVERSITY OF TORONTO</span><div><span>Business intelligence</span><i>/</i><span>Sports economics</span><i>/</i><span>Predictive modeling</span></div><a href="#latest" aria-label="Scroll to latest projects">↓</a></div>
   </section>
 
-  <section class="wealth-feature bunt-feature" id="latest" aria-labelledby="bunt-heading">
+  <section class="wealth-feature faceoff-feature" id="latest" aria-labelledby="faceoff-heading">
     <div>
-      <span class="wealth-label">Latest project / Baseball research</span>
-      <h2 id="bunt-heading">What Is a Sacrifice Bunt<br><em>Really Worth?</em></h2>
-      <p>Japanese teams bunt a runner over 3.6 times as often as MLB teams. Two million MLB plate appearances and a run-scoring model built for both leagues test whether they are right, with a bunt-or-swing tool for any inning and score.</p>
-      <a class="wealth-cta" href="/bunt/">Bunt or swing? <span aria-hidden="true">↗</span></a>
+      <span class="wealth-label">Latest project / Hockey research</span>
+      <h2 id="faceoff-heading">What Makes a Player<br><em>Elite at Faceoffs?</em></h2>
+      <p>Nine NHL seasons of faceoffs, a rating for every player who takes them, and a test of how much size, age and handedness explain. It ends with a calculator for a question I had been wondering about: could a small faceoff specialist earn a roster spot?</p>
+      <a class="wealth-cta" href="/faceoffs/">Build a faceoff specialist <span aria-hidden="true">↗</span></a>
     </div>
     <div class="wealth-detail">
-      <span class="wealth-label">MLB · NPB / 2005–2026</span>
-      <strong><span data-count="2088742">2,088,742</span> plate appearances.<br>The bunt costs little and gains little.</strong>
-      <p>It pays late in tie games and for weak hitters. Japan’s heavy bunting costs each team about four runs a season.</p>
+      <span class="wealth-label">NHL play-by-play / 2017–2026</span>
+      <strong><span data-count="633472">633,472</span> faceoffs.<br>Size explains about a tenth of the skill.</strong>
+      <p>Height makes no difference and weight a little. But a 58% specialist adds only about one goal a season.</p>
     </div>
   </section>
 
@@ -1387,6 +1392,19 @@ kbd{font:500 10px/1 var(--heading);border:1px solid var(--border);border-radius:
 
 
   <div class="feature-row">
+  <section class="wealth-feature bunt-feature" aria-labelledby="bunt-heading">
+    <div>
+      <span class="wealth-label">Baseball research</span>
+      <h2 id="bunt-heading">What Is a Sacrifice Bunt <em>Really Worth?</em></h2>
+      <p>Japanese teams bunt a runner over 3.6 times as often as MLB teams. Two million MLB plate appearances and a run-scoring model for both leagues test whether they are right.</p>
+      <a class="wealth-cta" href="/bunt/">Bunt or swing? <span aria-hidden="true">↗</span></a>
+    </div>
+    <div class="wealth-detail">
+      <span class="wealth-label">MLB · NPB / 2005–2026</span>
+      <strong>The bunt costs little and gains little.<br>It pays late in tie games.</strong>
+      <p>Japan’s heavy bunting costs each team about four runs a season.</p>
+    </div>
+  </section>
   <section class="wealth-feature gen-feature" aria-labelledby="gen-heading">
     <div>
       <span class="wealth-label">Economics</span>

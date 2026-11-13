@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="theme-color" content="#10120f"/>
+<meta name="description" content="What makes an NHL player elite at faceoffs, and could a small specialist do the job? 633,000 faceoffs, ratings for 348 players and a calculator for what a faceoff man is worth."/>
+<link rel="icon" href="/favicon.ico" sizes="48x48"/>
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"/>
+<link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
+<title>What Makes an Elite Faceoff Man? · Daiki Takizawa</title>
+<link rel="canonical" href="https://takizawadaiki.github.io/faceoffs/"/>
+<meta property="og:type" content="website"/>
+<meta property="og:site_name" content="Daiki Takizawa"/>
+<meta property="og:title" content="What Makes an NHL Player Elite at Faceoffs? · Daiki Takizawa"/>
+<meta property="og:description" content="Nine seasons and 633,000 NHL faceoffs: who is best, how much size matters, and whether a small faceoff specialist would be worth a roster spot."/>
+<meta property="og:url" content="https://takizawadaiki.github.io/faceoffs/"/>
+<meta property="og:image" content="https://takizawadaiki.github.io/og-image.png"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  color-scheme:dark;
+  --bg:#10120f;--card:#151a13;--ink:#f0f0e7;--muted:#a5ab9e;--border:#30372d;--orange:#ff8050;
+  --blue:#3987e5;--heading:'Space Grotesk',sans-serif;
+}
+html{scroll-behavior:smooth;scroll-padding-top:24px}
+body{background:var(--bg);color:var(--ink);font:15px/1.65 'DM Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button{font:inherit}
+.wrap{width:min(1240px,calc(100% - 64px));margin:0 auto}
+.progress{position:fixed;top:0;left:0;right:0;height:3px;z-index:60;background:linear-gradient(90deg,#ff8050,#ffb08a);transform:scaleX(var(--p,0));transform-origin:0 50%;pointer-events:none}
+.skip{position:fixed;left:16px;top:-80px;z-index:70;background:var(--orange);color:#171b13;padding:10px 14px;border-radius:6px}
+.skip:focus{top:12px}
+:focus-visible{outline:3px solid var(--orange);outline-offset:3px}
+header.top{display:flex;justify-content:space-between;align-items:center;gap:16px;height:92px;border-bottom:1px solid var(--border)}
+.brand{display:flex;align-items:center;font:600 18px var(--heading);letter-spacing:-.6px}
+.brand i{font-style:normal;background:#dbe4cd;color:#151a12;font-size:21px;padding:4px 9px;margin-right:13px;letter-spacing:-3px}
+.brand b{color:var(--orange)}
+.top nav{display:flex;gap:26px;font-size:12px;color:var(--muted)}
+.top nav a:hover{color:var(--orange)}
+.eyebrow,.k{font:500 10.5px/1.5 var(--heading);letter-spacing:1.3px;text-transform:uppercase;color:var(--muted)}
+.eyebrow{display:flex;align-items:center;gap:9px}
+.eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--orange)}
+.hero{padding:56px 0 30px;display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:48px;align-items:end}
+h1{font:500 clamp(40px,5.6vw,82px)/.98 var(--heading);letter-spacing:-.055em;margin-top:18px}
+h1 em{font-family:Georgia,'Times New Roman',serif;font-weight:400;font-style:italic;color:var(--orange);letter-spacing:-.04em}
+.lede{color:var(--muted);font-size:15.5px;line-height:1.8;max-width:54ch}
+.verdict{display:grid;grid-template-columns:auto 1fr auto;gap:22px;align-items:center;border:1px solid #5b4435;border-left:3px solid var(--orange);background:#1b1612;border-radius:0 12px 12px 0;padding:18px 22px;margin-top:8px}
+.verdict .k{color:var(--orange);white-space:nowrap}
+.verdict p{font-size:15px;line-height:1.6}
+.verdict p strong{font-weight:600}
+.verdict a{font:500 12.5px var(--heading);white-space:nowrap;border-bottom:1px solid var(--border);padding-bottom:3px}
+.verdict a:hover{color:var(--orange)}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:26px 0 8px}
+.kpi{position:relative;display:flex;flex-direction:column;gap:6px;min-height:170px;padding:20px 18px 16px;border:1px solid var(--border);border-radius:14px;background:linear-gradient(180deg,#151a13,#10120f);overflow:hidden;isolation:isolate;transition:border-color .3s,translate .3s}
+.kpi::before{content:"";position:absolute;inset:0;z-index:-1;opacity:0;transition:opacity .35s;background:radial-gradient(240px circle at var(--mx,50%) var(--my,50%),rgba(255,128,80,.2),transparent 62%)}
+.kpi:hover{border-color:#6b4a3a;translate:0 -3px}.kpi:hover::before{opacity:1}
+.kpi .v{font:600 clamp(30px,3.2vw,44px)/1 var(--heading);letter-spacing:-.03em;margin-top:6px;font-variant-numeric:tabular-nums}
+.kpi .n{font-size:12.5px;line-height:1.5;color:var(--muted)}
+.kpi .src{margin-top:auto;border-top:1px solid var(--border);padding-top:9px;font:500 10.5px/1.4 var(--heading);letter-spacing:.03em;color:#8d9486}
+section{padding:54px 0 0}
+.sec-top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:6px 20px;border-bottom:1px solid var(--border);padding-bottom:14px;margin-bottom:22px}
+.sec-top .k b{color:var(--orange);font-weight:500;margin-right:14px}
+h2{font:400 clamp(26px,3.1vw,42px)/1.1 var(--heading);letter-spacing:-.035em;max-width:22ch}
+h2 em{font-family:Georgia,serif;font-style:italic;color:#a6b693}
+.sec-head{display:flex;justify-content:space-between;align-items:end;gap:40px;margin-bottom:24px}
+.sec-head p{color:var(--muted);font-size:14px;line-height:1.75;max-width:52ch}
+.panel{border:1px solid var(--border);border-radius:16px;background:var(--card);padding:24px 24px 20px}
+.panel h3{font:600 18px/1.25 var(--heading);letter-spacing:-.02em}
+.panel .sub{color:var(--muted);font-size:13.5px;line-height:1.65;margin:6px 0 16px;max-width:66ch}
+.grid2{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:18px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.chips button{font:500 12.5px/1 var(--heading);color:var(--ink);background:transparent;border:1px solid var(--border);border-radius:999px;padding:10px 14px;cursor:pointer;transition:border-color .2s,background .2s}
+.chips button:hover{border-color:#6b4a3a}
+.chips button[aria-pressed="true"]{background:#e0e7d7;color:#1a2115;border-color:#e0e7d7}
+.chart-box{position:relative;height:400px}
+.src{font:500 10.5px/1.5 var(--heading);letter-spacing:.03em;color:#8d9486}
+.panel>.src{margin-top:14px;padding-top:10px;border-top:1px solid var(--border)}
+/* timeline */
+.timeline{display:grid;grid-template-columns:3fr 1fr 1fr 1fr;gap:8px}
+.tl{border:1px solid var(--border);border-radius:12px;padding:16px;background:var(--card)}
+.tl .yrs{font:600 22px/1 var(--heading);letter-spacing:-.02em;margin:8px 0 6px;font-variant-numeric:tabular-nums}
+.tl p{font-size:12.5px;line-height:1.55;color:var(--muted)}
+.tl.judge{border-color:#6b4a3a;background:#1b1612}.tl.judge .k{color:var(--orange)}
+/* interval plots */
+.forest{display:grid;gap:2px}
+.frow{display:grid;grid-template-columns:minmax(120px,190px) 1fr;gap:4px 14px;align-items:center;padding:9px 0;border-top:1px solid #232a20}
+.frow:first-child{border-top:0}
+.fname{font:500 12.5px/1.3 var(--heading)}
+.frow.me .fname{color:var(--orange)}
+.ftrack{position:relative;height:24px}
+.ftrack .zero{position:absolute;top:0;bottom:0;width:1px;background:#4a5445}
+.fci{position:absolute;top:50%;height:3px;border-radius:2px;translate:0 -50%;background:#7f8678}
+.fdot{position:absolute;top:50%;width:12px;height:12px;border-radius:50%;translate:-50% -50%;background:var(--ink);box-shadow:0 0 0 2px var(--card)}
+.frow.me .fdot{background:var(--orange)}.frow.me .fci{background:#b0603f}
+.fval{grid-column:2;font:500 12px/1.3 var(--heading);color:var(--muted);font-variant-numeric:tabular-nums}
+.faxis{position:relative;height:18px;margin-top:4px;font:500 10.5px/1 var(--heading);color:#8d9486;font-variant-numeric:tabular-nums}
+.faxis span{position:absolute;translate:-50% 0}
+.faxis.pad{margin-left:calc(min(190px,max(120px,30%)) + 14px)}
+/* signal vs luck */
+.bars{display:grid;gap:14px;margin-top:8px}
+.bar .lab{display:flex;justify-content:space-between;font:500 13px var(--heading);margin-bottom:6px}
+.bar .lab span:last-child{font-variant-numeric:tabular-nums}
+.bar .t{height:16px;border-radius:4px;background:#1a2117;overflow:hidden}
+.bar .t i{display:block;height:100%;width:var(--w);border-radius:0 4px 4px 0;background:var(--c);transform-origin:left;transition:transform 1s cubic-bezier(.2,.8,.2,1)}
+.js-reveal .rv:not(.in) .bar .t i{transform:scaleX(0)}
+/* tables */
+.toolbar{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;justify-content:space-between;margin-bottom:14px}
+.toolbar .chips{margin:0}
+.search{flex:1;min-width:200px;max-width:320px;background:#10120f;border:1px solid var(--border);border-radius:999px;color:var(--ink);font:500 14px var(--heading);padding:10px 16px}
+.search::placeholder{color:#8a917f}
+.tablewrap{max-height:520px;overflow:auto;border:1px solid var(--border);border-radius:12px}
+table{width:100%;border-collapse:collapse;font-size:13.5px;font-variant-numeric:tabular-nums}
+th,td{text-align:left;padding:10px 16px;border-bottom:1px solid #232a20;white-space:nowrap}
+th{position:sticky;top:0;background:#10140e;font:500 10.5px/1.2 var(--heading);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);z-index:1}
+td.num,th.num{text-align:right}
+td.rank{color:#8d9486;width:1%}
+td .rb{display:inline-block;vertical-align:middle;height:8px;border-radius:2px;background:var(--blue);margin-right:10px}
+tbody tr:hover{background:#171d14}
+.empty{padding:22px 16px;color:var(--muted)}
+/* notes */
+.cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.list{list-style:none;display:grid;gap:10px;margin-top:12px}
+.list li{position:relative;padding-left:18px;font-size:13.5px;line-height:1.65;color:#c9cfc0}
+.list li::before{content:"";position:absolute;left:0;top:.62em;width:6px;height:6px;border-radius:50%;background:var(--orange)}
+.list li b{color:var(--ink);font-weight:600}
+dl.terms{display:grid;grid-template-columns:auto 1fr;gap:8px 18px;margin-top:12px;font-size:13.5px}
+dl.terms dt{font:600 12.5px/1.6 var(--heading);white-space:nowrap}
+dl.terms dd{color:#c9cfc0;line-height:1.6}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+.btn{display:inline-flex;align-items:center;gap:14px;padding:13px 20px;border-radius:999px;font:600 13px/1 var(--heading);border:1px solid var(--border);transition:background .2s,border-color .2s}
+.btn:hover{border-color:#6b4a3a}
+.btn.primary{background:var(--orange);color:#171b13;border-color:var(--orange)}.btn.primary:hover{background:#ff9b76}
+footer{margin:64px 0 60px;padding-top:20px;border-top:1px solid var(--border);display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 30px;font-size:12.5px;color:var(--muted)}
+footer a{text-decoration:underline;text-underline-offset:3px}footer a:hover{color:var(--orange)}
+.err{padding:18px 20px;border:1px solid #6b3a2a;border-radius:12px;background:#1d1411;color:#f0c1ad;margin:26px 0}
+[hidden]{display:none!important}
+.js-reveal .rv:not(.in){opacity:0}
+.js-reveal .rv.in{animation:rv-in .75s cubic-bezier(.2,.7,.2,1) backwards}
+@keyframes rv-in{from{opacity:0;translate:0 24px}}
+@media(max-width:980px){.hero{grid-template-columns:1fr;gap:22px;padding-top:40px}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.grid2,.cols{grid-template-columns:1fr}.sec-head{display:block}.sec-head p{margin-top:14px}.timeline{grid-template-columns:repeat(2,minmax(0,1fr))}.verdict{grid-template-columns:1fr;gap:8px}}
+@media(max-width:560px){.wrap{width:calc(100% - 32px)}header.top{height:76px}.top nav a.hide-s{display:none}.kpis{grid-template-columns:1fr}.kpi{min-height:0}.panel{padding:18px 14px 16px}.chart-box{height:330px}.frow{grid-template-columns:1fr}.fval{grid-column:1}.faxis.pad{margin-left:0}.timeline{grid-template-columns:1fr}th,td{padding:9px 10px}dl.terms{grid-template-columns:1fr;gap:2px 0}dl.terms dd{margin-bottom:8px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
+/* faceoff page */
+.cols>.panel,.grid2>.panel{min-width:0}
+.sliders{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 28px;margin:10px 0 18px}
+.slider{display:block}
+.slider .lab{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font:500 13px var(--heading);margin-bottom:8px}
+.slider output{font:600 20px/1 var(--heading);letter-spacing:-.02em;font-variant-numeric:tabular-nums;white-space:nowrap}
+input[type=range]{width:100%;height:28px;accent-color:var(--orange);cursor:pointer;background:transparent}
+.duel{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.duel .side,.duel .call{border:1px solid var(--border);border-radius:14px;padding:18px;background:#10120f;display:flex;flex-direction:column;gap:6px}
+.duel b{font:600 38px/1.05 var(--heading);letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.duel .s{font-size:12.5px;color:var(--muted);line-height:1.5}
+.duel .call{background:#1d1712;border-color:#6b4a3a;grid-column:1/-1}
+.duel .call p{font-size:14px;line-height:1.6;color:#d6dbcd;margin:0}
+.table-wrap{overflow-x:auto}
+.cmp{width:100%;border-collapse:collapse;font-size:13px}
+.cmp th,.cmp td{padding:9px 6px;border-bottom:1px solid var(--border);text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.cmp th:first-child,.cmp td:first-child{text-align:left}
+.cmp thead th{font:600 11.5px/1.35 var(--heading);color:var(--ink);vertical-align:bottom;white-space:normal}
+.cmp td.up{color:#7fe0bb;font-weight:600}.cmp td.down{color:#ffb08f;font-weight:600}
+.cmp td.dim{color:var(--muted)}
+#rt th:nth-child(2),#rt td:nth-child(2){text-align:left;width:34%}
+#rt th:first-child,#rt td:first-child{width:44px}
+.cmp small{color:#8d9486;font-weight:400;margin-left:4px}
+.cmp th button{all:unset;cursor:pointer;font:inherit;color:inherit;border-bottom:1px dotted #6f7768}
+.cmp th button:hover,.cmp th button:focus-visible{color:#ffb08f;border-bottom-color:#ffb08f}
+.cmp th[aria-sort] button{color:#ffb08f}
+.tools{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:6px 0 14px}
+.tools .chips{margin:0}
+.more{margin-top:14px;font:500 13px var(--heading);color:var(--ink);background:transparent;border:1px solid var(--border);border-radius:999px;padding:10px 16px;cursor:pointer}
+.more:hover{border-color:#6b4a3a}
+.rating-bar{display:inline-block;vertical-align:middle;width:64px;height:6px;border-radius:3px;background:#1a2117;margin-right:8px;position:relative;overflow:hidden}
+.rating-bar i{position:absolute;top:0;bottom:0;background:#3987e5;border-radius:3px}
+.rating-bar i.neg{background:#d95926}
+.rating-bar::after{content:"";position:absolute;left:50%;top:0;bottom:0;width:1px;background:#6f7768}
+.chart-box.short{height:300px}
+.fine{font-size:12.5px;color:var(--muted);line-height:1.55;margin-top:10px}
+@media(max-width:980px){.duel{grid-template-columns:1fr 1fr 1fr}}
+@media(max-width:560px){.sliders{grid-template-columns:1fr}.duel{grid-template-columns:1fr}.duel b{font-size:30px}.cmp{font-size:12px}.cmp th,.cmp td{padding:8px 4px}.slider .lab{flex-direction:column;gap:4px}.rating-bar{display:none}.hide-xs{display:none}}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<div class="progress" aria-hidden="true"></div>
+<a class="skip" href="#main">Skip to content</a>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="https://takizawadaiki.github.io/" aria-label="Daiki Takizawa home"><i>dt</i>Daiki Takizawa<b>.</b></a>
+    <nav aria-label="Page">
+      <a class="hide-s" href="#ratings">Ratings</a>
+      <a class="hide-s" href="#draw">What decides a draw</a>
+      <a class="hide-s" href="#size">Size</a>
+      <a class="hide-s" href="#specialist">The specialist</a>
+      <a class="hide-s" href="https://github.com/takizawadaiki/takizawadaiki.github.io/tree/main/faceoffs">Code ↗</a>
+      <a href="https://takizawadaiki.github.io/#projects">← All projects</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <div class="hero">
+      <div>
+        <div class="eyebrow">Hockey research · NHL 2017–18 to 2025–26</div>
+        <h1>What makes a player <em>elite at faceoffs?</em></h1>
+      </div>
+      <p class="lede" id="lede">This page rates every NHL faceoff man on the same scale, tests how much size, age and handedness explain, and asks a question I had been wondering about: could a very small player with great hands and timing earn a roster spot as a designated faceoff man?</p>
+    </div>
+
+    <noscript><div class="err">This page draws its numbers and charts with JavaScript. The data is in the repository linked at the bottom of the page.</div></noscript>
+    <div id="error" class="err" hidden></div>
+
+    <div class="verdict rv">
+      <span class="k">Short answer</span>
+      <p id="verdict">Loading the results…</p>
+      <a href="#specialist">Try the specialist calculator ↓</a>
+    </div>
+
+    <div class="kpis" id="kpis"></div>
+
+    <section id="ratings" aria-labelledby="ratings-h">
+      <div class="sec-top"><span class="k"><b>01</b>Ratings</span><span class="k" id="ratings-k"></span></div>
+      <div class="sec-head">
+        <h2 id="ratings-h">Faceoff skill is real, and it <em>repeats.</em></h2>
+        <p id="ratings-lede"></p>
+      </div>
+      <div class="panel rv">
+        <h3>Every player with at least 500 faceoffs</h3>
+        <p class="sub">The rating is the share of draws a player would win against an average faceoff man, at a neutral spot with the teams at even strength. Click a column heading to sort.</p>
+        <div class="tools">
+          <input class="search" id="q" type="search" placeholder="Search for a player" aria-label="Search for a player"/>
+          <div class="chips" id="f-chips" role="group" aria-label="Filter players"></div>
+        </div>
+        <div class="table-wrap"><table class="cmp" id="rt"></table></div>
+        <button class="more" id="more" type="button"></button>
+        <p class="src" id="ratings-note"></p>
+      </div>
+    </section>
+
+    <section id="draw" aria-labelledby="draw-h">
+      <div class="sec-top"><span class="k"><b>02</b>What decides a draw</span><span class="k">Apart from the two players</span></div>
+      <div class="sec-head">
+        <h2 id="draw-h">The side of the ice matters <em>more than the building.</em></h2>
+        <p id="draw-lede"></p>
+      </div>
+      <div class="cols">
+        <div class="panel rv">
+          <h3>What moves the odds of winning a draw</h3>
+          <p class="sub">Percentage points added to a 50–50 draw, holding the two players fixed.</p>
+          <div class="bars" id="fx-bars"></div>
+          <p class="src" id="fx-note"></p>
+        </div>
+        <div class="panel rv">
+          <h3>Players keep improving into their thirties</h3>
+          <p class="sub">Change in a player’s own win rate with age, against his best age.</p>
+          <div class="chart-box short"><canvas id="c-age" role="img" aria-label="Line chart of faceoff win rate by age"></canvas></div>
+          <p class="src" id="age-note"></p>
+        </div>
+      </div>
+    </section>
+
+    <section id="size" aria-labelledby="size-h">
+      <div class="sec-top"><span class="k"><b>03</b>Size</span><span class="k">Height and weight against skill</span></div>
+      <div class="sec-head">
+        <h2 id="size-h">Height does nothing. <em>Weight helps a little.</em></h2>
+        <p id="size-lede"></p>
+      </div>
+      <div class="panel rv">
+        <h3>Size against faceoff skill</h3>
+        <p class="sub">Each dot is one player. Skill here is adjusted for age, so that young players are not marked down for being young. Hover or tap a dot for the name.</p>
+        <div class="tools"><div class="chips" id="sz-chips" role="group" aria-label="Measure"></div></div>
+        <div class="chart-box"><canvas id="c-size" role="img" aria-label="Scatter chart of player size against faceoff skill"></canvas></div>
+        <p class="src" id="size-note"></p>
+      </div>
+      <div class="cols" style="margin-top:18px">
+        <div class="panel rv">
+          <h3>By height</h3>
+          <div class="table-wrap"><table class="cmp" id="h-table"></table></div>
+        </div>
+        <div class="panel rv">
+          <h3>By weight</h3>
+          <div class="table-wrap"><table class="cmp" id="w-table"></table></div>
+        </div>
+      </div>
+      <p class="fine" id="size-fine"></p>
+    </section>
+
+    <section id="specialist" aria-labelledby="sp-h">
+      <div class="sec-top"><span class="k"><b>04</b>The specialist</span><span class="k">Could a small faceoff man hold a roster spot?</span></div>
+      <div class="sec-head">
+        <h2 id="sp-h">He could win the draws. <em>They are not worth enough.</em></h2>
+        <p id="sp-lede"></p>
+      </div>
+      <div class="panel rv">
+        <h3>Build a designated faceoff man</h3>
+        <p class="sub">Set his weight to see what size alone predicts, then set how good he is and how you would use him.</p>
+        <div class="sliders">
+          <label class="slider"><span class="lab"><span>His weight</span><output id="s-w-out"></output></span>
+            <input type="range" id="s-w" min="150" max="240" step="1" value="165" aria-label="Weight in pounds"/></label>
+          <label class="slider"><span class="lab"><span>His faceoff win rate against an average opponent</span><output id="s-p-out"></output></span>
+            <input type="range" id="s-p" min="45" max="65" step="0.5" value="58" aria-label="Faceoff win percentage"/></label>
+          <label class="slider"><span class="lab"><span>Faceoffs he takes per game</span><output id="s-d-out"></output></span>
+            <input type="range" id="s-d" min="2" max="26" step="1" value="10" aria-label="Faceoffs per game"/></label>
+          <label class="slider"><span class="lab"><span>Share of them in the offensive or defensive zone</span><output id="s-z-out"></output></span>
+            <input type="range" id="s-z" min="0" max="100" step="5" value="80" aria-label="Share of faceoffs taken in an end zone"/></label>
+        </div>
+        <div class="duel" aria-live="polite">
+          <div class="side"><span class="k">How rare he would be</span><b id="o-rare"></b><span class="s" id="o-rare-s"></span></div>
+          <div class="side"><span class="k">Extra draws won a season</span><b id="o-wins"></b><span class="s" id="o-wins-s"></span></div>
+          <div class="side"><span class="k">Goals added a season</span><b id="o-goals"></b><span class="s" id="o-goals-s"></span></div>
+          <div class="call"><span class="k">What it adds up to</span><p id="o-call"></p></div>
+        </div>
+        <p class="src" id="sp-note"></p>
+      </div>
+      <div class="cols" style="margin-top:18px">
+        <div class="panel rv">
+          <h3>What winning a faceoff is worth</h3>
+          <p class="sub">Shots on goal and goals in the 30 seconds after a draw, or until the next whistle, for the team that won it.</p>
+          <div class="table-wrap"><table class="cmp" id="v-table"></table></div>
+          <p class="src" id="v-note"></p>
+        </div>
+        <div class="panel rv">
+          <h3>What this means</h3>
+          <ul class="list" id="sp-read"></ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="method" aria-labelledby="method-h">
+      <div class="sec-top"><span class="k"><b>05</b>Method</span><span class="k">Sources, checks and limits</span></div>
+      <div class="cols">
+        <div class="panel rv">
+          <h3 id="method-h">How it was done</h3>
+          <ul class="list" id="method-list"></ul>
+          <div class="cta">
+            <a class="btn primary" href="https://github.com/takizawadaiki/takizawadaiki.github.io/tree/main/faceoffs">View the code and data <span aria-hidden="true">↗</span></a>
+          </div>
+        </div>
+        <div class="panel rv">
+          <h3>Does a rating carry over to the next season?</h3>
+          <p class="sub">Correlation between a player’s rating in one season and in the next, for players with at least 300 draws in both.</p>
+          <div class="chart-box short"><canvas id="c-yy" role="img" aria-label="Bar chart of year to year rating correlation"></canvas></div>
+          <p class="src" id="yy-note"></p>
+        </div>
+      </div>
+      <div class="panel rv" style="margin-top:18px">
+        <h3>What to keep in mind</h3>
+        <ul class="list">
+          <li><b>Reflexes are not measured.</b> There is no public data on reaction time or hand speed. What the data can show is how much of faceoff skill is left over once size, age and handedness are accounted for. That remainder covers technique, timing, strength, cheating the drop and help from wingers, all mixed together.</li>
+          <li><b>Coaches choose who takes draws.</b> Small or weak faceoff men are moved to the wing, so the players in this sample are the ones who were good enough to keep the job. The link between weight and skill among them may understate or overstate what would happen to a player picked at random.</li>
+          <li><b>No one in the sample is truly tiny.</b> The lightest player with 500 faceoffs weighs 165 pounds. Anything the calculator says below that weight is the trend line carried past the data.</li>
+          <li><b>The value of a win covers 30 seconds.</b> It counts shots and goals soon after the draw. It misses slower effects such as a line change, a clean breakout or time killed on a penalty, and it treats every draw in a zone alike, whatever the score or time left.</li>
+          <li><b>A faceoff is credited to one player.</b> The league records a winner and a loser, but wingers and defencemen often win the loose puck. Ratings include that help.</li>
+          <li><b>Listed weights are rough.</b> Heights and weights are the league’s listed figures from a player’s most recent season.</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>Daiki Takizawa · University of Toronto · Built November 2026</span>
+    <span><a href="https://takizawadaiki.github.io/">Portfolio</a> · <a href="https://github.com/takizawadaiki/takizawadaiki.github.io/tree/main/faceoffs">Code and data</a></span>
+  </footer>
+</div>
+<script src="../chart.umd.min.js"></script>
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const el = (tag, cls, html) => { const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; };
+  const C = { blue: '#3987e5', orange: '#d95926', gold: '#e0a84a', green: '#199e70', grid: '#262d22', ink: '#f0f0e7', muted: '#a5ab9e', line: '#c9cfc0' };
+  const sgn = (v, d = 1) => (v > 0 ? '+' : v < 0 ? '−' : '') + Math.abs(v).toFixed(d);
+  const big = n => Math.round(n).toLocaleString('en-CA');
+  const feet = inches => `${Math.floor(inches / 12)}′${Math.round(inches % 12)}″`;
+  const season = y => `${y}–${String((y + 1) % 100).padStart(2, '0')}`;
+  const esc = s => s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  // normal distribution: chance of being above z standard deviations
+  const upper = z => { const t = 1 / (1 + 0.2316419 * Math.abs(z)); const d = 0.3989423 * Math.exp(-z * z / 2); const p = d * t * (0.3193815 + t * (-0.3565638 + t * (1.781478 + t * (-1.821256 + t * 1.330274)))); return z > 0 ? p : 1 - p; };
+
+  const progress = document.querySelector('.progress');
+  const onScroll = () => { const h = document.documentElement; progress.style.setProperty('--p', h.scrollTop / Math.max(1, h.scrollHeight - h.clientHeight)); };
+  addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+  fetch('results/results.json').then(r => { if (!r.ok) throw new Error(r.status); return r.json(); }).then(render).catch(e => {
+    $('error').hidden = false; $('error').textContent = 'The results file could not be loaded (' + e.message + '). The data is in the repository linked at the bottom of the page.';
+    $('verdict').textContent = 'Results unavailable.';
+  });
+
+  function render(R) {
+    const S = R.summary, P = R.players, FX = R.effects, M = R.size.models, V = R.value, EX = R.examples;
+    const term = (m, name) => m.terms.find(t => t.name === name);
+    const centres = P.filter(p => p.position === 'C');
+    const cw = M.centres_weight, c0 = term(cw, 'intercept').coef, c1 = term(cw, 'weight_10lb').coef, meanW = M.means.weight;
+    const fromWeight = w => c0 + c1 * (w - meanW) / 10;
+    const sdC = Math.sqrt(centres.reduce((s, p) => s + (p.talent - fromWeight(p.weight)) ** 2, 0) / centres.length);
+    const best = P[0], worst = P.reduce((a, b) => (b.rating < a.rating ? b : a));
+    const light = P.filter(p => p.weight <= 190).sort((a, b) => b.rating - a.rating);
+    const lightest = P.reduce((a, b) => (b.weight < a.weight ? b : a));
+    const yrs = `${season(S.seasons[0])} to ${season(S.seasons[1])}`;
+    const perTeamGame = S.faceoffs / S.games;
+    const endWin = V.O.goal_swing, neutWin = V.N.goal_swing;
+    const hAlone = term(M.height, 'height_inch'), hHeld = term(M.centres, 'height_inch'), wHeld = term(M.centres, 'weight_10lb');
+    const sp = EX.elite_specialist;
+
+    $('verdict').innerHTML = `Faceoff skill is real. Ratings run from about <strong>${worst.rating.toFixed(0)}%</strong> to <strong>${best.rating.toFixed(0)}%</strong> and carry over from one season to the next. Size explains only about <strong>${(M.centres.r2 * 100).toFixed(0)}%</strong> of it: height makes no difference and each 10 pounds is worth about <strong>${c1.toFixed(1)} points</strong>, so a small player starts a few points behind but can still be elite. The problem is the payoff. Winning a draw in an end zone is worth about <strong>${endWin.toFixed(3)} goals</strong>, so a 58% specialist taking 10 draws a night adds about <strong>${sp.goals.toFixed(1)} goals a season</strong>, a fifth of one win.`;
+
+    [
+      { k: 'Faceoffs studied', v: (S.faceoffs / 1000).toFixed(0) + 'K', n: `Every regular-season faceoff from ${yrs}, in ${big(S.games)} games, with who won, who lost and where on the ice.`, s: 'NHL play-by-play' },
+      { k: 'Best against worst', v: `${best.rating.toFixed(0)}–${worst.rating.toFixed(0)}`, n: `${esc(best.name)} would win ${best.rating.toFixed(1)}% of draws against an average opponent. The weakest regular would win ${worst.rating.toFixed(1)}%.`, s: `${S.rated_players} players with 500 or more draws` },
+      { k: 'Explained by size', v: (M.centres.r2 * 100).toFixed(0) + '%', n: `Height and weight together account for this share of the differences in skill among centres. The rest is something else.`, s: `${M.means.centres} centres, age-adjusted skill` },
+      { k: 'Value of one win', v: endWin.toFixed(3), n: `Goals gained by winning an end-zone draw instead of losing it. That is one goal for every ${Math.round(1 / endWin)} extra wins.`, s: 'Goals in the next 30 seconds' },
+    ].forEach(k => { const d = el('div', 'kpi rv'); d.append(el('span', 'k', k.k), el('div', 'v', k.v), el('p', 'n', k.n), el('span', 'src', k.s)); $('kpis').append(d); });
+
+    Chart.defaults.color = C.muted; Chart.defaults.font.family = "'DM Sans', system-ui, sans-serif"; Chart.defaults.font.size = 12;
+    if (reduced) Chart.defaults.animation = false;
+
+    // ---------- 01 ratings ----------
+    const yy = S.year_to_year, yyMean = yy.reduce((s, y) => s + y.r, 0) / yy.length;
+    $('ratings-k').textContent = `${S.rated_players} players rated`;
+    $('ratings-lede').textContent = `A raw faceoff percentage depends on who a player faces and where he takes his draws. The model here rates every player from who beat whom, the way chess ratings work, and removes the effect of home ice, side of the ice and power plays. Ratings built from odd-numbered games match ratings built from even-numbered games closely (correlation ${S.split_half.toFixed(2)}), and one season predicts the next (${yyMean.toFixed(2)} on average). So this is a skill and not luck.`;
+
+    const cols = [
+      { key: 'rank', label: '#', num: true }, { key: 'name', label: 'Player' }, { key: 'height', label: 'Height', num: true }, { key: 'weight', label: 'Weight', num: true },
+      { key: 'shoots', label: 'Shoots', cls: 'hide-xs' }, { key: 'draws', label: 'Faceoffs', num: true, cls: 'hide-xs' }, { key: 'raw', label: 'Won', num: true, cls: 'hide-xs' }, { key: 'rating', label: 'Rating', num: true },
+    ];
+    P.forEach((p, i) => { p.rank = i + 1; });
+    const filters = [['all', 'All players'], ['active', `Played in ${season(S.seasons[1])}`], ['short', '5′10″ and under'], ['light', '190 lb and under']];
+    const st = { q: '', f: 'all', sort: 'rating', dir: -1, all: false };
+    const pass = { all: () => true, active: p => p.recent_draws > 0, short: p => p.height <= 70, light: p => p.weight <= 190 };
+    const table = $('rt');
+    const thead = el('thead'), tbody = el('tbody'); table.append(thead, tbody);
+    const hr = el('tr'); thead.append(hr);
+    cols.forEach(c => { const th = el('th', c.cls || ''); th.scope = 'col'; const b = el('button', null, c.label); b.type = 'button'; b.addEventListener('click', () => { if (st.sort === c.key) st.dir *= -1; else { st.sort = c.key; st.dir = c.key === 'name' || c.key === 'rank' || c.key === 'shoots' ? 1 : -1; } draw(); }); th.append(b); th.dataset.k = c.key; hr.append(th); });
+    filters.forEach(([v, label]) => { const b = el('button', null, label); b.type = 'button'; b.dataset.v = v; b.addEventListener('click', () => { st.f = v; draw(); }); $('f-chips').append(b); });
+    $('q').addEventListener('input', e => { st.q = e.target.value.trim().toLowerCase(); draw(); });
+    $('more').addEventListener('click', () => { st.all = !st.all; draw(); });
+    const plain = s => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+    function draw() {
+      [...$('f-chips').children].forEach(b => b.setAttribute('aria-pressed', b.dataset.v === st.f));
+      [...hr.children].forEach(th => { if (th.dataset.k === st.sort) th.setAttribute('aria-sort', st.dir > 0 ? 'ascending' : 'descending'); else th.removeAttribute('aria-sort'); });
+      let rows = P.filter(pass[st.f]).filter(p => !st.q || plain(p.name).includes(plain(st.q)));
+      rows.sort((a, b) => { const x = a[st.sort], y = b[st.sort]; return (typeof x === 'string' ? x.localeCompare(y) : x - y) * st.dir; });
+      const total = rows.length, limit = st.all || st.q ? total : 20;
+      tbody.innerHTML = rows.slice(0, limit).map(p => {
+        const d = p.rating - 50, w = Math.min(50, Math.abs(d) * 4.5);
+        const bar = `<span class="rating-bar" aria-hidden="true"><i class="${d < 0 ? 'neg' : ''}" style="${d < 0 ? `right:50%;width:${w}%` : `left:50%;width:${w}%`}"></i></span>`;
+        return `<tr><td class="dim">${p.rank}</td><td>${esc(p.name)}${p.position !== 'C' ? '<small>wing</small>' : ''}</td><td>${feet(p.height)}</td><td>${p.weight.toFixed(0)} lb</td><td class="hide-xs">${p.shoots === 'L' ? 'Left' : 'Right'}</td><td class="hide-xs">${big(p.draws)}</td><td class="hide-xs dim">${p.raw.toFixed(1)}%</td><td class="${d >= 2 ? 'up' : d <= -2 ? 'down' : ''}">${bar}${p.rating.toFixed(1)}%</td></tr>`;
+      }).join('') || `<tr><td colspan="8">No player matches.</td></tr>`;
+      $('more').hidden = !!st.q || total <= 20;
+      $('more').textContent = st.all ? 'Show the top 20' : `Show all ${total} players`;
+    }
+    draw();
+    $('ratings-note').textContent = `“Won” is the plain share of draws won. “Rating” adjusts it for opponents and situation and pulls players with few draws toward the average. Rank is by rating among all ${S.rated_players} players. Source: NHL play-by-play, ${yrs}.`;
+
+    // ---------- 02 what decides a draw ----------
+    const fx = [
+      ['On his strong side', FX.strong_side.pct, 'The side of the ice that matches his shooting hand, as he faces the net he attacks'],
+      ['Team has the man advantage', FX.man_advantage.pct, 'More skaters on the ice than the opponent'],
+      ['Playing at home', FX.home.pct, 'With the same two players. At centre ice the visiting player has to set his stick first'],
+      ['In the offensive zone', FX.offensive_zone.pct, 'Against taking the same draw at centre ice'],
+    ];
+    const fxMax = Math.max(...fx.map(f => Math.abs(f[1])));
+    fx.forEach(([label, v, note]) => {
+      const b = el('div', 'bar');
+      b.innerHTML = `<div class="lab"><span>${label}</span><span>${sgn(v)} pts</span></div><div class="t"><i style="--w:${Math.max(1.5, Math.abs(v) / fxMax * 100)}%;--c:${v >= 0 ? C.blue : C.orange}"></i></div><p class="fine" style="margin-top:6px">${note}.</p>`;
+      $('fx-bars').append(b);
+    });
+    $('draw-lede').textContent = `Two things other than the players themselves move a faceoff. A player on the side that matches his shooting hand gains ${FX.strong_side.pct.toFixed(1)} points, so the gap between his strong side and his weak side is about ${(FX.strong_side.pct * 2).toFixed(0)} points. A team on the power play gains ${FX.man_advantage.pct.toFixed(1)}. Home ice is worth ${FX.home.pct.toFixed(1)} and the zone makes almost no difference.`;
+    $('fx-note').textContent = `Estimated together with the player ratings from ${big(S.faceoffs)} faceoffs. A left shot is on his strong side on the left of the ice as he looks at the net he is attacking.`;
+
+    const AC = R.age_curve, at = a => AC.find(x => x.age === a);
+    new Chart($('c-age'), { type: 'line', data: { labels: AC.map(a => a.age), datasets: [{ data: AC.map(a => a.pct), borderColor: C.blue, backgroundColor: C.blue, borderWidth: 2.5, pointRadius: 0, pointHoverRadius: 5, tension: .3 }] },
+      options: { maintainAspectRatio: false, interaction: { mode: 'index', intersect: false }, plugins: { legend: { display: false }, tooltip: { callbacks: { title: c => `Age ${c[0].label}`, label: c => `${sgn(c.parsed.y)} points against his best age` } } },
+        scales: { x: { grid: { display: false }, title: { display: true, text: 'Age' }, ticks: { maxRotation: 0, autoSkipPadding: 14 } }, y: { grid: { color: C.grid }, title: { display: true, text: 'Points of win rate' }, ticks: { callback: v => sgn(v, 0) } } } } });
+    $('age-note').textContent = `The same player wins about ${Math.abs(at(22).pct).toFixed(0)} points fewer draws at 22 than at his best, and ${Math.abs(at(28).pct).toFixed(0)} fewer at 28. The curve peaks near ${R.peak_age}. Reaction time is at its best in a player’s early twenties, so this points to faceoffs being a learned skill more than a test of reflexes. The far end of the curve leans on a small number of older players who were good enough to keep the job.`;
+
+    // ---------- 03 size ----------
+    $('size-lede').textContent = `Height alone has no clear link with faceoff skill (${sgn(hAlone.coef, 2)} points an inch, within the margin of error). Weight has a modest one: among centres, each extra 10 pounds goes with about ${c1.toFixed(1)} more points. At the same weight a taller centre is slightly worse (${sgn(hHeld.coef, 1)} points an inch), which fits the idea that a low, strong stance helps. Together height and weight explain ${(M.centres.r2 * 100).toFixed(0)}% of the differences among centres. After size, players still differ by about ${sdC.toFixed(1)} points either way.`;
+    const jit = p => ((p.id * 9301 + 49297) % 233280) / 233280 - .5;
+    const sizeMode = { m: 'weight' };
+    const pt = (p, m) => ({ x: m === 'weight' ? p.weight : p.height + jit(p) * .7, y: p.talent, p });
+    const wingers = P.filter(p => p.position !== 'C');
+    const fit = m => { if (m === 'weight') { const a = 160, b = 248; return [{ x: a, y: fromWeight(a) }, { x: b, y: fromWeight(b) }]; } const i = term(M.height, 'intercept').coef, s = hAlone.coef, mh = M.means.height; return [{ x: 66.5, y: i + s * (66.5 - mh) }, { x: 79.5, y: i + s * (79.5 - mh) }]; };
+    const sizeChart = new Chart($('c-size'), { type: 'scatter', data: { datasets: [
+        { label: 'Centres', data: centres.map(p => pt(p, 'weight')), backgroundColor: 'rgba(57,135,229,.6)', borderColor: C.blue, pointRadius: 3.5, pointHoverRadius: 7 },
+        { label: 'Wingers who take draws', data: wingers.map(p => pt(p, 'weight')), backgroundColor: 'rgba(224,168,74,.65)', borderColor: C.gold, pointStyle: 'rectRot', pointRadius: 4.5, pointHoverRadius: 8 },
+        { label: 'Trend', type: 'line', pointStyle: 'line', data: fit('weight'), borderColor: C.line, borderWidth: 2, borderDash: [6, 4], pointRadius: 0, pointHitRadius: 0 }] },
+      options: { maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { usePointStyle: true } }, tooltip: { filter: c => !!c.raw.p, callbacks: { label: c => { const p = c.raw.p; return `${p.name}: ${feet(p.height)}, ${p.weight.toFixed(0)} lb, ${p.talent.toFixed(1)}%`; } } } },
+        scales: { x: { grid: { color: C.grid }, title: { display: true, text: 'Listed weight (lb)' }, ticks: { callback: v => v } }, y: { grid: { color: C.grid }, title: { display: true, text: 'Age-adjusted rating (%)' } } } } });
+    [['weight', 'Weight'], ['height', 'Height']].forEach(([v, label]) => { const b = el('button', null, label); b.type = 'button'; b.dataset.v = v; b.addEventListener('click', () => { sizeMode.m = v; drawSize(); }); $('sz-chips').append(b); });
+    function drawSize() {
+      const m = sizeMode.m;
+      [...$('sz-chips').children].forEach(b => b.setAttribute('aria-pressed', b.dataset.v === m));
+      sizeChart.data.datasets[0].data = centres.map(p => pt(p, m)); sizeChart.data.datasets[1].data = wingers.map(p => pt(p, m)); sizeChart.data.datasets[2].data = fit(m);
+      sizeChart.options.scales.x.title.text = m === 'weight' ? 'Listed weight (lb)' : 'Listed height';
+      sizeChart.options.scales.x.ticks.callback = m === 'weight' ? (v => v) : (v => (Number.isInteger(v) ? feet(v) : ''));
+      sizeChart.options.scales.x.ticks.stepSize = m === 'weight' ? undefined : 1;
+      sizeChart.update();
+      $('size-note').textContent = m === 'weight'
+        ? `The trend line is for centres: ${sgn(c1, 2)} points for each 10 lb (give or take ${(term(cw, 'weight_10lb').se * 2).toFixed(1)}). Weight explains ${(cw.r2 * 100).toFixed(0)}% of the spread among centres. Wingers who take draws are weaker at every weight.`
+        : `The trend line is for all players: ${sgn(hAlone.coef, 2)} points an inch (give or take ${(hAlone.se * 2).toFixed(1)}), which could easily be zero. Height explains ${(M.height.r2 * 100).toFixed(1)}% of the spread. Dots are nudged sideways so they do not overlap.`;
+    }
+    drawSize();
+    const grp = (id, rows, first, cellsFor) => { $(id).innerHTML = `<thead><tr><th scope="col">${first}</th><th scope="col">Players</th><th scope="col">Average rating</th><th scope="col">52% or better</th></tr></thead><tbody>${rows.map(g => `<tr><td>${g.label.replace(/'/g, '′').replace(/"/g, '″')}</td><td>${g.n}</td><td class="${g.mean >= 51 ? 'up' : g.mean <= 49 ? 'down' : ''}">${g.mean.toFixed(1)}%</td><td>${(g.share_above_52 * 100).toFixed(0)}%</td></tr>`).join('')}</tbody>`; };
+    grp('h-table', R.size.height_groups, 'Height');
+    grp('w-table', R.weight_groups, 'Weight');
+    const hg = R.size.height_groups[0], top3 = light.slice(0, 3);
+    $('size-fine').textContent = `Height groups use ratings as played and weight groups use age-adjusted ratings; averages are weighted by faceoffs taken. The shortest group has only ${hg.n} players, led by ${hg.best} (${feet(hg.best_height)}, ${hg.best_weight.toFixed(0)} lb) at ${hg.best_rating.toFixed(1)}%. The best players at 190 lb or under are ${top3.map(p => `${p.name} (${feet(p.height)}, ${p.weight.toFixed(0)} lb, ${p.rating.toFixed(1)}%)`).join(', ')}.`;
+
+    // ---------- 04 the specialist ----------
+    const U = R.usage.filter(u => u.season !== 2020 && u.season !== 2019), tenth = U.reduce((s, u) => s + u.tenth, 0) / U.length / 82;
+    $('sp-lede').textContent = `Nothing in the data rules out a small faceoff ace. Several of the best are 5′11″ and under 190 pounds, and most of what separates players is not size. The harder question is what the job is worth. The calculator below turns a win rate into goals, using what teams actually did in the 30 seconds after winning or losing ${big(S.faceoffs)} draws.`;
+    const near = p => P.reduce((a, b) => (Math.abs(b.rating - p) < Math.abs(a.rating - p) ? b : a));
+    function calc() {
+      const w = +$('s-w').value, p = +$('s-p').value, d = +$('s-d').value, z = +$('s-z').value / 100;
+      $('s-w-out').textContent = `${w} lb`; $('s-p-out').textContent = `${p.toFixed(1)}%`; $('s-d-out').textContent = `${d} a game`; $('s-z-out').textContent = `${Math.round(z * 100)}%`;
+      const exp = fromWeight(w), chance = upper((p - exp) / sdC);
+      const rare = chance >= .5 ? 'Most' : chance >= .095 ? `1 in ${Math.round(1 / chance)}` : chance >= 1e-4 ? `1 in ${big(Math.round(1 / chance / (1 / chance >= 100 ? 10 : 1)) * (1 / chance >= 100 ? 10 : 1))}` : 'Under 1 in 10,000';
+      $('o-rare').textContent = rare;
+      $('o-rare-s').textContent = `Centres of ${w} lb average about ${exp.toFixed(1)}%. ${chance >= .5 ? 'Most of them' : chance < 1e-4 ? 'Almost none of them' : 'About ' + (chance * 100 >= 1 ? (chance * 100).toFixed(0) : (chance * 100).toFixed(chance * 100 >= .1 ? 1 : 2)) + '% of them'} would reach ${p.toFixed(1)}%${w < lightest.weight ? `. No regular faceoff man is lighter than ${lightest.weight.toFixed(0)} lb, so this is a guess past the data` : ''}.`;
+      const extra = 82 * d * (p - 50) / 100, perWin = z * endWin + (1 - z) * neutWin, goals = extra * perWin, wins = goals / EX.goals_per_win;
+      $('o-wins').textContent = sgn(extra, 0);
+      $('o-wins-s').textContent = `Over 82 games, against an average player taking the same ${big(82 * d)} draws.`;
+      $('o-goals').textContent = sgn(goals, 1);
+      $('o-goals-s').textContent = `Each extra win is worth ${perWin.toFixed(3)} goals with this mix of zones. About ${EX.goals_per_win.toFixed(0)} goals equal one win in the standings.`;
+      const who = near(p), needed = p > 50 ? EX.goals_per_win / (82 * (p - 50) / 100 * perWin) : null;
+      const size = Math.abs(wins) < .15 ? 'almost nothing' : Math.abs(wins) < .4 ? 'a fraction of one win' : Math.abs(wins) < .8 ? 'about half a win' : 'close to one win';
+      $('o-call').innerHTML = p <= 50
+        ? (p < 50 ? `At ${p.toFixed(1)}% he is below an average faceoff man, so the draws he takes cost his team about <strong>${Math.abs(goals).toFixed(1)} goals</strong> a season.` : `At 50% he is an average faceoff man, so he adds nothing on the draw.`)
+        : `${p - best.rating > .6 ? `No regular in the data is rated as high as ${p.toFixed(1)}%; the best is <strong>${esc(best.name)}</strong> at ${best.rating.toFixed(1)}%.` : `A ${p.toFixed(1)}% faceoff man is about as good as <strong>${esc(who.name)}</strong> (${who.rating.toFixed(1)}%).`} Taking ${d} draws a game he adds about <strong>${goals.toFixed(1)} goals</strong> a season, which is ${size} in the standings (${wins.toFixed(2)}). To be worth one full win at this rate he would need ${needed > perTeamGame ? `<strong>${Math.round(needed)} draws a game</strong>, more than the ${Math.round(perTeamGame)} a whole team takes` : `<strong>${Math.round(needed)} draws a game</strong>; the busiest centres take about ${Math.round(tenth)}`}.`;
+    }
+    ['s-w', 's-p', 's-d', 's-z'].forEach(id => $(id).addEventListener('input', calc));
+    calc();
+    $('sp-note').textContent = `“How rare” uses the weight trend among centres and assumes skill is spread around it in a bell curve ${sdC.toFixed(1)} points wide. It describes players who were given faceoff duty in the NHL, not people in general.`;
+
+    const zrow = (label, z) => `<tr><td>${label}</td><td>${V[z].win_shots_for.toFixed(2)}</td><td>${V[z].win_shots_against.toFixed(2)}</td><td>${V[z].win_goals_for.toFixed(3)}</td><td>${V[z].win_goals_against.toFixed(3)}</td><td class="up">${sgn(V[z].goal_swing, 3)}</td></tr>`;
+    $('v-table').innerHTML = `<thead><tr><th scope="col">After winning in the</th><th scope="col">Shots for</th><th scope="col">Shots against</th><th scope="col">Goals for</th><th scope="col">Goals against</th><th scope="col">Win instead of loss</th></tr></thead><tbody>${zrow('Offensive zone', 'O')}${zrow('Neutral zone', 'N')}${zrow('Defensive zone', 'D')}</tbody>`;
+    $('v-note').textContent = `“Win instead of loss” is the change in goal difference from winning a draw in that zone and not losing it. A draw in one team’s offensive zone is the same draw in the other team’s defensive zone, so the two end-zone figures are equal. Draws by zone: ${(R.zone_share.O * 100).toFixed(0)}% offensive, ${(R.zone_share.N * 100).toFixed(0)}% neutral, ${(R.zone_share.D * 100).toFixed(0)}% defensive.`;
+    const tc = EX.top_centre;
+    [
+      `<b>The skill is real but each win is small.</b> Winning an offensive-zone draw raises a team’s shots in the next 30 seconds from ${V.D.win_shots_against.toFixed(2)} to ${V.O.win_shots_for.toFixed(2)}, and most shots do not go in.`,
+      `<b>A specialist has few chances.</b> At 58% and 10 end-zone-heavy draws a game he wins ${sp.extra_wins.toFixed(0)} more draws than an average player over a season and adds ${sp.goals.toFixed(1)} goals.`,
+      `<b>Even the best full-time centre adds little this way.</b> A 57% man taking 20 draws a game in a normal mix of zones adds about ${tc.goals.toFixed(1)} goals a season from faceoffs, around ${tc.wins.toFixed(1)} of a win.`,
+      `<b>So he has to be able to play.</b> A forward who cannot keep up for the rest of his shift would give back more than ${sp.goals.toFixed(0)} or ${Math.ceil(tc.goals)} goals. That is why teams use good faceoff men who are also useful players, such as checking-line centres, and not pure specialists.`,
+      `<b>Where the idea does hold up:</b> a small centre who is already good enough to play should not be kept off the dot because of his size.`,
+    ].forEach(t => $('sp-read').append(el('li', null, t)));
+
+    // ---------- 05 method ----------
+    [
+      `<b>Data.</b> ${big(S.faceoffs)} faceoffs from the NHL’s public play-by-play feed for every regular-season game from ${yrs}, with the winner, the loser, the location and the skaters on the ice. Heights, weights, birth dates and shooting hands come from the league’s player records.`,
+      `<b>Ratings.</b> A Bradley–Terry model, the same idea as chess ratings: each faceoff is a contest between two players, and the model finds the skill levels that best explain who beat whom. It is fitted by logistic regression with ${big(S.players)} player terms plus home ice, zone, side of the ice, man advantage and age.`,
+      `<b>Small samples.</b> Players with few draws are pulled toward the average. How strongly was chosen by predicting a held-out fifth of the games. Only players with ${S.min_draws} or more draws are listed.`,
+      `<b>Size.</b> A regression of each player’s age-adjusted rating on height and weight, weighted by faceoffs taken, for all players and for centres only.`,
+      `<b>Value.</b> Shots on goal and goals for each team in the 30 seconds after every faceoff, cut off at the next faceoff, compared between draws won and lost in the same zone.`,
+      `<b>Checks.</b> Ten automated tests cover the zone and side geometry, the model on made-up players with known skill, and the value calculation.`,
+    ].forEach(t => $('method-list').append(el('li', null, t)));
+    new Chart($('c-yy'), { type: 'bar', data: { labels: yy.map(y => `${season(y.season).slice(2)} → ${season(y.season + 1).slice(2)}`), datasets: [{ data: yy.map(y => y.r), backgroundColor: C.blue, borderRadius: 4, maxBarThickness: 34 }] },
+      options: { maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => `Correlation ${c.parsed.y.toFixed(2)} (${yy[c.dataIndex].n} players)` } } },
+        scales: { x: { grid: { display: false }, ticks: { maxRotation: 50, minRotation: 0, autoSkip: false, font: { size: 10.5 } } }, y: { min: 0, max: 1, grid: { color: C.grid }, title: { display: true, text: 'Correlation' } } } } });
+    $('yy-note').textContent = `A correlation of 1 would mean ratings never change; 0 would mean they are noise. They average ${yyMean.toFixed(2)}, and ratings from alternating games within the whole period correlate at ${S.split_half.toFixed(2)}.`;
+
+    if (!reduced && 'IntersectionObserver' in window) {
+      document.documentElement.classList.add('js-reveal');
+      const io = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } }), { threshold: .08, rootMargin: '0px 0px -5% 0px' });
+      document.querySelectorAll('.rv').forEach(n => io.observe(n));
+    }
+  }
+})();
+</script>
+</body>
+</html>
