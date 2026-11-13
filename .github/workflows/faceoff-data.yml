@@ -1,0 +1,52 @@
+name: Faceoff data
+# Started by hand: Actions tab -> Faceoff data -> Run workflow.
+# Downloads NHL play-by-play season by season, keeps the faceoffs, and commits the files in faceoffs/data.
+on:
+  workflow_dispatch:
+    inputs:
+      seasons:
+        description: Season start years, as a JSON list
+        default: "[2017,2018,2019,2020,2021,2022,2023,2024,2025]"
+permissions:
+  contents: write
+jobs:
+  season:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      max-parallel: 3
+      matrix:
+        season: ${{ fromJSON(inputs.seasons) }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install requests
+      - run: python faceoffs/pipeline/season.py ${{ matrix.season }} out
+      - uses: actions/upload-artifact@v4
+        with:
+          name: fo-${{ matrix.season }}
+          path: out/*
+          retention-days: 14
+  combine:
+    needs: season
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: fo-*
+          path: faceoffs/data
+          merge-multiple: true
+      - name: Commit data
+        run: |
+          ls -la faceoffs/data
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add faceoffs/data
+          git diff --cached --quiet && echo "No change." || git commit -m "Update faceoff data from the NHL API"
+          git pull --rebase
+          git push
