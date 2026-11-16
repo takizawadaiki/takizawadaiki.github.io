@@ -1,0 +1,31 @@
+name: Grocery data
+
+# Downloads Statistics Canada price, CPI and wage tables and commits the rows the grocery page uses.
+# Run by hand from the Actions tab: Grocery data -> Run workflow.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install pandas requests
+      - run: python groceries/pipeline/fetch.py groceries/data
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add groceries/data
+          git diff --cached --quiet && exit 0
+          git commit -m "Update grocery data from Statistics Canada"
+          git pull --rebase
+          git push
