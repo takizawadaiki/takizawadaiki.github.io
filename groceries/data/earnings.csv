@@ -1,0 +1,1625 @@
+month,geo,weekly_earnings
+2017-01,Canada,967.0
+2017-01,Newfoundland and Labrador,1030.57
+2017-01,Prince Edward Island,822.47
+2017-01,Nova Scotia,853.31
+2017-01,New Brunswick,882.5
+2017-01,Quebec,888.2
+2017-01,Ontario,987.2
+2017-01,Manitoba,906.24
+2017-01,Saskatchewan,1011.08
+2017-01,Alberta,1109.42
+2017-01,British Columbia,934.27
+2017-01,Yukon,1092.79
+2017-01,Northwest Territories,1414.89
+2017-01,Nunavut,1333.21
+2017-02,Canada,964.5
+2017-02,Newfoundland and Labrador,1041.24
+2017-02,Prince Edward Island,814.5
+2017-02,Nova Scotia,847.77
+2017-02,New Brunswick,872.5
+2017-02,Quebec,886.4
+2017-02,Ontario,984.98
+2017-02,Manitoba,908.66
+2017-02,Saskatchewan,997.54
+2017-02,Alberta,1107.52
+2017-02,British Columbia,933.78
+2017-02,Yukon,1106.28
+2017-02,Northwest Territories,1391.79
+2017-02,Nunavut,1301.85
+2017-03,Canada,967.02
+2017-03,Newfoundland and Labrador,1036.53
+2017-03,Prince Edward Island,821.0
+2017-03,Nova Scotia,862.65
+2017-03,New Brunswick,879.63
+2017-03,Quebec,893.24
+2017-03,Ontario,984.58
+2017-03,Manitoba,909.0
+2017-03,Saskatchewan,1014.93
+2017-03,Alberta,1113.87
+2017-03,British Columbia,934.05
+2017-03,Yukon,1093.08
+2017-03,Northwest Territories,1406.45
+2017-03,Nunavut,1326.03
+2017-04,Canada,971.07
+2017-04,Newfoundland and Labrador,1033.71
+2017-04,Prince Edward Island,818.37
+2017-04,Nova Scotia,865.56
+2017-04,New Brunswick,877.68
+2017-04,Quebec,896.04
+2017-04,Ontario,988.65
+2017-04,Manitoba,925.34
+2017-04,Saskatchewan,1008.47
+2017-04,Alberta,1124.48
+2017-04,British Columbia,940.11
+2017-04,Yukon,1094.16
+2017-04,Northwest Territories,1404.68
+2017-04,Nunavut,1339.59
+2017-05,Canada,970.15
+2017-05,Newfoundland and Labrador,1029.25
+2017-05,Prince Edward Island,818.72
+2017-05,Nova Scotia,847.81
+2017-05,New Brunswick,883.17
+2017-05,Quebec,896.04
+2017-05,Ontario,987.31
+2017-05,Manitoba,910.63
+2017-05,Saskatchewan,994.49
+2017-05,Alberta,1110.18
+2017-05,British Columbia,941.56
+2017-05,Yukon,1108.86
+2017-05,Northwest Territories,1350.66
+2017-05,Nunavut,1301.27
+2017-06,Canada,971.94
+2017-06,Newfoundland and Labrador,1027.08
+2017-06,Prince Edward Island,819.16
+2017-06,Nova Scotia,864.17
+2017-06,New Brunswick,876.38
+2017-06,Quebec,891.74
+2017-06,Ontario,986.79
+2017-06,Manitoba,897.48
+2017-06,Saskatchewan,1002.6
+2017-06,Alberta,1130.9
+2017-06,British Columbia,945.03
+2017-06,Yukon,1091.88
+2017-06,Northwest Territories,1407.76
+2017-06,Nunavut,1331.41
+2017-07,Canada,970.07
+2017-07,Newfoundland and Labrador,1017.02
+2017-07,Prince Edward Island,816.35
+2017-07,Nova Scotia,860.39
+2017-07,New Brunswick,870.92
+2017-07,Quebec,900.05
+2017-07,Ontario,984.55
+2017-07,Manitoba,908.47
+2017-07,Saskatchewan,1003.19
+2017-07,Alberta,1123.66
+2017-07,British Columbia,939.61
+2017-07,Yukon,1096.91
+2017-07,Northwest Territories,1399.0
+2017-07,Nunavut,1341.46
+2017-08,Canada,976.45
+2017-08,Newfoundland and Labrador,1028.16
+2017-08,Prince Edward Island,816.11
+2017-08,Nova Scotia,869.75
+2017-08,New Brunswick,892.28
+2017-08,Quebec,910.67
+2017-08,Ontario,990.84
+2017-08,Manitoba,918.49
+2017-08,Saskatchewan,1012.74
+2017-08,Alberta,1128.44
+2017-08,British Columbia,939.97
+2017-08,Yukon,1106.79
+2017-08,Northwest Territories,1408.8
+2017-08,Nunavut,1351.24
+2017-09,Canada,985.54
+2017-09,Newfoundland and Labrador,1040.64
+2017-09,Prince Edward Island,817.53
+2017-09,Nova Scotia,871.18
+2017-09,New Brunswick,899.54
+2017-09,Quebec,913.53
+2017-09,Ontario,1000.87
+2017-09,Manitoba,922.65
+2017-09,Saskatchewan,1011.41
+2017-09,Alberta,1144.45
+2017-09,British Columbia,952.08
+2017-09,Yukon,1100.72
+2017-09,Northwest Territories,1447.42
+2017-09,Nunavut,1364.82
+2017-10,Canada,983.54
+2017-10,Newfoundland and Labrador,1034.63
+2017-10,Prince Edward Island,813.39
+2017-10,Nova Scotia,857.32
+2017-10,New Brunswick,897.24
+2017-10,Quebec,911.48
+2017-10,Ontario,999.65
+2017-10,Manitoba,916.44
+2017-10,Saskatchewan,1002.69
+2017-10,Alberta,1142.85
+2017-10,British Columbia,951.65
+2017-10,Yukon,1098.52
+2017-10,Northwest Territories,1382.71
+2017-10,Nunavut,1335.03
+2017-11,Canada,990.93
+2017-11,Newfoundland and Labrador,1049.21
+2017-11,Prince Edward Island,833.77
+2017-11,Nova Scotia,869.98
+2017-11,New Brunswick,906.16
+2017-11,Quebec,923.29
+2017-11,Ontario,1007.09
+2017-11,Manitoba,921.65
+2017-11,Saskatchewan,1014.64
+2017-11,Alberta,1145.99
+2017-11,British Columbia,953.0
+2017-11,Yukon,1080.32
+2017-11,Northwest Territories,1394.83
+2017-11,Nunavut,1356.8
+2017-12,Canada,991.96
+2017-12,Newfoundland and Labrador,1035.79
+2017-12,Prince Edward Island,848.22
+2017-12,Nova Scotia,862.35
+2017-12,New Brunswick,897.13
+2017-12,Quebec,920.24
+2017-12,Ontario,1009.04
+2017-12,Manitoba,928.34
+2017-12,Saskatchewan,1040.05
+2017-12,Alberta,1149.2
+2017-12,British Columbia,959.09
+2017-12,Yukon,1095.09
+2017-12,Northwest Territories,1419.29
+2017-12,Nunavut,1357.75
+2018-01,Canada,991.47
+2018-01,Newfoundland and Labrador,1033.7
+2018-01,Prince Edward Island,834.36
+2018-01,Nova Scotia,852.58
+2018-01,New Brunswick,901.68
+2018-01,Quebec,917.95
+2018-01,Ontario,1012.14
+2018-01,Manitoba,925.93
+2018-01,Saskatchewan,1018.3
+2018-01,Alberta,1138.06
+2018-01,British Columbia,957.84
+2018-01,Yukon,1092.72
+2018-01,Northwest Territories,1405.05
+2018-01,Nunavut,1330.11
+2018-02,Canada,998.68
+2018-02,Newfoundland and Labrador,1038.67
+2018-02,Prince Edward Island,847.38
+2018-02,Nova Scotia,867.43
+2018-02,New Brunswick,910.63
+2018-02,Quebec,926.87
+2018-02,Ontario,1018.29
+2018-02,Manitoba,930.66
+2018-02,Saskatchewan,1018.16
+2018-02,Alberta,1154.34
+2018-02,British Columbia,962.37
+2018-02,Yukon,1076.51
+2018-02,Northwest Territories,1422.74
+2018-02,Nunavut,1386.39
+2018-03,Canada,997.53
+2018-03,Newfoundland and Labrador,1026.93
+2018-03,Prince Edward Island,842.79
+2018-03,Nova Scotia,871.47
+2018-03,New Brunswick,903.47
+2018-03,Quebec,930.8
+2018-03,Ontario,1014.76
+2018-03,Manitoba,934.17
+2018-03,Saskatchewan,1010.86
+2018-03,Alberta,1152.99
+2018-03,British Columbia,963.85
+2018-03,Yukon,1084.63
+2018-03,Northwest Territories,1403.24
+2018-03,Nunavut,1357.41
+2018-04,Canada,993.11
+2018-04,Newfoundland and Labrador,1029.3
+2018-04,Prince Edward Island,840.48
+2018-04,Nova Scotia,858.17
+2018-04,New Brunswick,901.66
+2018-04,Quebec,925.84
+2018-04,Ontario,1013.31
+2018-04,Manitoba,941.34
+2018-04,Saskatchewan,1004.3
+2018-04,Alberta,1153.63
+2018-04,British Columbia,954.52
+2018-04,Yukon,1120.13
+2018-04,Northwest Territories,1388.21
+2018-04,Nunavut,1373.82
+2018-05,Canada,994.78
+2018-05,Newfoundland and Labrador,1044.97
+2018-05,Prince Edward Island,826.94
+2018-05,Nova Scotia,864.7
+2018-05,New Brunswick,908.95
+2018-05,Quebec,925.67
+2018-05,Ontario,1013.49
+2018-05,Manitoba,939.72
+2018-05,Saskatchewan,1008.5
+2018-05,Alberta,1138.62
+2018-05,British Columbia,957.62
+2018-05,Yukon,1106.9
+2018-05,Northwest Territories,1407.46
+2018-05,Nunavut,1369.61
+2018-06,Canada,1001.65
+2018-06,Newfoundland and Labrador,1047.27
+2018-06,Prince Edward Island,819.46
+2018-06,Nova Scotia,864.86
+2018-06,New Brunswick,899.89
+2018-06,Quebec,934.5
+2018-06,Ontario,1019.42
+2018-06,Manitoba,945.16
+2018-06,Saskatchewan,1022.92
+2018-06,Alberta,1147.32
+2018-06,British Columbia,967.51
+2018-06,Yukon,1124.37
+2018-06,Northwest Territories,1426.12
+2018-06,Nunavut,1368.52
+2018-07,Canada,999.89
+2018-07,Newfoundland and Labrador,1025.34
+2018-07,Prince Edward Island,826.28
+2018-07,Nova Scotia,874.53
+2018-07,New Brunswick,911.91
+2018-07,Quebec,928.0
+2018-07,Ontario,1016.84
+2018-07,Manitoba,943.64
+2018-07,Saskatchewan,1011.04
+2018-07,Alberta,1149.43
+2018-07,British Columbia,975.17
+2018-07,Yukon,1124.14
+2018-07,Northwest Territories,1397.33
+2018-07,Nunavut,1392.83
+2018-08,Canada,1005.43
+2018-08,Newfoundland and Labrador,1022.72
+2018-08,Prince Edward Island,851.03
+2018-08,Nova Scotia,878.64
+2018-08,New Brunswick,923.79
+2018-08,Quebec,936.26
+2018-08,Ontario,1022.73
+2018-08,Manitoba,950.24
+2018-08,Saskatchewan,1007.74
+2018-08,Alberta,1158.89
+2018-08,British Columbia,981.69
+2018-08,Yukon,1128.76
+2018-08,Northwest Territories,1443.83
+2018-08,Nunavut,1400.64
+2018-09,Canada,1000.53
+2018-09,Newfoundland and Labrador,1038.19
+2018-09,Prince Edward Island,844.18
+2018-09,Nova Scotia,872.82
+2018-09,New Brunswick,914.13
+2018-09,Quebec,929.27
+2018-09,Ontario,1024.19
+2018-09,Manitoba,939.96
+2018-09,Saskatchewan,1012.42
+2018-09,Alberta,1136.97
+2018-09,British Columbia,977.13
+2018-09,Yukon,1133.77
+2018-09,Northwest Territories,1448.58
+2018-09,Nunavut,1409.41
+2018-10,Canada,1007.51
+2018-10,Newfoundland and Labrador,1038.98
+2018-10,Prince Edward Island,858.97
+2018-10,Nova Scotia,875.09
+2018-10,New Brunswick,916.34
+2018-10,Quebec,936.51
+2018-10,Ontario,1029.93
+2018-10,Manitoba,946.18
+2018-10,Saskatchewan,1025.43
+2018-10,Alberta,1141.84
+2018-10,British Columbia,980.93
+2018-10,Yukon,1142.64
+2018-10,Northwest Territories,1440.63
+2018-10,Nunavut,1434.77
+2018-11,Canada,1011.43
+2018-11,Newfoundland and Labrador,1039.35
+2018-11,Prince Edward Island,853.72
+2018-11,Nova Scotia,886.78
+2018-11,New Brunswick,928.67
+2018-11,Quebec,936.23
+2018-11,Ontario,1033.76
+2018-11,Manitoba,949.7
+2018-11,Saskatchewan,1025.39
+2018-11,Alberta,1152.69
+2018-11,British Columbia,981.53
+2018-11,Yukon,1148.42
+2018-11,Northwest Territories,1461.17
+2018-11,Nunavut,1384.81
+2018-12,Canada,1009.66
+2018-12,Newfoundland and Labrador,1056.08
+2018-12,Prince Edward Island,852.59
+2018-12,Nova Scotia,890.82
+2018-12,New Brunswick,920.79
+2018-12,Quebec,943.97
+2018-12,Ontario,1032.16
+2018-12,Manitoba,945.13
+2018-12,Saskatchewan,1012.49
+2018-12,Alberta,1146.48
+2018-12,British Columbia,976.97
+2018-12,Yukon,1151.3
+2018-12,Northwest Territories,1427.18
+2018-12,Nunavut,1292.39
+2019-01,Canada,1009.29
+2019-01,Newfoundland and Labrador,1041.14
+2019-01,Prince Edward Island,852.41
+2019-01,Nova Scotia,893.56
+2019-01,New Brunswick,924.98
+2019-01,Quebec,947.46
+2019-01,Ontario,1027.9
+2019-01,Manitoba,957.24
+2019-01,Saskatchewan,1028.25
+2019-01,Alberta,1141.62
+2019-01,British Columbia,972.65
+2019-01,Yukon,1138.0
+2019-01,Northwest Territories,1419.14
+2019-01,Nunavut,1375.76
+2019-02,Canada,1009.37
+2019-02,Newfoundland and Labrador,1037.13
+2019-02,Prince Edward Island,849.64
+2019-02,Nova Scotia,886.55
+2019-02,New Brunswick,919.22
+2019-02,Quebec,947.49
+2019-02,Ontario,1029.59
+2019-02,Manitoba,955.72
+2019-02,Saskatchewan,1025.46
+2019-02,Alberta,1140.88
+2019-02,British Columbia,975.37
+2019-02,Yukon,1167.9
+2019-02,Northwest Territories,1423.52
+2019-02,Nunavut,1402.3
+2019-03,Canada,1014.84
+2019-03,Newfoundland and Labrador,1059.04
+2019-03,Prince Edward Island,851.71
+2019-03,Nova Scotia,896.92
+2019-03,New Brunswick,929.96
+2019-03,Quebec,945.97
+2019-03,Ontario,1036.26
+2019-03,Manitoba,963.08
+2019-03,Saskatchewan,1031.21
+2019-03,Alberta,1160.22
+2019-03,British Columbia,987.35
+2019-03,Yukon,1167.92
+2019-03,Northwest Territories,1415.45
+2019-03,Nunavut,1411.2
+2019-04,Canada,1016.98
+2019-04,Newfoundland and Labrador,1066.16
+2019-04,Prince Edward Island,855.01
+2019-04,Nova Scotia,893.53
+2019-04,New Brunswick,931.81
+2019-04,Quebec,951.6
+2019-04,Ontario,1039.39
+2019-04,Manitoba,950.39
+2019-04,Saskatchewan,1041.84
+2019-04,Alberta,1142.25
+2019-04,British Columbia,990.42
+2019-04,Yukon,1166.86
+2019-04,Northwest Territories,1480.63
+2019-04,Nunavut,1496.4
+2019-05,Canada,1030.54
+2019-05,Newfoundland and Labrador,1051.13
+2019-05,Prince Edward Island,857.82
+2019-05,Nova Scotia,899.79
+2019-05,New Brunswick,949.75
+2019-05,Quebec,957.11
+2019-05,Ontario,1052.33
+2019-05,Manitoba,954.82
+2019-05,Saskatchewan,1061.81
+2019-05,Alberta,1177.47
+2019-05,British Columbia,1001.36
+2019-05,Yukon,1152.05
+2019-05,Northwest Territories,1511.95
+2019-05,Nunavut,1454.57
+2019-06,Canada,1022.02
+2019-06,Newfoundland and Labrador,1064.48
+2019-06,Prince Edward Island,856.37
+2019-06,Nova Scotia,896.97
+2019-06,New Brunswick,932.04
+2019-06,Quebec,964.42
+2019-06,Ontario,1036.47
+2019-06,Manitoba,950.82
+2019-06,Saskatchewan,1035.56
+2019-06,Alberta,1164.09
+2019-06,British Columbia,991.74
+2019-06,Yukon,1170.95
+2019-06,Northwest Territories,1443.78
+2019-06,Nunavut,1419.56
+2019-07,Canada,1027.69
+2019-07,Newfoundland and Labrador,1057.84
+2019-07,Prince Edward Island,877.41
+2019-07,Nova Scotia,900.39
+2019-07,New Brunswick,937.29
+2019-07,Quebec,962.81
+2019-07,Ontario,1049.96
+2019-07,Manitoba,956.39
+2019-07,Saskatchewan,1035.59
+2019-07,Alberta,1158.79
+2019-07,British Columbia,994.69
+2019-07,Yukon,1177.01
+2019-07,Northwest Territories,1462.88
+2019-07,Nunavut,1423.64
+2019-08,Canada,1031.71
+2019-08,Newfoundland and Labrador,1068.51
+2019-08,Prince Edward Island,873.5
+2019-08,Nova Scotia,908.49
+2019-08,New Brunswick,943.14
+2019-08,Quebec,967.83
+2019-08,Ontario,1055.74
+2019-08,Manitoba,958.59
+2019-08,Saskatchewan,1026.16
+2019-08,Alberta,1164.07
+2019-08,British Columbia,1003.67
+2019-08,Yukon,1162.6
+2019-08,Northwest Territories,1442.34
+2019-08,Nunavut,1438.9
+2019-09,Canada,1038.63
+2019-09,Newfoundland and Labrador,1055.14
+2019-09,Prince Edward Island,879.06
+2019-09,Nova Scotia,910.01
+2019-09,New Brunswick,946.01
+2019-09,Quebec,975.33
+2019-09,Ontario,1062.22
+2019-09,Manitoba,974.3
+2019-09,Saskatchewan,1042.83
+2019-09,Alberta,1173.79
+2019-09,British Columbia,1009.66
+2019-09,Yukon,1179.36
+2019-09,Northwest Territories,1431.86
+2019-09,Nunavut,1443.7
+2019-10,Canada,1046.38
+2019-10,Newfoundland and Labrador,1073.47
+2019-10,Prince Edward Island,888.27
+2019-10,Nova Scotia,919.89
+2019-10,New Brunswick,961.93
+2019-10,Quebec,977.78
+2019-10,Ontario,1065.77
+2019-10,Manitoba,966.64
+2019-10,Saskatchewan,1055.0
+2019-10,Alberta,1195.99
+2019-10,British Columbia,1019.21
+2019-10,Yukon,1171.42
+2019-10,Northwest Territories,1478.78
+2019-10,Nunavut,1474.02
+2019-11,Canada,1042.76
+2019-11,Newfoundland and Labrador,1060.95
+2019-11,Prince Edward Island,884.26
+2019-11,Nova Scotia,926.36
+2019-11,New Brunswick,959.4
+2019-11,Quebec,982.48
+2019-11,Ontario,1062.35
+2019-11,Manitoba,964.96
+2019-11,Saskatchewan,1061.65
+2019-11,Alberta,1173.4
+2019-11,British Columbia,1014.12
+2019-11,Yukon,1175.78
+2019-11,Northwest Territories,1503.0
+2019-11,Nunavut,1434.89
+2019-12,Canada,1046.2
+2019-12,Newfoundland and Labrador,1071.23
+2019-12,Prince Edward Island,877.72
+2019-12,Nova Scotia,921.96
+2019-12,New Brunswick,960.47
+2019-12,Quebec,988.9
+2019-12,Ontario,1065.97
+2019-12,Manitoba,955.16
+2019-12,Saskatchewan,1053.39
+2019-12,Alberta,1177.62
+2019-12,British Columbia,1016.66
+2019-12,Yukon,1191.77
+2019-12,Northwest Territories,1469.93
+2019-12,Nunavut,1500.18
+2020-01,Canada,1046.42
+2020-01,Newfoundland and Labrador,1068.87
+2020-01,Prince Edward Island,877.78
+2020-01,Nova Scotia,932.9
+2020-01,New Brunswick,959.83
+2020-01,Quebec,993.55
+2020-01,Ontario,1062.24
+2020-01,Manitoba,950.01
+2020-01,Saskatchewan,1045.19
+2020-01,Alberta,1180.23
+2020-01,British Columbia,1025.68
+2020-01,Yukon,1193.73
+2020-01,Northwest Territories,1464.01
+2020-01,Nunavut,1536.25
+2020-02,Canada,1045.5
+2020-02,Newfoundland and Labrador,1056.71
+2020-02,Prince Edward Island,892.76
+2020-02,Nova Scotia,928.0
+2020-02,New Brunswick,959.83
+2020-02,Quebec,985.88
+2020-02,Ontario,1063.45
+2020-02,Manitoba,956.48
+2020-02,Saskatchewan,1060.65
+2020-02,Alberta,1178.95
+2020-02,British Columbia,1025.7
+2020-02,Yukon,1208.84
+2020-02,Northwest Territories,1483.34
+2020-02,Nunavut,1447.37
+2020-03,Canada,1047.06
+2020-03,Newfoundland and Labrador,1088.34
+2020-03,Prince Edward Island,896.97
+2020-03,Nova Scotia,934.81
+2020-03,New Brunswick,968.61
+2020-03,Quebec,995.02
+2020-03,Ontario,1062.28
+2020-03,Manitoba,942.29
+2020-03,Saskatchewan,1065.03
+2020-03,Alberta,1170.88
+2020-03,British Columbia,1032.14
+2020-03,Yukon,1223.7
+2020-03,Northwest Territories,1489.03
+2020-03,Nunavut,1465.45
+2020-04,Canada,1112.45
+2020-04,Newfoundland and Labrador,1125.51
+2020-04,Prince Edward Island,970.65
+2020-04,Nova Scotia,996.08
+2020-04,New Brunswick,1035.34
+2020-04,Quebec,1049.3
+2020-04,Ontario,1129.11
+2020-04,Manitoba,1035.16
+2020-04,Saskatchewan,1128.16
+2020-04,Alberta,1239.09
+2020-04,British Columbia,1104.57
+2020-04,Yukon,1270.73
+2020-04,Northwest Territories,1599.87
+2020-04,Nunavut,1503.63
+2020-05,Canada,1134.87
+2020-05,Newfoundland and Labrador,1140.77
+2020-05,Prince Edward Island,989.92
+2020-05,Nova Scotia,1009.38
+2020-05,New Brunswick,1015.39
+2020-05,Quebec,1074.44
+2020-05,Ontario,1166.79
+2020-05,Manitoba,1035.49
+2020-05,Saskatchewan,1142.79
+2020-05,Alberta,1245.14
+2020-05,British Columbia,1124.32
+2020-05,Yukon,1280.12
+2020-05,Northwest Territories,1567.61
+2020-05,Nunavut,1463.87
+2020-06,Canada,1116.38
+2020-06,Newfoundland and Labrador,1117.29
+2020-06,Prince Edward Island,980.88
+2020-06,Nova Scotia,980.58
+2020-06,New Brunswick,1012.8
+2020-06,Quebec,1062.12
+2020-06,Ontario,1148.17
+2020-06,Manitoba,1003.09
+2020-06,Saskatchewan,1105.01
+2020-06,Alberta,1208.9
+2020-06,British Columbia,1094.51
+2020-06,Yukon,1275.68
+2020-06,Northwest Territories,1524.04
+2020-06,Nunavut,1496.12
+2020-07,Canada,1111.9
+2020-07,Newfoundland and Labrador,1115.78
+2020-07,Prince Edward Island,957.52
+2020-07,Nova Scotia,952.27
+2020-07,New Brunswick,1004.3
+2020-07,Quebec,1049.98
+2020-07,Ontario,1150.92
+2020-07,Manitoba,1004.2
+2020-07,Saskatchewan,1080.68
+2020-07,Alberta,1209.28
+2020-07,British Columbia,1093.03
+2020-07,Yukon,1246.56
+2020-07,Northwest Territories,1527.34
+2020-07,Nunavut,1471.54
+2020-08,Canada,1108.21
+2020-08,Newfoundland and Labrador,1102.79
+2020-08,Prince Edward Island,959.04
+2020-08,Nova Scotia,969.81
+2020-08,New Brunswick,998.52
+2020-08,Quebec,1051.84
+2020-08,Ontario,1146.34
+2020-08,Manitoba,994.95
+2020-08,Saskatchewan,1103.59
+2020-08,Alberta,1208.23
+2020-08,British Columbia,1087.86
+2020-08,Yukon,1285.07
+2020-08,Northwest Territories,1532.18
+2020-08,Nunavut,1445.68
+2020-09,Canada,1107.12
+2020-09,Newfoundland and Labrador,1094.62
+2020-09,Prince Edward Island,953.25
+2020-09,Nova Scotia,956.78
+2020-09,New Brunswick,999.46
+2020-09,Quebec,1048.84
+2020-09,Ontario,1146.75
+2020-09,Manitoba,994.21
+2020-09,Saskatchewan,1098.7
+2020-09,Alberta,1198.53
+2020-09,British Columbia,1093.29
+2020-09,Yukon,1276.92
+2020-09,Northwest Territories,1478.07
+2020-09,Nunavut,1446.78
+2020-10,Canada,1107.5
+2020-10,Newfoundland and Labrador,1093.9
+2020-10,Prince Edward Island,967.41
+2020-10,Nova Scotia,1004.82
+2020-10,New Brunswick,1002.73
+2020-10,Quebec,1056.18
+2020-10,Ontario,1141.36
+2020-10,Manitoba,992.53
+2020-10,Saskatchewan,1095.11
+2020-10,Alberta,1187.94
+2020-10,British Columbia,1097.4
+2020-10,Yukon,1284.51
+2020-10,Northwest Territories,1490.58
+2020-10,Nunavut,1433.62
+2020-11,Canada,1112.71
+2020-11,Newfoundland and Labrador,1077.97
+2020-11,Prince Edward Island,940.69
+2020-11,Nova Scotia,954.42
+2020-11,New Brunswick,992.84
+2020-11,Quebec,1058.6
+2020-11,Ontario,1149.77
+2020-11,Manitoba,1007.85
+2020-11,Saskatchewan,1084.36
+2020-11,Alberta,1199.16
+2020-11,British Columbia,1101.24
+2020-11,Yukon,1277.7
+2020-11,Northwest Territories,1500.45
+2020-11,Nunavut,1455.4
+2020-12,Canada,1119.5
+2020-12,Newfoundland and Labrador,1084.06
+2020-12,Prince Edward Island,940.32
+2020-12,Nova Scotia,972.06
+2020-12,New Brunswick,1006.63
+2020-12,Quebec,1058.25
+2020-12,Ontario,1152.68
+2020-12,Manitoba,1017.44
+2020-12,Saskatchewan,1106.01
+2020-12,Alberta,1207.58
+2020-12,British Columbia,1111.52
+2020-12,Yukon,1276.46
+2020-12,Northwest Territories,1491.68
+2020-12,Nunavut,1537.27
+2021-01,Canada,1129.25
+2021-01,Newfoundland and Labrador,1083.45
+2021-01,Prince Edward Island,944.82
+2021-01,Nova Scotia,993.18
+2021-01,New Brunswick,1003.93
+2021-01,Quebec,1074.17
+2021-01,Ontario,1171.18
+2021-01,Manitoba,1022.97
+2021-01,Saskatchewan,1092.3
+2021-01,Alberta,1232.62
+2021-01,British Columbia,1111.04
+2021-01,Yukon,1270.83
+2021-01,Northwest Territories,1497.41
+2021-01,Nunavut,1463.16
+2021-02,Canada,1134.55
+2021-02,Newfoundland and Labrador,1076.85
+2021-02,Prince Edward Island,927.14
+2021-02,Nova Scotia,965.69
+2021-02,New Brunswick,1002.93
+2021-02,Quebec,1068.49
+2021-02,Ontario,1181.23
+2021-02,Manitoba,1023.0
+2021-02,Saskatchewan,1090.91
+2021-02,Alberta,1238.8
+2021-02,British Columbia,1116.26
+2021-02,Yukon,1273.68
+2021-02,Northwest Territories,1469.74
+2021-02,Nunavut,1507.37
+2021-03,Canada,1119.47
+2021-03,Newfoundland and Labrador,1104.74
+2021-03,Prince Edward Island,916.7
+2021-03,Nova Scotia,952.07
+2021-03,New Brunswick,998.51
+2021-03,Quebec,1062.91
+2021-03,Ontario,1161.14
+2021-03,Manitoba,1005.56
+2021-03,Saskatchewan,1100.06
+2021-03,Alberta,1205.76
+2021-03,British Columbia,1106.06
+2021-03,Yukon,1290.48
+2021-03,Northwest Territories,1504.74
+2021-03,Nunavut,1468.67
+2021-04,Canada,1123.45
+2021-04,Newfoundland and Labrador,1089.04
+2021-04,Prince Edward Island,940.91
+2021-04,Nova Scotia,953.43
+2021-04,New Brunswick,1010.21
+2021-04,Quebec,1067.01
+2021-04,Ontario,1161.15
+2021-04,Manitoba,1024.42
+2021-04,Saskatchewan,1108.03
+2021-04,Alberta,1221.43
+2021-04,British Columbia,1110.87
+2021-04,Yukon,1268.49
+2021-04,Northwest Territories,1479.47
+2021-04,Nunavut,1452.84
+2021-05,Canada,1130.3
+2021-05,Newfoundland and Labrador,1081.59
+2021-05,Prince Edward Island,952.09
+2021-05,Nova Scotia,987.65
+2021-05,New Brunswick,1003.8
+2021-05,Quebec,1070.66
+2021-05,Ontario,1173.89
+2021-05,Manitoba,1029.34
+2021-05,Saskatchewan,1105.32
+2021-05,Alberta,1223.18
+2021-05,British Columbia,1118.5
+2021-05,Yukon,1282.09
+2021-05,Northwest Territories,1515.72
+2021-05,Nunavut,1480.36
+2021-06,Canada,1122.22
+2021-06,Newfoundland and Labrador,1088.49
+2021-06,Prince Edward Island,963.6
+2021-06,Nova Scotia,989.22
+2021-06,New Brunswick,1014.32
+2021-06,Quebec,1065.48
+2021-06,Ontario,1152.77
+2021-06,Manitoba,1024.75
+2021-06,Saskatchewan,1098.66
+2021-06,Alberta,1215.18
+2021-06,British Columbia,1115.24
+2021-06,Yukon,1278.95
+2021-06,Northwest Territories,1502.37
+2021-06,Nunavut,1484.44
+2021-07,Canada,1127.99
+2021-07,Newfoundland and Labrador,1102.51
+2021-07,Prince Edward Island,958.07
+2021-07,Nova Scotia,985.41
+2021-07,New Brunswick,1006.45
+2021-07,Quebec,1054.74
+2021-07,Ontario,1159.1
+2021-07,Manitoba,1021.43
+2021-07,Saskatchewan,1108.19
+2021-07,Alberta,1232.66
+2021-07,British Columbia,1139.62
+2021-07,Yukon,1301.31
+2021-07,Northwest Territories,1569.75
+2021-07,Nunavut,1519.99
+2021-08,Canada,1131.39
+2021-08,Newfoundland and Labrador,1118.89
+2021-08,Prince Edward Island,937.72
+2021-08,Nova Scotia,980.7
+2021-08,New Brunswick,1004.35
+2021-08,Quebec,1069.75
+2021-08,Ontario,1165.44
+2021-08,Manitoba,1019.15
+2021-08,Saskatchewan,1117.7
+2021-08,Alberta,1219.21
+2021-08,British Columbia,1143.1
+2021-08,Yukon,1345.82
+2021-08,Northwest Territories,1514.94
+2021-08,Nunavut,1505.93
+2021-09,Canada,1134.34
+2021-09,Newfoundland and Labrador,1123.5
+2021-09,Prince Edward Island,958.94
+2021-09,Nova Scotia,984.74
+2021-09,New Brunswick,1016.7
+2021-09,Quebec,1078.82
+2021-09,Ontario,1162.21
+2021-09,Manitoba,1028.4
+2021-09,Saskatchewan,1113.72
+2021-09,Alberta,1229.0
+2021-09,British Columbia,1140.03
+2021-09,Yukon,1322.81
+2021-09,Northwest Territories,1554.47
+2021-09,Nunavut,1474.92
+2021-10,Canada,1133.31
+2021-10,Newfoundland and Labrador,1102.47
+2021-10,Prince Edward Island,943.54
+2021-10,Nova Scotia,988.7
+2021-10,New Brunswick,1005.14
+2021-10,Quebec,1073.62
+2021-10,Ontario,1169.2
+2021-10,Manitoba,1028.69
+2021-10,Saskatchewan,1121.47
+2021-10,Alberta,1223.18
+2021-10,British Columbia,1141.52
+2021-10,Yukon,1326.11
+2021-10,Northwest Territories,1591.44
+2021-10,Nunavut,1489.34
+2021-11,Canada,1132.67
+2021-11,Newfoundland and Labrador,1106.37
+2021-11,Prince Edward Island,941.31
+2021-11,Nova Scotia,982.54
+2021-11,New Brunswick,1013.72
+2021-11,Quebec,1082.56
+2021-11,Ontario,1158.22
+2021-11,Manitoba,1024.84
+2021-11,Saskatchewan,1110.03
+2021-11,Alberta,1227.5
+2021-11,British Columbia,1130.56
+2021-11,Yukon,1319.83
+2021-11,Northwest Territories,1540.85
+2021-11,Nunavut,1530.32
+2021-12,Canada,1141.53
+2021-12,Newfoundland and Labrador,1104.43
+2021-12,Prince Edward Island,958.11
+2021-12,Nova Scotia,1001.86
+2021-12,New Brunswick,1028.28
+2021-12,Quebec,1087.62
+2021-12,Ontario,1164.45
+2021-12,Manitoba,1034.25
+2021-12,Saskatchewan,1127.2
+2021-12,Alberta,1243.75
+2021-12,British Columbia,1137.83
+2021-12,Yukon,1329.5
+2021-12,Northwest Territories,1574.02
+2021-12,Nunavut,1514.85
+2022-01,Canada,1151.01
+2022-01,Newfoundland and Labrador,1112.6
+2022-01,Prince Edward Island,960.29
+2022-01,Nova Scotia,1006.46
+2022-01,New Brunswick,1029.17
+2022-01,Quebec,1097.88
+2022-01,Ontario,1182.05
+2022-01,Manitoba,1035.63
+2022-01,Saskatchewan,1134.93
+2022-01,Alberta,1247.39
+2022-01,British Columbia,1155.19
+2022-01,Yukon,1329.24
+2022-01,Northwest Territories,1603.59
+2022-01,Nunavut,1581.42
+2022-02,Canada,1159.84
+2022-02,Newfoundland and Labrador,1139.63
+2022-02,Prince Edward Island,957.74
+2022-02,Nova Scotia,1010.58
+2022-02,New Brunswick,1041.3
+2022-02,Quebec,1110.92
+2022-02,Ontario,1189.33
+2022-02,Manitoba,1044.33
+2022-02,Saskatchewan,1137.03
+2022-02,Alberta,1249.2
+2022-02,British Columbia,1156.5
+2022-02,Yukon,1328.37
+2022-02,Northwest Territories,1549.12
+2022-02,Nunavut,1532.0
+2022-03,Canada,1168.29
+2022-03,Newfoundland and Labrador,1142.22
+2022-03,Prince Edward Island,969.59
+2022-03,Nova Scotia,1009.28
+2022-03,New Brunswick,1068.71
+2022-03,Quebec,1117.7
+2022-03,Ontario,1201.33
+2022-03,Manitoba,1039.82
+2022-03,Saskatchewan,1131.32
+2022-03,Alberta,1259.24
+2022-03,British Columbia,1161.98
+2022-03,Yukon,1325.72
+2022-03,Northwest Territories,1567.19
+2022-03,Nunavut,1502.51
+2022-04,Canada,1160.49
+2022-04,Newfoundland and Labrador,1140.64
+2022-04,Prince Edward Island,964.75
+2022-04,Nova Scotia,1023.35
+2022-04,New Brunswick,1075.78
+2022-04,Quebec,1115.92
+2022-04,Ontario,1191.26
+2022-04,Manitoba,1040.41
+2022-04,Saskatchewan,1133.73
+2022-04,Alberta,1242.33
+2022-04,British Columbia,1163.6
+2022-04,Yukon,1331.66
+2022-04,Northwest Territories,1523.72
+2022-04,Nunavut,1496.3
+2022-05,Canada,1159.93
+2022-05,Newfoundland and Labrador,1152.57
+2022-05,Prince Edward Island,964.38
+2022-05,Nova Scotia,1007.59
+2022-05,New Brunswick,1073.08
+2022-05,Quebec,1109.88
+2022-05,Ontario,1190.67
+2022-05,Manitoba,1044.73
+2022-05,Saskatchewan,1138.82
+2022-05,Alberta,1247.08
+2022-05,British Columbia,1160.05
+2022-05,Yukon,1324.48
+2022-05,Northwest Territories,1557.35
+2022-05,Nunavut,1529.73
+2022-06,Canada,1162.39
+2022-06,Newfoundland and Labrador,1146.5
+2022-06,Prince Edward Island,969.25
+2022-06,Nova Scotia,1026.7
+2022-06,New Brunswick,1075.7
+2022-06,Quebec,1109.11
+2022-06,Ontario,1182.89
+2022-06,Manitoba,1058.16
+2022-06,Saskatchewan,1138.15
+2022-06,Alberta,1255.1
+2022-06,British Columbia,1169.08
+2022-06,Yukon,1346.37
+2022-06,Northwest Territories,1527.36
+2022-06,Nunavut,1535.56
+2022-07,Canada,1161.84
+2022-07,Newfoundland and Labrador,1145.22
+2022-07,Prince Edward Island,975.77
+2022-07,Nova Scotia,1028.82
+2022-07,New Brunswick,1070.84
+2022-07,Quebec,1119.16
+2022-07,Ontario,1189.66
+2022-07,Manitoba,1056.28
+2022-07,Saskatchewan,1137.24
+2022-07,Alberta,1241.48
+2022-07,British Columbia,1157.97
+2022-07,Yukon,1341.66
+2022-07,Northwest Territories,1539.2
+2022-07,Nunavut,1526.35
+2022-08,Canada,1165.97
+2022-08,Newfoundland and Labrador,1145.7
+2022-08,Prince Edward Island,981.23
+2022-08,Nova Scotia,1023.68
+2022-08,New Brunswick,1060.73
+2022-08,Quebec,1114.78
+2022-08,Ontario,1192.16
+2022-08,Manitoba,1065.56
+2022-08,Saskatchewan,1140.5
+2022-08,Alberta,1256.52
+2022-08,British Columbia,1170.11
+2022-08,Yukon,1349.1
+2022-08,Northwest Territories,1541.54
+2022-08,Nunavut,1556.31
+2022-09,Canada,1169.01
+2022-09,Newfoundland and Labrador,1155.84
+2022-09,Prince Edward Island,983.44
+2022-09,Nova Scotia,999.86
+2022-09,New Brunswick,1064.99
+2022-09,Quebec,1113.19
+2022-09,Ontario,1198.79
+2022-09,Manitoba,1063.71
+2022-09,Saskatchewan,1153.62
+2022-09,Alberta,1263.0
+2022-09,British Columbia,1168.79
+2022-09,Yukon,1327.16
+2022-09,Northwest Territories,1550.03
+2022-09,Nunavut,1590.88
+2022-10,Canada,1172.4
+2022-10,Newfoundland and Labrador,1168.66
+2022-10,Prince Edward Island,987.82
+2022-10,Nova Scotia,1033.4
+2022-10,New Brunswick,1075.75
+2022-10,Quebec,1122.4
+2022-10,Ontario,1198.84
+2022-10,Manitoba,1073.53
+2022-10,Saskatchewan,1147.54
+2022-10,Alberta,1264.73
+2022-10,British Columbia,1174.59
+2022-10,Yukon,1340.69
+2022-10,Northwest Territories,1553.17
+2022-10,Nunavut,1601.7
+2022-11,Canada,1176.99
+2022-11,Newfoundland and Labrador,1182.48
+2022-11,Prince Edward Island,998.32
+2022-11,Nova Scotia,1030.21
+2022-11,New Brunswick,1077.85
+2022-11,Quebec,1120.95
+2022-11,Ontario,1201.48
+2022-11,Manitoba,1076.49
+2022-11,Saskatchewan,1154.07
+2022-11,Alberta,1277.52
+2022-11,British Columbia,1177.92
+2022-11,Yukon,1354.32
+2022-11,Northwest Territories,1593.04
+2022-11,Nunavut,1591.63
+2022-12,Canada,1173.83
+2022-12,Newfoundland and Labrador,1174.59
+2022-12,Prince Edward Island,989.76
+2022-12,Nova Scotia,1036.04
+2022-12,New Brunswick,1074.85
+2022-12,Quebec,1126.99
+2022-12,Ontario,1193.19
+2022-12,Manitoba,1085.0
+2022-12,Saskatchewan,1145.0
+2022-12,Alberta,1271.95
+2022-12,British Columbia,1160.44
+2022-12,Yukon,1352.65
+2022-12,Northwest Territories,1665.63
+2022-12,Nunavut,1603.53
+2023-01,Canada,1182.47
+2023-01,Newfoundland and Labrador,1183.16
+2023-01,Prince Edward Island,1001.11
+2023-01,Nova Scotia,1032.83
+2023-01,New Brunswick,1077.23
+2023-01,Quebec,1137.7
+2023-01,Ontario,1211.24
+2023-01,Manitoba,1088.48
+2023-01,Saskatchewan,1149.94
+2023-01,Alberta,1264.71
+2023-01,British Columbia,1180.0
+2023-01,Yukon,1336.39
+2023-01,Northwest Territories,1561.77
+2023-01,Nunavut,1634.03
+2023-02,Canada,1180.47
+2023-02,Newfoundland and Labrador,1153.48
+2023-02,Prince Edward Island,1016.33
+2023-02,Nova Scotia,1046.68
+2023-02,New Brunswick,1087.62
+2023-02,Quebec,1127.31
+2023-02,Ontario,1211.1
+2023-02,Manitoba,1081.94
+2023-02,Saskatchewan,1151.02
+2023-02,Alberta,1259.67
+2023-02,British Columbia,1176.37
+2023-02,Yukon,1348.41
+2023-02,Northwest Territories,1613.17
+2023-02,Nunavut,1612.54
+2023-03,Canada,1189.47
+2023-03,Newfoundland and Labrador,1172.87
+2023-03,Prince Edward Island,1014.14
+2023-03,Nova Scotia,1047.35
+2023-03,New Brunswick,1094.5
+2023-03,Quebec,1130.74
+2023-03,Ontario,1218.19
+2023-03,Manitoba,1096.16
+2023-03,Saskatchewan,1180.04
+2023-03,Alberta,1274.41
+2023-03,British Columbia,1191.57
+2023-03,Yukon,1349.05
+2023-03,Northwest Territories,1592.63
+2023-03,Nunavut,1669.85
+2023-04,Canada,1197.61
+2023-04,Newfoundland and Labrador,1182.05
+2023-04,Prince Edward Island,1003.73
+2023-04,Nova Scotia,1063.46
+2023-04,New Brunswick,1101.28
+2023-04,Quebec,1142.08
+2023-04,Ontario,1230.05
+2023-04,Manitoba,1098.94
+2023-04,Saskatchewan,1163.77
+2023-04,Alberta,1284.84
+2023-04,British Columbia,1202.18
+2023-04,Yukon,1370.68
+2023-04,Northwest Territories,1605.95
+2023-04,Nunavut,1657.67
+2023-05,Canada,1203.01
+2023-05,Newfoundland and Labrador,1194.21
+2023-05,Prince Edward Island,999.37
+2023-05,Nova Scotia,1062.03
+2023-05,New Brunswick,1106.13
+2023-05,Quebec,1153.17
+2023-05,Ontario,1232.1
+2023-05,Manitoba,1098.78
+2023-05,Saskatchewan,1161.17
+2023-05,Alberta,1283.3
+2023-05,British Columbia,1209.99
+2023-05,Yukon,1363.85
+2023-05,Northwest Territories,1564.45
+2023-05,Nunavut,1645.05
+2023-06,Canada,1206.25
+2023-06,Newfoundland and Labrador,1208.56
+2023-06,Prince Edward Island,1002.96
+2023-06,Nova Scotia,1074.5
+2023-06,New Brunswick,1095.2
+2023-06,Quebec,1162.51
+2023-06,Ontario,1233.03
+2023-06,Manitoba,1094.59
+2023-06,Saskatchewan,1163.39
+2023-06,Alberta,1277.21
+2023-06,British Columbia,1208.11
+2023-06,Yukon,1365.77
+2023-06,Northwest Territories,1594.64
+2023-06,Nunavut,1645.28
+2023-07,Canada,1211.39
+2023-07,Newfoundland and Labrador,1202.87
+2023-07,Prince Edward Island,1021.52
+2023-07,Nova Scotia,1071.53
+2023-07,New Brunswick,1103.8
+2023-07,Quebec,1162.48
+2023-07,Ontario,1238.69
+2023-07,Manitoba,1099.96
+2023-07,Saskatchewan,1175.23
+2023-07,Alberta,1288.78
+2023-07,British Columbia,1223.1
+2023-07,Yukon,1391.81
+2023-07,Northwest Territories,1584.56
+2023-07,Nunavut,1596.37
+2023-08,Canada,1211.81
+2023-08,Newfoundland and Labrador,1205.49
+2023-08,Prince Edward Island,1035.89
+2023-08,Nova Scotia,1071.78
+2023-08,New Brunswick,1117.62
+2023-08,Quebec,1160.94
+2023-08,Ontario,1239.85
+2023-08,Manitoba,1103.86
+2023-08,Saskatchewan,1165.12
+2023-08,Alberta,1283.95
+2023-08,British Columbia,1223.24
+2023-08,Yukon,1399.78
+2023-08,Northwest Territories,1610.41
+2023-08,Nunavut,1605.81
+2023-09,Canada,1214.71
+2023-09,Newfoundland and Labrador,1217.29
+2023-09,Prince Edward Island,1028.18
+2023-09,Nova Scotia,1083.29
+2023-09,New Brunswick,1126.55
+2023-09,Quebec,1167.42
+2023-09,Ontario,1238.68
+2023-09,Manitoba,1114.36
+2023-09,Saskatchewan,1184.35
+2023-09,Alberta,1285.84
+2023-09,British Columbia,1233.49
+2023-09,Yukon,1400.62
+2023-09,Northwest Territories,1608.44
+2023-09,Nunavut,1621.99
+2023-10,Canada,1218.02
+2023-10,Newfoundland and Labrador,1223.39
+2023-10,Prince Edward Island,1034.83
+2023-10,Nova Scotia,1086.94
+2023-10,New Brunswick,1113.73
+2023-10,Quebec,1171.86
+2023-10,Ontario,1241.77
+2023-10,Manitoba,1118.91
+2023-10,Saskatchewan,1168.17
+2023-10,Alberta,1294.82
+2023-10,British Columbia,1232.88
+2023-10,Yukon,1397.6
+2023-10,Northwest Territories,1593.9
+2023-10,Nunavut,1623.2
+2023-11,Canada,1222.57
+2023-11,Newfoundland and Labrador,1211.47
+2023-11,Prince Edward Island,1033.14
+2023-11,Nova Scotia,1092.7
+2023-11,New Brunswick,1119.76
+2023-11,Quebec,1184.4
+2023-11,Ontario,1237.82
+2023-11,Manitoba,1140.52
+2023-11,Saskatchewan,1172.77
+2023-11,Alberta,1300.66
+2023-11,British Columbia,1234.27
+2023-11,Yukon,1404.98
+2023-11,Northwest Territories,1574.67
+2023-11,Nunavut,1627.87
+2023-12,Canada,1219.55
+2023-12,Newfoundland and Labrador,1221.1
+2023-12,Prince Edward Island,1018.4
+2023-12,Nova Scotia,1086.89
+2023-12,New Brunswick,1113.13
+2023-12,Quebec,1164.25
+2023-12,Ontario,1243.23
+2023-12,Manitoba,1123.31
+2023-12,Saskatchewan,1176.03
+2023-12,Alberta,1294.98
+2023-12,British Columbia,1240.81
+2023-12,Yukon,1414.45
+2023-12,Northwest Territories,1621.73
+2023-12,Nunavut,1636.07
+2024-01,Canada,1225.25
+2024-01,Newfoundland and Labrador,1218.78
+2024-01,Prince Edward Island,1052.93
+2024-01,Nova Scotia,1094.47
+2024-01,New Brunswick,1124.2
+2024-01,Quebec,1177.5
+2024-01,Ontario,1250.62
+2024-01,Manitoba,1119.52
+2024-01,Saskatchewan,1179.83
+2024-01,Alberta,1296.19
+2024-01,British Columbia,1245.07
+2024-01,Yukon,1428.25
+2024-01,Northwest Territories,1590.94
+2024-01,Nunavut,1617.25
+2024-02,Canada,1231.12
+2024-02,Newfoundland and Labrador,1226.35
+2024-02,Prince Edward Island,1073.31
+2024-02,Nova Scotia,1097.04
+2024-02,New Brunswick,1133.92
+2024-02,Quebec,1178.1
+2024-02,Ontario,1254.71
+2024-02,Manitoba,1132.19
+2024-02,Saskatchewan,1185.85
+2024-02,Alberta,1296.32
+2024-02,British Columbia,1252.44
+2024-02,Yukon,1433.65
+2024-02,Northwest Territories,1663.06
+2024-02,Nunavut,1655.92
+2024-03,Canada,1239.28
+2024-03,Newfoundland and Labrador,1223.11
+2024-03,Prince Edward Island,1060.96
+2024-03,Nova Scotia,1106.55
+2024-03,New Brunswick,1133.93
+2024-03,Quebec,1188.26
+2024-03,Ontario,1271.72
+2024-03,Manitoba,1132.43
+2024-03,Saskatchewan,1198.41
+2024-03,Alberta,1301.66
+2024-03,British Columbia,1254.84
+2024-03,Yukon,1418.44
+2024-03,Northwest Territories,1668.2
+2024-03,Nunavut,1665.75
+2024-04,Canada,1242.86
+2024-04,Newfoundland and Labrador,1231.64
+2024-04,Prince Edward Island,1063.75
+2024-04,Nova Scotia,1108.03
+2024-04,New Brunswick,1121.85
+2024-04,Quebec,1188.38
+2024-04,Ontario,1275.22
+2024-04,Manitoba,1138.77
+2024-04,Saskatchewan,1202.5
+2024-04,Alberta,1317.33
+2024-04,British Columbia,1253.93
+2024-04,Yukon,1443.83
+2024-04,Northwest Territories,1669.77
+2024-04,Nunavut,1682.34
+2024-05,Canada,1254.01
+2024-05,Newfoundland and Labrador,1239.24
+2024-05,Prince Edward Island,1065.92
+2024-05,Nova Scotia,1132.23
+2024-05,New Brunswick,1124.44
+2024-05,Quebec,1197.45
+2024-05,Ontario,1284.65
+2024-05,Manitoba,1150.2
+2024-05,Saskatchewan,1216.08
+2024-05,Alberta,1332.7
+2024-05,British Columbia,1268.3
+2024-05,Yukon,1449.3
+2024-05,Northwest Territories,1699.19
+2024-05,Nunavut,1703.72
+2024-06,Canada,1255.72
+2024-06,Newfoundland and Labrador,1238.17
+2024-06,Prince Edward Island,1054.71
+2024-06,Nova Scotia,1119.21
+2024-06,New Brunswick,1133.95
+2024-06,Quebec,1196.44
+2024-06,Ontario,1290.57
+2024-06,Manitoba,1143.97
+2024-06,Saskatchewan,1219.83
+2024-06,Alberta,1330.95
+2024-06,British Columbia,1271.74
+2024-06,Yukon,1446.45
+2024-06,Northwest Territories,1733.91
+2024-06,Nunavut,1655.86
+2024-07,Canada,1264.48
+2024-07,Newfoundland and Labrador,1243.48
+2024-07,Prince Edward Island,1063.35
+2024-07,Nova Scotia,1124.06
+2024-07,New Brunswick,1145.2
+2024-07,Quebec,1211.85
+2024-07,Ontario,1295.28
+2024-07,Manitoba,1154.07
+2024-07,Saskatchewan,1217.1
+2024-07,Alberta,1332.02
+2024-07,British Columbia,1280.92
+2024-07,Yukon,1451.68
+2024-07,Northwest Territories,1717.17
+2024-07,Nunavut,1718.8
+2024-08,Canada,1273.0
+2024-08,Newfoundland and Labrador,1253.94
+2024-08,Prince Edward Island,1083.53
+2024-08,Nova Scotia,1136.13
+2024-08,New Brunswick,1159.95
+2024-08,Quebec,1219.47
+2024-08,Ontario,1303.22
+2024-08,Manitoba,1158.29
+2024-08,Saskatchewan,1234.13
+2024-08,Alberta,1352.04
+2024-08,British Columbia,1284.97
+2024-08,Yukon,1444.98
+2024-08,Northwest Territories,1692.93
+2024-08,Nunavut,1732.57
+2024-09,Canada,1275.17
+2024-09,Newfoundland and Labrador,1251.04
+2024-09,Prince Edward Island,1094.77
+2024-09,Nova Scotia,1122.63
+2024-09,New Brunswick,1153.64
+2024-09,Quebec,1223.94
+2024-09,Ontario,1309.69
+2024-09,Manitoba,1149.17
+2024-09,Saskatchewan,1228.46
+2024-09,Alberta,1345.41
+2024-09,British Columbia,1285.71
+2024-09,Yukon,1449.16
+2024-09,Northwest Territories,1696.36
+2024-09,Nunavut,1755.59
+2024-10,Canada,1283.79
+2024-10,Newfoundland and Labrador,1244.65
+2024-10,Prince Edward Island,1097.63
+2024-10,Nova Scotia,1139.03
+2024-10,New Brunswick,1173.33
+2024-10,Quebec,1237.0
+2024-10,Ontario,1315.99
+2024-10,Manitoba,1157.54
+2024-10,Saskatchewan,1237.27
+2024-10,Alberta,1348.48
+2024-10,British Columbia,1289.28
+2024-10,Yukon,1467.03
+2024-10,Northwest Territories,1732.12
+2024-10,Nunavut,1764.51
+2024-11,Canada,1283.9
+2024-11,Newfoundland and Labrador,1273.29
+2024-11,Prince Edward Island,1094.99
+2024-11,Nova Scotia,1144.0
+2024-11,New Brunswick,1167.04
+2024-11,Quebec,1233.64
+2024-11,Ontario,1324.79
+2024-11,Manitoba,1148.21
+2024-11,Saskatchewan,1231.9
+2024-11,Alberta,1338.33
+2024-11,British Columbia,1290.96
+2024-11,Yukon,1478.4
+2024-11,Northwest Territories,1989.02
+2024-11,Nunavut,1755.62
+2024-12,Canada,1291.58
+2024-12,Newfoundland and Labrador,1273.38
+2024-12,Prince Edward Island,1091.9
+2024-12,Nova Scotia,1140.76
+2024-12,New Brunswick,1182.72
+2024-12,Quebec,1237.79
+2024-12,Ontario,1331.88
+2024-12,Manitoba,1146.63
+2024-12,Saskatchewan,1245.47
+2024-12,Alberta,1341.88
+2024-12,British Columbia,1292.51
+2024-12,Yukon,1460.35
+2024-12,Northwest Territories,1826.07
+2024-12,Nunavut,1694.26
+2025-01,Canada,1294.3
+2025-01,Newfoundland and Labrador,1275.14
+2025-01,Prince Edward Island,1100.21
+2025-01,Nova Scotia,1148.5
+2025-01,New Brunswick,1178.06
+2025-01,Quebec,1236.66
+2025-01,Ontario,1334.75
+2025-01,Manitoba,1158.39
+2025-01,Saskatchewan,1262.61
+2025-01,Alberta,1364.36
+2025-01,British Columbia,1298.71
+2025-01,Yukon,1493.16
+2025-01,Northwest Territories,1774.67
+2025-01,Nunavut,1724.69
+2025-02,Canada,1294.74
+2025-02,Newfoundland and Labrador,1266.43
+2025-02,Prince Edward Island,1088.16
+2025-02,Nova Scotia,1144.72
+2025-02,New Brunswick,1164.79
+2025-02,Quebec,1245.07
+2025-02,Ontario,1334.91
+2025-02,Manitoba,1151.06
+2025-02,Saskatchewan,1261.06
+2025-02,Alberta,1351.57
+2025-02,British Columbia,1299.76
+2025-02,Yukon,1471.23
+2025-02,Northwest Territories,1721.95
+2025-02,Nunavut,1732.82
+2025-03,Canada,1288.12
+2025-03,Newfoundland and Labrador,1274.73
+2025-03,Prince Edward Island,1093.79
+2025-03,Nova Scotia,1144.01
+2025-03,New Brunswick,1153.91
+2025-03,Quebec,1244.97
+2025-03,Ontario,1321.96
+2025-03,Manitoba,1153.1
+2025-03,Saskatchewan,1250.12
+2025-03,Alberta,1345.7
+2025-03,British Columbia,1302.42
+2025-03,Yukon,1486.83
+2025-03,Northwest Territories,1685.23
+2025-03,Nunavut,1739.39
+2025-04,Canada,1295.9
+2025-04,Newfoundland and Labrador,1274.06
+2025-04,Prince Edward Island,1128.15
+2025-04,Nova Scotia,1153.26
+2025-04,New Brunswick,1177.34
+2025-04,Quebec,1249.78
+2025-04,Ontario,1327.88
+2025-04,Manitoba,1163.19
+2025-04,Saskatchewan,1258.8
+2025-04,Alberta,1361.01
+2025-04,British Columbia,1308.5
+2025-04,Yukon,1481.82
+2025-04,Northwest Territories,1732.71
+2025-04,Nunavut,1746.96
+2025-05,Canada,1293.19
+2025-05,Newfoundland and Labrador,1283.06
+2025-05,Prince Edward Island,1138.65
+2025-05,Nova Scotia,1156.63
+2025-05,New Brunswick,1184.09
+2025-05,Quebec,1249.3
+2025-05,Ontario,1327.18
+2025-05,Manitoba,1162.19
+2025-05,Saskatchewan,1254.07
+2025-05,Alberta,1359.66
+2025-05,British Columbia,1294.59
+2025-05,Yukon,1502.58
+2025-05,Northwest Territories,1741.52
+2025-05,Nunavut,1747.62
+2025-06,Canada,1299.68
+2025-06,Newfoundland and Labrador,1276.08
+2025-06,Prince Edward Island,1157.25
+2025-06,Nova Scotia,1151.56
+2025-06,New Brunswick,1194.11
+2025-06,Quebec,1257.47
+2025-06,Ontario,1332.34
+2025-06,Manitoba,1172.41
+2025-06,Saskatchewan,1262.61
+2025-06,Alberta,1361.32
+2025-06,British Columbia,1302.31
+2025-06,Yukon,1498.09
+2025-06,Northwest Territories,1726.73
+2025-06,Nunavut,1774.94
+2025-07,Canada,1305.63
+2025-07,Newfoundland and Labrador,1296.3
+2025-07,Prince Edward Island,1160.01
+2025-07,Nova Scotia,1163.51
+2025-07,New Brunswick,1197.97
+2025-07,Quebec,1255.68
+2025-07,Ontario,1342.65
+2025-07,Manitoba,1180.54
+2025-07,Saskatchewan,1268.89
+2025-07,Alberta,1365.68
+2025-07,British Columbia,1299.03
+2025-07,Yukon,1488.51
+2025-07,Northwest Territories,1738.24
+2025-07,Nunavut,1803.53
+2025-08,Canada,1306.43
+2025-08,Newfoundland and Labrador,1291.21
+2025-08,Prince Edward Island,1147.28
+2025-08,Nova Scotia,1178.59
+2025-08,New Brunswick,1195.61
+2025-08,Quebec,1272.09
+2025-08,Ontario,1343.45
+2025-08,Manitoba,1183.63
+2025-08,Saskatchewan,1271.36
+2025-08,Alberta,1356.69
+2025-08,British Columbia,1302.02
+2025-08,Yukon,1497.38
+2025-08,Northwest Territories,1760.19
+2025-08,Nunavut,1821.03
+2025-09,Canada,1314.65
+2025-09,Newfoundland and Labrador,1289.03
+2025-09,Prince Edward Island,1140.77
+2025-09,Nova Scotia,1186.64
+2025-09,New Brunswick,1199.17
+2025-09,Quebec,1271.2
+2025-09,Ontario,1350.22
+2025-09,Manitoba,1189.33
+2025-09,Saskatchewan,1273.61
+2025-09,Alberta,1366.74
+2025-09,British Columbia,1309.68
+2025-09,Yukon,1517.83
+2025-09,Northwest Territories,1747.68
+2025-09,Nunavut,1773.29
+2025-10,Canada,1309.49
+2025-10,Newfoundland and Labrador,1284.36
+2025-10,Prince Edward Island,1141.77
+2025-10,Nova Scotia,1186.18
+2025-10,New Brunswick,1195.02
+2025-10,Quebec,1257.67
+2025-10,Ontario,1353.13
+2025-10,Manitoba,1180.66
+2025-10,Saskatchewan,1279.07
+2025-10,Alberta,1349.45
+2025-10,British Columbia,1310.7
+2025-10,Yukon,1506.14
+2025-10,Northwest Territories,1745.52
+2025-10,Nunavut,1776.45
+2025-11,Canada,1315.19
+2025-11,Newfoundland and Labrador,1283.59
+2025-11,Prince Edward Island,1144.21
+2025-11,Nova Scotia,1188.15
+2025-11,New Brunswick,1207.62
+2025-11,Quebec,1264.43
+2025-11,Ontario,1356.91
+2025-11,Manitoba,1194.04
+2025-11,Saskatchewan,1279.8
+2025-11,Alberta,1360.9
+2025-11,British Columbia,1320.73
+2025-11,Yukon,1498.04
+2025-11,Northwest Territories,1733.73
+2025-11,Nunavut,1810.84
+2025-12,Canada,1316.48
+2025-12,Newfoundland and Labrador,1292.09
+2025-12,Prince Edward Island,1174.91
+2025-12,Nova Scotia,1178.58
+2025-12,New Brunswick,1216.3
+2025-12,Quebec,1274.86
+2025-12,Ontario,1350.61
+2025-12,Manitoba,1190.14
+2025-12,Saskatchewan,1281.58
+2025-12,Alberta,1349.61
+2025-12,British Columbia,1315.46
+2025-12,Yukon,1505.14
+2025-12,Northwest Territories,1742.42
+2025-12,Nunavut,1930.43
+2026-01,Canada,1319.29
+2026-01,Newfoundland and Labrador,1311.05
+2026-01,Prince Edward Island,1160.03
+2026-01,Nova Scotia,1201.82
+2026-01,New Brunswick,1225.44
+2026-01,Quebec,1266.57
+2026-01,Ontario,1354.0
+2026-01,Manitoba,1198.07
+2026-01,Saskatchewan,1302.43
+2026-01,Alberta,1371.49
+2026-01,British Columbia,1331.01
+2026-01,Yukon,1493.36
+2026-01,Northwest Territories,1788.22
+2026-01,Nunavut,1892.86
+2026-02,Canada,1331.61
+2026-02,Newfoundland and Labrador,1304.26
+2026-02,Prince Edward Island,1179.65
+2026-02,Nova Scotia,1202.24
+2026-02,New Brunswick,1222.92
+2026-02,Quebec,1277.35
+2026-02,Ontario,1371.86
+2026-02,Manitoba,1209.43
+2026-02,Saskatchewan,1284.69
+2026-02,Alberta,1370.26
+2026-02,British Columbia,1349.12
+2026-02,Yukon,1511.09
+2026-02,Northwest Territories,1723.33
+2026-02,Nunavut,1876.1
+2026-03,Canada,1332.83
+2026-03,Newfoundland and Labrador,1289.43
+2026-03,Prince Edward Island,1173.5
+2026-03,Nova Scotia,1212.63
+2026-03,New Brunswick,1226.82
+2026-03,Quebec,1283.66
+2026-03,Ontario,1367.87
+2026-03,Manitoba,1218.98
+2026-03,Saskatchewan,1289.43
+2026-03,Alberta,1370.21
+2026-03,British Columbia,1349.57
+2026-03,Yukon,1523.27
+2026-03,Northwest Territories,1738.2
+2026-03,Nunavut,1871.24
+2026-04,Canada,1343.52
+2026-04,Newfoundland and Labrador,1287.83
+2026-04,Prince Edward Island,1161.57
+2026-04,Nova Scotia,1221.54
+2026-04,New Brunswick,1258.15
+2026-04,Quebec,1291.8
+2026-04,Ontario,1379.06
+2026-04,Manitoba,1226.13
+2026-04,Saskatchewan,1299.1
+2026-04,Alberta,1393.07
+2026-04,British Columbia,1355.98
+2026-04,Yukon,1522.47
+2026-04,Northwest Territories,1757.8
+2026-04,Nunavut,1863.57
+2026-05,Canada,1336.3
+2026-05,Newfoundland and Labrador,1268.48
+2026-05,Prince Edward Island,1193.05
+2026-05,Nova Scotia,1219.63
+2026-05,New Brunswick,1227.86
+2026-05,Quebec,1288.41
+2026-05,Ontario,1377.04
+2026-05,Manitoba,1214.8
+2026-05,Saskatchewan,1299.34
+2026-05,Alberta,1381.34
+2026-05,British Columbia,1351.33
+2026-05,Yukon,1507.44
+2026-05,Northwest Territories,1764.89
+2026-05,Nunavut,1861.19
+2026-06,Canada,1343.77
+2026-06,Newfoundland and Labrador,1303.39
+2026-06,Prince Edward Island,1194.19
+2026-06,Nova Scotia,1223.73
+2026-06,New Brunswick,1245.81
+2026-06,Quebec,1290.54
+2026-06,Ontario,1385.06
+2026-06,Manitoba,1210.56
+2026-06,Saskatchewan,1310.92
+2026-06,Alberta,1387.88
+2026-06,British Columbia,1348.59
+2026-06,Yukon,1500.77
+2026-06,Northwest Territories,1704.49
+2026-06,Nunavut,1872.02
+2026-07,Canada,1347.35
+2026-07,Newfoundland and Labrador,1316.16
+2026-07,Prince Edward Island,1192.62
+2026-07,Nova Scotia,1231.1
+2026-07,New Brunswick,1258.83
+2026-07,Quebec,1279.9
+2026-07,Ontario,1392.76
+2026-07,Manitoba,1218.22
+2026-07,Saskatchewan,1325.65
+2026-07,Alberta,1397.94
+2026-07,British Columbia,1356.61
+2026-07,Yukon,1506.2
+2026-07,Northwest Territories,1810.14
+2026-07,Nunavut,1843.73
+2026-08,Canada,1354.55
+2026-08,Newfoundland and Labrador,1320.79
+2026-08,Prince Edward Island,1178.58
+2026-08,Nova Scotia,1220.93
+2026-08,New Brunswick,1267.77
+2026-08,Quebec,1293.22
+2026-08,Ontario,1395.6
+2026-08,Manitoba,1244.01
+2026-08,Saskatchewan,1308.55
+2026-08,Alberta,1404.59
+2026-08,British Columbia,1369.91
+2026-08,Yukon,1538.93
+2026-08,Northwest Territories,1778.73
+2026-08,Nunavut,1889.22
