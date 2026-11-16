@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="theme-color" content="#10120f"/>
+<meta name="description" content="Shelf prices of 110 grocery products in Canada, 2019 to now, set against wages. Sort every product, price your own basket and compare provinces."/>
+<link rel="icon" href="/favicon.ico" sizes="48x48"/>
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"/>
+<link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
+<title>What Happened to Grocery Prices? · Daiki Takizawa</title>
+<link rel="canonical" href="https://takizawadaiki.github.io/groceries/"/>
+<meta property="og:type" content="website"/>
+<meta property="og:site_name" content="Daiki Takizawa"/>
+<meta property="og:title" content="What Happened to Grocery Prices? · Daiki Takizawa"/>
+<meta property="og:description" content="Shelf prices of 110 grocery products in Canada, 2019 to now, set against wages. Sort every product, price your own basket and compare provinces."/>
+<meta property="og:url" content="https://takizawadaiki.github.io/groceries/"/>
+<meta property="og:image" content="https://takizawadaiki.github.io/og-image.png"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  color-scheme:dark;
+  --bg:#10120f;--card:#151a13;--ink:#f0f0e7;--muted:#a5ab9e;--border:#30372d;--orange:#ff8050;
+  --blue:#3987e5;--heading:'Space Grotesk',sans-serif;
+}
+html{scroll-behavior:smooth;scroll-padding-top:24px}
+body{background:var(--bg);color:var(--ink);font:15px/1.65 'DM Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button{font:inherit}
+.wrap{width:min(1240px,calc(100% - 64px));margin:0 auto}
+.progress{position:fixed;top:0;left:0;right:0;height:3px;z-index:60;background:linear-gradient(90deg,#ff8050,#ffb08a);transform:scaleX(var(--p,0));transform-origin:0 50%;pointer-events:none}
+.skip{position:fixed;left:16px;top:-80px;z-index:70;background:var(--orange);color:#171b13;padding:10px 14px;border-radius:6px}
+.skip:focus{top:12px}
+:focus-visible{outline:3px solid var(--orange);outline-offset:3px}
+header.top{display:flex;justify-content:space-between;align-items:center;gap:16px;height:92px;border-bottom:1px solid var(--border)}
+.brand{display:flex;align-items:center;font:600 18px var(--heading);letter-spacing:-.6px}
+.brand i{font-style:normal;background:#dbe4cd;color:#151a12;font-size:21px;padding:4px 9px;margin-right:13px;letter-spacing:-3px}
+.brand b{color:var(--orange)}
+.top nav{display:flex;gap:26px;font-size:12px;color:var(--muted)}
+.top nav a:hover{color:var(--orange)}
+.eyebrow,.k{font:500 10.5px/1.5 var(--heading);letter-spacing:1.3px;text-transform:uppercase;color:var(--muted)}
+.eyebrow{display:flex;align-items:center;gap:9px}
+.eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--orange)}
+.hero{padding:56px 0 30px;display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:48px;align-items:end}
+h1{font:500 clamp(40px,5.6vw,82px)/.98 var(--heading);letter-spacing:-.055em;margin-top:18px}
+h1 em{font-family:Georgia,'Times New Roman',serif;font-weight:400;font-style:italic;color:var(--orange);letter-spacing:-.04em}
+.lede{color:var(--muted);font-size:15.5px;line-height:1.8;max-width:54ch}
+.verdict{display:grid;grid-template-columns:auto 1fr auto;gap:22px;align-items:center;border:1px solid #5b4435;border-left:3px solid var(--orange);background:#1b1612;border-radius:0 12px 12px 0;padding:18px 22px;margin-top:8px}
+.verdict .k{color:var(--orange);white-space:nowrap}
+.verdict p{font-size:15px;line-height:1.6}
+.verdict p strong{font-weight:600}
+.verdict a{font:500 12.5px var(--heading);white-space:nowrap;border-bottom:1px solid var(--border);padding-bottom:3px}
+.verdict a:hover{color:var(--orange)}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:26px 0 8px}
+.kpi{position:relative;display:flex;flex-direction:column;gap:6px;min-height:170px;padding:20px 18px 16px;border:1px solid var(--border);border-radius:14px;background:linear-gradient(180deg,#151a13,#10120f);overflow:hidden;isolation:isolate;transition:border-color .3s,translate .3s}
+.kpi::before{content:"";position:absolute;inset:0;z-index:-1;opacity:0;transition:opacity .35s;background:radial-gradient(240px circle at var(--mx,50%) var(--my,50%),rgba(255,128,80,.2),transparent 62%)}
+.kpi:hover{border-color:#6b4a3a;translate:0 -3px}.kpi:hover::before{opacity:1}
+.kpi .v{font:600 clamp(30px,3.2vw,44px)/1 var(--heading);letter-spacing:-.03em;margin-top:6px;font-variant-numeric:tabular-nums}
+.kpi .n{font-size:12.5px;line-height:1.5;color:var(--muted)}
+.kpi .src{margin-top:auto;border-top:1px solid var(--border);padding-top:9px;font:500 10.5px/1.4 var(--heading);letter-spacing:.03em;color:#8d9486}
+section{padding:54px 0 0}
+.sec-top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:6px 20px;border-bottom:1px solid var(--border);padding-bottom:14px;margin-bottom:22px}
+.sec-top .k b{color:var(--orange);font-weight:500;margin-right:14px}
+h2{font:400 clamp(26px,3.1vw,42px)/1.1 var(--heading);letter-spacing:-.035em;max-width:22ch}
+h2 em{font-family:Georgia,serif;font-style:italic;color:#a6b693}
+.sec-head{display:flex;justify-content:space-between;align-items:end;gap:40px;margin-bottom:24px}
+.sec-head p{color:var(--muted);font-size:14px;line-height:1.75;max-width:52ch}
+.panel{border:1px solid var(--border);border-radius:16px;background:var(--card);padding:24px 24px 20px}
+.panel h3{font:600 18px/1.25 var(--heading);letter-spacing:-.02em}
+.panel .sub{color:var(--muted);font-size:13.5px;line-height:1.65;margin:6px 0 16px;max-width:66ch}
+.grid2{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:18px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.chips button{font:500 12.5px/1 var(--heading);color:var(--ink);background:transparent;border:1px solid var(--border);border-radius:999px;padding:10px 14px;cursor:pointer;transition:border-color .2s,background .2s}
+.chips button:hover{border-color:#6b4a3a}
+.chips button[aria-pressed="true"]{background:#e0e7d7;color:#1a2115;border-color:#e0e7d7}
+.chart-box{position:relative;height:400px}
+.src{font:500 10.5px/1.5 var(--heading);letter-spacing:.03em;color:#8d9486}
+.panel>.src{margin-top:14px;padding-top:10px;border-top:1px solid var(--border)}
+/* timeline */
+.timeline{display:grid;grid-template-columns:3fr 1fr 1fr 1fr;gap:8px}
+.tl{border:1px solid var(--border);border-radius:12px;padding:16px;background:var(--card)}
+.tl .yrs{font:600 22px/1 var(--heading);letter-spacing:-.02em;margin:8px 0 6px;font-variant-numeric:tabular-nums}
+.tl p{font-size:12.5px;line-height:1.55;color:var(--muted)}
+.tl.judge{border-color:#6b4a3a;background:#1b1612}.tl.judge .k{color:var(--orange)}
+/* interval plots */
+.forest{display:grid;gap:2px}
+.frow{display:grid;grid-template-columns:minmax(120px,190px) 1fr;gap:4px 14px;align-items:center;padding:9px 0;border-top:1px solid #232a20}
+.frow:first-child{border-top:0}
+.fname{font:500 12.5px/1.3 var(--heading)}
+.frow.me .fname{color:var(--orange)}
+.ftrack{position:relative;height:24px}
+.ftrack .zero{position:absolute;top:0;bottom:0;width:1px;background:#4a5445}
+.fci{position:absolute;top:50%;height:3px;border-radius:2px;translate:0 -50%;background:#7f8678}
+.fdot{position:absolute;top:50%;width:12px;height:12px;border-radius:50%;translate:-50% -50%;background:var(--ink);box-shadow:0 0 0 2px var(--card)}
+.frow.me .fdot{background:var(--orange)}.frow.me .fci{background:#b0603f}
+.fval{grid-column:2;font:500 12px/1.3 var(--heading);color:var(--muted);font-variant-numeric:tabular-nums}
+.faxis{position:relative;height:18px;margin-top:4px;font:500 10.5px/1 var(--heading);color:#8d9486;font-variant-numeric:tabular-nums}
+.faxis span{position:absolute;translate:-50% 0}
+.faxis.pad{margin-left:calc(min(190px,max(120px,30%)) + 14px)}
+/* signal vs luck */
+.bars{display:grid;gap:14px;margin-top:8px}
+.bar .lab{display:flex;justify-content:space-between;font:500 13px var(--heading);margin-bottom:6px}
+.bar .lab span:last-child{font-variant-numeric:tabular-nums}
+.bar .t{height:16px;border-radius:4px;background:#1a2117;overflow:hidden}
+.bar .t i{display:block;height:100%;width:var(--w);border-radius:0 4px 4px 0;background:var(--c);transform-origin:left;transition:transform 1s cubic-bezier(.2,.8,.2,1)}
+.js-reveal .rv:not(.in) .bar .t i{transform:scaleX(0)}
+/* tables */
+.toolbar{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;justify-content:space-between;margin-bottom:14px}
+.toolbar .chips{margin:0}
+.search{flex:1;min-width:200px;max-width:320px;background:#10120f;border:1px solid var(--border);border-radius:999px;color:var(--ink);font:500 14px var(--heading);padding:10px 16px}
+.search::placeholder{color:#8a917f}
+.tablewrap{max-height:520px;overflow:auto;border:1px solid var(--border);border-radius:12px}
+table{width:100%;border-collapse:collapse;font-size:13.5px;font-variant-numeric:tabular-nums}
+th,td{text-align:left;padding:10px 16px;border-bottom:1px solid #232a20;white-space:nowrap}
+th{position:sticky;top:0;background:#10140e;font:500 10.5px/1.2 var(--heading);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);z-index:1}
+td.num,th.num{text-align:right}
+td.rank{color:#8d9486;width:1%}
+td .rb{display:inline-block;vertical-align:middle;height:8px;border-radius:2px;background:var(--blue);margin-right:10px}
+tbody tr:hover{background:#171d14}
+.empty{padding:22px 16px;color:var(--muted)}
+/* notes */
+.cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.list{list-style:none;display:grid;gap:10px;margin-top:12px}
+.list li{position:relative;padding-left:18px;font-size:13.5px;line-height:1.65;color:#c9cfc0}
+.list li::before{content:"";position:absolute;left:0;top:.62em;width:6px;height:6px;border-radius:50%;background:var(--orange)}
+.list li b{color:var(--ink);font-weight:600}
+dl.terms{display:grid;grid-template-columns:auto 1fr;gap:8px 18px;margin-top:12px;font-size:13.5px}
+dl.terms dt{font:600 12.5px/1.6 var(--heading);white-space:nowrap}
+dl.terms dd{color:#c9cfc0;line-height:1.6}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+.btn{display:inline-flex;align-items:center;gap:14px;padding:13px 20px;border-radius:999px;font:600 13px/1 var(--heading);border:1px solid var(--border);transition:background .2s,border-color .2s}
+.btn:hover{border-color:#6b4a3a}
+.btn.primary{background:var(--orange);color:#171b13;border-color:var(--orange)}.btn.primary:hover{background:#ff9b76}
+footer{margin:64px 0 60px;padding-top:20px;border-top:1px solid var(--border);display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 30px;font-size:12.5px;color:var(--muted)}
+footer a{text-decoration:underline;text-underline-offset:3px}footer a:hover{color:var(--orange)}
+.err{padding:18px 20px;border:1px solid #6b3a2a;border-radius:12px;background:#1d1411;color:#f0c1ad;margin:26px 0}
+[hidden]{display:none!important}
+.js-reveal .rv:not(.in){opacity:0}
+.js-reveal .rv.in{animation:rv-in .75s cubic-bezier(.2,.7,.2,1) backwards}
+@keyframes rv-in{from{opacity:0;translate:0 24px}}
+@media(max-width:980px){.hero{grid-template-columns:1fr;gap:22px;padding-top:40px}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.grid2,.cols{grid-template-columns:1fr}.sec-head{display:block}.sec-head p{margin-top:14px}.timeline{grid-template-columns:repeat(2,minmax(0,1fr))}.verdict{grid-template-columns:1fr;gap:8px}}
+@media(max-width:560px){.wrap{width:calc(100% - 32px)}header.top{height:76px}.top nav a.hide-s{display:none}.kpis{grid-template-columns:1fr}.kpi{min-height:0}.panel{padding:18px 14px 16px}.chart-box{height:330px}.frow{grid-template-columns:1fr}.fval{grid-column:1}.faxis.pad{margin-left:0}.timeline{grid-template-columns:1fr}th,td{padding:9px 10px}dl.terms{grid-template-columns:1fr;gap:2px 0}dl.terms dd{margin-bottom:8px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
+/* faceoff page */
+.cols>.panel,.grid2>.panel{min-width:0}
+.sliders{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 28px;margin:10px 0 18px}
+.slider{display:block}
+.slider .lab{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font:500 13px var(--heading);margin-bottom:8px}
+.slider output{font:600 20px/1 var(--heading);letter-spacing:-.02em;font-variant-numeric:tabular-nums;white-space:nowrap}
+input[type=range]{width:100%;height:28px;accent-color:var(--orange);cursor:pointer;background:transparent}
+.duel{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.duel .side,.duel .call{border:1px solid var(--border);border-radius:14px;padding:18px;background:#10120f;display:flex;flex-direction:column;gap:6px}
+.duel b{font:600 38px/1.05 var(--heading);letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.duel .s{font-size:12.5px;color:var(--muted);line-height:1.5}
+.duel .call{background:#1d1712;border-color:#6b4a3a;grid-column:1/-1}
+.duel .call p{font-size:14px;line-height:1.6;color:#d6dbcd;margin:0}
+.table-wrap{overflow-x:auto}
+.cmp{width:100%;border-collapse:collapse;font-size:13px}
+.cmp th,.cmp td{padding:9px 6px;border-bottom:1px solid var(--border);text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.cmp th:first-child,.cmp td:first-child{text-align:left}
+.cmp thead th{font:600 11.5px/1.35 var(--heading);color:var(--ink);vertical-align:bottom;white-space:normal}
+.cmp td.up{color:#7fe0bb;font-weight:600}.cmp td.down{color:#ffb08f;font-weight:600}
+.cmp td.dim{color:var(--muted)}
+#rt th:nth-child(2),#rt td:nth-child(2){text-align:left;width:34%}
+#rt th:first-child,#rt td:first-child{width:44px}
+.cmp small{color:#8d9486;font-weight:400;margin-left:4px}
+.cmp th button{all:unset;cursor:pointer;font:inherit;color:inherit;border-bottom:1px dotted #6f7768}
+.cmp th button:hover,.cmp th button:focus-visible{color:#ffb08f;border-bottom-color:#ffb08f}
+.cmp th[aria-sort] button{color:#ffb08f}
+.tools{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:6px 0 14px}
+.tools .chips{margin:0}
+.more{margin-top:14px;font:500 13px var(--heading);color:var(--ink);background:transparent;border:1px solid var(--border);border-radius:999px;padding:10px 16px;cursor:pointer}
+.more:hover{border-color:#6b4a3a}
+.rating-bar{display:inline-block;vertical-align:middle;width:64px;height:6px;border-radius:3px;background:#1a2117;margin-right:8px;position:relative;overflow:hidden}
+.rating-bar i{position:absolute;top:0;bottom:0;background:#3987e5;border-radius:3px}
+.rating-bar i.neg{background:#d95926}
+.rating-bar::after{content:"";position:absolute;left:50%;top:0;bottom:0;width:1px;background:#6f7768}
+.chart-box.short{height:300px}
+.fine{font-size:12.5px;color:var(--muted);line-height:1.55;margin-top:10px}
+@media(max-width:980px){.duel{grid-template-columns:1fr 1fr 1fr}}
+@media(max-width:560px){.sliders{grid-template-columns:1fr}.duel{grid-template-columns:1fr}.duel b{font-size:30px}.cmp{font-size:12px}.cmp th,.cmp td{padding:8px 4px}.slider .lab{flex-direction:column;gap:4px}.rating-bar{display:none}.hide-xs{display:none}}
+[hidden]{display:none!important}
+.qty{display:inline-flex;align-items:center;gap:6px}
+.qty button{width:28px;height:28px;border-radius:50%;border:1px solid var(--border);background:transparent;color:var(--ink);font:600 15px/1 var(--heading);cursor:pointer}
+.qty button:hover{border-color:#6b4a3a}
+.qty span{min-width:18px;text-align:center;font-variant-numeric:tabular-nums}
+#bt td:first-child,#pt td:first-child,#pt th:first-child,#bt th:first-child{text-align:left;white-space:normal}
+#pt td small,#bt td small{display:block;margin:2px 0 0;color:#8d9486}
+#pt tbody tr{cursor:pointer}#pt tbody tr:hover td{background:#171d14}
+select.search{appearance:auto}
+@media(max-width:560px){.hide-xs{display:none}}
+</style>
+</head>
+<body>
+<div class="progress" aria-hidden="true"></div>
+<a class="skip" href="#main">Skip to content</a>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="https://takizawadaiki.github.io/" aria-label="Daiki Takizawa home"><i>dt</i>Daiki Takizawa<b>.</b></a>
+    <nav aria-label="Page">
+      <a class="hide-s" href="#picture">Prices and pay</a>
+      <a class="hide-s" href="#products">Products</a>
+      <a class="hide-s" href="#basket">Your basket</a>
+      <a class="hide-s" href="#provinces">Provinces</a>
+      <a class="hide-s" href="https://github.com/takizawadaiki/takizawadaiki.github.io/tree/main/groceries">Code ↗</a>
+      <a href="https://takizawadaiki.github.io/#projects">← All projects</a>
+    </nav>
+  </header>
+  <main id="main">
+    <div class="hero">
+      <div>
+        <div class="eyebrow">Economics · Canada, 2019 to 2026</div>
+        <h1>What happened to <em>grocery prices?</em></h1>
+      </div>
+      <p class="lede">Statistics Canada records the shelf price of 110 everyday products each month in every province. This page compares what they cost in 2019 with what they cost now, sets that against wages, and lets you price your own basket.</p>
+    </div>
+    <noscript><div class="err">This page draws its numbers and charts with JavaScript. The data is in the repository linked at the bottom of the page.</div></noscript>
+    <div id="error" class="err" hidden></div>
+    <div class="verdict rv"><span class="k">Short answer</span><p id="verdict">Loading the results…</p><a href="#basket">Price your own basket ↓</a></div>
+    <div class="kpis" id="kpis"></div>
+
+    <section id="picture" aria-labelledby="picture-h">
+      <div class="sec-top"><span class="k"><b>01</b>Prices and pay</span><span class="k">2019 = 100</span></div>
+      <div class="sec-head"><h2 id="picture-h">Groceries rose faster than other prices, <em>and a little faster than pay.</em></h2><p id="picture-lede"></p></div>
+      <div class="panel rv">
+        <h3>Grocery prices, all prices and wages</h3>
+        <p class="sub">Each line starts from its 2019 average, set to 100.</p>
+        <div class="chart-box"><canvas id="c-index" role="img" aria-label="Line chart of grocery prices, all consumer prices and average hourly wages since 2019"></canvas></div>
+        <p class="src" id="index-note"></p>
+      </div>
+    </section>
+
+    <section id="products" aria-labelledby="products-h">
+      <div class="sec-top"><span class="k"><b>02</b>Products</span><span class="k" id="products-k"></span></div>
+      <div class="sec-head"><h2 id="products-h">Steak and coffee nearly doubled. <em>Vegetables rose least.</em></h2><p id="products-lede"></p></div>
+      <div class="cols">
+        <div class="panel rv">
+          <h3>By type of product</h3>
+          <p class="sub">The middle price change in each group, 2019 to now. The dashed line is the rise in wages.</p>
+          <div class="chart-box"><canvas id="c-cats" role="img" aria-label="Bar chart of the median price change by product group"></canvas></div>
+          <p class="src" id="cats-note"></p>
+        </div>
+        <div class="panel rv">
+          <h3>One product over time</h3>
+          <p class="sub">Average shelf price in Canada each month.</p>
+          <div class="tools"><select class="search" id="pick" aria-label="Choose a product"></select></div>
+          <div class="chart-box short"><canvas id="c-one" role="img" aria-label="Line chart of one product's monthly price"></canvas></div>
+          <p class="src" id="one-note"></p>
+        </div>
+      </div>
+      <div class="panel rv" style="margin-top:18px">
+        <h3>All 110 products</h3>
+        <p class="sub">“Minutes of work” is how long someone on the average hourly wage works to buy one. Click a column heading to sort.</p>
+        <div class="tools">
+          <input class="search" id="q" type="search" placeholder="Search for a product" aria-label="Search for a product"/>
+          <div class="chips" id="cat-chips" role="group" aria-label="Product group"></div>
+        </div>
+        <div class="table-wrap"><table class="cmp" id="pt"></table></div>
+        <button class="more" id="more" type="button"></button>
+      </div>
+    </section>
+
+    <section id="basket" aria-labelledby="basket-h">
+      <div class="sec-top"><span class="k"><b>03</b>Your basket</span><span class="k">Build a shop and price it</span></div>
+      <div class="sec-head"><h2 id="basket-h">The same shop, <em>then and now.</em></h2><p id="basket-lede"></p></div>
+      <div class="panel rv">
+        <h3>Price a basket</h3>
+        <p class="sub">Start from a typical week’s shop, change the quantities, or add anything from the list.</p>
+        <div class="tools">
+          <label class="k" for="prov" style="margin:0">Where</label>
+          <select class="search" id="prov" style="max-width:240px;flex:0 1 auto"></select>
+          <select class="search" id="add" style="max-width:300px;flex:0 1 auto" aria-label="Add a product"></select>
+          <button class="more" id="reset" type="button" style="margin:0">Reset</button>
+        </div>
+        <div class="duel" aria-live="polite" style="margin-bottom:18px">
+          <div class="side"><span class="k" id="o-then-k">In 2019</span><b id="o-then"></b><span class="s" id="o-then-s"></span></div>
+          <div class="side"><span class="k">Now</span><b id="o-now"></b><span class="s" id="o-now-s"></span></div>
+          <div class="side"><span class="k">Work to pay for it</span><b id="o-work"></b><span class="s" id="o-work-s"></span></div>
+          <div class="call"><span class="k">What changed</span><p id="o-call"></p></div>
+        </div>
+        <div class="table-wrap"><table class="cmp" id="bt"></table></div>
+      </div>
+    </section>
+
+    <section id="provinces" aria-labelledby="prov-h">
+      <div class="sec-top"><span class="k"><b>04</b>Provinces</span><span class="k">The typical basket in each province</span></div>
+      <div class="sec-head"><h2 id="prov-h">Where pay kept up, <em>and where it did not.</em></h2><p id="prov-lede"></p></div>
+      <div class="panel rv">
+        <h3>The typical basket by province</h3>
+        <p class="sub">The same 27 products everywhere. “Hours of work” uses each province’s average hourly wage.</p>
+        <div class="table-wrap"><table class="cmp" id="prov-table"></table></div>
+        <p class="src" id="prov-note"></p>
+      </div>
+    </section>
+
+    <section id="method" aria-labelledby="method-h">
+      <div class="sec-top"><span class="k"><b>05</b>Method</span><span class="k">Sources and limits</span></div>
+      <div class="cols">
+        <div class="panel rv">
+          <h3 id="method-h">How it was done</h3>
+          <ul class="list" id="method-list"></ul>
+          <div class="cta"><a class="btn primary" href="https://github.com/takizawadaiki/takizawadaiki.github.io/tree/main/groceries">View the code and data <span aria-hidden="true">↗</span></a></div>
+        </div>
+        <div class="panel rv">
+          <h3>What to keep in mind</h3>
+          <ul class="list">
+            <li><b>Shelf prices are averages.</b> Each figure is the average price across stores and brands for a product of that size. If shoppers move to cheaper brands, or the mix of stores changes, the average moves too. The consumer price index is the official measure of price change, and it is shown beside the shelf prices for that reason.</li>
+            <li><b>An average wage is not everyone’s wage.</b> The average hourly wage also shifts when the mix of jobs changes. Someone whose pay did not rise fell further behind than these figures show, and the comparison leaves out taxes, rent and everything else a paycheque covers.</li>
+            <li><b>The basket is an example.</b> The typical basket is my own list of common items, not an official one. Change it to match what you buy.</li>
+            <li><b>Each product is tracked at one size.</b> The price is for the package size named, such as 500 grams of pasta.</li>
+            <li><b>2019 is the starting point.</b> It is the last full year before the pandemic. A different starting year would give different figures.</li>
+            <li><b>Provinces only.</b> There are no figures by city, and the territories have too few products to include.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <span>Daiki Takizawa · University of Toronto · Built November 2026</span>
+    <span><a href="https://takizawadaiki.github.io/">Portfolio</a> · <a href="https://github.com/takizawadaiki/takizawadaiki.github.io/tree/main/groceries">Code and data</a></span>
+  </footer>
+</div>
+<script src="/chart.umd.min.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const el = (tag, cls, html) => { const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; };
+const C = { blue: '#3987e5', orange: '#d95926', gold: '#e0a84a', green: '#199e70', purple: '#9a7fd6', grid: '#262d22', ink: '#f0f0e7', muted: '#a5ab9e', line: '#c9cfc0', dim: 'rgba(165,171,158,.45)' };
+const sgn = (v, d = 1) => (v > 0 ? '+' : v < 0 ? '−' : '') + Math.abs(v).toFixed(d);
+const big = n => Math.round(n).toLocaleString('en-CA');
+const pc = (v, d = 1) => (v * 100).toFixed(d) + '%';
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+function setup(file, render) {
+  const progress = document.querySelector('.progress');
+  const onScroll = () => { const h = document.documentElement; progress.style.setProperty('--p', h.scrollTop / Math.max(1, h.scrollHeight - h.clientHeight)); };
+  addEventListener('scroll', onScroll, { passive: true }); onScroll();
+  fetch(file).then(r => { if (!r.ok) throw new Error(r.status); return r.json(); }).then(R => {
+    Chart.defaults.color = C.muted; Chart.defaults.font.family = "'DM Sans', system-ui, sans-serif"; Chart.defaults.font.size = 12;
+    if (reduced) Chart.defaults.animation = false;
+    render(R);
+    if (!reduced && 'IntersectionObserver' in window) {
+      document.documentElement.classList.add('js-reveal');
+      const io = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } }), { threshold: .08, rootMargin: '0px 0px -5% 0px' });
+      document.querySelectorAll('.rv').forEach(n => io.observe(n));
+    }
+  }).catch(e => { $('error').hidden = false; $('error').textContent = 'The results file could not be loaded (' + e.message + '). The data is in the repository linked at the bottom of the page.'; $('verdict').textContent = 'Results unavailable.'; console.error(e); });
+}
+const kpis = list => list.forEach(k => { const d = el('div', 'kpi rv'); d.append(el('span', 'k', k.k), el('div', 'v', k.v), el('p', 'n', k.n), el('span', 'src', k.s)); $('kpis').append(d); });
+const bars = (id, rows, unit = '') => { const max = Math.max(...rows.map(r => Math.abs(r[1]))); rows.forEach(([lab, v, color, text]) => { const b = el('div', 'bar'); b.innerHTML = `<div class="lab"><span>${lab}</span><span>${text != null ? text : v + unit}</span></div><div class="t"><i style="--w:${Math.max(1.5, Math.abs(v) / max * 100)}%;--c:${color || C.blue}"></i></div>`; $(id).append(b); }); };
+const chips = (id, opts, get, set) => { const box = $(id); opts.forEach(([v, lab]) => { const b = el('button', null, lab); b.type = 'button'; b.dataset.v = v; b.addEventListener('click', () => { set(v); paint(); }); box.append(b); }); const paint = () => [...box.children].forEach(b => b.setAttribute('aria-pressed', b.dataset.v === String(get()))); paint(); };
+setup('results/results.json', R => {
+  const S = R.summary, P = R.products, byId = Object.fromEntries(P.map(p => [p.id, p])), BY = R.base_year;
+  const money = v => '$' + v.toFixed(2);
+  const mon = m => { const [y, k] = m.split('-'); return ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][+k - 1] + ' ' + y; };
+  const nowLabel = `${mon(R.now[0])} to ${mon(R.now[1])}`;
+  const hm = min => (min >= 60 ? `${Math.floor(min / 60)} h ${Math.round(min % 60)} min` : `${Math.round(min)} min`);
+  const top = P[0], coffee = P.find(p => p.name.includes('coffee')), gb = byId['Ground beef, per kilogram'];
+
+  $('verdict').innerHTML = `Grocery prices rose <strong>${pc(S.food_cpi, 0)}</strong> between ${BY} and the last twelve months, against <strong>${pc(S.all_cpi, 0)}</strong> for prices overall. The average hourly wage rose <strong>${pc(S.wage_change, 0)}</strong>, so pay nearly kept up: a typical week’s shop took ${hm(S.basket_minutes_base)} of work in ${BY} and takes <strong>${hm(S.basket_minutes)}</strong> now. The average hides wide gaps. Ground beef is up ${pc(gb.change, 0)} and coffee ${pc(coffee.change, 0)}, while the middle fresh vegetable rose about half as fast as wages. And in Alberta and Saskatchewan pay rose far less than food.`;
+
+  kpis([
+    { k: 'Grocery prices', v: sgn(S.food_cpi * 100, 0) + '%', n: `Food bought in stores, ${BY} average to the latest twelve months. All consumer prices rose ${pc(S.all_cpi, 0)}.`, s: 'Consumer price index' },
+    { k: 'Average hourly wage', v: sgn(S.wage_change * 100, 0) + '%', n: `From ${money(S.wage_base)} to ${money(S.wage_now)} an hour over the same period.`, s: 'Labour Force Survey' },
+    { k: 'Rose faster than wages', v: `${S.faster_than_wages} of ${S.products}`, n: `${S.over_50} products rose 50% or more. None of the ${S.products} is cheaper than in ${BY}.`, s: 'Average shelf prices' },
+    { k: 'A typical week’s shop', v: money(S.basket), n: `The same 27 products cost ${money(S.basket_base)} in ${BY}, a rise of ${pc(S.basket_change, 0)}.`, s: 'Canada average' },
+  ]);
+
+  // 01 index
+  $('picture-lede').textContent = `From ${BY} to the last twelve months, food bought in stores rose ${pc(S.food_cpi, 0)} and restaurant food ${pc(S.restaurant_cpi, 0)}, against ${pc(S.all_cpi, 0)} for all consumer prices. The average hourly wage rose ${pc(S.wage_change, 0)}. Wages were ahead of groceries until 2022, fell behind when food prices jumped in 2022 and 2023, and have made up only part of the gap since.`;
+  const M = R.months, lab = M.map(m => (m.endsWith('-01') ? m.slice(0, 4) : ''));
+  const line = (label, data, color, dash) => ({ label, data, borderColor: color, backgroundColor: color, borderWidth: 2.5, pointRadius: 0, pointHoverRadius: 4, tension: .2, borderDash: dash || [] });
+  new Chart($('c-index'), { type: 'line', data: { labels: M, datasets: [line('Groceries', R.index.food, C.orange), line('Average hourly wage', R.index.wage, C.green), line('All prices', R.index.all, C.blue, [5, 4])] },
+    options: { maintainAspectRatio: false, interaction: { mode: 'index', intersect: false }, plugins: { legend: { position: 'bottom', labels: { usePointStyle: true, pointStyle: 'line' } }, tooltip: { callbacks: { title: c => mon(c[0].label), label: c => `${c.dataset.label}: ${c.parsed.y.toFixed(0)}` } } },
+      scales: { x: { grid: { display: false }, ticks: { autoSkip: false, maxRotation: 0, callback: (v, i) => lab[i] } }, y: { grid: { color: C.grid }, title: { display: true, text: `${BY} = 100` } } } } });
+  $('index-note').textContent = `Monthly, not adjusted for the seasons, so the wage line wobbles within each year. Sources: Statistics Canada tables 18-10-0004-01 (prices) and 14-10-0063-01 (wages).`;
+
+  // 02 products
+  $('products-k').textContent = `${BY} average against ${nowLabel}`;
+  const low = P.slice(-5).map(p => p.name.toLowerCase());
+  $('products-lede').textContent = `The middle product rose ${pc(S.median_change, 0)}. The biggest rises were ${top.name.toLowerCase()} (${pc(top.change, 0)}), ${P[1].name.toLowerCase()} (${pc(P[1].change, 0)}) and ${P[2].name.toLowerCase()} (${pc(P[2].change, 0)}). At the other end, ${low.slice(0, 4).join(', ')} and ${low[4]} cost about what they did in ${BY}.`;
+  const CT = R.categories, refLine = { id: 'ref', afterDatasetsDraw(ch) { const { ctx, chartArea: a, scales: { x } } = ch; const px = x.getPixelForValue(S.wage_change * 100); ctx.save(); ctx.strokeStyle = C.line; ctx.setLineDash([6, 4]); ctx.lineWidth = 1.5; ctx.beginPath(); ctx.moveTo(px, a.top); ctx.lineTo(px, a.bottom); ctx.stroke(); ctx.fillStyle = C.line; ctx.font = "500 11px 'DM Sans', sans-serif"; ctx.textAlign = 'left'; ctx.fillText('Wages', px + 5, a.top + 11); ctx.restore(); } };
+  new Chart($('c-cats'), { type: 'bar', data: { labels: CT.map(c => c.name), datasets: [{ data: CT.map(c => +(c.median * 100).toFixed(1)), backgroundColor: CT.map(c => (c.median > S.wage_change ? C.orange : C.blue)), borderRadius: 4, maxBarThickness: 22 }] },
+    options: { indexAxis: 'y', maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => { const t = CT[c.dataIndex]; return `Middle rise ${pc(t.median, 0)} across ${t.products} products (${pc(t.low, 0)} to ${pc(t.high, 0)})`; } } } },
+      scales: { x: { grid: { color: C.grid }, ticks: { callback: v => v + '%' } }, y: { grid: { display: false }, ticks: { font: { size: 11.5 } } } } }, plugins: [refLine] });
+  $('cats-note').textContent = `Orange groups rose faster than wages (${pc(S.wage_change, 0)}). Groups are my own sorting of the 110 products; “Baby” has only two.`;
+  const pick = $('pick'); P.slice().sort((a, b) => a.name.localeCompare(b.name)).forEach(p => pick.append(new Option(`${p.name} (${p.size})`, p.id)));
+  const one = new Chart($('c-one'), { type: 'line', data: { labels: M, datasets: [line('Price', [], C.orange)] }, options: { maintainAspectRatio: false, interaction: { mode: 'index', intersect: false }, plugins: { legend: { display: false }, tooltip: { callbacks: { title: c => mon(c[0].label), label: c => money(c.parsed.y) } } },
+    scales: { x: { grid: { display: false }, ticks: { autoSkip: false, maxRotation: 0, callback: (v, i) => lab[i] } }, y: { grid: { color: C.grid }, ticks: { callback: v => '$' + v } } } } });
+  const drawOne = () => { const p = byId[pick.value]; one.data.datasets[0].data = p.series; one.update();
+    $('one-note').textContent = `${p.name}, ${p.size}: ${money(p.base)} on average in ${BY} and ${money(p.now)} in the last twelve months, ${p.change >= .005 ? 'up ' + pc(p.change, 0) : 'about the same'}. Buying one took ${p.minutes_base.toFixed(1)} minutes of work then and takes ${p.minutes_now.toFixed(1)} now.`; };
+  pick.value = gb.id; pick.addEventListener('change', drawOne); drawOne();
+
+  const cols = [['name', 'Product'], ['base', String(BY)], ['now', 'Now'], ['change', 'Change'], ['minutes_base', `Minutes of work, ${BY}`, 'hide-xs'], ['minutes_now', 'Minutes of work, now', 'hide-xs']];
+  const st = { q: '', cat: 'all', sort: 'change', dir: -1, all: false };
+  const table = $('pt'), thead = el('thead'), tbody = el('tbody'), hr = el('tr'); table.append(thead, tbody); thead.append(hr);
+  cols.forEach(([k, label, cls]) => { const th = el('th', cls || ''); th.scope = 'col'; th.dataset.k = k; const b = el('button', null, label); b.type = 'button'; b.addEventListener('click', () => { if (st.sort === k) st.dir *= -1; else { st.sort = k; st.dir = k === 'name' ? 1 : -1; } draw(); }); th.append(b); hr.append(th); });
+  chips('cat-chips', [['all', 'All'], ...CT.map(c => [c.name, c.name])], () => st.cat, v => { st.cat = v; draw(); });
+  $('q').addEventListener('input', e => { st.q = e.target.value.trim().toLowerCase(); draw(); });
+  $('more').addEventListener('click', () => { st.all = !st.all; draw(); });
+  function draw() {
+    [...hr.children].forEach(th => { if (th.dataset.k === st.sort) th.setAttribute('aria-sort', st.dir > 0 ? 'ascending' : 'descending'); else th.removeAttribute('aria-sort'); });
+    const rows = P.filter(p => (st.cat === 'all' || p.category === st.cat) && (!st.q || p.id.toLowerCase().includes(st.q)));
+    rows.sort((a, b) => (typeof a[st.sort] === 'string' ? a[st.sort].localeCompare(b[st.sort]) : a[st.sort] - b[st.sort]) * st.dir);
+    const lim = st.all || st.q || st.cat !== 'all' ? rows.length : 15;
+    tbody.innerHTML = rows.slice(0, lim).map(p => `<tr data-id="${esc(p.id)}"><td>${esc(p.name)}<small>${esc(p.size)} · ${p.category}</small></td><td>${money(p.base)}</td><td>${money(p.now)}</td><td class="${p.change > S.wage_change ? 'down' : 'up'}">${sgn(p.change * 100, 0)}%</td><td class="hide-xs">${p.minutes_base.toFixed(1)}</td><td class="hide-xs ${p.minutes_now > p.minutes_base ? 'down' : 'up'}">${p.minutes_now.toFixed(1)}</td></tr>`).join('') || '<tr><td colspan="6">No product matches.</td></tr>';
+    $('more').hidden = !!st.q || st.cat !== 'all'; $('more').textContent = st.all ? 'Show 15' : `Show all ${rows.length}`;
+  }
+  tbody.addEventListener('click', e => { const tr = e.target.closest('tr[data-id]'); if (!tr) return; pick.value = tr.dataset.id; drawOne(); $('c-one').scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'center' }); });
+  draw();
+
+  // 03 basket
+  $('basket-lede').textContent = `A typical week’s shop of 27 products cost ${money(S.basket_base)} in ${BY} and costs ${money(S.basket)} now, ${pc(S.basket_change, 0)} more. On the average wage that is ${hm(S.basket_minutes_base)} of work then and ${hm(S.basket_minutes)} now. Your own shop may look different, so build it below.`;
+  const PV = Object.fromEntries(R.provinces.map(p => [p.name, p]));
+  const prov = $('prov'); prov.append(new Option('Canada', 'Canada')); R.provinces_order.forEach(p => prov.append(new Option(p, p)));
+  const add = $('add'); const fillAdd = () => { add.innerHTML = ''; add.append(new Option('Add a product…', '')); P.slice().sort((a, b) => a.name.localeCompare(b.name)).filter(p => !(p.id in basket)).forEach(p => add.append(new Option(`${p.name} (${p.size})`, p.id))); };
+  let basket = { ...R.default_basket };
+  const priceOf = (p, g, when) => (g === 'Canada' ? (when === 'now' ? p.now : p.base) : (when === 'now' ? p.provinces[g] : null));
+  function drawBasket() {
+    const g = prov.value, ids = Object.keys(basket);
+    const now = p => (g === 'Canada' ? p.now : p.provinces[g]), then = p => (g === 'Canada' ? p.base : p.provinces_base[g]);
+    let tn = 0, tb = 0, missing = [];
+    ids.forEach(id => { const p = byId[id], n = now(p); if (n == null || then(p) == null) { missing.push(p.name); return; } tn += basket[id] * n; tb += basket[id] * then(p); });
+    const wn = g === 'Canada' ? S.wage_now : PV[g].wage, wb = g === 'Canada' ? S.wage_base : PV[g].wage / (1 + PV[g].wage_change);
+    const mn = tn / wn * 60, mb = tb / wb * 60, ch = tb ? tn / tb - 1 : 0;
+    $('o-then-k').textContent = `In ${BY}`; $('o-then').textContent = money(tb); $('o-then-s').textContent = `At an average wage of ${money(wb)} an hour.`;
+    $('o-now').textContent = money(tn); $('o-now-s').textContent = `${sgn(ch * 100, 0)}% in price. Average wage ${money(wn)} an hour.`;
+    $('o-work').textContent = hm(mn); $('o-work-s').textContent = `It took ${hm(mb)} in ${BY}.`;
+    const worst = ids.map(id => byId[id]).filter(p => now(p) != null).sort((a, b) => basket[b.id] * (now(b) - then(b)) - basket[a.id] * (now(a) - then(a)))[0];
+    $('o-call').innerHTML = !ids.length ? 'The basket is empty. Add a product from the list above.' : `This basket costs <strong>${money(tn - tb)}</strong> more than in ${BY}. ${worst ? `${esc(worst.name)} adds the most, ${money(basket[worst.id] * (now(worst) - then(worst)))}.` : ''} In ${g === 'Canada' ? 'Canada as a whole' : g} it takes <strong>${Math.abs(mn - mb) < 1.5 ? 'about the same time' : `${hm(Math.abs(mn - mb))} ${mn > mb ? 'more' : 'less'}`}</strong> at work to pay for it${g !== 'Canada' ? `, because wages there rose ${pc(PV[g].wage_change, 0)}` : ''}.${missing.length ? ` Not sold there in this size: ${missing.join(', ')}.` : ''}`;
+    $('bt').innerHTML = `<thead><tr><th scope="col">Product</th><th scope="col">How many</th><th scope="col" class="hide-xs">${BY}</th><th scope="col">Now</th><th scope="col">Change</th></tr></thead><tbody>${ids.map(id => { const p = byId[id], n = now(p); return `<tr><td>${esc(p.name)}<small>${esc(p.size)}</small></td><td><span class="qty"><button type="button" data-id="${esc(id)}" data-d="-1" aria-label="One fewer ${esc(p.name)}">−</button><span>${basket[id]}</span><button type="button" data-id="${esc(id)}" data-d="1" aria-label="One more ${esc(p.name)}">+</button></span></td><td class="hide-xs">${n == null ? '–' : money(basket[id] * then(p))}</td><td>${n == null ? 'Not listed' : money(basket[id] * n)}</td><td class="${(n && then(p) ? n / then(p) - 1 : p.change) > S.wage_change ? 'down' : 'up'}">${n && then(p) ? sgn((n / then(p) - 1) * 100, 0) : '–'}%</td></tr>`; }).join('')}</tbody>`;
+    fillAdd();
+  }
+  $('bt').addEventListener('click', e => { const b = e.target.closest('button[data-id]'); if (!b) return; const id = b.dataset.id; basket[id] += +b.dataset.d; if (basket[id] <= 0) delete basket[id]; drawBasket(); });
+  add.addEventListener('change', () => { if (add.value) { basket[add.value] = 1; drawBasket(); } });
+  prov.addEventListener('change', drawBasket); $('reset').addEventListener('click', () => { basket = { ...R.default_basket }; drawBasket(); });
+  drawBasket();
+
+  // 04 provinces
+  const PR = R.provinces.slice().sort((a, b) => (b.basket_minutes - b.basket_minutes_base) - (a.basket_minutes - a.basket_minutes_base)), worstP = PR[0], bestP = PR[PR.length - 1];
+  const cheap = R.provinces.reduce((a, b) => (b.basket < a.basket ? b : a)), dear = R.provinces.reduce((a, b) => (b.basket > a.basket ? b : a));
+  $('prov-lede').textContent = `Food prices rose by a similar amount everywhere, between ${pc(Math.min(...PR.map(p => p.food_change)), 0)} and ${pc(Math.max(...PR.map(p => p.food_change)), 0)}. Wages did not. In ${worstP.name} the average wage rose ${pc(worstP.wage_change, 0)}, and the typical basket now takes ${hm(worstP.basket_minutes - worstP.basket_minutes_base)} more work than in ${BY}. In ${bestP.name} wages rose ${pc(bestP.wage_change, 0)} and the basket takes ${hm(Math.abs(bestP.basket_minutes - bestP.basket_minutes_base))} less.`;
+  $('prov-table').innerHTML = `<thead><tr><th scope="col">Province</th><th scope="col">Basket now</th><th scope="col" class="hide-xs">Basket, ${BY}</th><th scope="col">Food prices</th><th scope="col">Wages</th><th scope="col" class="hide-xs">Work for the basket, ${BY}</th><th scope="col">Work for the basket, now</th></tr></thead><tbody>${PR.map(p => { const d = p.basket_minutes - p.basket_minutes_base; return `<tr><td>${p.name}</td><td>${money(p.basket)}</td><td class="hide-xs">${money(p.basket_base)}</td><td>${sgn(p.food_change * 100, 0)}%</td><td class="${p.wage_change < p.food_change - .02 ? 'down' : p.wage_change > p.food_change + .02 ? 'up' : ''}">${sgn(p.wage_change * 100, 0)}%</td><td class="hide-xs">${hm(p.basket_minutes_base)}</td><td class="${d > 5 ? 'down' : d < -5 ? 'up' : ''}">${hm(p.basket_minutes)}<small>${Math.abs(d) < 1 ? 'same' : sgn(d, 0) + ' min'}</small></td></tr>`; }).join('')}</tbody>`;
+  $('prov-note').textContent = `Sorted by the change in work needed. The basket is cheapest in ${cheap.name} (${money(cheap.basket)}) and dearest in ${dear.name} (${money(dear.basket)}). “Food prices” is the consumer price index for food bought in stores; basket costs are from shelf prices.`;
+
+  // 05 method
+  [
+    `<b>Shelf prices.</b> Statistics Canada table 18-10-0245-01: the monthly average retail price of ${S.products} products in Canada and each province, from January 2017 to ${mon(R.now[1])}.`,
+    `<b>Price indexes.</b> Table 18-10-0004-01: the consumer price index for food bought in stores, restaurant food and all items.`,
+    `<b>Wages.</b> Table 14-10-0063-01: the average hourly wage of all employees, from the Labour Force Survey.`,
+    `<b>Then and now.</b> Every comparison is between the ${BY} average and the average of the latest twelve months (${nowLabel}). Comparing single months would mix in the seasons, because fresh produce is much cheaper in late summer than in winter.`,
+    `<b>Minutes of work.</b> A price divided by the average hourly wage of the same period, before tax.`,
+    `<b>Basket by province.</b> Each province’s basket uses its own shelf prices and its own average wage, for both periods.`,
+    `<b>Checks.</b> Six automated tests cover the product groups, the averaging rules and the basket arithmetic.`,
+  ].forEach(t => $('method-list').append(el('li', null, t)));
+});
+</script>
+</body>
+</html>

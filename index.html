@@ -1048,6 +1048,11 @@ h1 {
 @media(max-width:760px){.wealth-feature{grid-template-columns:1fr;gap:24px;padding:26px 23px;margin-top:22px}.wealth-feature .wealth-detail{border-left:0;border-top:1px solid #37554e;padding:20px 0 0}.wealth-feature h2{letter-spacing:-1px}}
 
 
+.grocery-feature{border-color:#6a4a3f;background:linear-gradient(115deg,#261a15,#191412)}
+.grocery-feature .wealth-label,.grocery-feature h2 em{color:#f5b99c}
+.grocery-feature .wealth-cta{background:#f5b99c;color:#2a140b}
+.grocery-feature .wealth-cta:hover{background:#f9cfba}
+.grocery-feature .wealth-detail{border-color:#6a4a3f}
 .wins-feature{border-color:#5a4a6e;background:linear-gradient(115deg,#1d1728,#15131c)}
 .wins-feature .wealth-label,.wins-feature h2 em{color:#d2b8f5}
 .wins-feature .wealth-cta{background:#d2b8f5;color:#1c1230}
@@ -1083,7 +1088,7 @@ h1 {
 .case-study:has(.mini) .visual-note{max-width:48%;line-height:1.5}
 @media(max-width:760px){.case-study .mini{left:52%;right:18px;gap:6px}.mini b{font-size:11px}.mini span{font-size:7.5px;letter-spacing:0}.case-study:has(.mini) .case-hook{font-size:22px;max-width:46%}}
 .feature-row{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:14px;margin:14px 0 12px}
-.feature-row .wealth-feature{grid-column:span 2}.feature-row .wealth-feature:nth-child(-n+4){grid-column:span 3}
+.feature-row .wealth-feature{grid-column:span 2}.feature-row .wealth-feature:nth-child(-n+2){grid-column:span 3}
 .feature-row .wealth-feature{display:flex;flex-direction:column;gap:0;margin:0;padding:26px 26px 24px;align-items:stretch}
 .feature-row .wealth-feature>div:first-child{flex:1}
 .feature-row .wealth-feature h2{font-size:clamp(25px,2.3vw,32px);letter-spacing:-1px;margin:12px 0 10px}
@@ -1093,7 +1098,7 @@ h1 {
 .feature-row .pitch-feature .wealth-detail{border-color:#6b4a3a}.feature-row .gen-feature .wealth-detail{border-color:#5e5230}.feature-row .cap-feature .wealth-detail{border-color:#2f4a6b}.feature-row .bullpen-feature .wealth-detail{border-color:#344f68}
 .feature-row .wealth-detail strong{font-size:17px;line-height:1.35;margin:8px 0 0}
 .feature-row .wealth-detail p{display:none}
-@media(max-width:1000px){.feature-row{grid-template-columns:1fr}.feature-row .wealth-feature,.feature-row .wealth-feature:nth-child(-n+4){grid-column:auto}}
+@media(max-width:1000px){.feature-row{grid-template-columns:1fr}.feature-row .wealth-feature,.feature-row .wealth-feature:nth-child(-n+2){grid-column:auto}}
 .pitch-feature{border-color:#6b4a3a;background:linear-gradient(115deg,#2a1c14,#1b1612)}
 .pitch-feature .wealth-label,.pitch-feature h2 em{color:#ffb08a}
 .pitch-feature .wealth-cta{background:var(--orange);color:#171b13}
@@ -1378,17 +1383,17 @@ kbd{font:500 10px/1 var(--heading);border:1px solid var(--border);border-radius:
     <div class="hero-bottom"><span>DATA ANALYTICS · UNIVERSITY OF TORONTO</span><div><span>Business intelligence</span><i>/</i><span>Sports economics</span><i>/</i><span>Predictive modeling</span></div><a href="#latest" aria-label="Scroll to latest projects">↓</a></div>
   </section>
 
-  <section class="wealth-feature wins-feature" id="latest" aria-labelledby="wins-heading">
+  <section class="wealth-feature grocery-feature" id="latest" aria-labelledby="grocery-heading">
     <div>
-      <span class="wealth-label">Latest project / Hockey research</span>
-      <h2 id="wins-heading">Shots, Offence or Defence:<br><em>What Wins in the NHL?</em></h2>
-      <p>Two questions fans argue about. Does outshooting the other team win games, and do the high-scoring teams or the stingy ones win the Stanley Cup? Tested on sixteen seasons of games and every champion since 1980.</p>
-      <a class="wealth-cta" href="/nhl-wins/">See what wins <span aria-hidden="true">↗</span></a>
+      <span class="wealth-label">Latest project / Economics</span>
+      <h2 id="grocery-heading">What Happened to<br><em>Grocery Prices?</em></h2>
+      <p>The shelf price of 110 everyday products in every province, 2019 against now, set against wages. Sort every product, build your own basket and see how long you work to pay for it.</p>
+      <a class="wealth-cta" href="/groceries/">Price your basket <span aria-hidden="true">↗</span></a>
     </div>
     <div class="wealth-detail">
-      <span class="wealth-label">NHL play-by-play / 1980–2026</span>
-      <strong><span data-count="19152">19,152</span> games.<br>The team with more shots won 51.9% of them.</strong>
-      <p>Trailing teams shoot 19% more, which inflates the loser’s total. Champions rank about 7th in both offence and defence.</p>
+      <span class="wealth-label">Statistics Canada / 2019–2026</span>
+      <strong>Groceries are up 35%.<br>The average wage is up 32%.</strong>
+      <p>Steak and coffee nearly doubled. In Alberta and Saskatchewan, pay rose about half as fast as food.</p>
     </div>
   </section>
 
@@ -1397,6 +1402,18 @@ kbd{font:500 10px/1 var(--heading);border:1px solid var(--border);border-radius:
 
 
   <div class="feature-row">
+  <section class="wealth-feature wins-feature" aria-labelledby="wins-heading">
+    <div>
+      <span class="wealth-label">Hockey research</span>
+      <h2 id="wins-heading">Shots, Offence or Defence: <em>What Wins in the NHL?</em></h2>
+      <p>Does outshooting the other team win games, and do high-scoring or stingy teams win the Stanley Cup? Sixteen seasons of games and every champion since 1980.</p>
+      <a class="wealth-cta" href="/nhl-wins/">See what wins <span aria-hidden="true">↗</span></a>
+    </div>
+    <div class="wealth-detail">
+      <span class="wealth-label">NHL play-by-play / 1980–2026</span>
+      <strong>The team with more shots won 51.9% of games.<br>Champions rank about 7th at both ends.</strong>
+    </div>
+  </section>
   <section class="wealth-feature faceoff-feature" aria-labelledby="faceoff-heading">
     <div>
       <span class="wealth-label">Hockey research</span>
