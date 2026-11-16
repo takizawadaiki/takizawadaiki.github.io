@@ -78,12 +78,12 @@ def main(out):
         w = chunks('14100063', lambda c: c)
         cols = [x for x in w.columns if x not in ('REF_DATE', 'DGUID', 'UOM_ID', 'SCALAR_FACTOR', 'SCALAR_ID', 'VECTOR', 'COORDINATE', 'VALUE', 'STATUS', 'SYMBOL', 'TERMINATED', 'DECIMALS')]
         describe(w, cols)
-        sel = w
+        sel = w[w['UOM'] == 'Current dollars']
         for name, want in (('Wages', 'Average hourly wage rate'), ('Type of work', 'Both full- and part-time employees'), ('Age group', '15 years and over')):
             if name in sel.columns:
                 sel = sel[sel[name] == want]
         for name in sel.columns:
-            if name.startswith('National Occupational Classification'):
+            if name.startswith('National Occupational Classification') or name.startswith('North American Industry Classification'):
                 sel = sel[sel[name].str.startswith('Total employees')]
             if name in ('Sex', 'Gender'):
                 sel = sel[sel[name].isin(['Both sexes', 'Total - Gender'])]
